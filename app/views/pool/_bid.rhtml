@@ -1,0 +1,36 @@
+<% 
+=begin
+locals:
+  bid
+  game
+  pool_user
+  is_first_round_bid (optional)
+  is_editable
+  still_alive
+=end %>
+<div class=bid>
+  <% if bid -%>
+    <% is_first_round_bid = is_first_round_bid || nil -%>
+    <% still_alive = nil unless !still_alive.nil? %>
+    <% str = "<div class=seed>#{bid.seed}</div><div class=team#{still_alive}>#{bid.team.name}</div>" if bid.team -%>
+    <% str = "&nbsp;" unless str -%>
+    <% if is_first_round_bid -%>
+      <% id_to_update = "pic_#{game.pic(pool_user.id).id}" -%>
+    <% else -%>
+      <% id_to_update = "pic_#{game.parent.pic(pool_user.id).id}" if game.parent -%>
+    <% end -%>
+    <% if is_editable -%>
+      <% if game.parent -%>
+        <% id_to_pulsate = "pic_#{game.pic(pool_user.id).id}" -%>
+        <% id_to_pulsate = "bid_#{bid.id}" if is_first_round_bid -%>
+        <%= link_to_remote(str, :update => id_to_update, :url => {:action => "make_pic", :bid_id => bid.id, :game_id => game.id, :pool_user_id => pool_user.id, :is_first_round_bid => is_first_round_bid}, :loading => "new Effect.Pulsate('#{id_to_pulsate}')", :complete => "new Effect.Grow('#{id_to_update}')") %>
+      <% else -%>
+        <%= str %>
+      <% end -%>
+    <% else -%>
+      <%= str %>
+    <% end -%>
+  <% else -%>
+    &nbsp;
+  <% end -%>
+</div>

@@ -1,0 +1,30 @@
+<div id="seasonSelect">
+  <%= form_tag -%>
+    <%= season_select_tag(@season.id) %>
+    <%= submit_tag("switch") %>
+  <%= end_form_tag -%>
+</div>
+<table border=1 class=user, id="participation">
+  <tr>
+    <th colspan=3><%= @season.tournament_year %> season</th>
+  </tr>
+  <tr>
+    <th>user</th>
+    <th>brackets</th>
+    <th>enter pool</th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td>
+        <%= link_to_email(last_first_display(user), user) %>
+      </td>
+      <td>
+        <% user.season_pool_users(@season.id).each do |pool_user| -%>
+          <span><%= link_to_bracket("#{pool_user.bracket_num}", pool_user, {:bracket_num => pool_user.bracket_num, :controller => "pool"}) %><%= "*" if !pool_user.bracket_complete? %></span>
+        <% end -%>
+      </td>
+      <td><%= link_to("enter pool", {:action => "enter_pool", :season_id => @season.id, :id => user.id}, :post => true) unless User::master_id == user.id %></td>
+    </tr>
+  <% end -%>
+</table>
+* = incomplete bracket

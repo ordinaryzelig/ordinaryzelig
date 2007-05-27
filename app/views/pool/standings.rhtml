@@ -1,0 +1,23 @@
+<% 
+=begin
+show table of PoolPlayers and tdeir standing.
+=end -%>
+<div id="seasonSelectStandings">
+  <%= form_tag %>
+    <table class=seasonSelect>
+      <tr>
+        <th>season</th>
+        <td><%= season_select_tag(@season.id) %></td>
+      </tr>
+      <tr>
+        <th>scoring system</th>
+        <td><%= scoring_system_select_tag(@scoring_system::id) %> <%= link_to("?", :action => "scoring_systems_info") %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><%= submit_tag("go") %></td>
+      </tr>
+    </table>
+  <%= end_form_tag %>
+</div>
+<%= render(:partial => 'standings_rankings', :locals => {:pool_users => @pool_users, :show_pvp_selectors => true, :master_pool_user => @master_pool_user, :subject_user => logged_in_user, :scoring_system => @scoring_system}) %>

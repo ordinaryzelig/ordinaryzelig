@@ -1,0 +1,16 @@
+<% logger.info "rendering" %>
+<div id="welcome">
+  <span>welcome to o</span><span id="rdinary" style="display: none;">rdinary</span><span>z</span><span id="eligDotOrg" style="display: none;">elig.org</span>
+</div>
+<div id="welcomeLinks" style="display: none;">
+  <span><%= link_to("message board", :controller => "message_board") %></span>
+  <span><%= link_to("march madness", :controller => "pool") %></span>
+  <span><%= link_to("login/register", :controller => "login") %></span>
+</div>
+<script>
+  Element.hide('rdinary');
+  Element.hide('eligDotOrg');
+  setTimeout("new Effect.Grow('rdinary')",2000);
+  setTimeout("new Effect.Grow('eligDotOrg')",2000);
+  setTimeout("new Effect.Appear('welcomeLinks')",5000);
+</script>

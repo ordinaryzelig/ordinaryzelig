@@ -1,0 +1,27 @@
+<%= error_messages(@event) %>
+
+<%= form_tag %>
+  <table id="eventForm">
+    <tr>
+      <th>name</th>
+      <td><%= text_field(:event, :name) %></td>
+    </tr>
+    <tr>
+      <th>description</th>
+      <td><%= text_field(:event, :description) %></td>
+    </tr>
+    <tr>
+      <th>start time</th>
+      <td><%= datetime_select(:event, :starts_at) %></td>
+    </tr>
+    <tr>
+      <th>end time</th>
+      <td><%= datetime_select(:event, :ends_at) %></td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><%= submit_tag("ok", :action => controller.action_name) %></td>
+    </tr>
+    <%= hidden_field(:event, :created_by_user_id) %>
+  </table>
+<%= end_form_tag %>

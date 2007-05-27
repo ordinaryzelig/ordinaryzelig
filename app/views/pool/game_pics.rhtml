@@ -1,0 +1,39 @@
+<% 
+=begin
+=end -%>
+<% if @game -%>
+  <table id="gamePics" border=1>
+    <tr class=gamePicsHeader>
+      <th colspan=9><%= @game.region.name %> <%= @game.round.name %></th>
+    </tr>
+    <tr class=gamePicsHeader>
+      <th>player</th>
+      <th>pic (pt worth)</th>
+      <% Round.find(:all).reverse.reject { |round| 0 == round.number }.each do |round| -%>
+        <th><%= round.name %></th>
+      <% end -%>
+    </tr>
+    <tr class=gamePicMaster>
+      <%= render(:partial => "pool_user_game_pic", :locals => {:pool_user => @master_pool_user, :master_pool_user => @master_pool_user, :game => @game}) %>
+    </tr>
+    <% @pool_users.each do |pu| -%>
+      <tr>
+        <%= render(:partial => "pool_user_game_pic", :locals => {:pool_user => pu, :master_pool_user => @master_pool_user, :game => @game}) %>
+      </tr>
+    <% end -%>
+  </table>
+  <table>
+    <tr>
+      <td align=center><li></li></td>
+      <td>picked to win this round</td>
+    </tr>
+    <tr>
+      <td class=gamePicInRoundCorrect></td>
+      <td>correct pic</td>
+    </tr>
+    <tr>
+      <td class=gamePicInRoundIncorrect></td>
+      <td>incorrect/dead pic</td>
+    </tr>
+  </table>
+<% end -%>

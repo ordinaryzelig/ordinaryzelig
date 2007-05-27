@@ -1,0 +1,3 @@
+<% action = !logged_in_user.considers_friend?(friend) ? "add_friend" : "remove_friend" -%>
+<%= link_to_add_remove_friend(action, friend.id) %>
+<%= image_tag("spinner.gif", :id => "addRemoveFriendSpinner", :style => "display: none") %>

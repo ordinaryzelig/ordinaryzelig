@@ -1,0 +1,32 @@
+<% hide_banner -%>
+
+<div class=errorMessages id="errorMessages" style="display: none;">
+  <% @user.errors.full_messages.each do |error_message| -%>
+    <%= error_message %><br>
+  <% end -%>
+</div>
+<%= form_tag %>
+  <div id="loginInfo">
+    <table>
+      <tr>
+        <td align=right>email: </td>
+        <td><%= text_field(:user, :email, {:value => nil, :id => "email"}) %></td>
+      </tr>
+      <tr>
+        <td align=right>password: 
+        <td><%= password_field(:user, :unhashed_password, {:value => nil}) %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><%= submit_tag(:login) %> <%= link_to("register", :controller => "user", :action => "register") %> </td>
+      </tr>
+    </table>
+  </div>
+<%= end_form_tag %>
+<script>
+  $('email').focus();
+  <% if !@user.errors.empty? -%>
+    <%= visual_effect(:shake, "loginInfo") %>;
+    setTimeout("new Effect.BlindDown('errorMessages')", 1000);
+  <% end -%>
+</script>

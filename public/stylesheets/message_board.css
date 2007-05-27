@@ -1,0 +1,47 @@
+.reply{
+    padding-top: 3mm;
+    padding-bottom: 10mm;
+}
+
+.summary{
+    padding-bottom: 30px;
+}
+
+.postInfo, .lastReplyInfo, .editLink{
+    color: gray;
+    font-size: 80%;
+    text-indent: 5mm;
+}
+
+.messageHeader, .messageHeaderRecent{
+    padding: 2mm;
+}
+
+.messageHeader{
+    background-color: lightgray;
+}
+
+.messageHeaderRecent{
+    background-color: lightgreen;
+}
+
+.body{
+    padding: 2mm;
+}
+
+.children{
+    padding-left: 10mm;
+}
+
+#notAuthorized{
+    color: gray;
+    font-size: 80%;
+}
+
+.previewLabel{
+    background-color: red;
+}
+
+.disabledPageNavigation{
+    color: lightgray;
+}

@@ -1,0 +1,11 @@
+#seasonSelect, #newUserLink{
+    margin-bottom: 5mm;
+}
+
+#buy_ins th, #seasons th, #participation th{
+    background-color: lightgray;
+}
+
+#buy_ins td{
+    text-align: center;
+}

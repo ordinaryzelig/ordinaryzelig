@@ -1,0 +1,77 @@
+<div id="sidebar">
+  
+  <% if logged_in_user -%>
+    
+    <% # logged in. -%>
+    
+    <%= h(logged_in_user.display_name) %><br>
+    <%= link_to("logout", :controller => "login", :action => "logout") %><br>
+    <%= link_to_profile("my profile", logged_in_user) %><br>
+    <%= link_to("blog", :controller => "blog", :action => "list", :id => logged_in_user.id) %><br>
+    <%= link_to("friends", :controller => "user", :action => "friends", :id => logged_in_user.id) %>
+    <hr>
+    
+    <% # admin. -%>
+    <% if logged_in_user.is_admin? -%>
+      admin<br>
+      <%= link_to("users", :controller => "admin", :action => "users") %><br>
+      <%= link_to("participation", :controller => "admin", :action => "participation") %><br>
+      <%= link_to("buy-ins", :controller => "admin", :action => "buy_ins") %><br>
+      <%= link_to("new season", :controller => "admin", :action => "create_new_season") %><br>
+      <%= link_to("edit season", :controller => "admin", :action => "edit_season") %><br>
+      <%= link_to("bid select", :controller => "admin", :action => "select_team_bids") %><br>
+      <%= link_to("seasons", :controller => "admin", :action => "seasons") %><br>
+      <%= link_to("master bracket", :controller => "pool", :action => "brackets", :id => User::master_id, :season_id => current_season.id) %>
+      <hr>
+    <% end -%>
+    
+  <% else -%>
+    
+    <% # not logged in. -%>
+    <%= link_to("login", :controller => "login") %>
+    <hr>
+    
+  <% end -%>
+  
+  <% # ==================================== -%>
+  <% # search. %>
+  
+  <div style="text-align: center;">
+    <%= form_tag(:controller => "user", :action => "search") %>
+      <% @default_value = "first, last, or display" %>
+      <%= text_field_tag(:search_text, @search_text || @default_value, {:size => "15mm", :onfocus => "if(value == '#{@default_value}'){ value = ''}", :onblur => "if(value == '') value = '#{@search_text || @default_value}'"}) %><br>
+      <%= submit_tag("search people") %>
+    <%= end_form_tag %>
+  </div>
+  <hr>
+  
+  <% # ==================================== -%>
+  <% # message board. -%>
+  
+  <%= link_to "message board", :controller => "message_board" %>
+  <hr>
+  
+  <% # ==================================== -%>
+  <% # march madness. -%>
+  
+  march madness
+  <%= link_to("standings", :controller => "pool", :action => "standings") %><br>
+  <%= link_to("brackets", :controller => "pool") %>
+  <% if logged_in_user -%>
+    <%= link_to_my_bracket %>
+  <% end -%><br>
+  <%= link_to("tourney info", :controller => "pool", :action => "tournament_info") %>
+  scoreboards<br>
+  <%= link_to("espn", "http://scores.espn.go.com/ncb/scoreboard") %><br>
+  <%= link_to("cbs", "http://www.sportsline.com/collegebasketball/scoreboard") %>
+  <hr>
+  
+  <% # ==================================== -%>
+  <% # help. %>
+  
+  <%= link_to("email for help", url_for("mailto:help@ordinaryzelig.org")) %>
+  <hr>
+  
+  <% # ==================================== -%>
+  <%= best_viewed %>
+</div>

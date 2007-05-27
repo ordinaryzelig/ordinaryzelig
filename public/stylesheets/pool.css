@@ -1,0 +1,185 @@
+#seasonSelectBracket{
+    padding-bottom: 5mm;
+}
+
+.largeUserName{
+    font-size: 150%;
+}
+
+#picsEditable{
+    padding-top: 5mm;
+    padding-bottom: 5mm;
+}
+
+.bracketComplete{
+    padding-bottom: 10mm;
+    width: 40mm;
+}
+
+.bracketComplete0{
+    color: red;
+}
+
+.bracketComplete1{
+    color: green;
+}
+
+.regionBracket{
+    width: 240mm;
+}
+
+.regionName{
+    font-size: 125%;
+}
+
+.game{
+    display: table;
+}
+
+.pic, .firstRoundBid{
+    width: 45mm;
+    padding: 2mm;
+}
+
+.pic{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.picResult0, .picResult1, .gamePicsLink{
+    margin-left: 6mm;
+    font-size: 75%;
+}
+
+.picResult0, .gamePicCorrect0{
+    color: red;
+}
+
+.gamePicInRoundIncorrect, .gamePicInRoundDead{
+    background-color: red;
+}
+
+.picResult1, .gamePicCorrect1{
+    color: green;
+}
+
+.gamePicInRoundCorrect{
+    background-color: green;
+}
+
+.bid{
+    border-bottom: .5mm solid gray;
+}
+
+.seed{
+    width: 5mm;
+    text-align: right;
+    margin-right: 1mm;
+    float: left;
+}
+
+.teamfalse, .gamePicStillAlivefalse{
+    text-decoration: line-through;
+}
+
+.gamePic, .gamePicStillAlivefalse{
+    font-size: 75%;
+}
+
+#seasonSelectStandings{
+    padding-bottom: 5mm;
+}
+
+.standingHeader, .standingMaster, .gamePicsHeader, .gamePicMaster th{
+    background-color: lightgray;
+}
+
+.standingSelf, .gamePicSelf1{
+    background-color: lightblue;
+}
+
+#printableBracket{
+    height: 8in;
+    width: 10.5in;
+    border: 1px solid #999;
+    margin: .25in;
+}
+
+#printableHeader{
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+#printableBracketLeft{
+    float: left;
+}
+
+#printableBracketRight{
+    float: right;
+}
+
+#printableBracketLeft, #printableBracketRight{
+    width: 120mm;
+}
+
+#championshipGame{
+    position: absolute;
+    top: 4in;
+    left: 5.25in;
+}
+
+#championshipGame .printableBid{
+    font-size: 100%;
+    text-align: center;
+}
+
+.printableBidleft, .printableBidright, .printableBid{
+    width: 20mm;
+    font-size: 50%;
+    white-space: nowrap;
+    border-bottom: 1px solid #999;
+}
+
+.printableBidright{
+    float: right;
+    clear: right;
+}
+
+.printableBidleft{
+    float: left;
+    clear: left;
+}
+
+#tournamentInfo th{
+    text-align: right;
+}
+
+#pvpHeader{
+    display: table;
+    padding-bottom: 5mm;
+    text-align: center;
+}
+        
+#pvpSubject, #pvpVs, #pvpOthers{
+    padding: 3mm;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#pvpSubject{
+    font-size: 150%;
+}
+
+.seasonSelect th{
+    text-align: right;
+    font-weight: normal;
+}
+
+.seasonSelect{
+    margin-bottom: 5mm;
+}
+
+#scoringSystemsInfo td{
+    text-align: center;
+}

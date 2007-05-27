@@ -1,0 +1,10 @@
+<%= error_messages(@user) %>
+<%= form_tag -%>
+  <table>
+    <%= render(:partial => "user") %>
+    <tr>
+      <td></td>
+      <td><%= submit_tag("create") %></td>
+    </tr>
+  </table>
+<%= end_form_tag -%>

@@ -1,0 +1,16 @@
+<% 
+=begin
+locals
+  game
+  direction
+=end %>
+<% pic = game.pic(@pool_user.id) -%>
+<% if game.children.empty? -%>
+  <%= render(:partial => "printable_bid", :locals => {:bid => game.first_round_bids[0], :direction => direction, :round_number => 0}) %>
+  <%= render(:partial => "printable_bid", :locals => {:bid => pic.bid, :direction => direction, :round_number => pic.game.round.number}) %>
+  <%= render(:partial => "printable_bid", :locals => {:bid => game.first_round_bids[1], :direction => direction, :round_number => 0}) %>
+<% else -%>
+  <%= render(:partial => "printable_game", :locals => {:game => game.top, :direction => direction}) %>
+  <%= render(:partial => "printable_bid", :locals => {:bid => pic.bid, :direction => direction, :round_number => pic.game.round.number}) %>
+  <%= render(:partial => "printable_game", :locals => {:game => game.bottom, :direction => direction}) %>
+<% end -%>

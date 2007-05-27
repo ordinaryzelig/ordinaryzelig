@@ -1,0 +1,31 @@
+<%
+=begin
+recursive partial that displays a game and its 2 children.
+locals:
+  pool_user
+  game
+  rounds_left
+  is_editable
+=end -%>
+<% if rounds_left > 0 -%>
+  <div class=game>
+    <div class=children>
+      <% if game.top %>
+        <div>
+          <%= render(:partial => "game", :locals => {:pool_user => pool_user, :game => game.top, :rounds_left => rounds_left - 1, :is_editable => is_editable}) %>
+        </div>
+        <div>
+          <%= render(:partial => "game", :locals => {:pool_user => pool_user, :game => game.bottom, :rounds_left => rounds_left - 1, :is_editable => is_editable}) %>
+        </div>
+      <% else -%>
+      <% # if no children, show first round bids. %>
+        <div class=firstRoundBid id="bid_<%= game.first_round_bids[0].id %>"><%= render(:partial => "bid", :locals => {:bid => game.first_round_bids[0], :game => game, :is_first_round_bid => true, :is_editable => is_editable, :pool_user => pool_user}) %></div>
+        <div class=firstRoundBid id="bid_<%= game.first_round_bids[1].id %>"><%= render(:partial => "bid", :locals => {:bid => game.first_round_bids[1], :game => game, :is_first_round_bid => true, :is_editable => is_editable, :pool_user => pool_user}) %></div>
+      <% end %>
+    </div>
+    <% pic = game.pic(pool_user.id) -%>
+    <div class=pic id="pic_<%= pic.id %>">
+      <%= render(:partial => "pic", :locals => {:pic => pic, :is_editable => is_editable, :pool_user => pool_user}) %>
+    </div>
+  </div>
+<% end -%>

@@ -1,0 +1,20 @@
+<%= error_messages(@user) %>
+<%= form_tag -%>
+  <table>
+    <%= render(:partial => "user") %>
+    <tr>
+      <td align=right>password:</td>
+      <td><%= password_field(:user, :unhashed_password) %></td>
+    </tr>
+    <tr>
+      <td align=right>confirm password:</td>
+      <td><%= password_field(:user, :confirmation_password) %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= submit_tag("submit") %></td>
+    </tr>
+  </table>
+<%= end_form_tag -%>
+<br>
+internet explorer users be warned: this site was tested mostly with safari and <%= link_to("firefox", url_for("http://mozilla.com")) %> and not so much with IE.

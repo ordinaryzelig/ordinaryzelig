@@ -1,0 +1,9 @@
+<% if @search_text_valid -%>
+  <div style="margin-bottom: 5mm;"><%= pluralize(@users.size, "user") %> found</div>
+<% end -%>
+
+<% if @users -%>
+  <% @users.each do |user| -%>
+    <%= link_to_profile(user.first_last_display, user) %><br>
+  <% end -%>
+<% end -%>

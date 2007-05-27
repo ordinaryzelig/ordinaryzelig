@@ -1,0 +1,31 @@
+<% unless @reason_not_visible -%>
+  
+  <div style="margin-bottom: 3mm;"><%= pluralize(@user.friends.size, "friend") %></div>
+  
+  <table border=1>
+    <tr>
+      <th>name</th>
+      <th>action</th>
+    </tr>
+    
+    <% @user.friends.each do |friend| -%>
+      <tbody id="friend_<%= friend.id %>">
+        <tr>
+          <td><%= link_to_profile(friend.first_last_display, friend) %></td>
+          <td>
+            <% if is_self?(@user) -%>
+              <span>
+                <%= link_to_remote("remove",
+                                   :url => {:action => "remove_friend", :id => friend.id},
+                                   :before => "Element.show('spinner_#{friend.id}');",
+                                   :complete => visual_effect(:switch_off, "friend_#{friend.id}")) %>
+                <%= image_tag("spinner.gif", :id => "spinner_#{friend.id}", :style => "display: none;") %>
+              </span>
+            <% end -%>
+          </td>
+        </tr>
+      </tbody>
+    <% end -%>
+    
+  </table>
+<% end -%>

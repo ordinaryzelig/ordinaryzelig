@@ -1,0 +1,20 @@
+<% unless @reason_not_visible -%>
+  
+  <div style="padding-bottom: 10mm;">
+    <%= link_to("new", :controller => "blog", :action => "new") %>
+  </div>
+  
+  <% @user.blogs.each do |blog| -%>
+    <div style="padding-bottom: 5mm;">
+      <%= link_to(blog.title, :action => "view", :id => blog.id) %><br>
+      <div style="padding-left: 3mm; font-size: 10pt; color: gray;">
+        posted at <%= default_time(blog.created_at) %><br>
+        <% if blog.comment_groups.empty? -%>
+          no comments
+        <% else -%>
+          last comment posted at <%= default_time(blog.latest_comment.created_at) %>
+        <% end -%>
+      </div>
+    </div>
+  <% end -%>
+<% end -%>

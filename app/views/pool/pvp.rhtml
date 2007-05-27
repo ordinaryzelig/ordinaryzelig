@@ -1,0 +1,30 @@
+<% 
+=begin
+=end -%>
+<div id="pvpHeader">
+  <div id="pvpSubject">
+    <%= @pvp_subject.user.display_name %>
+  </div>
+  <div id="pvpVs">vs</div>
+  <table id="pvpOthers">
+    <% @other_pool_users.each do |pu| -%>
+      <tr><td><%= pu.user.display_name %></td></tr>
+    <% end %>
+  </table>
+</div>
+<% unique_pics = @pvp_subject.unique_pics(@other_pool_users) -%>
+<% unique_points = @pvp_subject.unique_points(@other_pool_users, unique_pics) -%>
+<dl>
+  <dt><strong>unique pics left</strong> (points calculated using <%= @scoring_system %> scoring system)</dt>
+  <% unique_pics.each do |pic| -%>
+    <dd><%= pic.bid.team.name %> (<%= pic.game.round.name %>) = <%= pic.point_worth(@scoring_system) %> pts</dd>
+  <% end -%>
+</dl>
+<dl>
+  <dt><strong>best case scenario</strong></dt>
+  <dd>this scenario assumes the rest of <%= @pvp_subject.user.display_name %>'s pics work out, ignoring other players' remaining, unshared pics (pics <%= @pvp_subject.user.display_name %> does not have), if any.  therefore, while this scenario is at least partially true, it may eventually be proven to be an impossible outcome.</dd>
+  <% all_pvp_players = @other_pool_users + [@pvp_subject] -%>
+  <% pics_left = @pvp_subject.pics_left -%>
+  <% all_pvp_players.each { |pu| pu.simulate(pics_left, @scoring_system) } -%>
+  <dd><%= render(:partial => "standings_rankings", :locals => {:pool_users => all_pvp_players.sort(&PoolUser::standings_sort_proc), :show_pvp_selectors => false, :subject_user => @pvp_subject.user, :scoring_system => @scoring_system}) %></dd>
+</dl>

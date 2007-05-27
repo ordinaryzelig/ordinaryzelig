@@ -1,0 +1,28 @@
+<% 
+=begin
+table row for pool_user's standings.
+locals:
+  rank
+  pool_user
+  show_pvp_selectors (optional)
+  is_master (optional)
+  on_or_after_subject (optional)
+=end -%>
+<% show_pvp_selectors ||= nil -%>
+<% is_master ||= nil %>
+<% on_or_after_subject = true if on_or_after_subject.nil? -%>
+<td align=center><%= rank %></td>
+<% link_str = "#{pool_user.user.display_name}" -%>
+<% link_str << " (#{pool_user.bracket_num})" if 1 < pool_user.bracket_num -%>
+<td><%= link_to(link_str, {:action => :brackets, :id => pool_user.user_id, :season_id => pool_user.season_id, :bracket_num => pool_user.bracket_num}) %></td>
+<td align=center><%= pool_user.points %></td>
+<td align=center><%= pool_user.num_correct_pics %></td>
+<% if show_pvp_selectors -%>
+  <% if is_master -%>
+    <td></td>
+    <td></td>
+  <% else -%>
+    <td><%= radio_button_tag(:pvp_subject, pool_user.id, pool_user.user == logged_in_user) %></td>
+    <td><%= check_box("other_pool_user_ids", pool_user.id, {:checked => if on_or_after_subject then "false" else "checked" end}) %></td>
+  <% end -%>
+<% end -%>

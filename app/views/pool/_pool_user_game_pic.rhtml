@@ -1,0 +1,18 @@
+<% 
+=begin
+locals
+  pool_user
+  master_pool_user
+  game
+=end %>
+<td class=gamePicSelf<%= boolean_to_i(logged_in_user == pool_user.user) %>><%= link_to_bracket(pool_user.user.display_name, pool_user, {:region_order => game.region.order_num}) %></td>
+<% pic = pool_user.pic_for_game(game.id) -%>
+<% still_alive = pic.still_alive? %>
+<td class=gamePicCorrect<%= boolean_to_i(pic.is_correct?) %>>
+  <% if pic.bid -%>
+    <span class=gamePicStillAlive<%= still_alive %>><%= pic.bid.team.name %> (<%= pic.point_worth %>)</span>
+  <% end -%>
+</td>
+<% 1.upto(6) do |i| -%>
+  <td align=center class=<%= class_for_game_pic(i, pic, master_pool_user.pics, pool_user) %>><%= "<li></li>" if pic.bid && pic.furthest_round.number >= i %></td>
+<% end -%>

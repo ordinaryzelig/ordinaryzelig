@@ -1,0 +1,43 @@
+<%= form_tag -%>
+  <div id="seasonSelect">
+    <%= season_select_tag(@season.id) %> <%= submit_tag("go") %>
+  </div>
+<%= end_form_tag %>
+<% if @season -%>
+  <% pot = 0 -%>
+  <% total_num_brackets = 0 -%>
+  <% total_unpaid = 0 -%>
+  <table border=1 id="buy_ins">
+    <tr>
+      <th colspan=4><%= @season.tournament_year %> season</th>
+    </tr>
+    <tr>
+      <th>user</th>
+      <th>brackets</th>
+      <th>amount paid</td>
+      <th>status</th>    
+  <% @users.each do |user| -%>
+    <% amount_paid = user.account(@season.id).amount_paid -%>
+    <% pot += amount_paid -%>
+    <% brackets = user.season_pool_users(@season.id).size -%>
+    <% total_num_brackets += brackets -%>
+    <tr>
+      <td style="text-align: left;"><%= link_to_profile(h("#{user.last_first_display} (#{user.id})"), user) %></td>
+      <td><%= user.season_pool_users(@season.id).size %></td>
+      <td><%= amount_paid %></td>
+      <% if @season.buy_in * brackets == amount_paid -%>
+        <td>paid</td>
+      <% else -%>
+        <% total_unpaid += 1 %>
+        <td>unpaid (<%= link_to("pay", {:action => "pay", :user => user.id, :season => @season.id}, :post => true) %>)</td>
+      <% end -%>
+    </tr>
+  <% end -%>
+    <tr>
+      <th>total</th>
+      <th><%= total_num_brackets %></th>
+      <th><%= pot %></th>
+      <th><%= total_unpaid %> unpaid</th>
+    </tr>
+  </table>
+<% end -%>

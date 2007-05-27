@@ -1,0 +1,23 @@
+body{
+    padding-top: 20%;
+    padding-left: 0;
+}
+
+#welcome{
+    font-weight: bold;
+    font-size: 150%;
+    padding-bottom: 20mm;
+}
+
+#selectionSundayCountdown{
+    padding-bottom: 10mm;
+}
+
+#welcome, #welcomeLinks, #selectionSundayCountdown{
+    text-align: center;
+}
+
+#welcomeLinks span{
+    padding-right: 2mm;
+    padding-left: 2mm;
+}

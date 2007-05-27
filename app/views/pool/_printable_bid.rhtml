@@ -1,0 +1,18 @@
+<% 
+=begin
+locals
+  bid
+  direction
+  round_number
+=end %>
+<% if round_number > 0 -%>
+  <div class=printableBid<%= direction %> style="margin-<%= direction %>: <%= (round_number) * 20 %>mm;">
+<% else -%>
+  <div class=printableBid<%= direction %>>
+<% end -%>
+<% if bid -%>
+  <%= bid.seed %> <%= bid.team.name %>
+<% else -%>
+  &nbsp;
+<% end -%>
+</div>

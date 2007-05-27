@@ -1,0 +1,9 @@
+my friends: show if they consider you.
+
+friends_to banner
+
+search people button will submit default value if none given.
+
+remove friend from list will only show visual effect on firefox.  works in reaper, don't know why.
+
+make message board into comments.

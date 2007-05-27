@@ -1,0 +1,13 @@
+<% 
+=begin
+=end -%>
+<%= render(:partial => "form") %>
+<script>
+  <% if @saved -%>
+    new Insertion.Top('children_of_<%= @message.parent_id %>', '<%= escape_javascript(@rendered) %>');
+    new Effect.Highlight('message_<%= @message.id %>');
+    <%= hide_spinner(@message.parent_id) %>
+  <% else -%>
+    <%= show_reply_form(@message.parent_id) %>;
+  <% end -%>
+</script>

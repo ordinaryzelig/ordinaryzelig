@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <%= stylesheet_link_tag "pool" %>
+    <title>ordinaryzelig.org - printable bracket - <%= @pool_user.user.display_name %> (<%= @season.tournament_year %>)</title>
+  </head>
+  <body>
+    <div id="printableBracket">
+      <div id="printableHeader">
+        <span>march madness <%= @season.tournament_year %></span><br>
+        <span><%= @pool_user.user.display_name %></span>
+      </div>
+      <% championship_game = @season.regions[0].championship_game -%>
+      <div id="printableBracketLeft">
+        <%= render(:partial => "printable_game", :locals => {:game => championship_game.top, :direction => "left"}) %>
+      </div>
+      <div id="championshipGame">
+        <% pic = championship_game.pic(@pool_user.id) -%>
+        <%= render(:partial => "printable_bid", :locals => {:bid => pic.bid, :direction => nil, :round_number => championship_game.round.number}) %>
+      </div>
+      <div id="printableBracketRight">
+        <%= render(:partial => "printable_game", :locals => {:game => championship_game.bottom, :direction => "right"}) %>
+      </div>
+    </div>
+  </body>
+</html>

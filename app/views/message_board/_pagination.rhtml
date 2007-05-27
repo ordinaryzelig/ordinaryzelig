@@ -1,0 +1,33 @@
+<% 
+=begin
+message
+page
+messages_per_page
+=end %>
+<% num_pages = message.children_count / messages_per_page -%>
+<% num_pages += 1 if message.children_count % messages_per_page > 0 -%>
+
+pages:
+
+<% previous_str = "previous" %>
+<% if page > 1 -%>
+  <%= link_to(previous_str, {:page => page - 1}) %>
+<% else -%>
+  <span class=disabledPageNavigation><%= previous_str %></span>
+<% end -%>
+
+<% next_str = "next" -%>
+<% if page < num_pages -%>
+  <%= link_to(next_str, {:page => page + 1}) %>
+<% else -%>
+  <span class=disabledPageNavigation><%= next_str %></span>
+<% end -%>
+
+<% # pages. %>
+<% 1.upto(num_pages) do |page_num| -%>
+  <% if page == page_num -%>
+    <span style="font-size: larger; color: red;"><%= page_num %></span>
+  <% else -%>
+    <%= link_to(page_num, {:page => page_num}) %>
+  <% end -%>
+<% end -%>

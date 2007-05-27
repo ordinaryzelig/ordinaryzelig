@@ -1,0 +1,50 @@
+<% 
+=begin
+locals
+  master_pool_user (optional)
+  pool_users
+  show_pvp_selectors
+  subject_user
+  scoring_system
+=end %>
+<%= form_tag(:action => "pvp", :scoring_system_id => scoring_system::id) %>
+  <table border=1>
+    <tr class=standingHeader>
+      <th>rank</th>
+      <th>player</th>
+      <th>points</th>
+      <th>correct pics</th>
+      <% if show_pvp_selectors -%>
+        <th colspan=2><%= submit_tag("pvp*") %></th>
+      <% end -%>
+    </tr>
+    <% master_pool_user ||= nil -%>
+    <% if master_pool_user -%>
+      <tr class=standingMaster>
+        <%= render(:partial => "pool_user_points", :locals => {:pool_user => master_pool_user, :rank => nil, :show_pvp_selectors => show_pvp_selectors, :is_master => true}) %>
+      </tr>
+    <% end -%>
+    <% ties = 0 -%>
+    <% previous_points = nil -%>
+    <% previous_pics = nil -%>
+    <% on_or_after_subject = false -%>
+    <% pool_users.each_with_index do |pool_user, i| %>
+      <% if previous_points == pool_user.points && previous_pics == pool_user.num_correct_pics
+        ties += 1
+      else
+        ties = 0
+      end -%>
+      <% rank = i + 1 - ties -%>
+      <% previous_points = pool_user.points -%>
+      <% previous_pics = pool_user.num_correct_pics -%>
+      <% is_subject = subject_user && subject_user.id == pool_user.user_id %>
+      <% on_or_after_subject ||= is_subject -%>
+      <tr class=standing<%= "Self" if is_subject %>>
+        <%= render(:partial => "pool_user_points", :locals => {:pool_user => pool_user, :rank => rank, :show_pvp_selectors => show_pvp_selectors, :on_or_after_subject => on_or_after_subject}) %>
+      </tr>
+    <% end -%>
+  </table>
+<%= end_form_tag %>
+<% if show_pvp_selectors -%>
+  *pvp (player vs player): choose player in left column to compare to players checked in right column. press the pvp button.
+<% end -%>

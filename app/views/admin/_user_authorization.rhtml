@@ -1,0 +1,11 @@
+<% 
+=begin
+locals
+  user
+=end %>
+<div id="<%= user.id %>">
+  <%= link_to_remote(check_box("user", user.id, {:checked => if 1 == user.is_authorized then "checked" end}), :update => user.id, :url => {:action => "toggle_authorization", :id => user.id}) %>
+  <% if user.is_authorized.nil? -%>
+    (new)
+  <% end -%>
+</div>

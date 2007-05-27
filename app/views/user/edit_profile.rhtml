@@ -1,0 +1,19 @@
+<% if @user -%>
+  <%= error_messages(@user) %>
+  <%= form_tag(:id => @user.id) %>
+    <table>
+      <%= render(:partial => "user") %>
+      <tr>
+        <td></td>
+        <td><%= submit_tag("save") %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><%= link_to("set password", :action => "set_password", :id => @user.id) %></td>
+      </tr>
+    </table>
+    <%= hidden_field(:user, :id) %>
+  <%= end_form_tag -%>
+<% else -%>
+  user not found.
+<% end -%>

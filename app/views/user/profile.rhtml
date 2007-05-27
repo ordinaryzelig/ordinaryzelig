@@ -1,0 +1,59 @@
+<% unless @reason_not_visible -%>
+  
+  <% # ============================================================= %>
+  <% # header: title, action bar. -%>
+  
+  <% content_for("banner") do -%>
+    <div id="banner" style="padding: 2mm; text-align: center;<%= " background-color: lightgreen;" if is_self?(@user) %>">
+      <%= h(@user.display_name) %><br>
+      <span style="font-size: 75%;"><%= h(@user.first_name) %> <%= h(@user.last_name) %></span>
+    </div>
+    
+    <% # action bar. -%>
+    <div style="text-align: center;">
+      
+      <%= link_to_edit_profile("edit", @user) if is_self_or_admin?(@user) %>
+      
+      <% # add/remove friend. -%>
+      <% unless is_self?(@user) -%>
+        <div id="addRemoveFriend">
+          <%= render(:partial => 'add_remove_friend', :locals => {:friend => @user}) %>
+        </div>
+      <% end -%>
+      
+    </div>    
+  <% end -%>
+  
+  <% # ============================================================= %>
+  <% # blog. -%>
+  
+  <div class=profileSection>
+    <% link_str = "blog" -%>
+    <% if is_self_or_admin?(@user) || @user.considers_friend?(logged_in_user) -%>
+      <%= link_to(link_str, :controller => "blog", :action => "list", :id => @user.id) %>
+    <% else -%>
+      <%= link_str %> (restricted to <%= @user.display_name %>'s friends)
+    <% end -%>
+  </div>
+  
+  <% # ============================================================= %>
+  <% # friends. -%>
+  
+  <div class=profileSection>
+    <% # friends. -%>
+    <% if @user.considers_friend?(logged_in_user) || is_self_or_admin?(@user) -%>
+      <%= link_to("#{pluralize(@user.friends.size, "friend")}", :action => "friends", :id => @user.id) %><br>
+    <% else -%>
+      friends (restricted to <%= @user.display_name %>'s friends)
+    <% end -%>
+    
+    <% # friends of. -%>
+    <% if is_self_or_admin?(@user) -%>
+      you are a friend to <%= link_to_considering_friends("#{pluralize(@user.considering_friends.size, "user")}", @user) %>
+      (<%= link_to_considering_friends("#{@user.wannabe_friends.size} not mutual", @user, true) %>)
+    <% end -%>
+  </div>
+  
+<% else -%>
+  <% hide_banner %>
+<% end -%>

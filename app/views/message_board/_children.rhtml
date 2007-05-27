@@ -1,0 +1,13 @@
+<% 
+=begin
+locals
+  parent
+  context
+  page
+=end %>
+<% page ||= nil -%>
+<% parent.children.each_with_index do |message, i| -%>
+  <% if message_index_on_page?(i, page) -%>
+    <%= render_component(:action => "messages", :id => message.id, :params => {:context => "child#{"_of_first_page" if "first_page" == context}"}) %>
+  <% end -%>
+<% end -%>

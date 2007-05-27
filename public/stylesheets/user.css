@@ -1,0 +1,9 @@
+#profileTable th{
+    text-align: right;
+}
+
+.profileSection{
+    margin-top: 10mm;
+    background-color: moccasin;
+    padding: 2mm;
+}

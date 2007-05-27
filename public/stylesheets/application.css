@@ -1,0 +1,71 @@
+form{
+    display:inline;
+    margin: 0;
+}
+
+a{
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+html{
+    font-family: Helvetica;
+}
+
+#banner{
+    font-size: 200%;
+    text-align: center;
+    padding: 3mm;
+    margin-bottom: 3mm;
+    background-color: lightblue;
+}
+
+.errorMessages{
+    color: red;
+    border: .5mm solid red;
+    padding: 2mm;
+    background-color: lightgray;
+    margin-bottom: 4mm;
+}
+
+.flash{
+    border-width: 1mm;
+    border-style: groove;
+    border-style: solid;
+    padding: 2mm;
+    background-color: lightgray;
+    margin-bottom: 2mm;
+    margin-top: 2mm;
+}
+
+#flashnotice{
+    color: blue;
+    border-color: blue;
+}
+
+#flashsuccess{
+    color: limegreen;
+    border-color: limegreen;
+}
+
+#flashfailure{
+    color: red;
+    border-color: red;
+}
+
+#sidebar{
+    float: left;
+    background: lightgray;
+    width: 35mm;
+    padding: 3mm;
+	position: fixed;
+	font-size: 80%;
+}
+
+#myBracket{
+    font-size: 75%;
+}

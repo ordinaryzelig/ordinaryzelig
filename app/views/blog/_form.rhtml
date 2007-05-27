@@ -1,0 +1,27 @@
+<%= error_messages(@blog) %>
+
+<%= form_tag %>
+  <table id="blogFormTable">
+    <tr>
+      <th>title</th>
+      <td><%= text_field(:blog, :title, :id => "title") %></td>
+    </tr>
+    <tr>
+      <th>body</th>
+      <td><%= text_area(:blog, :body) %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <%= submit_tag("new" == controller.action_name ? "post" : "save") %>
+        <%= submit_to_remote(:preview, "preview body", {:update => "preview", :url => {:action => "preview"}}) %>
+      </td>
+    </tr>
+  </table>
+<%= end_form_tag %>
+
+<div id="preview" style="margin-top: 5mm;"><%= render_component(:action => "preview") if @blog.body %></div>
+
+<script>
+  <%= focus("title") %>
+</script>
