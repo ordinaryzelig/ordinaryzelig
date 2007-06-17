@@ -12,7 +12,8 @@
         <% if blog.comment_groups.empty? -%>
           no comments
         <% else -%>
-          last comment posted at <%= default_time(blog.latest_comment.created_at) %>
+          <% latest_comment = blog.latest_comment -%>
+          last comment: <%= link_to_profile(latest_comment.user.display_name, latest_comment.user) %> - <%= default_time(latest_comment.created_at) %>
         <% end -%>
       </div>
     </div>
