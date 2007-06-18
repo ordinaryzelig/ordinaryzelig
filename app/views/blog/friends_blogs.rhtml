@@ -1,0 +1,5 @@
+<% @blogs.each do |blog| -%>
+  <%= link_to(blog.title, :action => "view", :id => blog.id) %>
+  <span style="color: lightgray; font-size: smaller;"><%= link_to_profile(blog.user) %></span>
+  <br>
+<% end -%>

@@ -66,4 +66,9 @@ class BlogController < ApplicationController
     end
   end
   
+  def friends_blogs
+    user = User.find_by_id(params[:id])
+    @blogs = user.mutual_friends.map(&:blogs).flatten.sort { |a, b| b.created_at <=> a.created_at }
+  end
+  
 end

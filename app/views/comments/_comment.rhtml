@@ -8,7 +8,7 @@
       <div style="padding: 1mm;" class=<%= "newComment" if new_comment?(comment) %>><%= comment.comment %></div>
     
       <% # info. -%>
-      <div style="font-size: 75%; color: gray;"><%= link_to_profile(comment.user.display_name, comment.user) %> - <%= default_time(comment.created_at) %></div>
+      <div style="font-size: 75%; color: gray;"><%= link_to_profile(comment.user) %> - <%= default_time(comment.created_at) %></div>
     <% end -%>
     
     <% # ========================================================= %>

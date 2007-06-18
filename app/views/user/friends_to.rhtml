@@ -13,7 +13,7 @@
     </tr>
     <% @considering_friends.each do |considering_friend| %>
       <tr>
-        <td><%= link_to_profile(considering_friend.first_last_display, considering_friend) %></td>
+        <td><%= link_to_profile(considering_friend) %></td>
         <td align=center><%= @user.is_mutual_friend?(considering_friend) ? "yes" : "no" %></td>
       </tr>
     <% end %>

@@ -28,14 +28,14 @@
       
       <% # post info. -%>
       <div class=postInfo>
-        posted by <%= link_to_profile(@message.poster.display_name, @message.poster) %> on <%= default_time_format(@message.posted_at) %> (<%= time_til(@message.posted_at) %>)
+        posted by <%= link_to_profile(@message.poster) %> on <%= default_time_format(@message.posted_at) %> (<%= time_til(@message.posted_at) %>)
       </div>
       
       <% # last reply info. -%>
       <% if "child_of_first_page" == @context -%>
         <div class=lastReplyInfo>
           <% if !@message.children.empty? -%>
-            last reply posted by <%= link_to_profile(@message.latest_message.poster.display_name, @message.latest_message.poster) %> on <%= default_time_format(@message.latest_message.posted_at) %> (<%= time_til(@message.posted_at) %>)
+            last reply posted by <%= link_to_profile(@message.latest_message.poster) %> on <%= default_time_format(@message.latest_message.posted_at) %> (<%= time_til(@message.posted_at) %>)
           <% else -%>
             no replies
           <% end -%>

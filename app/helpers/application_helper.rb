@@ -9,7 +9,7 @@ module ApplicationHelper
   end
   
   # return link to user's profile.  displays str.
-  def link_to_profile(str, user)
+  def link_to_profile(user, str = user.display_name)
     link_to(h(str), {:controller => "user", :action => "profile", :id => user.id})
   end
   

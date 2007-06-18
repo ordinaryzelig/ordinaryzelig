@@ -11,7 +11,7 @@
     <% @user.friends.each do |friend| -%>
       <tbody id="friend_<%= friend.id %>">
         <tr>
-          <td><%= link_to_profile(friend.first_last_display, friend) %></td>
+          <td><%= link_to_profile(friend) %></td>
           <td>
             <% if is_self?(@user) -%>
               <span>

@@ -4,6 +4,6 @@
 
 <% if @users -%>
   <% @users.each do |user| -%>
-    <%= link_to_profile(user.first_last_display, user) %><br>
+    <%= link_to_profile(user) %><br>
   <% end -%>
 <% end -%>
