@@ -69,6 +69,8 @@ class BlogController < ApplicationController
   def friends_blogs
     user = User.find_by_id(params[:id])
     @blogs = user.mutual_friends.map(&:blogs).flatten.sort { |a, b| b.created_at <=> a.created_at }
+    @page_title = "friends' blogs"
+    render(:layout => false) if request.xhr?
   end
   
 end

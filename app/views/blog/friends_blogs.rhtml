@@ -1,5 +1,3 @@
 <% @blogs.each do |blog| -%>
-  <%= link_to(blog.title, :action => "view", :id => blog.id) %>
-  <span style="color: lightgray; font-size: smaller;"><%= link_to_profile(blog.user) %></span>
-  <br>
+  <%= render(:partial => "listing", :locals => {:blog => blog, :show_who => true}) %>
 <% end -%>

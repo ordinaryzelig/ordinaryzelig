@@ -6,7 +6,7 @@
     
     <%= h(logged_in_user.display_name) %><br>
     <%= link_to("logout", :controller => "login", :action => "logout") %><br>
-    <%= link_to_profile(logged_in_user, "my profile") %><br>
+    <%= link_to_profile(logged_in_user, "your profile") %><br>
     <%= link_to("blog", :controller => "blog", :action => "list", :id => logged_in_user.id) %><br>
     <%= link_to("friends", :controller => "user", :action => "friends", :id => logged_in_user.id) %>
     <hr>
