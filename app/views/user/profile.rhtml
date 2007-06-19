@@ -31,7 +31,9 @@
     <% if is_self_or_admin?(@user) || @user.considers_friend?(logged_in_user) -%>
       <div style="margin-bottom: 3mm;"><%= link_to(is_self?(@user) ? "your blog" : "blog", :controller => "blog", :action => "list", :id => @user.id) %></div>
       <% if is_self_or_admin?(@user) -%>
-        <div><%= link_to("your friends' blogs", :controller => "blog", :action => "friends_blogs", :id => @user.id) %></div>
+        <div>
+          <%= link_to("your friends' blogs", :controller => "blog", :action => "friends_blogs", :id => @user.id) %>
+        </div>
       <% end -%>
     <% else -%>
       blog (restricted to <%= @user.display_name %>'s friends)

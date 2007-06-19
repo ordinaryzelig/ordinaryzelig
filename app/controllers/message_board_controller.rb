@@ -14,22 +14,8 @@ class MessageBoardController < ApplicationController
   # params
   #   id
   #   page
-  def messages
-    if request.get? || request.xhr?
-      @context = "first_page" unless params[:id]
-      @context = params[:context] unless @context
-      @context = "root" unless @context
-      if "first_page" == @context
-        @message = Message.new(:children => Message.root_messages_by_latest)
-        @page = params[:page].to_i
-        @page = 1 if @page == 0
-      else
-        @message = Message.find_by_id(params[:id], :include => :children)
-        @message.children.sort!{|a, b| a.posted_at <=> b.posted_at}
-        @page_title = @message.subject
-      end
-      render(:layout => false) unless ["root", "first_page"].include?(@context)
-    end
+  def list
+    @messages = Message.find(:all)
   end
   
   # params

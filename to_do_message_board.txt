@@ -7,3 +7,7 @@ in production after post or preview action, as soon as button pressed, server re
 
 use session to store recently read messages?
 if someone just checks in but doesn't do anything that requires authentication, messages will still be "recent".  an expired session public action could trigger something.
+
+message children -> comments
+   EntityType.new(:name => "Message").save
+   Message.find(:all, :conditions => "parent_id is null").each(&:to_comment)

@@ -1,6 +1,7 @@
 class Message < ActiveRecord::Base
   
   acts_as_tree
+  has_nested_comments
   
   belongs_to :poster, :class_name => "User", :foreign_key => "posted_by_user_id"
   validates_presence_of :posted_by_user_id, :posted_at
@@ -13,13 +14,6 @@ class Message < ActiveRecord::Base
   
   def before_validation_on_create
     self.posted_at = Time.now.localtime
-  end
-  
-  def num_replies
-    count = 0
-    count += children.size
-    children.each {|child| count += child.num_replies}
-    count
   end
   
   def self.root_messages_by_latest
@@ -35,18 +29,26 @@ class Message < ActiveRecord::Base
     roots
   end
   
-  # recursively find the lastest child message.
-  def latest_message
-    if children.empty?
-      @latest_message = self
+  def to_comment
+    case ancestors.size
+    when 0
+      children.each(&:to_comment)
+    when 1
+      comment = Comment.new(:comment => "#{self.subject}<br><br>#{self.body}",
+                            :user => self.poster,
+                            :created_at => self.posted_at,
+                            :entity_type => parent.class.to_s,
+                            :entity_id => parent.id)
+      comment.children = children.map(&:to_comment)
+      comment.save
     else
-      # can't just do Enumerable.max because it won't recurse if there is only one child.
-      maxes_of_children = []
-      children.each do |child|
-        maxes_of_children << child.latest_message
-      end
-      @latest_message = maxes_of_children.max{|a, b| a.posted_at <=> b.posted_at}
+      comment = Comment.new(:comment => "#{self.subject}<br><br>#{self.body}",
+                            :user => self.poster,
+                            :created_at => self.posted_at)
+      comment.children = children.map(&:to_comment)
+      comment.save
     end
+    comment
   end
   
 end
