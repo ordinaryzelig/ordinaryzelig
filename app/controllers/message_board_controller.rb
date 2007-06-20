@@ -9,6 +9,7 @@ class MessageBoardController < ApplicationController
   def index
     @messages_pages, @messages = paginate(:messages, :order => "posted_at desc")
     @page_title = "message board"
+    render(:layout => false) if request.xhr?
   end
   
   def show

@@ -1,30 +1,24 @@
-<div style="margin-top: 3mm; margin-bottom: 3mm;">
-  
-  pages:
-  
-  <% # previous. -%>
-  <% previous_str = "previous" %>
-  <% if pages.current.first? -%>
-    <span class=disabledPageNavigation><%= previous_str %></span>
-  <% else -%>
-    <%= link_to(previous_str, {:page => pages.current.previous.number}) %>
-  <% end -%>
-  
-  <% # next. -%>
-  <% next_str = "next" -%>
-  <% if pages.current.last? -%>
-    <span class=disabledPageNavigation><%= next_str %></span>
-  <% else -%>
-    <%= link_to(next_str, {:page => pages.current.next.number}) %>
-  <% end -%>
-  
-  <% # pages. %>
-  <% pages.each do |page| -%>
-    <% if page == pages.current -%>
-      <span style="font-size: larger; color: red;"><%= page.number %></span>
-    <% else -%>
-      <%= link_to(page.number, {:page => page.number}) %>
-    <% end -%>
-  <% end -%>
+<% unless request.xhr? -%>
 
-</div>
+  <div style="margin-top: 3mm; margin-bottom: 3mm;">
+  
+    pages:
+  
+    <% # previous. -%>
+    <%= link_to_pagination("previous", pages.current.previous) %>
+    
+    <% # next. -%>
+    <%= link_to_pagination("next", pages.current.next) %>
+    
+    <% # pages. %>
+    <% pages.each do |page| -%>
+      <% if page == pages.current -%>
+        <span style="font-size: larger; color: red;"><%= page.number %></span>
+      <% else -%>
+        <%= link_to_pagination(page.number, page) %>
+      <% end -%>
+    <% end -%>
+
+  </div>
+  
+<% end -%>

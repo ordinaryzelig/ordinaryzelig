@@ -1,7 +1,9 @@
 <%= render(:partial => "pagination", :locals => {:pages => @messages_pages, :objects => @messages}) %>
 
-<% @messages.each do |message| -%>
-  <%= render(:partial => "message", :locals => {:message => message}) %>
-<% end -%>
+<div id="paginated_area">
+  <% @messages.each do |message| -%>
+    <%= render(:partial => "message", :locals => {:message => message}) %>
+  <% end -%>
+</div>
 
 <%= render(:partial => "pagination", :locals => {:pages => @messages_pages, :objects => @messages}) %>

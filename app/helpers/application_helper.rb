@@ -127,4 +127,16 @@ module ApplicationHelper
     content_for("banner") { "" }
   end
   
+  def link_to_pagination(str, page)
+    if page
+      link_to(str, :page => page.number)
+      # link_to_remote(str, :url => {:page => page_number},
+      #                     :update => "paginated_area",
+      #                     :before => visual_effect(:fade, "paginated_area", {:queue => 'end'}),
+      #                     :complete => visual_effect(:appear, "paginated_area",  {:queue => 'end'}))
+    else
+      content_tag(:span, str, {:style => "color: lightgray;"})
+    end
+  end
+  
 end
