@@ -7,15 +7,12 @@ class MessageBoardController < ApplicationController
   MESSAGES_PER_PAGE = 5
   
   def index
-    flash.keep
-    redirect_to(:action => "messages")
+    @messages = Message.find(:all, :order => "posted_at desc")
+    @page_title = "message board"
   end
   
-  # params
-  #   id
-  #   page
-  def list
-    @messages = Message.find(:all)
+  def show
+    @message = Message.find_by_id(params[:id])
   end
   
   # params

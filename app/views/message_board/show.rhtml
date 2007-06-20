@@ -1,0 +1,19 @@
+<% content_for :banner do -%>
+  
+  <div style="border: .5mm solid black;">
+    
+    <div id="banner">
+      <div style="font-weight: bold;"><%= @message.subject %></div>
+      <div style="font-size: 10pt;">
+        <%= link_to_profile(@message.poster) %><br>
+        <span title="<%= time_til(@message.posted_at) %>" style="color: gray;"><%= default_time_format(@message.posted_at) %></span>
+      </div>
+    </div>
+    
+    <div style="padding: 2mm; padding-bottom: 5mm;"><%= @message.body %></div>
+    
+  </div>
+  
+<% end -%>
+
+<%= render(:partial => "comments/comments", :locals => {:entity => @message}) %>

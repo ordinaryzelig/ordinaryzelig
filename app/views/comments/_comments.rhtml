@@ -1,0 +1,13 @@
+<% # add comment. -%>
+<% if logged_in_user -%>
+  <%= render(:partial => "comments/comment", :locals => {:entity => entity}) %>
+<% else -%>
+  login to post comments
+<% end -%>
+
+<% # comments. %>
+<div id="comments">
+  <% entity.root_comments.each do |root_comment| -%>
+    <%= render(:partial => "comments/comment", :locals => {:comment => root_comment}) %>
+  <% end -%>
+</div>

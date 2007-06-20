@@ -16,19 +16,6 @@ class Message < ActiveRecord::Base
     self.posted_at = Time.now.localtime
   end
   
-  def self.root_messages_by_latest
-    roots = []
-    all = Message.find(:all, :order => "#{Message.table_name}.posted_at DESC")
-    all.each do |m|
-      if roots.include?(m.root)
-        next
-      else
-        roots << m.root
-      end
-    end
-    roots
-  end
-  
   def to_comment
     case ancestors.size
     when 0
@@ -39,12 +26,14 @@ class Message < ActiveRecord::Base
                             :created_at => self.posted_at,
                             :entity_type => parent.class.to_s,
                             :entity_id => parent.id)
+      comment.save
       comment.children = children.map(&:to_comment)
       comment.save
     else
       comment = Comment.new(:comment => "#{self.subject}<br><br>#{self.body}",
                             :user => self.poster,
                             :created_at => self.posted_at)
+      comment.save
       comment.children = children.map(&:to_comment)
       comment.save
     end

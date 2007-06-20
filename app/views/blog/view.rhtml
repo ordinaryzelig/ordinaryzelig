@@ -6,7 +6,7 @@
   <% content_for("banner") do -%>
     <div style="border: .5mm solid black;">
       
-      <div id="banner" style="background-color: lightblue;">
+      <div id="banner">
         <span style="font-weight: bold;"><%= h(@blog.title) %></span><br>
         <div style="font-size: 10pt;">
           <%= link_to_profile(@blog.user) %><br>
@@ -16,7 +16,7 @@
       
       <% # body. -%>
       <div style="padding: 2mm; padding-bottom: 5mm;"><%= sanitize(@blog.body) %></div>
-    
+      
       <% # edit link. -%>
       <% if is_self_or_admin?(@blog.user) %>
         <div style="padding: 2mm;"><%= link_to("edit", :action => "edit", :id => @blog.id) %></div>
@@ -28,19 +28,6 @@
   
   <% # ======================================= -%>
   <% # comments. -%>
-  
-  <% # add comment. -%>
-  <% if logged_in_user -%>
-    <%= render(:partial => "comments/comment", :locals => {:entity_id => @blog.id, :entity_type => "Blog"}) %>
-  <% else -%>
-    login to post comments
-  <% end -%>
-  
-  <% # comments. %>
-  <div id="comments">
-    <% @blog.root_comments.each do |root_comment| -%>
-      <%= render(:partial => "comments/comment", :locals => {:comment => root_comment}) %>
-    <% end -%>
-  </div>
-  
+  <%= render(:partial => 'comments/comments', :locals => {:entity => @blog}) %>
+
 <% end -%>

@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
   
   def before_validation_on_create
     # set created_at time to now.
-    self.created_at = Time.now.localtime
+    self.created_at ||= Time.now.localtime
   end
   
   def validate_on_create

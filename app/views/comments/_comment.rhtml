@@ -4,11 +4,15 @@
   <div style="padding-bottom: 10mm;">
     
     <% if comment -%>
-      <% # body. -%>
-      <div style="padding: 1mm;" class=<%= "newComment" if new_comment?(comment) %>><%= comment.comment %></div>
-    
-      <% # info. -%>
-      <div style="font-size: 75%; color: gray;"><%= link_to_profile(comment.user) %> - <%= default_time(comment.created_at) %></div>
+      <div style="border: 1px solid black;">
+        <% # info. -%>
+        <div style="font-size: 75%; color: gray; background-color: lightgray; padding: 2mm;">
+          <%= link_to_profile(comment.user) %> - <%= default_time(comment.created_at) %>
+        </div>
+        
+        <% # body. -%>
+        <div style="padding: 2mm;" class=<%= "newComment" if new_comment?(comment) %>><%= comment.comment %></div>
+      </div>
     <% end -%>
     
     <% # ========================================================= %>
@@ -27,8 +31,8 @@
                                 :url => {:controller => "comments",
                                          :action => "new",
                                          :parent_id => comment_id,
-                                         :entity_id => entity_id,
-                                         :entity_type => entity_type},
+                                         :entity_id => entity ? entity.id : nil,
+                                         :entity_type => entity ? entity.class.to_s : nil},
                                 :before => stack(show_comment_spinner(comment_id), hide_comment_action_bar("reply", comment_id)),
                                 :complete => stack(show_comment_action_bar("post", comment_id),
                                                    show_comment_form(comment_id),
