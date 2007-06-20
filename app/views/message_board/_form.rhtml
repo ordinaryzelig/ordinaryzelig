@@ -1,68 +1,27 @@
-<% 
-=begin
-locals
-  is_preview (optional)
-  is_admin_edit (optional)
-=end -%>
-<% is_preview ||= nil -%>
-<% is_preview_and_error_free = is_preview && @message.errors.empty? -%>
-<% is_admin_edit ||= nil -%>
-<%= error_messages(@message) -%>
+<%= error_messages(@message) %>
+
 <%= form_tag %>
-  <% if is_preview_and_error_free -%>
-    <div class=previewLabel>preview</div>
-    <div class=subject><%= h(@message.subject) %></div>
-    <div class=body><%= sanitize(@message.body) %></div>
-  <% end -%>
-  <table>
+  <table id="blogFormTable">
     <tr>
-      <% unless is_preview_and_error_free -%>
-        <td>subject</td>
-      <% end -%>
-      <td>
-        <% if is_preview_and_error_free -%>
-          <%= hidden_field(:message, :subject) %>
-        <% else -%>
-          <%= text_field(:message, :subject) %>
-        <% end -%>
-      </td>
+      <th>subject</th>
+      <td><%= text_field(:message, :subject, :id => "title") %></td>
     </tr>
     <tr>
-      <% unless is_preview_and_error_free -%>
-        <td>
-          body
-        </td>
-      <% end -%>
-      <td>
-        <% if is_preview_and_error_free -%>
-          <%= hidden_field(:message, :body) %>
-        <% else -%>
-          <%= text_area(:message, :body) %>
-        <% end -%>
-      </td>
+      <th>body</th>
+      <td><%= text_area(:message, :body) %></td>
     </tr>
     <tr>
-      <% unless is_preview_and_error_free -%>
-        <td></td>
-      <% end -%>
+      <td></td>
       <td>
-        <% if is_admin_edit -%>
-          <%= submit_tag("save") %>
-          <%= hidden_field(:message, :id) %>
-          <%= hidden_field(:message, :posted_by_user_id) %>
-          <%= hidden_field(:message, :posted_at) %>
-        <% else -%>
-          <%= submit_to_remote(:submit, "post", {:url => {:action => "post"}, :update => "reply_form_#{@message.parent_id}", :before => hide_reply_form(@message.parent_id)}) %>
-          <% if is_preview_and_error_free -%>
-            <%= submit_to_remote(:submit, "edit", {:url => {:action => "edit_new"}, :update => "reply_form_#{@message.parent_id}", :before => hide_reply_form(@message.parent_id), :complete => "setTimeout(\"#{show_reply_form(@message.parent_id)}\", 1000)"}) %>
-          <% else -%>
-            <%= submit_to_remote(:submit, "preview", {:url => {:action => "preview"}, :update => "reply_form_#{@message.parent_id}", :before => hide_reply_form(@message.parent_id), :complete => "setTimeout(\"#{show_reply_form(@message.parent_id)}\", 1000)"}) %>
-          <% end -%>
-          <%= submit_to_remote(:submit, "cancel", {:url => {:action => "cancel"}, :before => hide_reply_form(@message.parent_id), :complete => hide_spinner(@message.parent_id)}) %>
-        <% end -%>
+        <%= submit_tag("post") %>
+        <%= submit_to_remote(:preview, "preview body", {:update => "preview", :url => {:action => "preview"}}) %>
       </td>
     </tr>
   </table>
-  <%= hidden_field(:message, :parent_id) %>
-  <%= hidden_field_tag(:context, @context) %>
-<%= end_form_tag -%>
+<%= end_form_tag %>
+
+<div id="preview" style="margin-top: 5mm;"><%= render_component(:action => "preview") if @message.body %></div>
+
+<script>
+  <%= focus("title") %>
+</script>

@@ -1,5 +1,7 @@
 <%= render(:partial => "pagination", :locals => {:pages => @messages_pages, :objects => @messages}) %>
 
+<%= link_to("new", :action => "new") %>
+
 <div id="paginated_area">
   <% @messages.each do |message| -%>
     <%= render(:partial => "message", :locals => {:message => message}) %>

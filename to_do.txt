@@ -4,4 +4,7 @@ friends_to banner
 
 remove friend from list will only show visual effect on firefox.  works in reaper, don't know why.
 
-make message board into comments.
+ajaxy pagination
+   need to update pagination links too.
+
+best viewed on safari link

@@ -5,15 +5,12 @@ class Message < ActiveRecord::Base
   
   belongs_to :poster, :class_name => "User", :foreign_key => "posted_by_user_id"
   validates_presence_of :posted_by_user_id, :posted_at
-  
-  def validate
-    errors.add_on_blank(:subject)
-    errors.add_on_blank(:body)
-    errors.add(:subject, "subject too long, max 100 characters.") if @subject && @subject.length > 100
-  end
+  validates_presence_of :subject
+  validates_presence_of :body
+  validates_length_of :subject, :maximum => 100
   
   def before_validation_on_create
-    self.posted_at = Time.now.localtime
+    self.posted_at ||= Time.now.localtime
   end
   
   def to_comment
