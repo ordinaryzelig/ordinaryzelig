@@ -7,7 +7,7 @@ class MessageBoardController < ApplicationController
   MESSAGES_PER_PAGE = 5
   
   def index
-    @messages = Message.find(:all, :order => "posted_at desc")
+    @messages_pages, @messages = paginate(:messages, :order => "posted_at desc")
     @page_title = "message board"
   end
   

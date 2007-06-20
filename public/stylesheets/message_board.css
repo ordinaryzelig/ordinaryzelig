@@ -43,5 +43,6 @@
 }
 
 .disabledPageNavigation{
-    color: lightgray;
+    color: gray;
+    font-size: smaller;
 }

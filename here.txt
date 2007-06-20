@@ -1,2 +1,1 @@
-message has_nested_comments
 pagination

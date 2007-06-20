@@ -11,6 +11,6 @@ if someone just checks in but doesn't do anything that requires authentication, 
 message children -> comments
    EntityType.new(:name => "Message").save
    Message.find(:all, :conditions => "parent_id is null").each(&:to_comment)
-   then delete child messages.
+   Message.find(:all, :conditions => "parent_id is not null").each(&:destroy)
 
 move comments to plugin.

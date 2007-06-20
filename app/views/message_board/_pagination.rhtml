@@ -1,33 +1,30 @@
-<% 
-=begin
-message
-page
-messages_per_page
-=end %>
-<% num_pages = message.children_count / messages_per_page -%>
-<% num_pages += 1 if message.children_count % messages_per_page > 0 -%>
-
-pages:
-
-<% previous_str = "previous" %>
-<% if page > 1 -%>
-  <%= link_to(previous_str, {:page => page - 1}) %>
-<% else -%>
-  <span class=disabledPageNavigation><%= previous_str %></span>
-<% end -%>
-
-<% next_str = "next" -%>
-<% if page < num_pages -%>
-  <%= link_to(next_str, {:page => page + 1}) %>
-<% else -%>
-  <span class=disabledPageNavigation><%= next_str %></span>
-<% end -%>
-
-<% # pages. %>
-<% 1.upto(num_pages) do |page_num| -%>
-  <% if page == page_num -%>
-    <span style="font-size: larger; color: red;"><%= page_num %></span>
+<div style="margin-top: 3mm; margin-bottom: 3mm;">
+  
+  pages:
+  
+  <% # previous. -%>
+  <% previous_str = "previous" %>
+  <% if pages.current.first? -%>
+    <span class=disabledPageNavigation><%= previous_str %></span>
   <% else -%>
-    <%= link_to(page_num, {:page => page_num}) %>
+    <%= link_to(previous_str, {:page => pages.current.previous.number}) %>
   <% end -%>
-<% end -%>
+  
+  <% # next. -%>
+  <% next_str = "next" -%>
+  <% if pages.current.last? -%>
+    <span class=disabledPageNavigation><%= next_str %></span>
+  <% else -%>
+    <%= link_to(next_str, {:page => pages.current.next.number}) %>
+  <% end -%>
+  
+  <% # pages. %>
+  <% pages.each do |page| -%>
+    <% if page == pages.current -%>
+      <span style="font-size: larger; color: red;"><%= page.number %></span>
+    <% else -%>
+      <%= link_to(page.number, {:page => page.number}) %>
+    <% end -%>
+  <% end -%>
+
+</div>
