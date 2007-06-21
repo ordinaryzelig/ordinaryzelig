@@ -2,7 +2,7 @@
 <% if logged_in_user -%>
   <%= render(:partial => "comments/comment", :locals => {:entity => entity}) %>
 <% else -%>
-  login to post comments
+  <%= link_to("login", :controller => "login", :action => "login") %> to post comments
 <% end -%>
 
 <% # comments. %>
