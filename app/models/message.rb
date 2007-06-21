@@ -13,28 +13,12 @@ class Message < ActiveRecord::Base
     self.posted_at ||= Time.now.localtime
   end
   
-  def to_comment
-    case ancestors.size
-    when 0
-      children.each(&:to_comment)
-    when 1
-      comment = Comment.new(:comment => "#{self.subject}<br><br>#{self.body}",
-                            :user => self.poster,
-                            :created_at => self.posted_at,
-                            :entity_type => parent.class.to_s,
-                            :entity_id => parent.id)
-      comment.save
-      comment.children = children.map(&:to_comment)
-      comment.save
-    else
-      comment = Comment.new(:comment => "#{self.subject}<br><br>#{self.body}",
-                            :user => self.poster,
-                            :created_at => self.posted_at)
-      comment.save
-      comment.children = children.map(&:to_comment)
-      comment.save
-    end
-    comment
+  def is_recent?(user)
+    user.user_activity && posted_at > user.user_activity.previous_login_at
+  end
+  
+  def owned_by?(user)
+    user == poster
   end
   
 end
