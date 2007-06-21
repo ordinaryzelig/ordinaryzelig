@@ -58,10 +58,6 @@ module ApplicationHelper
     end
   end
   
-  def best_viewed
-    '<span style="font-size: 75%;">best viewed with safari or <a href="http://www.mozilla.com">firefox</a>.</span>'
-  end
-  
   def time_til(time)
     pract = Time.now.time_til(time).to_practical
     str = pract.practical(true)
