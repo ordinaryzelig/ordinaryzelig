@@ -1,8 +1,8 @@
 <% unless @reason_not_visible -%>
   
-  <div style="padding-bottom: 10mm;">
-    <%= link_to("new", :controller => "blog", :action => "new") %>
-  </div>
+  <% if is_self?(@user) -%>
+    <div style="padding-bottom: 10mm;"><%= link_to("new", :controller => "blog", :action => "new") %></div>
+  <% end -%>
   
   <% @user.blogs.each do |blog| -%>
     <%= render(:partial => 'listing', :locals => {:blog => blog}) %>
