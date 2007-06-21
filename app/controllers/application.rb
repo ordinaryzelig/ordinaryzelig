@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   
   after_filter :mark_requested_page
   
-  SESSION_MINUTES = 120
+  SESSION_HOURS = 24
   
   helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?
   
@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   # return whether session is valid (has not expired).
   def session_expired?
     if session[:last_authenticated_action_at]
-      session_expires_at = session[:last_authenticated_action_at] + (60 * SESSION_MINUTES)
+      session_expires_at = session[:last_authenticated_action_at] + (60 * 60 * SESSION_HOURS)
       session_expires_at < Time.now
     else
       false
