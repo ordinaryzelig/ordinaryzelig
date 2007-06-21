@@ -43,6 +43,7 @@ class ApplicationController < ActionController::Base
   end
   
   def require_login(msg = "please log in.")
+    mark_requested_page
     flash[:notice] = msg
     if is_ajax_action?
       render :update do |page|
