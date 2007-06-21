@@ -1,9 +1,11 @@
 <% # add comment. -%>
-<% if logged_in_user -%>
-  <%= render(:partial => "comments/comment", :locals => {:entity => entity}) %>
-<% else -%>
-  <%= link_to("login", :controller => "login", :action => "login") %> to post comments
-<% end -%>
+<div style="margin-bottom: 5mm;">
+  <% if logged_in_user -%>
+    <%= render(:partial => "comments/comment", :locals => {:entity => entity}) %>
+  <% else -%>
+    <%= link_to("login", :controller => "login", :action => "login") %> to post comments
+  <% end -%>
+</div>
 
 <% # comments. %>
 <div id="comments">

@@ -46,4 +46,14 @@ class Comment < ActiveRecord::Base
     end
   end
   
+  def is_recent?(user)
+    if user.user_activity
+      created_at > user.user_activity.previous_login_at
+    end
+  end
+  
+  def owned_by?(user)
+    user == self.user
+  end
+  
 end

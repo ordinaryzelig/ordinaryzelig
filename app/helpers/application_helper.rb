@@ -75,8 +75,24 @@ module ApplicationHelper
     "#{default_time_format(time)} (#{time_til(time)})"
   end
   
-  def new_comment?(comment)
-    comment && logged_in_user.user_activity.previous_login_at < comment.created_at && logged_in_user != comment.user if logged_in_user.user_activity
+  def hide_banner
+    content_for("banner") { "" }
+  end
+  
+  def link_to_pagination(str, page)
+    if page
+      link_to(str, :page => page.number)
+      # link_to_remote(str, :url => {:page => page_number},
+      #                     :update => "paginated_area",
+      #                     :before => visual_effect(:fade, "paginated_area", {:queue => 'end'}),
+      #                     :complete => visual_effect(:appear, "paginated_area",  {:queue => 'end'}))
+    else
+      content_tag(:span, str, {:style => "color: lightgray;"})
+    end
+  end
+  
+  def recent_background_color(object, default_color = "lightgray")
+    logged_in_user && object.is_recent?(logged_in_user) && !object.owned_by?(logged_in_user) ? "lightgreen" : default_color
   end
   
   # ===========================================================
@@ -117,26 +133,6 @@ module ApplicationHelper
   
   def focus(id)
     "$('#{id}').focus();"
-  end
-  
-  def hide_banner
-    content_for("banner") { "" }
-  end
-  
-  def link_to_pagination(str, page)
-    if page
-      link_to(str, :page => page.number)
-      # link_to_remote(str, :url => {:page => page_number},
-      #                     :update => "paginated_area",
-      #                     :before => visual_effect(:fade, "paginated_area", {:queue => 'end'}),
-      #                     :complete => visual_effect(:appear, "paginated_area",  {:queue => 'end'}))
-    else
-      content_tag(:span, str, {:style => "color: lightgray;"})
-    end
-  end
-  
-  def recent_background_color(object, default_color = "lightgray")
-    logged_in_user && object.is_recent?(logged_in_user) && !object.owned_by?(logged_in_user) ? "lightgreen" : default_color
   end
   
 end

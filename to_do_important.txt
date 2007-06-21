@@ -1,2 +1,0 @@
-svn tags/trunk
-keep email and password from showing up when user presses back buttotn.
