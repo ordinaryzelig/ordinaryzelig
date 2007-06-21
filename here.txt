@@ -1,1 +1,1 @@
-new message
+checks_for_recency plugin

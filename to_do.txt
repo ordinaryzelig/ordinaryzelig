@@ -4,3 +4,5 @@ my friends: show if they consider you.
 
 ajaxy pagination
    need to update pagination links too.
+
+preview for comments should just show preview without hiding editing components.
