@@ -127,6 +127,7 @@ class UserController < ApplicationController
       else
         @reason_not_visible = "sorry, this is private."
       end
+      @page_title = "users who consider you their friend"
     else
       @reason_not_visible = "user not found."
     end

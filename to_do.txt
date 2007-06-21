@@ -2,8 +2,6 @@ links for other people's profile.
 
 my friends: show if they consider you.
 
-friends_to banner
-
 remove friend from list will only show visual effect on firefox.  works in reaper, don't know why.
 
 ajaxy pagination

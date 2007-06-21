@@ -14,7 +14,10 @@ class Message < ActiveRecord::Base
   end
   
   def is_recent?(user)
-    user.user_activity && posted_at > user.user_activity.previous_login_at
+    if user.user_activity
+      posted_at > user.user_activity.previous_login_at ||
+      (latest_comment && latest_comment.created_at > user.user_activity.previous_login_at)
+    end
   end
   
   def owned_by?(user)
