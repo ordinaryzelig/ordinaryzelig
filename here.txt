@@ -1,1 +1,1 @@
-has_recency plugin doesn't work.
+has_recency only works for message.

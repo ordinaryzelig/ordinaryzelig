@@ -14,15 +14,4 @@ class Message < ActiveRecord::Base
     self.posted_at ||= Time.now.localtime
   end
   
-  def is_recent?(user)
-    if user.user_activity
-      posted_at > user.user_activity.previous_login_at ||
-      (latest_comment && latest_comment.created_at > user.user_activity.previous_login_at)
-    end
-  end
-  
-  def owned_by?(user)
-    user == poster
-  end
-  
 end

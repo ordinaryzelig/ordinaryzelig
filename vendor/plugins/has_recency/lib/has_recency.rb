@@ -38,11 +38,12 @@ module OrdinaryZelig
           if user.user_activity && user.user_activity.previous_login_at
             # return if recency_time_obj is recent.
             recency_time_obj = eval("#{self.class.recency_time_obj_name}")
-            (recency_time_obj && recency_time_obj >= user.user_activity.previous_login_at)# ||
+            return (recency_time_obj && recency_time_obj >= user.user_activity.previous_login_at)# ||
             # # or if there are comments, check if latest_comment is recent.
             # (method_defined?(:latest_comment) && latest_comment && latest_comment.created_at >= user.user_activity.previous_login_at)
           end
         end
+        false
       end
       
     end
