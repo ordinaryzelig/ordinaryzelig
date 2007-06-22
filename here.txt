@@ -1,1 +1,1 @@
-checks_for_recency plugin
+has_recency plugin doesn't work.

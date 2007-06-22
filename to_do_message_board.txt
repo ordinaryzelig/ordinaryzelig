@@ -3,6 +3,4 @@ search
 
 polls
 
-use session to store recently read messages?
-
 move comments to plugin.

@@ -6,3 +6,5 @@ ajaxy pagination
    need to update pagination links too.
 
 preview for comments should just show preview without hiding editing components.
+
+comments post highlighting shouldn't highlight reply section, just the comment.

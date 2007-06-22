@@ -8,7 +8,7 @@ module OrdinaryZelig
     
     module ClassMethods
       
-      def checks_for_recency(options)
+      def has_recency(options)
       object_types = [:user, :time]
         options.each do |object_type, object_name|
           raise "unrecognized recency object type '#{object_type}'." unless object_types.include?(object_type)
