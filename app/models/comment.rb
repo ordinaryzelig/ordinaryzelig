@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
   
   acts_as_tree :order => "created_at"
+  has_recency :time => :created_at, :user => :user
   
   belongs_to :user
   validates_presence_of :comment, :user_id, :created_at
@@ -44,16 +45,6 @@ class Comment < ActiveRecord::Base
       end
       maxes_of_children.max{|a, b| a.created_at <=> b.created_at}
     end
-  end
-  
-  def is_recent?(user)
-    if user.user_activity
-      created_at > user.user_activity.previous_login_at
-    end
-  end
-  
-  def owned_by?(user)
-    user == self.user
   end
   
 end

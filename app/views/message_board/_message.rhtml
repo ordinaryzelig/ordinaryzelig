@@ -1,5 +1,5 @@
 <div style="margin-bottom: 10mm; border: 1px solid black;">
-  <div style="background-color: <%= recent_background_color(message) %>; padding: 2mm;">
+  <div style="<%= recent_background_color(message) %> padding: 2mm;">
     <%= link_to(message.subject, :action => "show", :id => message.id) %>
     <div style="padding-left: 5mm; font-size: smaller; color: gray;">
       <%= link_to_profile(message.poster) %> - <%= default_time(message.posted_at) %><br>

@@ -92,7 +92,8 @@ module ApplicationHelper
   end
   
   def recent_background_color(object, default_color = "lightgray")
-    logged_in_user && object.is_recent?(logged_in_user) && !object.owned_by?(logged_in_user) ? "lightgreen" : default_color
+    color = logged_in_user && object.is_recent?(logged_in_user) ? "lightgreen" : default_color
+    "background-color: #{color};" if color
   end
   
   # ===========================================================

@@ -2,6 +2,7 @@ class Message < ActiveRecord::Base
   
   acts_as_tree
   has_nested_comments
+  has_recency :time => :posted_at, :user => :poster
   
   belongs_to :poster, :class_name => "User", :foreign_key => "posted_by_user_id"
   validates_presence_of :posted_by_user_id, :posted_at

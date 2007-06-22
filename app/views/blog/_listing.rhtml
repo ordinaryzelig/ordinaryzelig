@@ -1,5 +1,5 @@
 <% show_who ||= false -%>
-<div style="padding-bottom: 5mm;">
+<div style="padding: 2mm; margin-bottom: 5mm; <%= recent_background_color(blog, nil) %>">
   <%= link_to(blog.title, :action => "view", :id => blog.id) %><br>
   <div style="padding-left: 3mm; font-size: 10pt; color: gray;">
     <%= "#{link_to_profile(blog.user)} - " if show_who %>
