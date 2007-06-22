@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   
   after_filter :mark_requested_page
   
-  SESSION_HOURS = 3
+  SESSION_HOURS = 24
+  SESSION_FORCE_RELOGIN_DAYS = 3
   
   helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?
   
@@ -59,10 +60,14 @@ class ApplicationController < ActionController::Base
   def session_expired?
     if session[:last_authenticated_action_at]
       session_expires_at = session[:last_authenticated_action_at] + (60 * 60 * SESSION_HOURS)
-      session_expires_at < Time.now
+      session_expires_at < Time.now || need_force_relogin?
     else
       false
     end
+  end
+  
+  def need_force_relogin?
+    logged_in_user.user_activity.last_login_at + (SESSION_FORCE_RELOGIN_DAYS * 24 * 60 * 60) < Time.now
   end
   
   def set_last_authenticated_action_at
