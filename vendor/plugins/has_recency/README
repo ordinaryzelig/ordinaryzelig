@@ -1,4 +1,15 @@
 ChecksForRecency
 ================
 
-Description goes here
+
+
+DESCRIPTION
+   a model object that has_recency can be compared with a user object and return whether the model object is recent.
+
+
+
+USAGE
+   declare has_recency in model definiton.
+   options:
+      :time => :name_of_time_object_to_be_compared
+      :user => :name_of_user_object_to_be_compared (optional)
