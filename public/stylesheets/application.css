@@ -75,7 +75,7 @@ html{
     border: 1px solid black;
 }
 
-.listingTitle, .listingSummary{
+.listingSection{
     padding: 2mm;
 }
 
