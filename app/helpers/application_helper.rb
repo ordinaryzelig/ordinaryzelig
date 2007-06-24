@@ -93,8 +93,16 @@ module ApplicationHelper
   
   def recent_background_color(object, default_color = "lightgray")
     color = (logged_in_user && object.is_recent?(logged_in_user)) ? "lightgreen" : default_color
-    logger.info "blah #{color}"
     "background-color: #{color};" if color
+  end
+  
+  def comment_info(entity)
+    latest_comment = entity.latest_comment
+    if latest_comment
+      "last comment: #{link_to_profile(latest_comment.user)} - #{default_time(latest_comment.created_at)}"
+    else
+      "no comments"
+    end
   end
   
   # ===========================================================

@@ -1,1 +1,2 @@
-has_recency only works for message.
+listing partial.
+add option to has_recency to check comments.

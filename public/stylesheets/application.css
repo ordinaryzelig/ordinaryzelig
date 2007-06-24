@@ -69,3 +69,17 @@ html{
 #myBracket{
     font-size: 75%;
 }
+
+.listing{
+    margin-bottom: 10mm;
+    border: 1px solid black;
+}
+
+.listingTitle, .listingSummary{
+    padding: 2mm;
+}
+
+.listingInfo{
+    font-size: 10pt;
+    color: gray;
+}

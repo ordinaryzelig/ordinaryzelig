@@ -4,7 +4,7 @@
 
 <div id="paginated_area">
   <% @messages.each do |message| -%>
-    <%= render(:partial => "message", :locals => {:message => message}) %>
+    <%= render(:partial => "shared/summary", :locals => {:entity => message, :show_who => true}) %>
   <% end -%>
 </div>
 

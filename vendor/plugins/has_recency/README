@@ -13,3 +13,10 @@ USAGE
    options:
       :time => :name_of_time_object_to_be_compared
       :user => :name_of_user_object_to_be_compared (optional)
+
+
+
+TO DO
+   has_recency should take additional block.
+   this is a better way to make sure entity isn't owned by passed user.
+   test whether entity has comments.  maybe this should be another plugin?

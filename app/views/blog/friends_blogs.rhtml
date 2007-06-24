@@ -1,3 +1,3 @@
 <% @blogs.each do |blog| -%>
-  <%= render(:partial => "listing", :locals => {:blog => blog, :show_who => true}) %>
+  <%= render(:partial => "shared/summary", :locals => {:entity => blog, :show_who => true}) %>
 <% end -%>

@@ -1,0 +1,21 @@
+<%
+=begin
+params
+  entity
+=end -%>
+
+<% show_who ||= false -%>
+<% link_url = {:action => "view", :id => entity.id} %>
+<div class=listing>
+  <div class=listingTitle style="<%= recent_background_color(entity) %>">
+    <%= link_to(entity.summarize_title, link_url) %>
+    <div class=listingInfo style="padding-left: 5mm;">
+      <%= "#{link_to_profile(entity.summarize_who)} - " if show_who %>
+      <%= default_time(entity.summarize_when) %><br>
+      <%= comment_info(entity) %>
+    </div>
+  </div>
+  <div class=listingSummary>
+    <%= h(entity.summarize_what) %><%= link_to('...', link_url) %>
+  </div>
+</div>
