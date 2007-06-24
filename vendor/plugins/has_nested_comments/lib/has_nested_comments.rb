@@ -17,6 +17,11 @@ module OrdinaryZelig
                  :through => :comment_groups,
                  :order => :created_at
         include OrdinaryZelig::HasNestedComments::InstanceMethods
+        @has_comments = true
+      end
+      
+      def has_comments?
+        @has_comments || false
       end
       
     end
@@ -25,6 +30,10 @@ module OrdinaryZelig
       
       def latest_comment
         root_comments.map(&:latest).max { |a, b| a.created_at <=> b.created_at }
+      end
+      
+      def has_comments?
+        self.class.has_comments?
       end
       
     end

@@ -32,11 +32,13 @@ module OrdinaryZelig
           if usr.user_activity && usr.user_activity.previous_login_at
             # return if recency_time_obj is recent.
             return (recency_time_obj && recency_time_obj >= usr.user_activity.previous_login_at)# ||
-            # # or if there are comments, check if latest_comment is recent.
-            # (method_defined?(:latest_comment) && latest_comment && latest_comment.created_at >= usr.user_activity.previous_login_at)
           end
         end
         false
+      end
+      
+      def has_recent_activity?(usr)
+        is_recent?(usr) || has_comments? ? latest_comment.is_recent?(usr) : false
       end
       
     end

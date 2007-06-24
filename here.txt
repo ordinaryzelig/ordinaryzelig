@@ -1,2 +1,1 @@
-listing partial.
 add option to has_recency to check comments.
