@@ -79,16 +79,21 @@ module ApplicationHelper
     content_for("banner") { "" }
   end
   
-  def link_to_pagination(str, page)
-    if page
-      link_to(str, :page => page.number)
-      # link_to_remote(str, :url => {:page => page_number},
-      #                     :update => "paginated_area",
-      #                     :before => visual_effect(:fade, "paginated_area", {:queue => 'end'}),
-      #                     :complete => visual_effect(:appear, "paginated_area",  {:queue => 'end'}))
+  def link_to_page(str, page, object_class)
+    is_current_page = page && page.paginator.current == page
+    content = if page && !is_current_page
+      link_to_remote(str, {:url => {:page => page.number},
+                           :update => "paginated_area",
+                           :before => visual_effect(:fade, "paginated_area", {:queue => 'end'}),
+                           :complete => visual_effect(:appear, "paginated_area",  {:queue => 'end'})})
     else
-      content_tag(:span, str, {:style => "color: lightgray;"})
+      str
     end
+    content_tag(:span, content, :id => paginated_page_num_id(object_class, str), :style => is_current_page ? "font-size: 120%; color: red;" : nil)
+  end
+  
+  def paginated_page_num_id(object_class, str)
+    "#{Inflector::pluralize(object_class.to_s)}_page_#{str}"
   end
   
   def recent_background_color(object, default_color = "lightgray")

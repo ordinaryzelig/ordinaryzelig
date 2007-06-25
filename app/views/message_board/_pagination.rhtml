@@ -1,24 +1,16 @@
-<% unless request.xhr? -%>
+<div style="margin-top: 3mm; margin-bottom: 3mm;">
 
-  <div style="margin-top: 3mm; margin-bottom: 3mm;">
-  
-    pages:
-  
-    <% # previous. -%>
-    <%= link_to_pagination("previous", pages.current.previous) %>
-    
-    <% # next. -%>
-    <%= link_to_pagination("next", pages.current.next) %>
-    
-    <% # pages. %>
-    <% pages.each do |page| -%>
-      <% if page == pages.current -%>
-        <span style="font-size: larger; color: red;"><%= page.number %></span>
-      <% else -%>
-        <%= link_to_pagination(page.number, page) %>
-      <% end -%>
-    <% end -%>
+  page:
 
-  </div>
+  <% # previous. -%>
+  <%= link_to_page("previous", paginator.current.previous, object_class) %>
   
-<% end -%>
+  <% # next. -%>
+  <%= link_to_page("next", paginator.current.next, object_class) %>
+  
+  <% # links for pages. %>
+  <% paginator.each do |page| -%>
+    <%= link_to_page(page.number, page, object_class) %>
+  <% end -%>
+  
+</div>
