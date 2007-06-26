@@ -87,9 +87,9 @@ module ApplicationHelper
       link_to_remote(str, {:url => {:page => page.number},
                            :update => pagination_area_div,
                            :before => "Element.show('#{object_class}PaginationSpinner')",
-                           :loading => visual_effect(:blind_up, pagination_objects_div, {:queue => 'end'}),
-                           :complete => stack("Element.hide(#{pagination_objects_div});",
-                                             visual_effect(:blind_down, pagination_objects_div, {:queue => 'end'}))}
+                           :complete => stack(visual_effect(:blind_up, pagination_objects_div, {:queue => 'end'}),
+                                              "Element.hide(#{pagination_objects_div});",
+                                              visual_effect(:blind_down, pagination_objects_div, {:queue => 'end'}))}
       )
     else
       str
