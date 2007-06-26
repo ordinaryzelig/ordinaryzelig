@@ -1,6 +1,4 @@
-<div id="paginated_area">
-
-  <%= render(:partial => "pagination", :locals => {:paginator => @messages_pages}) %>
+<% content_for "#{@messages.first.class.to_s}_pagination" do -%>
   
   <div style="margin-bottom: 5mm;"><%= link_to("new", :action => "new") %></div>
   
@@ -8,4 +6,6 @@
     <%= render(:partial => "shared/summary", :locals => {:entity => message, :show_who => true}) %>
   <% end -%>
   
-</div>
+<% end -%>
+
+<%= render(:partial => "pagination", :locals => {:paginator => @messages_pages, :object_class => @messages.first.class.to_s}) if !@messages.empty? %>

@@ -82,10 +82,15 @@ module ApplicationHelper
   def link_to_page(str, page, object_class)
     is_current_page = page && page.paginator.current == page
     content = if page && !is_current_page
+      pagination_area_div = "#{object_class}PaginationArea"
+      pagination_objects_div = "#{object_class}PaginationObjects"
       link_to_remote(str, {:url => {:page => page.number},
-                           :update => "paginated_area",
-                           :before => visual_effect(:fade, "paginated_area", {:queue => 'end'}),
-                           :complete => visual_effect(:appear, "paginated_area",  {:queue => 'end'})})
+                           :update => pagination_area_div,
+                           :before => "Element.show('#{object_class}PaginationSpinner')",
+                           :loading => visual_effect(:blind_up, pagination_objects_div, {:queue => 'end'}),
+                           :complete => stack("Element.hide(#{pagination_objects_div});",
+                                             visual_effect(:blind_down, pagination_objects_div, {:queue => 'end'}))}
+      )
     else
       str
     end

@@ -1,16 +1,27 @@
-<div style="margin-top: 3mm; margin-bottom: 3mm;">
-
-  page:
-
-  <% # previous. -%>
-  <%= link_to_page("previous", paginator.current.previous, object_class) %>
+<div id="<%= object_class %>PaginationArea">
   
-  <% # next. -%>
-  <%= link_to_page("next", paginator.current.next, object_class) %>
+  <div id="<%= object_class %>PaginationLinks" style="margin-top: 3mm; margin-bottom: 3mm;">
+    
+    page:
+    
+    <% # previous. -%>
+    <%= link_to_page("previous", paginator.current.previous, object_class) %>
+    
+    <% # next. -%>
+    <%= link_to_page("next", paginator.current.next, object_class) %>
+    
+    <% # links for pages. %>
+    <% paginator.each do |page| -%>
+      <%= link_to_page(page.number, page, object_class) %>
+    <% end -%>
+    
+    <% # spinner. %>
+    <%= image_tag("spinner.gif", :id => "#{object_class}PaginationSpinner", :style => "display: none;") %>
+    
+  </div>
   
-  <% # links for pages. %>
-  <% paginator.each do |page| -%>
-    <%= link_to_page(page.number, page, object_class) %>
-  <% end -%>
+  <div id="<%= object_class %>PaginationObjects">
+    <%= yield "#{object_class}_pagination" %>
+  </div>
   
 </div>
