@@ -20,7 +20,7 @@
     
   </div>
   
-  <div id="<%= object_class %>PaginationObjects">
+  <div id="<%= object_class %>PaginationObjects" <%= "style=display: none;" if request.xhr? %>>
     <%= yield "#{object_class}_pagination" %>
   </div>
   
