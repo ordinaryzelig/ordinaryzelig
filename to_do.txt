@@ -2,8 +2,7 @@ links for other people's profile.
 
 my friends: show if they consider you.
 
-ajaxy pagination
-   need to update pagination links too.
+ajaxy pagination on textdrive loads page too fast so blind_up rarely shows.
 
 preview for comments should just show preview without hiding editing components.
 
