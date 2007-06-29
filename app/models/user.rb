@@ -160,6 +160,14 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name} (#{display_name})"
   end
   
+  def last_login_at
+    user_activity.last_login_at if user_activity
+  end
+  
+  def previous_login_at
+    user_activity.previous_login_at if user_activity
+  end
+  
   private
   
   def hash(str)

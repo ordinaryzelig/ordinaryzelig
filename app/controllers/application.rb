@@ -131,4 +131,10 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def recents
+    @recents = EntityType.find(:all).map do |entity_type_obj|
+      entity_type_obj.entity_class.recents(logged_in_user)
+    end.flatten.sort { |a, b| a.recency_time_obj <=> b.recency_time_obj}
+  end
+  
 end

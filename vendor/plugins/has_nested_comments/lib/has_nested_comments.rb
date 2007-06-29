@@ -29,7 +29,7 @@ module OrdinaryZelig
     module InstanceMethods
       
       def latest_comment
-        root_comments.map(&:latest).max { |a, b| a.created_at <=> b.created_at }
+        root_comments.map(&:latest_comment).max { |a, b| a.created_at <=> b.created_at }
       end
       
       def has_comments?

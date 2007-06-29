@@ -58,6 +58,15 @@
     <% end -%>
   </div>
   
+  <% # ============================================================= %>
+  <% # recents. -%>
+  
+  <div class=profileSection>
+    <% @recents.each do |obj| -%>
+      <%= render(:partial => "shared/summary", :locals => {:entity => obj}) %>
+    <% end -%>
+  </div>
+  
 <% else -%>
   <% hide_banner %>
 <% end -%>

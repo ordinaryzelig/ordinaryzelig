@@ -19,6 +19,22 @@ module OrdinaryZelig
         include mod
         # all models that has_recency include OrdinaryZelig::ChecksForRecency::InstanceMethods.
         include OrdinaryZelig::ChecksForRecency::InstanceMethods
+        @has_recency = true
+      end
+      
+      def has_recency?
+        @has_recency || false
+      end
+      
+      def recents(user, options = {})
+        with_scope :find => options do
+          find(:all).select do |obj|
+            obj if obj.recency_time_obj &&
+                   user.previous_login_at &&
+                   obj.recency_time_obj >= user.previous_login_at &&
+                   obj.recency_time_obj <= Time.now
+          end
+        end
       end
       
     end
