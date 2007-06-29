@@ -13,7 +13,7 @@ class BlogController < ApplicationController
     @page_title = "blog - #{@user.display_name}" if @user
   end
   
-  def view
+  def show
     @blog = Blog.find_by_id(params[:id], :include => :user)
     if @blog
       unless is_self_or_admin?(@blog.user) || @blog.user.considers_friend?(logged_in_user)
