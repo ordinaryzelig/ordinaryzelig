@@ -34,7 +34,7 @@ class BlogController < ApplicationController
       @blog.user ||= logged_in_user
       if @blog.save
         flash[:success] = "blog created."
-        redirect_to(:action => "view", :id => @blog.id)
+        redirect_to(:action => "show", :id => @blog.id)
       end
     end
   end
