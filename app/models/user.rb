@@ -168,6 +168,10 @@ class User < ActiveRecord::Base
     user_activity.previous_login_at if user_activity
   end
   
+  def can_read?(obj)
+    obj.summarize_who.considers_friend?(self)
+  end
+  
   private
   
   def hash(str)

@@ -71,7 +71,8 @@ html{
 }
 
 .listing{
-    margin-bottom: 10mm;
+    margin-bottom: 5mm;
+    margin-top: 5mm;
     border: 1px solid black;
 }
 

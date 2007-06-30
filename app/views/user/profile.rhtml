@@ -62,6 +62,7 @@
   <% # recents. -%>
   
   <div class=profileSection>
+    <%= pluralize(@recents.size, "recent activity") %>
     <% @recents.each do |obj| -%>
       <%= render(:partial => "shared/summary", :locals => {:entity => obj}) %>
     <% end -%>
