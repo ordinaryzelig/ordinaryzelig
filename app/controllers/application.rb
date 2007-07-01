@@ -132,9 +132,9 @@ class ApplicationController < ActionController::Base
   end
   
   def recents
-    @recents = EntityType.find(:all).map do |entity_type_obj|
+    @recents = EntityType.find(:all).reject { |et| et.entity_class == Comment }.map do |entity_type_obj|
       entity_type_obj.entity_class.recents(logged_in_user)
-    end.flatten.sort { |a, b| a.recency_time_obj <=> b.recency_time_obj}
+    end.flatten.sort { |a, b| b.recency_time_obj <=> a.recency_time_obj}
   end
   
 end

@@ -36,6 +36,12 @@ module OrdinaryZelig
         self.class.has_comments?
       end
       
+      def recent_comments(user)
+        root_comments.map do |com|
+          com.self_and_descendants { |c| c.is_recent?(user) }
+        end.flatten
+      end
+      
     end
     
   end

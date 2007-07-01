@@ -205,6 +205,3 @@ end
 class Time
   include UnitOfTime
 end
-
-# b = Time::Days.new(-10)
-# puts b.practical
