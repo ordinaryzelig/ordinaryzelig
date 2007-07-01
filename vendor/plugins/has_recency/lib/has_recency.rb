@@ -55,7 +55,7 @@ module OrdinaryZelig
       end
       
       def has_recent_activity?(user)
-        is_recent?(user) || has_comments? ? latest_comment.is_recent?(user) : false
+        is_recent?(user) || (can_have_comments? && latest_comment && latest_comment.is_recent?(user))
       end
       
     end

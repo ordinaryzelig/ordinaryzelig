@@ -11,7 +11,7 @@
     <div class=listingInfo style="padding-left: 5mm;">
       <%= "#{link_to_profile(entity.summarize_who)} - " if show_who %>
       <%= default_time(entity.summarize_when) %><br>
-      <%= comment_info(entity) unless entity.class == Comment %>
+      <%= comment_info(entity) %>
     </div>
   </div>
   <div class=listingSection>

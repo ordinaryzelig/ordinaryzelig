@@ -20,7 +20,7 @@ module OrdinaryZelig
         @has_comments = true
       end
       
-      def has_comments?
+      def can_have_comments?
         @has_comments || false
       end
       
@@ -29,16 +29,16 @@ module OrdinaryZelig
     module InstanceMethods
       
       def latest_comment
-        root_comments.map(&:latest_comment).max { |a, b| a.created_at <=> b.created_at }
+        @latest_comment ||= root_comments.map(&:latest_comment).max { |a, b| a.created_at <=> b.created_at }
       end
       
-      def has_comments?
-        self.class.has_comments?
+      def can_have_comments?
+        self.class.can_have_comments?
       end
       
-      def recent_comments(user)
-        root_comments.map do |com|
-          com.self_and_descendants { |c| c.is_recent?(user) }
+      def comments(&block)
+        @comments ||= root_comments.map do |com|
+          com.self_and_descendants { |c| block.nil? || block.call(c) }
         end.flatten
       end
       
