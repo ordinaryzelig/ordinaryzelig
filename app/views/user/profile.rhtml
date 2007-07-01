@@ -65,7 +65,7 @@
     <div class=profileSection>
       <%= pluralize(@recents.size, "new item") %> since your last login <span class=listingInfo><%= default_time(@user.previous_login_at) %></span>
       <% @recents.each do |obj| -%>
-        <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_type => true, :show_who => true, :show_recent_comments => true}) %>
+        <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_type => true, :show_who => true, :show_recency => true}) %>
       <% end -%>
     </div>
   <% end -%>

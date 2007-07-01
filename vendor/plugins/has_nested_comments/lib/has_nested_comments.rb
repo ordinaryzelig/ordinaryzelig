@@ -43,7 +43,7 @@ module OrdinaryZelig
       end
       
       def comments(&block)
-        @comments ||= root_comments.map do |com|
+        root_comments.map do |com|
           com.self_and_descendants { |c| block.nil? || block.call(c) }
         end.flatten
       end
