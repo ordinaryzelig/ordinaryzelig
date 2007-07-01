@@ -61,7 +61,7 @@ class BlogController < ApplicationController
     else
       if @blog.update_attributes(params[:blog])
         flash[:success] = "blog edited."
-        redirect_to(:action => "view", :id => @blog.id)
+        redirect_to(:action => "show", :id => @blog.id)
       end
     end
   end
