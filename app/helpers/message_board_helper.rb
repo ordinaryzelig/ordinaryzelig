@@ -31,7 +31,7 @@ module MessageBoardHelper
   # return messageHeader div class depending on context and latest posting.
   def message_header_div_class(message, context)
     html_str = "messageHeader"
-    if logged_in_user && logged_in_user.user_activity && logged_in_user.user_activity.previous_login_at
+    if logged_in_user && logged_in_user.user_activity && logged_in_user.previous_login_at
       if "child_of_first_page" == context
         # compare with message.latest_reply.
         message_to_compare = message.latest_message
@@ -39,7 +39,7 @@ module MessageBoardHelper
         # compare with message.
         message_to_compare = message
       end
-      html_str << "Recent" if message_to_compare.latest_message.posted_at >= logged_in_user.user_activity.previous_login_at && !is_self?(message_to_compare.poster)
+      html_str << "Recent" if message_to_compare.latest_message.posted_at >= logged_in_user.previous_login_at && !is_self?(message_to_compare.poster)
     end
     html_str
   end

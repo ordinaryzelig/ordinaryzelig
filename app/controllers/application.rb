@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
   end
   
   def need_force_relogin?
-    logged_in_user.user_activity.last_login_at + (SESSION_FORCE_RELOGIN_DAYS * 24 * 60 * 60) < Time.now
+    logged_in_user.last_login_at + (SESSION_FORCE_RELOGIN_DAYS * 24 * 60 * 60) < Time.now
   end
   
   def set_last_authenticated_action_at
