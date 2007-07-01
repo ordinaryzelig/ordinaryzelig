@@ -37,7 +37,7 @@ module ApplicationHelper
   end
   
   def default_time_format(time)
-    time.strftime("%A %B %d, %I:%M %p %Z")
+    time.strftime("%A %B %d, %I:%M %p %Z") if time
   end
   
   def link_to_my_bracket
@@ -72,7 +72,7 @@ module ApplicationHelper
   end
   
   def default_time(time)
-    "#{default_time_format(time)} (#{time_til(time)})"
+    "#{default_time_format(time)} (#{time_til(time)})" if time
   end
   
   def hide_banner

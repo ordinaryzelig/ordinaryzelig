@@ -63,9 +63,9 @@
   
   <% if is_self?(@user) -%>
     <div class=profileSection>
-      new since your last login
+      new since your last login <span class=listingInfo><%= default_time(@user.previous_login_at) %></span>
       <% @recents.each do |obj| -%>
-        <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_type => true}) %>
+        <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_type => true, :show_who => true}) %>
       <% end -%>
     </div>
   <% end -%>

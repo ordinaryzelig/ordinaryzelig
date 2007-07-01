@@ -7,5 +7,3 @@ ajaxy pagination on textdrive loads page too fast so blind_up rarely shows.
 preview for comments should just show preview without hiding editing components.
 
 comments post highlighting shouldn't highlight reply section, just the comment.
-
-summary link should be link to view.  entity_class.summarize_link???

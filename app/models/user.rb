@@ -130,7 +130,7 @@ class User < ActiveRecord::Base
   
   # passed user is in self's friends list.
   def considers_friend?(user)
-    friends.include?(user) || user == self
+    friends.include?(user)
   end
   
   # self is in passed user's friends list.
