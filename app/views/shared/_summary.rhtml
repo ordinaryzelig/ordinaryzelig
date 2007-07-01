@@ -1,10 +1,11 @@
 <% show_who ||= false -%>
 <% show_type ||= false -%>
+<% show_recent_comments ||= false -%>
 
 <div class=listing>
   <div class=listingSection style="<%= recent_background_color(entity) %>">
     <% if show_type -%>
-      <%= content_tag(:span, "#{entity.summarize_type}") -%>
+      <%= content_tag(:span, show_recent_comments ? "#{entity.summarize_type} comments" : "#{entity.summarize_type}") -%>
       <br>
     <% end -%>
     <%= link_to(entity.summarize_title, entity.summarize_url) %>
@@ -15,6 +16,10 @@
     </div>
   </div>
   <div class=listingSection>
-    <%= h(entity.summarize_what) %><%= link_to('...', entity.summarize_url, :title => "read more") %>
+    <% if show_recent_comments -%>
+      <%= link_to(pluralize(entity.recent_comments(logged_in_user).size, "new comment"), entity.summarize_url) -%>
+    <% else -%>
+      <%= h(entity.summarize_what) %><%= link_to('...', entity.summarize_url, :title => "read more") %>
+    <% end -%>
   </div>
 </div>

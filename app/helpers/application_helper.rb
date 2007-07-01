@@ -101,14 +101,14 @@ module ApplicationHelper
   end
   
   def recent_background_color(object, default_color = "lightgray")
-    color = (logged_in_user && object.is_recent?(logged_in_user)) ? "lightgreen" : default_color
+    color = (logged_in_user && object.has_recent_activity?(logged_in_user)) ? "lightgreen" : default_color
     "background-color: #{color};" if color
   end
   
   def comment_info(entity)
     if entity.can_have_comments? && !entity.comments.empty?
       com_str = pluralize(entity.comments.size, "comment")
-      com_str += ", last: #{link_to_profile(entity.latest_comment.user)} - #{default_time(entity.latest_comment.created_at)}" if !entity.comments.empty?
+      com_str += " - last: #{link_to_profile(entity.latest_comment.user)} - #{default_time(entity.latest_comment.created_at)}" if !entity.comments.empty?
     else
       com_str = "no comments"
     end

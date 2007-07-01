@@ -2,7 +2,9 @@ links for other people's profile.
 
 my friends: show if they consider you.
 
-ajaxy pagination on textdrive loads page too fast so blind_up rarely shows.
+ajaxy pagination:
+  textdrive loads page too fast so blind_up rarely shows.
+  window.
 
 preview for comments should just show preview without hiding editing components.
 

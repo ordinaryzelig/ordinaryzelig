@@ -36,6 +36,12 @@ module OrdinaryZelig
         self.class.can_have_comments?
       end
       
+      def recent_comments(user, &block)
+        comments do |c|
+          c.is_recent?(user) && (block.nil? || block.call(c))
+        end
+      end
+      
       def comments(&block)
         @comments ||= root_comments.map do |com|
           com.self_and_descendants { |c| block.nil? || block.call(c) }
