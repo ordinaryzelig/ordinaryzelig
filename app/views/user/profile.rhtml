@@ -62,7 +62,7 @@
   <% # recents. -%>
   
   <div class=profileSection>
-    <%= pluralize(@recents.size, "recent activity") %>
+    <%= pluralize(@recents.size, "new thing") %> since your last login
     <% @recents.each do |obj| -%>
       <%= render(:partial => "shared/summary", :locals => {:entity => obj}) %>
     <% end -%>

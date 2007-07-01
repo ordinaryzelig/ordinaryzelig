@@ -169,7 +169,7 @@ class User < ActiveRecord::Base
   end
   
   def can_read?(obj)
-    obj.summarize_who.considers_friend?(self)
+    obj.summarize_who.is_friend_of?(self)
   end
   
   private

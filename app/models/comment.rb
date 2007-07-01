@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
   
   acts_as_tree :order => "created_at"
   has_recency :time => :created_at, :user => :user
-  can_be_summarized_by :what => :comment, :who => :user, :when => :created_at, :title => "\"\#{comment_group.entity.class} comment\""
+  can_be_summarized_by :what => :comment, :who => :user, :when => :created_at, :title => proc { "#{entity.class} comment: #{entity.title}" }
   
   belongs_to :user
   validates_presence_of :comment, :user_id, :created_at
@@ -27,11 +27,11 @@ class Comment < ActiveRecord::Base
   end
   
   def comment_group
-    CommentGroup.find_by_root_comment_id(root.id)
+    @comment_group ||= CommentGroup.find_by_root_comment_id(root.id)
   end
   
   def entity
-    comment_group.entity
+    @entity ||= comment_group.entity
   end
   
   # recursively find the lastest child message.
@@ -46,10 +46,6 @@ class Comment < ActiveRecord::Base
       end
       maxes_of_children.max{|a, b| a.created_at <=> b.created_at}
     end
-  end
-  
-  def comment_group
-    CommentGroup.find_by_root_comment_id(self.id)
   end
   
 end

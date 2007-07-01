@@ -19,12 +19,16 @@ module OrdinaryZelig
             max_characters = value
           else
             case key
-            when :what
-              proc_str = "Proc.new { #{value}[0..max_summary_characters] }"
+            when :what || "what"
+              prc = proc { eval("#{value}")[0..max_summary_characters] }
             else
-              proc_str = "Proc.new { #{value} }"
+              if value.is_a?(String) || value.is_a?(Symbol)
+                prc = proc { eval("#{value}") }
+              else
+                prc = value
+              end
             end
-            eval("mod.send('define_method', 'summarize_#{key}', #{proc_str})")
+            mod.send('define_method', "summarize_#{key}", prc)
           end
         end
         eval("mod.send('define_method', 'max_summary_characters', Proc.new { #{max_characters} })")
