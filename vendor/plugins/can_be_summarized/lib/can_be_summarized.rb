@@ -9,7 +9,7 @@ module OrdinaryZelig
     module ClassMethods
       
       def can_be_summarized_by(options)
-        keys = [:what, :title, :who, :when, :max]
+        keys = [:what, :title, :who, :when, :max, :type, :url]
         mod = Module.new
         max_characters = 50
         options.each do |key, value|

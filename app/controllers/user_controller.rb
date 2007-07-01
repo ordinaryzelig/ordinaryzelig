@@ -107,7 +107,7 @@ class UserController < ApplicationController
   def friends
     @user = User.find_by_id(params[:id])
     if @user && !@user.is_admin_or_master?
-      if @user.considers_friend?(logged_in_user)
+      if is_self?(@user) || @user.considers_friend?(logged_in_user)
         @page_title = "#{@user.display_name} friends"
       else
         @reason_not_visible = "sorry, this is private."

@@ -135,7 +135,7 @@ class User < ActiveRecord::Base
   
   # self is in passed user's friends list.
   def is_friend_of?(user)
-    user.considers_friend?(self) || user == self
+    user.considers_friend?(self)
   end
   
   # both self and user consider each other friends.

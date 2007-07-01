@@ -30,7 +30,7 @@ module OrdinaryZelig
         if user.previous_login_at
           with_scope :find => options do
             find(:all).select do |obj|
-              obj if obj.recency_time_obj >= user.previous_login_at && user.can_read?(obj)
+              obj if user.considers_friend?(obj.summarize_who) && obj.recency_time_obj >= user.previous_login_at && user.can_read?(obj)
             end
           end
         else
