@@ -9,36 +9,35 @@ module OrdinaryZelig
     module ClassMethods
       
       def can_be_summarized_by(options)
-        keys = [:what, :title, :who, :when, :max, :type, :url]
+        defaults = {:type => proc { self.class },
+                    :max => 50,
+                    :who => :user,
+                    :when => :created_at}
         mod = Module.new
-        max_characters = 50
-        options.each do |key, value|
-          raise "unrecognized key '#{key}'" unless keys.include?(key)
-          case key
-          when :max
-            max_characters = value
-          else
-            case key
-            when :what || "what"
-              prc = proc { eval("#{value}")[0..max_summary_characters] }
-            else
-              if value.is_a?(String) || value.is_a?(Symbol)
-                prc = proc { eval("#{value}") }
-              else
-                prc = value
-              end
-            end
-            mod.send('define_method', "summarize_#{key}", prc)
-          end
-        end
-        eval("mod.send('define_method', 'max_summary_characters', Proc.new { #{max_characters} })")
+        options.each { |key, value| mod.send('define_method', "summarize_#{key}", proc_for_option(key, value)) }
+        defaults.each { |key, value| mod.send('define_method', "summarize_#{key}", proc_for_option(key, value)) unless mod.method_defined?("summarize_#{key}") }
+        # defaults.
         include mod
-        include OrdinaryZelig::CanBeSummarized::InstanceMethods
       end
       
-    end
-    
-    module InstanceMethods
+      private
+      
+      def proc_for_option(key, value)
+        raise "unrecognized key '#{key}'" unless [:what, :title, :who, :when, :max, :type, :url].include?(key)
+        case key
+        when :what || "what"
+          prc = proc { eval("#{value}")[0..summarize_max] }
+        else
+          if value.is_a?(String) || value.is_a?(Symbol)
+            prc = proc { eval("#{value}") }
+          elsif value.is_a?(Proc)
+            prc = value
+          else
+            prc = proc { value }
+          end
+        end
+        prc
+      end
       
     end
     
