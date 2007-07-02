@@ -27,5 +27,6 @@ create table users.friendships (
     id serial PRIMARY KEY,
     user_id int REFERENCES users.users (id),
     friend_id int REFERENCES users.users (id),
+		created_at timestamp with time zone,
     constraint user_friend unique (user_id, friend_id)
 );

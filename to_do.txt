@@ -9,3 +9,8 @@ ajaxy pagination:
 preview for comments should just show preview without hiding editing components.
 
 comments post highlighting shouldn't highlight reply section, just the comment.
+
+friendship has_recency
+  alter table users.friendships  add column created_at timestamp with time zone;
+  Friendship.find(:all).each { |f| f.created_at = Time.now.localtime; f.save }
+  EntityType.new(:name => "Friendship").save

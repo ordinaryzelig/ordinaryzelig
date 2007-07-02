@@ -17,7 +17,6 @@ module OrdinaryZelig
           mod.send('define_method', "recency_#{key}_obj", value.is_a?(Proc) ? value : eval("Proc.new { #{value} }"))
         end
         include mod
-        # all models that has_recency include OrdinaryZelig::ChecksForRecency::InstanceMethods.
         include OrdinaryZelig::ChecksForRecency::InstanceMethods
         @has_recency = true
       end
@@ -29,9 +28,7 @@ module OrdinaryZelig
       def recents(user, options = {})
         if user.previous_login_at
           with_scope :find => options do
-            find(:all).select do |obj|
-              obj if user.considers_friend?(obj.recency_user_obj) && obj.has_recent_activity?(user)
-            end
+            find(:all).select { |obj| obj.has_recent_activity?(user) }
           end
         else
           []
@@ -43,11 +40,11 @@ module OrdinaryZelig
     module InstanceMethods
       
       def is_recent?(user)
-        if defined?(recency_block_obj) && recency_block_obj
-          recency_block_obj.call(user)
+        if defined?(recency_block_obj)
+          recency_block_obj(user)
         else
           # check if user is owner and is allowed to read it.
-          if recency_user_obj != user && user.can_read?(self)
+          if recency_user_obj != user && user.considers_friend?(recency_user_obj) && user.can_read?(self)
             # check if user has user_activity and previous_login_at.
             if user.previous_login_at
               # return if recency_time_obj is recent.
