@@ -6,9 +6,8 @@ class Friendship < ActiveRecord::Base
   
   validates_presence_of :user_id, :friend_id, :created_at
   
-  has_recency :time => :created_at, :block => proc { |user| self.user == user && user.previous_login_at && recency_time_obj >= user.previous_login_at }
-  can_be_summarized_by :who => :friend,
-                       :title => proc { "#{summarize_who.first_last_display} wants to be your friend." },
+  has_recency :user => :friend, :time => :created_at, :block => proc { |user| recency_user_obj == user && user.previous_login_at && recency_time_obj >= user.previous_login_at }
+  can_be_summarized_by :title => proc { "#{user.first_last_display} wants to be your friend." },
                        :url => {}
   
   def before_validation_on_create

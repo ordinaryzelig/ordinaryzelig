@@ -22,6 +22,7 @@ module OrdinaryZelig
         KEYS.each { |key, value| mod.send('define_method', "summarize_#{key}", proc { nil }) unless mod.method_defined?("summarize_#{key}") }
         # defaults.
         include mod
+        include ActionView::Helpers::TextHelper
       end
       
       private
@@ -30,7 +31,7 @@ module OrdinaryZelig
         raise "unrecognized key '#{key}'" unless KEYS.include?(key)
         case key
         when :what || "what"
-          prc = proc { eval("#{value}")[0..summarize_max] }
+          prc = proc { strip_tags(eval("#{value}"))[0..summarize_max] }
         else
           if value.is_a?(String) || value.is_a?(Symbol)
             prc = proc { eval("#{value}") }

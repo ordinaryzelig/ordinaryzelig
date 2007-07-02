@@ -10,16 +10,23 @@ module OrdinaryZelig
       
       def has_recency(options)
         object_types = [:user, :time, :block]
-        # each model that has_recency will include a unique Modules that define recency_user_obj and recency_time_obj.
+        defaults = {:user => :user, :time => :created_at}
+        # each model that has_recency will include a unique Module that defines recency_user_obj and recency_time_obj.
         mod = Module.new
         options.each do |key, value|
           raise "unrecognized recency object type '#{key}'." unless object_types.include?(key)
-          mod.send('define_method', "recency_#{key}_obj", value.is_a?(Proc) ? value : eval("Proc.new { #{value} }"))
+          def_meth(key, value, mod)
         end
+        defaults.each { |key, value| def_meth(key, value, mod) unless mod.method_defined?("recency_#{key}_obj") }
         include mod
         include OrdinaryZelig::ChecksForRecency::InstanceMethods
         @has_recency = true
       end
+      
+      def def_meth(key, value, mod)
+        mod.send('define_method', "recency_#{key}_obj", value.is_a?(Proc) ? value : eval("Proc.new { #{value} }"))
+      end
+      private :def_meth
       
       def has_recency?
         @has_recency || false
