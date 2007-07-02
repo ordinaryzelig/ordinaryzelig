@@ -1,1 +1,4 @@
-how show new comments?
+test recent stuff.
+group new friendships?
+  if not, clean up recent item.  no need to show who.
+don't set existing friendships to now.

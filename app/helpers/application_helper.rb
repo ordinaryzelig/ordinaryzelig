@@ -106,7 +106,7 @@ module ApplicationHelper
   end
   
   def comment_info(entity)
-    if entity.class.can_have_comments? && !entity.comments.empty?
+    if !entity.comments.empty?
       com_str = pluralize(entity.comments.size, "comment")
       com_str += " - last: #{link_to_profile(entity.latest_comment.user)} - #{default_time(entity.latest_comment.created_at)}" if !entity.comments.empty?
     else

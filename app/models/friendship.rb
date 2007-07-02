@@ -8,7 +8,8 @@ class Friendship < ActiveRecord::Base
   
   has_recency :time => :created_at, :block => proc { |user| self.user == user && user.previous_login_at && recency_time_obj >= user.previous_login_at }
   can_be_summarized_by :who => :friend,
-                       :title => proc { |user| "#{user.first_last_display} wants to be your friend." }
+                       :title => proc { "#{summarize_who.first_last_display} wants to be your friend." },
+                       :url => {}
   
   def before_validation_on_create
     self.created_at ||= Time.now.localtime

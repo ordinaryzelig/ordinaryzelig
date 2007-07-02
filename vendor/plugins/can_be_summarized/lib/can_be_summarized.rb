@@ -8,14 +8,18 @@ module OrdinaryZelig
     
     module ClassMethods
       
+      KEYS = [:max, :title, :type, :url, :what, :when, :who]
+      
       def can_be_summarized_by(options)
-        defaults = {:type => proc { self.class },
-                    :max => 50,
-                    :who => :user,
-                    :when => :created_at}
+        defaults = {:max => 50,
+                    :type => proc { self.class },
+                    :url => proc{ {:controller => self.class.to_s.downcase, :action => "show", :id => self.id} },
+                    :when => :created_at,
+                    :who => :user}
         mod = Module.new
         options.each { |key, value| mod.send('define_method', "summarize_#{key}", proc_for_option(key, value)) }
         defaults.each { |key, value| mod.send('define_method', "summarize_#{key}", proc_for_option(key, value)) unless mod.method_defined?("summarize_#{key}") }
+        KEYS.each { |key, value| mod.send('define_method', "summarize_#{key}", proc { nil }) unless mod.method_defined?("summarize_#{key}") }
         # defaults.
         include mod
       end
@@ -23,7 +27,7 @@ module OrdinaryZelig
       private
       
       def proc_for_option(key, value)
-        raise "unrecognized key '#{key}'" unless [:what, :title, :who, :when, :max, :type, :url].include?(key)
+        raise "unrecognized key '#{key}'" unless KEYS.include?(key)
         case key
         when :what || "what"
           prc = proc { eval("#{value}")[0..summarize_max] }
