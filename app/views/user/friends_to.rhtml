@@ -9,10 +9,10 @@
         <%= link_to(check_box_tag(:hide_mutual_friends, 1, @hide_mutual_friends), :hide_mutual_friends => !@hide_mutual_friends) %>
       </th>
     </tr>
-    <% @considering_friends.each do |considering_friend| %>
-      <tr>
-        <td><%= link_to_profile(considering_friend) %></td>
-        <td align=center><%= @user.is_mutual_friend?(considering_friend) ? "yes" : "no" %></td>
+    <% @considering_friendships.each do |considering_friendship| %>
+      <tr style="<%= recent_background_color(considering_friendship, nil) %>">
+        <td><%= link_to_profile(considering_friendship.user, considering_friendship.user.first_last_display) %></td>
+        <td align=center><%= @user.is_mutual_friend?(considering_friendship.user) ? "yes" : "no" %></td>
       </tr>
     <% end %>
   </table>
