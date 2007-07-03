@@ -121,7 +121,7 @@ class UserController < ApplicationController
   def friends_to
     @user = User.find_by_id(params[:id])
     if @user && !@user.is_admin_or_master?
-      if is_self_or_admin?(@user) || @user.considers_friend?(logged_in_user)
+      if is_self_or_admin?(@user)
         @considering_friends = @user.considering_friends
         @hide_mutual_friends = "true" == params[:hide_mutual_friends]
         @considering_friends.reject! { |considering_friend| @user.friends.include?(considering_friend) } if @hide_mutual_friends
