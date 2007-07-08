@@ -2,13 +2,11 @@ class MessageBoardController < ApplicationController
   
   before_filter :validate_session, :except => ["index", "show"]
   
-  #AJAX_ACTIONS = ["new", "post", "preview", "edit_new", "cancel"]
   ADMIN_ACTIONS = ["edit"]
   
   def index
-    @messages_pages, @messages = paginate(:messages, :order => "posted_at desc")
     @page_title = "message board"
-    render(:layout => false) if request.xhr?
+    paginate_entity(Message)
   end
   
   def show

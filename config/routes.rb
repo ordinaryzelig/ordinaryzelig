@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
   # welcome page.
   map.connect '', :controller => "home", :action => "welcome"
   
-  # login.
+  # login/logout.
   map.connect 'login', :controller => "login", :action => "login"
   map.connect 'logout', :controller => "login", :action => "logout"
   

@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
   
   helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?
   
+  def paginate_entity(entity_class = EntityType.entity_class(params[:entity_class]))
+    entity_str = Inflector::pluralize(entity_class.to_s.downcase)
+    eval("@#{entity_str}_pages, @#{entity_str}  = paginate(entity_class, entity_class.pagination_options)")
+    render(:partial => "shared/pagination", :locals => {:paginator => eval("@#{entity_str}_pages"), :entities => eval("@#{entity_str}")}) if request.xhr?
+  end
+  
+  private
+  
   def logged_in_user
     @logged_in_user ||= User.find_by_id(session[:user_id])
   end
@@ -46,7 +54,7 @@ class ApplicationController < ActionController::Base
   def require_login(msg = "please log in.")
     mark_requested_page
     flash[:notice] = msg
-    if is_ajax_action?
+    if request.xhr?
       render :update do |page|
         page.redirect_to(:controller => 'login')
       end
@@ -100,7 +108,7 @@ class ApplicationController < ActionController::Base
   end
   
   def mark_requested_page
-    session[:last_marked_page] = request.parameters unless is_ajax_action?
+    session[:last_marked_page] = request.parameters unless request.xhr?
   end
   
   # assign user_id to session.
@@ -117,12 +125,6 @@ class ApplicationController < ActionController::Base
   
   def is_self?(user)
     session[:user_id] == user.id
-  end
-  
-  def is_ajax_action?
-    if defined?(self.class::AJAX_ACTIONS)
-      self.class::AJAX_ACTIONS.include?(action_name)
-    end
   end
   
   def is_admin_action?(action = action_name)

@@ -1,7 +1,5 @@
 links for other people's profile.
 
-my friends: show if they consider you.
-
 ajaxy pagination:
   textdrive loads page too fast so blind_up rarely shows.
   window.
@@ -9,8 +7,3 @@ ajaxy pagination:
 preview for comments should just show preview without hiding editing components.
 
 comments post highlighting shouldn't highlight reply section, just the comment.
-
-friendship has_recency
-  alter table users.friendships  add column created_at timestamp with time zone;
-  Friendship.find(:all).each { |f| f.created_at = 12.months.ago; f.save }
-  EntityType.new(:name => "Friendship").save

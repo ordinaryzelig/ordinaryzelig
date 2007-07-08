@@ -1,2 +1,1 @@
-test recent stuff.
-group new friendships
+ajaxy pagination

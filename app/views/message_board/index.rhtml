@@ -1,11 +1,3 @@
-<% content_for "#{@messages.first.class.to_s}_pagination" do -%>
-  
-  <div style="margin-bottom: 5mm;"><%= link_to("new", :action => "new") %></div>
-  
-  <% @messages.each do |message| -%>
-    <%= render(:partial => "shared/summary", :locals => {:entity => message, :show_who => true}) %>
-  <% end -%>
-  
-<% end -%>
+<div style="margin-bottom: 5mm;"><%= link_to("new", :action => "new") %></div>
 
-<%= render(:partial => "pagination", :locals => {:paginator => @messages_pages, :object_class => @messages.first.class.to_s}) if !@messages.empty? %>
+<%= render(:partial => "shared/pagination", :locals => {:paginator => @messages_pages, :entities => @messages}) %>
