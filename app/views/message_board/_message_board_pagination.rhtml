@@ -1,0 +1,9 @@
+<% content_for "#{@messages.first.class.to_s}_pagination" do -%>
+  
+  <% @messages.each do |message| -%>
+    <%= render(:partial => "shared/summary", :locals => {:entity => message, :show_who => true}) %>
+  <% end -%>
+  
+<% end -%>
+
+<%= render(:partial => "shared/pagination", :locals => {:paginator => @messages_pages, :entities => @messages, :url => {:controller => "message_board", :action => "message_board_pagination"}}) %>

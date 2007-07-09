@@ -1,7 +1,6 @@
 <% unless entities.empty? -%>
-  
   <% entity_class = entities.first.class -%>
-  
+
   <div id="<%= entity_class %>PaginationArea">
   
     <div id="<%= entity_class %>PaginationLinks" style="margin-top: 3mm; margin-bottom: 3mm;">
@@ -9,14 +8,14 @@
       page:
     
       <% # previous. -%>
-      <%= link_to_page("previous", paginator.current.previous, entity_class) %>
+      <%= link_to_page("previous", paginator.current.previous, entity_class, url) %>
     
       <% # next. -%>
-      <%= link_to_page("next", paginator.current.next, entity_class) %>
+      <%= link_to_page("next", paginator.current.next, entity_class, url) %>
     
       <% # links for pages. %>
       <% paginator.each do |page| -%>
-        <%= link_to_page(page.number, page, entity_class) %>
+        <%= link_to_page(page.number, page, entity_class, url) %>
       <% end -%>
     
       <% # spinner. %>
@@ -25,9 +24,7 @@
     </div>
   
     <div id="<%= entity_class %>PaginationObjects" <%= 'style="display: none;"' if request.xhr? %>>
-      <% entities.each do |entity| -%>
-        <%= render(:partial => "shared/summary", :locals => {:entity => entity, :show_who => true}) %>
-      <% end -%>
+      <%= yield "#{entity_class}_pagination" %>
     </div>
   
   </div>

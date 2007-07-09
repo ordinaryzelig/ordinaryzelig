@@ -9,12 +9,6 @@ class ApplicationController < ActionController::Base
   
   helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?
   
-  def paginate_entity(entity_class = EntityType.entity_class(params[:entity_class]))
-    entity_str = Inflector::pluralize(entity_class.to_s.downcase)
-    eval("@#{entity_str}_pages, @#{entity_str}  = paginate(entity_class, entity_class.pagination_options)")
-    render(:partial => "shared/pagination", :locals => {:paginator => eval("@#{entity_str}_pages"), :entities => eval("@#{entity_str}")}) if request.xhr?
-  end
-  
   private
   
   def logged_in_user

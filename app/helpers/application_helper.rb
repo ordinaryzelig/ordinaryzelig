@@ -79,12 +79,13 @@ module ApplicationHelper
     content_for("banner") { "" }
   end
   
-  def link_to_page(str, page, entity_class)
+  def link_to_page(str, page, entity_class, url)
     is_current_page = page && page.paginator.current == page
     content = if page && !is_current_page
       pagination_area_div = "#{entity_class}PaginationArea"
       pagination_objects_div = "#{entity_class}PaginationObjects"
-      link_to_remote(str, {:url => {:action => "paginate_entity", :entity_class => entity_class, :page => page.number},
+      url[:page] = page.number
+      link_to_remote(str, {:url => url,
                            :update => pagination_area_div,
                            :before => stack("Element.show('#{entity_class}PaginationSpinner');",
                                             visual_effect(:blind_up, pagination_objects_div, {:queue => 'end'})),
