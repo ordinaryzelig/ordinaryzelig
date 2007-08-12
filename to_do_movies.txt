@@ -1,0 +1,1 @@
+allow others to add own movies that i haven't yet reviewed.
