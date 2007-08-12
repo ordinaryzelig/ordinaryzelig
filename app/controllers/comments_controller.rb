@@ -2,6 +2,8 @@ class CommentsController < ApplicationController
   
   before_filter :validate_session
   
+  AJAX_ACTIONS = ["new", "post", "preview", "cancel"]
+  
   # params:
   #   parent_id or
   #   entity_type and entity_id

@@ -14,7 +14,7 @@ module OrdinaryZelig
         defaults = {:max => 50,
                     :type => proc { self.class },
                     :url => proc{ {:controller => self.class.to_s.downcase, :action => "show", :id => self.id} },
-                    :when => :created_at,
+                    # :when => :created_at,
                     :who => :user}
         mod = Module.new
         options.each { |key, value| mod.send('define_method', "summarize_#{key}", proc_for_option(key, value)) }
@@ -31,7 +31,11 @@ module OrdinaryZelig
         raise "unrecognized key '#{key}'" unless KEYS.include?(key)
         case key
         when :what || "what"
-          prc = proc { strip_tags(eval("#{value}"))[0..summarize_max] }
+          if value.is_a?(Proc)
+            prc = value
+          else
+            prc = proc { strip_tags(eval("#{value}"))[0..summarize_max] }
+          end
         else
           if value.is_a?(String) || value.is_a?(Symbol)
             prc = proc { eval("#{value}") }

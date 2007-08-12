@@ -9,8 +9,6 @@ class ApplicationController < ActionController::Base
   
   helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?
   
-  private
-  
   def logged_in_user
     @logged_in_user ||= User.find_by_id(session[:user_id])
   end
@@ -48,7 +46,7 @@ class ApplicationController < ActionController::Base
   def require_login(msg = "please log in.")
     mark_requested_page
     flash[:notice] = msg
-    if request.xhr?
+    if is_ajax_action?
       render :update do |page|
         page.redirect_to(:controller => 'login')
       end
@@ -102,7 +100,7 @@ class ApplicationController < ActionController::Base
   end
   
   def mark_requested_page
-    session[:last_marked_page] = request.parameters unless request.xhr?
+    session[:last_marked_page] = request.parameters unless is_ajax_action?
   end
   
   # assign user_id to session.
@@ -119,6 +117,12 @@ class ApplicationController < ActionController::Base
   
   def is_self?(user)
     session[:user_id] == user.id
+  end
+  
+  def is_ajax_action?
+    if defined?(self.class::AJAX_ACTIONS)
+      self.class::AJAX_ACTIONS.include?(action_name)
+    end
   end
   
   def is_admin_action?(action = action_name)

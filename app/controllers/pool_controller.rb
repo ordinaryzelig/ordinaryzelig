@@ -2,6 +2,8 @@ class PoolController < ApplicationController
   
   before_filter :check_authorization, :only => :make_pic
   
+  AJAX_ACTIONS = [:make_pic, :bracket_completion]
+  
   def index
     flash.keep
     redirect_to(:action => "standings")

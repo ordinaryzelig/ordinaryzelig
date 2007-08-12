@@ -2,6 +2,8 @@ class AdminController < ApplicationController
   
   before_filter :validate_session
   
+  AJAX_ACTIONS = ["mark_season_current", "toggle_authorization"]
+  
   def index
     flash.keep
     redirect_to(:action => "users")

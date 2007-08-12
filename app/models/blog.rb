@@ -8,7 +8,7 @@ class Blog < ActiveRecord::Base
   validates_presence_of :created_at, :title, :body, :user_id
   
   def before_validation_on_create
-    self.created_at ||= Time.now.localtime
+    self.created_at = Time.now.localtime if self.created_at.nil? || new_record?
   end
   
 end

@@ -79,26 +79,25 @@ module ApplicationHelper
     content_for("banner") { "" }
   end
   
-  def link_to_page(str, page, entity_class, url)
+  def link_to_page(str, page, object_class)
     is_current_page = page && page.paginator.current == page
     content = if page && !is_current_page
-      pagination_area_div = "#{entity_class}PaginationArea"
-      pagination_objects_div = "#{entity_class}PaginationObjects"
-      url[:page] = page.number
-      link_to_remote(str, {:url => url,
+      pagination_area_div = "#{object_class}PaginationArea"
+      pagination_objects_div = "#{object_class}PaginationObjects"
+      link_to_remote(str, {:url => {:page => page.number},
                            :update => pagination_area_div,
-                           :before => stack("Element.show('#{entity_class}PaginationSpinner');",
+                           :before => stack("Element.show('#{object_class}PaginationSpinner');",
                                             visual_effect(:blind_up, pagination_objects_div, {:queue => 'end'})),
                            :complete => visual_effect(:blind_down, pagination_objects_div, {:queue => 'end'})}
       )
     else
       str
     end
-    content_tag(:span, content, :id => paginated_page_num_id(entity_class.to_s, str), :style => is_current_page ? "font-size: 120%; color: red;" : nil)
+    content_tag(:span, content, :id => paginated_page_num_id(object_class, str), :style => is_current_page ? "font-size: 120%; color: red;" : nil)
   end
   
-  def paginated_page_num_id(entity_class, str)
-    "#{Inflector::pluralize(entity_class.to_s)}_page_#{str}"
+  def paginated_page_num_id(object_class, str)
+    "#{Inflector::pluralize(object_class.to_s)}_page_#{str}"
   end
   
   def recent_background_color(object, default_color = "lightgray")
