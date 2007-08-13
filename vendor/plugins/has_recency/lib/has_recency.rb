@@ -66,6 +66,10 @@ module OrdinaryZelig
         is_recent?(user) || (self.class.can_have_comments? && !recent_comments(user).empty?)
       end
       
+      def has_recency?
+        self.has_recency?
+      end
+      
     end
     
   end

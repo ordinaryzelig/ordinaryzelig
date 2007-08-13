@@ -4,7 +4,7 @@ class Movie < ActiveRecord::Base
   validates_presence_of :title
   validates_uniqueness_of :title
   
-  can_be_summarized_by :title => :title, :what => proc { "#{reviews.size} reviews" }
+  can_be_summarized_by :title => :title, :what => proc { pluralize(reviews.size, "review") }
   
   def self.by_latest_reviews
     movies = find(:all, :include => :reviews, :order => "created_at desc")
