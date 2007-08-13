@@ -9,7 +9,8 @@ class Comment < ActiveRecord::Base
   attr_accessor :entity_type, :entity_id
   
   def before_validation_on_create
-    self.created_at = Time.now.localtime if self.created_at.nil? || new_record?
+    # set created_at time to now.
+    self.created_at ||= Time.now.localtime
   end
   
   def validate_on_create

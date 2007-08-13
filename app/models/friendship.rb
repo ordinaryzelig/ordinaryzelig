@@ -12,7 +12,7 @@ class Friendship < ActiveRecord::Base
                        :who => nil
   
   def before_validation_on_create
-    self.created_at = Time.now.localtime if self.created_at.nil? || new_record?
+    self.created_at ||= Time.now.localtime
   end
   
 end
