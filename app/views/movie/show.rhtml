@@ -1,0 +1,3 @@
+<% @movie.reviews.each do |review| -%>
+  <%= render(:partial => "shared/summary", :locals => {:entity => review}) %>
+<% end -%>

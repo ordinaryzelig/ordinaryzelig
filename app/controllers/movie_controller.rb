@@ -19,17 +19,27 @@ class MovieController < ApplicationController
       redirect_to(:action => "reviews")
       return
     end
-    @page_title = "#{@movie.title} review"
+    @page_title = @movie.title
     
-    # check if user already reviewed.
-    if @review.new_record?
-      
+    if request.get?
+      if @review.new_record?
+        # check if user already reviewed.
+        @mode = "edit"
+        @page_title = @page_title + " review"
+      else
+        @mode = "show"
+      end
+    else
+      if @review.update_attributes(params[:review])
+        flash[:success] = "review saved."
+        redirect_to(:action => "reviews")
+      end
     end
-    
-    if request.post? && @review.update_attributes(params[:review])
-      flash[:success] = "review saved."
-      redirect_to(:action => "reviews")
-    end
+  end
+  
+  def show
+    @movie = Movie.find_by_id(params[:id], :include => :reviews)
+    @page_title = "#{@movie.title}"
   end
   
 end
