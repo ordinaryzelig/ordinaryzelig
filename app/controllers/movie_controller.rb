@@ -11,23 +11,24 @@ class MovieController < ApplicationController
   end
   
   def review
-    @movie = Movie.find_by_id(params[:id])
+    @review = MovieReview.find_by_id(params[:id]) || MovieReview.new(:movie_id => params[:movie_id], :user_id => logged_in_user.id)
+    
+    @movie = @review.movie || Movie.find_by_id(params[:movie_id])
     unless @movie
       flash[:failure] = "movie not found."
       redirect_to(:action => "reviews")
+      return
     end
     @page_title = "#{@movie.title} review"
     
-    if request.get?
-      @review = MovieReview.new(:movie_id => params[:id])
-      # check if user already reviewed.
-    else
-      @review = MovieReview.new(params[:review])
-      @review.user ||= logged_in_user
-      if @review.save
-        flash[:success] = "review saved."
-        redirect_to(:action => "reviews")
-      end
+    # check if user already reviewed.
+    if @review.new_record?
+      
+    end
+    
+    if request.post? && @review.update_attributes(params[:review])
+      flash[:success] = "review saved."
+      redirect_to(:action => "reviews")
     end
   end
   

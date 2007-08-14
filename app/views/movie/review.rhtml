@@ -1,6 +1,6 @@
 <%= error_messages(@review) %>
 
-<%= form_tag %>
+<%= form_tag(:movie_id => @movie.id) %>
   
   <table>
     <tr>
@@ -16,6 +16,7 @@
       <td><%= submit_tag(:save) %></td>
     </tr>
   </table>
+  <%= hidden_field(:review, :user_id) %>
   <%= hidden_field(:review, :movie_id) %>
   
 <%= end_form_tag %>
