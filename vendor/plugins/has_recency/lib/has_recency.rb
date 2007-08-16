@@ -8,7 +8,7 @@ module OrdinaryZelig
     
     module ClassMethods
       
-      def has_recency(options)
+      def has_recency(options = [])
         object_types = [:user, :time, :block]
         defaults = {:user => :user, :time => :created_at}
         # each model that has_recency will include a unique Module that defines recency_user_obj and recency_time_obj.

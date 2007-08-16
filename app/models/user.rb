@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :considering_friends, :through => :considering_friendships
   has_many :blogs
+  has_many :movie_reviews, :order => :created_by, :include => :movie
   
   validates_presence_of :first_name, :last_name, :display_name, :email
   validates_uniqueness_of :email, :message => "is already registered. <a href=\"mailto:help@ordinaryzelig.org\">email me</a> and i'll set you up."

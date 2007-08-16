@@ -25,6 +25,18 @@
   <% end -%>
   
   <% # ============================================================= %>
+  <% # recents. -%>
+  
+  <% if is_self?(@user) -%>
+    <div class=profileSection>
+      <%= pluralize(@recents.size, "recent item") %> since your previous login <span class=listingInfo><%= default_time(@user.previous_login_at) || "your previous login has not been logged yet." %></span>
+      <% @recents.each do |obj| -%>
+        <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_type => true, :show_who => true, :show_recency => true}) %>
+      <% end -%>
+    </div>
+  <% end -%>
+  
+  <% # ============================================================= %>
   <% # blog. -%>
   
   <div class=profileSection>
@@ -39,6 +51,20 @@
       blog (restricted to <%= @user.display_name %>'s friends)
     <% end -%>
   </div>
+  
+  <% # ============================================================= %>
+  <% # movie reviews. -%>
+  
+  <% unless @user.movie_reviews.empty? -%>
+    <div class=profileSection>
+      last 5 movie reviews
+      <ul>
+        <% @user.movie_reviews[0..4].each do |review| -%>
+          <li><%= link_to("#{review.movie.title}: #{review.title}", :controller => "movie", :action => "review", :id => review.id) %></li>
+        <% end -%>
+      </ul>
+    </div>
+  <% end -%>
   
   <% # ============================================================= %>
   <% # friends. -%>
@@ -57,18 +83,6 @@
       (<%= link_to_considering_friends("#{@user.wannabe_friends.size} not mutual", @user, true) %>)
     <% end -%>
   </div>
-  
-  <% # ============================================================= %>
-  <% # recents. -%>
-  
-  <% if is_self?(@user) -%>
-    <div class=profileSection>
-      <%= pluralize(@recents.size, "recent item") %> since your previous login <span class=listingInfo><%= default_time(@user.previous_login_at) || "your previous login has not been logged yet." %></span>
-      <% @recents.each do |obj| -%>
-        <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_type => true, :show_who => true, :show_recency => true}) %>
-      <% end -%>
-    </div>
-  <% end -%>
   
 <% else -%>
   <% hide_banner %>

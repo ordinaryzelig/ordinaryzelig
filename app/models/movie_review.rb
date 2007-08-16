@@ -13,6 +13,8 @@ class MovieReview < ActiveRecord::Base
                        :who => :user,
                        :when => :created_at
   
+  has_recency
+  
   def before_validation_on_create
     self.created_at = Time.now.localtime if self.created_at.nil? || new_record?
   end
