@@ -11,4 +11,19 @@ class Movie < ActiveRecord::Base
     movies.reject { |movie| movie.reviews.empty? }
   end
   
+  def friend_reviews(user)
+    @friend_reviews ||= reviews.detect { |review| user.considers_friend?(review.user) } || []
+  end
+  
+  # average rating for this movie.
+  # if user passed, count only ratings from friends' reviews.
+  def average_rating(user = nil)
+    total = 0
+    countable_reviews = user.nil? ? reviews : friend_reviews(user)
+    countable_reviews.each do |review|
+      total += review.rating.id
+    end
+    (0.0 + total) / reviews.size
+  end
+  
 end
