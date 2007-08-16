@@ -12,7 +12,7 @@ class Movie < ActiveRecord::Base
   end
   
   def friend_reviews(user)
-    @friend_reviews ||= reviews.detect { |review| user.considers_friend?(review.user) } || []
+    @friend_reviews ||= reviews.select { |review| user.considers_friend?(review.user) } || []
   end
   
   # average rating for this movie.

@@ -1,36 +1,7 @@
-<% if "edit" == @mode -%>
-
-  <%= error_messages(@review) %>
-
-  <%= form_tag(:movie_id => @movie.id) %>
+<% content_for("banner") do -%>
   
-    <table>
-      <tr>
-        <td>rating</td>
-        <td><%= select(:review, :movie_rating_id, MovieRating.container, :include_blank => true) %> <span style="font-size: 10px;">more rating types coming soon</span> </td>
-      </tr>
-      <tr>
-        <td>title</td>
-        <td><%= text_field(:review, :title) %></td>
-      </tr>
-      <tr>
-        <td valign=top>review</td>
-        <td><%= text_area(:review, :review) %></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><%= submit_tag(:save) %></td>
-      </tr>
-    </table>
-    <%= hidden_field(:review, :user_id) %>
-    <%= hidden_field(:review, :movie_id) %>
+  <div style="border: .5mm solid black;">
   
-  <%= end_form_tag %>
-
-<% else -%>
-
-  <% content_for("banner") do -%>
-    
     <div id="banner">
       <%= @page_title %><br>
       <span style="font-size: 12pt">
@@ -39,9 +10,11 @@
         <%= link_to_profile(@review.user) %>
       </span>
     </div>
-    
-  <% end -%>
   
-  <%= @review.review %>
-
+    <div style="padding: 2mm; padding-bottom: 5mm;"><%= sanitize(@review.review) %></div>
+  
+  </div>
+  
 <% end -%>
+
+<%= render(:partial => "comments/comments", :locals => {:entity => @review}) %>

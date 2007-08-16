@@ -12,8 +12,8 @@ class MovieReview < ActiveRecord::Base
                        :max => 100,
                        :who => :user,
                        :when => :created_at
-  
   has_recency
+  has_nested_comments
   
   def before_validation_on_create
     self.created_at = Time.now.localtime if self.created_at.nil? || new_record?
