@@ -3,9 +3,17 @@
 <%= form_tag(:movie_id => @movie.id) %>
 
   <table>
-    <tr>
+    <tr valign=top>
       <td>rating</td>
-      <td><%= select(:review, :movie_rating_id, MovieRating.container, :include_blank => true) %> <span style="font-size: 10px;">more rating types coming soon</span> </td>
+      <td>
+        <div style="margin-bottom: 10mm;">
+          <%= select(:review, :movie_rating_id, MovieRating.container, :include_blank => true) %> <span style="font-size: 10px;">more rating types coming soon</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>write a review (optional)</td>
     </tr>
     <tr>
       <td>title</td>

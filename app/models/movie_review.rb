@@ -13,6 +13,11 @@ class MovieReview < ActiveRecord::Base
     end
   end
   
+  def before_save
+    self.title = nil if self.title.blank?
+    self.review = nil if self.review.blank?
+  end
+  
   can_be_summarized_by :title => proc { "#{rating} - #{title}" },
                        :url => proc { {:controller => "movie", :action => "review", :id => self.id} },
                        :what => :review,

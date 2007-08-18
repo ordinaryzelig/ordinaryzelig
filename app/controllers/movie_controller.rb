@@ -41,6 +41,12 @@ class MovieController < ApplicationController
   
   def show
     @movie = Movie.find_by_id(params[:id], :include => :reviews)
+    unless @movie
+      flash[:failure] = "movie not found."
+      redirect_to(:action => "index")
+      return
+    end
+    @reviews = @movie.reviews.select { |review| review.review }
     @page_title = "#{@movie.title}"
   end
   
@@ -48,7 +54,7 @@ class MovieController < ApplicationController
     @movie = Movie.find_by_id(params[:id]) || Movie.new
     if request.post?
       @movie.attributes = params[:movie]
-      redirect_to(:action => "reviews") and flash[:success] = "movie saved" if @movie.save
+      redirect_to(:action => "show", :id => @movie.id) and flash[:success] = "movie saved" if @movie.save
     end
   end
   

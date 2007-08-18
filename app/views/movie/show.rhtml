@@ -1,19 +1,22 @@
-<div>
-  overall rating (<%= pluralize(@movie.reviews.size, "review") %>): <%= @movie.average_rating %> out of 5<br>
+<div style="margin-bottom: 10mm;">
+  overall rating (<%= pluralize(@movie.reviews.size, "person") %>): <%= @movie.average_rating %> out of 5<br>
   <% if logged_in_user -%>
     <% friend_reviews = @movie.friend_reviews(logged_in_user) -%>
     <% if friend_reviews.empty? -%>
-      no friend reviews.
+      no friend ratings.
     <% else -%>
       friends' rating (<%= pluralize(friend_reviews.size, "review") %>): <%= @movie.average_rating(logged_in_user) %> out of 5
     <% end -%>
   <% else -%>
     <%= link_to("login to view your friends' rating", {:controller => "login", :action => "login"}, :style => "font-size: 10pt;") %>
-  <% end -%>
+  <% end -%><br>
+  
+  <%= link_to("write your own review (or just rate it)", :action => "edit_review", :movie_id => @movie.id) %>
 </div>
 
 <div>
-  <% @movie.reviews.each do |review| -%>
+  <div><%= pluralize(@reviews.size, "review") %></div>
+  <% @reviews.each do |review| -%>
     <%= render(:partial => "shared/summary", :locals => {:entity => review, :show_who => true}) %>
   <% end -%>
 </div>
