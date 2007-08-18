@@ -4,16 +4,18 @@
   
   <table border=1>
     <tr>
-      <th>name</th>
-      <th>action</th>
+      <th>friend</th>
+      <% if is_self?(@user) -%>
+        <th>action</th>
+      <% end -%>
     </tr>
     
     <% @user.friends.each do |friend| -%>
       <tbody id="friend_<%= friend.id %>">
         <tr>
-          <td><%= link_to_profile(friend) %></td>
-          <td>
-            <% if is_self?(@user) -%>
+          <td><%= link_to_profile(friend, friend.last_first_display) %></td>
+          <% if is_self?(@user) -%>
+            <td>
               <span>
                 <%= link_to_remote("remove",
                                    :url => {:action => "remove_friend", :id => friend.id},
@@ -21,8 +23,8 @@
                                    :complete => visual_effect(:switch_off, "friend_#{friend.id}")) %>
                 <%= image_tag("spinner.gif", :id => "spinner_#{friend.id}", :style => "display: none;") %>
               </span>
-            <% end -%>
-          </td>
+            </td>
+          <% end -%>
         </tr>
       </tbody>
     <% end -%>

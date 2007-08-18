@@ -6,7 +6,7 @@
   <% content_for("banner") do -%>
     <div id="banner" style="padding: 2mm; text-align: center;<%= " background-color: lightgreen;" if is_self?(@user) %>">
       <%= h(@user.display_name) %><br>
-      <%= content_tag(:span, h("#{@user.first_name} #{@user.last_name}"), :style => "font-size: 75%;") if @user.considers_friend?(logged_in_user) || is_self_or_admin?(@user) %>
+      <%= content_tag(:span, h("#{@user.first_name} #{@user.last_name}"), :style => "font-size: 75%;") %>
     </div>
     
     <% # action bar. -%>
