@@ -75,7 +75,7 @@
   <% # ==================================== -%>
   <% # help. %>
   
-  <%= link_to("email for help", url_for("mailto:help@ordinaryzelig.org")) %>
+  <%= mail_to("help@ordinaryzelig.org", "email for help", :encode => "javascript", :subject => "[write a help topic]") %>
   <hr>
   
   <% # ==================================== -%>

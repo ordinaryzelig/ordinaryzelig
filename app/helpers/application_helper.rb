@@ -25,7 +25,7 @@ module ApplicationHelper
   end
   
   def link_to_email(str, user)
-    link_to(str, url_for("mailto:#{user.email}"))
+    mail_to(user.email, str, :encode => "javascript")
   end
   
   def error_messages(model_obj)
