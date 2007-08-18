@@ -36,7 +36,7 @@ class PoolController < ApplicationController
           end
         end
         @is_self = is_self?(@user)
-        @is_admin = is_admin?(logged_in_user)
+        @is_admin = logged_in_user.is_admin?
         @bracket_num = params[:bracket_num].to_i if params[:bracket_num]
         @pool_users = @user.season_pool_users(@season.id)
         @pool_user = @pool_users.detect{|pool_user| pool_user.bracket_num == @bracket_num}
