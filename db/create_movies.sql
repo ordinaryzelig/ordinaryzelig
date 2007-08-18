@@ -1,7 +1,8 @@
 drop table if exists website.movies;
 create table website.movies (
     id serial primary key,
-    title varchar(100) not null unique
+    title varchar(100) not null unique,
+    imdb_id varchar(20) unique
 );
 
 drop table if exists website.movie_ratings cascade;

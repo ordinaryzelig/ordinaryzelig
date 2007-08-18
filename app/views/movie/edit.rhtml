@@ -1,0 +1,16 @@
+<%= error_messages(@movie) %>
+
+<%= form_tag %>
+  
+  <table>
+    <tr>
+      <td>title</td>
+      <td><%= text_field(:movie, :title) %></td>
+    </tr>
+    <tr>
+      <td>imdb id</td>
+      <td><%= text_field(:movie, :imdb_id) %></td>
+    </tr>
+  </table>
+  
+<%= end_form_tag %>

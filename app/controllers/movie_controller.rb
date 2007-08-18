@@ -1,8 +1,10 @@
 class MovieController < ApplicationController
   
-  before_filter :validate_session, :only => [:edit_review]
+  before_filter :validate_session, :only => [:edit_review, :edit]
+  ADMIN_ACTIONS = ["edit"]
   
   def index
+    flash.keep
     redirect_to(:action => "reviews")
   end
   
@@ -40,6 +42,14 @@ class MovieController < ApplicationController
   def show
     @movie = Movie.find_by_id(params[:id], :include => :reviews)
     @page_title = "#{@movie.title}"
+  end
+  
+  def edit
+    @movie = Movie.find_by_id(params[:id]) || Movie.new
+    if request.post?
+      @movie.attributes = params[:movie]
+      redirect_to(:action => "reviews") if @movie.save
+    end
   end
   
 end

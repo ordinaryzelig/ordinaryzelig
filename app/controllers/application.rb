@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
         if is_admin_action?
           unless logged_in_user.is_admin?
             flash[:failure] = "you must be an administrator to do that."
-            redirect_to_last_marked_page_or_default
+            redirect_to_last_marked_page_or_default({:action => "index"})
           end
         end
         return_val = true
@@ -89,12 +89,13 @@ class ApplicationController < ActionController::Base
   
   # try to go to last marked page.
   # otherwise, go to default.
-  def redirect_to_last_marked_page_or_default
+  def redirect_to_last_marked_page_or_default(default = {:controller => "user", :action => "profile", :id => logged_in_user})
     unless redirect_to_last_marked_page
       if logged_in_user.is_admin?
         redirect_to(:controller => "admin")
       else
-        redirect_to(:controller => "user", :action => "profile", :id => logged_in_user)
+        logger.info "message #{default}"
+        redirect_to(default)
       end
     end
   end
