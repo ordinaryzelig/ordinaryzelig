@@ -7,10 +7,12 @@
       <td>title</td>
       <td><%= text_field(:movie, :title) %></td>
     </tr>
-    <tr>
-      <td>imdb id</td>
-      <td><%= text_field(:movie, :imdb_id) %></td>
-    </tr>
+    <% if logged_in_user.is_admin? %>
+      <tr>
+        <td>imdb id</td>
+        <td><%= text_field(:movie, :imdb_id) %></td>
+      </tr>
+    <% end -%>
     <tr>
       <td></td>
       <td><%= submit_tag(:save) %></td>

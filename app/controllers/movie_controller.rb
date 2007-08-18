@@ -1,7 +1,7 @@
 class MovieController < ApplicationController
   
   before_filter :validate_session, :only => [:edit_review, :edit]
-  ADMIN_ACTIONS = ["edit"]
+  # ADMIN_ACTIONS = ["edit"]
   
   def index
     flash.keep
@@ -53,6 +53,7 @@ class MovieController < ApplicationController
   def edit
     @movie = Movie.find_by_id(params[:id]) || Movie.new
     if request.post?
+      logger.info "message #{params[:submit]}"
       @movie.attributes = params[:movie]
       redirect_to(:action => "show", :id => @movie.id) and flash[:success] = "movie saved" if @movie.save
     end
@@ -60,10 +61,14 @@ class MovieController < ApplicationController
   
   def search
     if request.get?
-      search_text = "%#{params[:id]}%" if params[:id]
-      @movies = Movie.find(:all, :conditions => ["lower(title) like ?", search_text.downcase]) if search_text
+      if params[:id] && params[:id].size > 0
+        search_text = "%#{params[:id]}%"
+        @movies = Movie.find(:all, :conditions => ["lower(title) like ?", search_text.downcase]) if search_text
+      else
+        flash.now[:failure] = "search for something."
+      end
     else
-      redirect_to(:action => "search", :id => params[:id])
+      redirect_to(:action => "search", :id => params[:search_text])
     end
   end
   

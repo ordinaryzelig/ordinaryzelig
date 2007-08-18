@@ -1,3 +1,5 @@
+<%= render(:partial => "search") %>
+
 <% @movies.each do |movie| -%>
   <%= render(:partial => "shared/summary", :locals => {:entity => movie}) %>
 <% end -%>
