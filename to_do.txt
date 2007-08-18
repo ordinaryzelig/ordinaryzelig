@@ -1,12 +1,7 @@
-links for other people's profile.
-
-ajaxy pagination:
-  textdrive loads page too fast so blind_up rarely shows.
-  window.
-
-preview for comments should just show preview without hiding editing components.
-
-comments post highlighting shouldn't highlight reply section, just the comment.
+comments
+    preview for comments should just show preview without hiding editing components.
+    comments post highlighting shouldn't highlight reply section, just the comment.
+    focus on text area messes up in safari.  timeout, queue, or just forget it?
 
 rescue bad urls
     http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v
