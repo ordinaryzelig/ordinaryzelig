@@ -1,7 +1,7 @@
 class MovieController < ApplicationController
   
   before_filter :validate_session, :only => [:edit_review, :edit]
-  # ADMIN_ACTIONS = ["edit"]
+  ADMIN_ACTIONS = ["edit"]
   
   def index
     flash.keep

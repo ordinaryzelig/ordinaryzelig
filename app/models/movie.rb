@@ -4,7 +4,7 @@ class Movie < ActiveRecord::Base
   validates_presence_of :title
   validates_uniqueness_of :title
   
-  can_be_summarized_by :title => :title, :what => proc { pluralize(reviews.size, "review") }
+  can_be_summarized_by :title => :title, :what => proc { pluralize(reviews.size, "review") }, :who => nil
   
   def before_save
     self.imdb_id = nil if self.imdb_id.blank?
