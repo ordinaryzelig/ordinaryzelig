@@ -1,0 +1,20 @@
+<div style="margin-bottom: 10mm;">
+  
+  <%= form_tag %>
+  
+    <%= text_field_tag(:id, params[:id]) %>
+    <%= submit_tag(:search) %>
+  
+  <%= end_form_tag -%>
+  
+</div>
+
+<% if params[:id] -%>
+  
+  <%= pluralize(@movies.size, "movie") %> found<br>
+  
+  <% @movies.each do |movie| -%>
+    <%= link_to(movie.title, :action => "show", :id => movie.id) %><br>
+  <% end -%>
+  
+<% end -%>

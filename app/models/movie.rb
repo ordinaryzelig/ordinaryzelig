@@ -23,7 +23,7 @@ class Movie < ActiveRecord::Base
     countable_reviews.each do |review|
       total += review.rating.id
     end
-    (0.0 + total) / reviews.size
+    (0.0 + total) / countable_reviews.size
   end
   
 end
