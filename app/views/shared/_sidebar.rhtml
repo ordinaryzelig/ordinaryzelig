@@ -8,7 +8,8 @@
     <%= link_to("logout", :controller => "login", :action => "logout") %><br>
     <%= link_to_profile(logged_in_user, "your profile") %><br>
     <%= link_to("blog", :controller => "blog", :action => "list", :id => logged_in_user.id) %><br>
-    <%= link_to("friends", :controller => "user", :action => "friends", :id => logged_in_user.id) %>
+    <%= link_to("friends", :controller => "user", :action => "friends", :id => logged_in_user.id) %><br>
+    <%= link_to("people search", :controller => "user", :action => "search") %>
     <hr>
     
     <% # admin. -%>
@@ -32,18 +33,6 @@
     <hr>
     
   <% end -%>
-  
-  <% # ==================================== -%>
-  <% # search. %>
-  
-  <div style="text-align: center;">
-    <%= form_tag(:controller => "user", :action => "search") %>
-      <% @default_value = "first, last, or display" %>
-      <%= text_field_tag(:search_text, @search_text || @default_value, {:size => "15mm", :onfocus => "if(value == '#{@default_value}'){ value = ''}", :onblur => "if(value == '') value = '#{@search_text || @default_value}'"}) %><br>
-      <%= submit_tag("search people") %>
-    <%= end_form_tag %>
-  </div>
-  <hr>
   
   <% # ==================================== -%>
   <% # message board. -%>

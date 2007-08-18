@@ -1,9 +1,17 @@
+<div style="margin-bottom: 10mm;">
+  <%= form_tag %>
+    <%= text_field_tag(:search_text, @search_text) %>
+    <%= submit_tag("search") %><br>
+    <span style="font-size: 10pt; color: gray;">first or last or display name</span>
+  <%= end_form_tag %>
+</div>
+
 <% if @search_text_valid -%>
   <div style="margin-bottom: 5mm;"><%= pluralize(@users.size, "user") %> found</div>
 <% end -%>
 
 <% if @users -%>
   <% @users.each do |user| -%>
-    <%= link_to_profile(user) %><br>
+    <%= link_to_profile(user, user.last_first_display) %>
   <% end -%>
 <% end -%>

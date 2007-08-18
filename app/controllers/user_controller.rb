@@ -162,9 +162,14 @@ class UserController < ApplicationController
   
   def search
     if request.get?
-      @search_text = params[:search_text]
+      @search_text = params[:id]
       if @search_text && @search_text.length >= 3
-        @users = User.find(:all, :conditions => ["lower(display_name) like :search_text or lower(first_name) like :search_text or lower(last_name) like :search_text", {:search_text => "%#{@search_text.downcase}%"}])
+        @users = User.find(:all,
+                           :conditions => ["lower(display_name) like :search_text or " <<
+                                           "lower(first_name) like :search_text or " <<
+                                           "lower(last_name) like :search_text",
+                                           {:search_text => "%#{@search_text.downcase}%"}],
+                           :order => "last_name, first_name, display_name")
         @users.reject! { |user| user.is_admin_or_master? }
         @search_text_valid = true
       else
@@ -172,7 +177,7 @@ class UserController < ApplicationController
       end
       @page_title = "user search"
     else
-      redirect_to(:action => "search", :search_text => params[:search_text])
+      redirect_to(:action => "search", :id => params[:search_text])
     end
   end
   
