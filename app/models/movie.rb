@@ -6,6 +6,10 @@ class Movie < ActiveRecord::Base
   
   can_be_summarized_by :title => :title, :what => proc { pluralize(reviews.size, "review") }
   
+  def before_save
+    self.imdb_id = nil if self.imdb_id.blank?
+  end
+  
   def self.by_latest_reviews
     movies = find(:all, :include => :reviews, :order => "created_at desc")
     movies.reject { |movie| movie.reviews.empty? }
