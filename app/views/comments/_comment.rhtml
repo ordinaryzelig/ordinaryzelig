@@ -46,7 +46,6 @@
           <% # post. %>
           <div id="comment_action_bar_post_<%= comment_id %>" style="display: none;">
             <%= submit_to_remote(:post, "post", {:url => {:controller => "comments", :action => "post"},
-                                                 :update => "comment_form_#{comment_id}",
                                                  :before => stack(show_comment_spinner(comment_id),
                                                                   hide_comment_action_bar("post", comment_id),
                                                                   hide_comment_form(comment_id)),
@@ -60,8 +59,7 @@
             <%= submit_to_remote(:preview, "preview", {:url => {:controller => "comments", :action => "preview"},
                                                        :update => "comment_preview_#{comment_id}",
                                                        :before => show_comment_spinner(comment_id),
-                                                       :complete => hide_comment_spinner(comment_id),
-                                                       :success => show_preview(comment_id)}
+                                                       :complete => stack(hide_comment_spinner(comment_id), show_preview(comment_id))}
             ) %>
             <%= submit_to_remote(:cancel, "cancel", {:url => {:controller => "comments", :action => "cancel"},
                                                      :before => stack(hide_comment_action_bar("post", comment_id),

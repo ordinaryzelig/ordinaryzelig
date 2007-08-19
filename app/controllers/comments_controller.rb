@@ -32,21 +32,17 @@ class CommentsController < ApplicationController
     if request.xhr?
       @comment = Comment.new(params[:comment])
       @comment.user_id ||= logged_in_user.id
-      if @comment.valid?
-        if action_name == "post"
-          if @comment.parent_id
-            @id_to_update = "comment_children_#{@comment.parent_id}"
-          else
-            @id_to_update = "comments"
-          end
-          @comment.save
-          @rendered_partial = render_to_string(:partial => "comment", :locals => {:comment => @comment})
-          render(:action => "post", :layout => false)
+      if action_name == "post"
+        if @comment.parent_id
+          @id_to_update = "comment_children_#{@comment.parent_id}"
         else
-          render(:partial => "shared/preview", :locals => {:entity => @comment})
+          @id_to_update = "comments"
         end
+        @comment.save
+        @rendered_partial = render_to_string(:partial => "comment", :locals => {:comment => @comment})
+        render(:action => "post", :layout => false)
       else
-        render(:partial => "form", :status => 409)
+        render(:partial => "shared/preview", :locals => {:entity => @comment})
       end
     end
   end
