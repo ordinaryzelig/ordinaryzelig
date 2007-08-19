@@ -1,15 +1,6 @@
 <div id="comment_form_content_<%= @comment.parent_id %>">
   <%= error_messages(@comment) %>
-
-  <% if controller.action_name == "preview" && @comment.errors.empty? -%>
-    <div style="margin-top: 5mm; margin-bottom: 5mm;">
-      <span style="background-color: yellow;">PREVIEW</span><br>
-      <%= h(@comment.comment) %>
-    </div>
-    <%= hidden_field(:comment, :comment) %>
-  <% else -%>
-    <%= text_area(:comment, :comment, {:id => "comment_text_area_#{object_id}"}) %>
-  <% end %>
+  <%= text_area(:comment, :comment, {:id => "comment_text_area_#{object_id}"}) %>
   <%= hidden_field(:comment, :parent_id) %>
   <%= hidden_field(:comment, :user_id) %>
   <%= hidden_field(:comment, :created_at) %>

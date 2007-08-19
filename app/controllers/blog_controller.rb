@@ -40,10 +40,7 @@ class BlogController < ApplicationController
   end
   
   def preview
-    if request.xhr?
-      @blog = Blog.new(params[:blog])
-    end
-    render(:layout => false)
+    render(:partial => "shared/preview", :locals => {:entity => Blog.new(params[:blog])}) if request.xhr?
   end
   
   def edit
