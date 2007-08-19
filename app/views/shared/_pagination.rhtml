@@ -8,14 +8,14 @@
       page:
     
       <% # previous. -%>
-      <%= link_to_page("previous", paginator.current.previous, entity_class, url) %>
+      <%= link_to_page("previous", pages.current.previous, entity_class) %>
     
       <% # next. -%>
-      <%= link_to_page("next", paginator.current.next, entity_class, url) %>
+      <%= link_to_page("next", pages.current.next, entity_class) %>
     
       <% # links for pages. %>
-      <% paginator.each do |page| -%>
-        <%= link_to_page(page.number, page, entity_class, url) %>
+      <% pages.each do |page| -%>
+        <%= link_to_page(page.number, page, entity_class) %>
       <% end -%>
     
       <% # spinner. %>

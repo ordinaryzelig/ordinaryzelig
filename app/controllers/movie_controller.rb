@@ -65,11 +65,13 @@ class MovieController < ApplicationController
   
   def search
     if request.get?
-      if params[:id] && params[:id].size > 0
+      if params[:id]
+        if params[:id].size > 0
         search_text = "%#{params[:id]}%"
         @movies = Movie.find(:all, :conditions => ["lower(title) like ?", search_text.downcase]) if search_text
-      else
-        flash.now[:failure] = "search for something."
+        else
+          flash.now[:failure] = "search for something."
+        end
       end
     else
       redirect_to(:action => "search", :id => params[:search_text])

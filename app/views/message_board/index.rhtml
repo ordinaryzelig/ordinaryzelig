@@ -8,4 +8,4 @@
   
 <% end -%>
 
-<%= render(:partial => "pagination", :locals => {:paginator => @messages_pages, :object_class => @messages.first.class.to_s}) if !@messages.empty? %>
+<%= render(:partial => "shared/pagination", :locals => {:entities => @messages, :pages => @messages_pages}) %>
