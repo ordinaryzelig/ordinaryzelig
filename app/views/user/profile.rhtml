@@ -60,7 +60,7 @@
       latest movie reviews
       <ul>
         <% @user.movie_reviews[0..4].each do |review| -%>
-          <li><%= link_to("#{review.movie.title}", :controller => "movie", :action => "review", :id => review.id) %></li>
+          <li><%= link_to("#{review.movie.title}", :controller => "movie", :action => "review", :id => review.id) %> <span style="font-size: 10pt; color: gray;"><%= default_time(review.created_at) %></span></li>
         <% end -%>
       </ul>
     </div>
@@ -72,14 +72,14 @@
   <div class=profileSection>
     <% # friends. -%>
     <% if @user.considers_friend?(logged_in_user) || is_self_or_admin?(@user) -%>
-      <%= link_to("#{pluralize(@user.friends.size, "friend")}", :action => "friends", :id => @user.id) %><br>
+      <%= link_to("friends: #{@user.friends.size}", :action => "friends", :id => @user.id) %><br>
     <% else -%>
       friends (restricted to <%= @user.display_name %>'s friends)
     <% end -%>
     
     <% # friends of. -%>
     <% if is_self_or_admin?(@user) -%>
-      you are a friend to <%= link_to_considering_friends("#{pluralize(@user.considering_friends.size, "user")}", @user) %>
+      <%= link_to_considering_friends("people that consider you their friend: #{@user.considering_friends.size}", @user) %>
       (<%= link_to_considering_friends("#{@user.wannabe_friends.size} not mutual", @user, true) %>)
     <% end -%>
   </div>
