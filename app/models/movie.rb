@@ -27,7 +27,8 @@ class Movie < ActiveRecord::Base
     countable_reviews.each do |review|
       total += review.rating.id
     end
-    (0.0 + total) / countable_reviews.size
+    average_rating = (0.0 + total) / countable_reviews.size
+    average_rating > 0 ? average_rating : 0
   end
   
 end
