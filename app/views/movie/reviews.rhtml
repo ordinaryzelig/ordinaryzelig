@@ -1,6 +1,4 @@
-<div style="margin-bottom: 10mm;">
-  <%= link_to("new movie", :action => "new") %> <span style="font-size: 10pt;">(please search for your movie first)</span>
-</div>
+<%= render :partial => 'new_movie_link' %>
 
 <%= render(:partial => "search") %>
 
