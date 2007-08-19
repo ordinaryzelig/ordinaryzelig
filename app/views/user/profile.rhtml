@@ -57,10 +57,10 @@
   
   <% unless @user.movie_reviews.empty? -%>
     <div class=profileSection>
-      last 5 movie reviews
+      latest movie reviews
       <ul>
         <% @user.movie_reviews[0..4].each do |review| -%>
-          <li><%= link_to("#{review.movie.title}: #{review.title}", :controller => "movie", :action => "review", :id => review.id) %></li>
+          <li><%= link_to("#{review.movie.title}", :controller => "movie", :action => "review", :id => review.id) %></li>
         <% end -%>
       </ul>
     </div>
