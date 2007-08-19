@@ -3,16 +3,18 @@
   <div style="border: .5mm solid black;">
   
     <div id="banner">
-      <%= @page_title %><br>
+      <%= link_to(@page_title, :action => "show", :id => @review.movie_id) %><br>
       <span style="font-size: 12pt">
         <%= @review.title %><br>
         <%= @review.rating %><br>
         <%= link_to_profile(@review.user) %>
       </span>
     </div>
-  
-    <div style="padding: 2mm; padding-bottom: 5mm;"><%= sanitize(@review.review) %></div>
-  
+    
+    <% if @review.review -%>
+      <div style="padding: 2mm; padding-bottom: 5mm;"><%= sanitize(@review.review) %></div>
+    <% end -%>
+    
   </div>
   
 <% end -%>

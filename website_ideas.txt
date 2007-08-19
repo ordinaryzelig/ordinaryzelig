@@ -1,13 +1,3 @@
-movie reviews
-	link to imdb
-	who will like it
-	smokin aces like traffic and ocean's 11
-
-cvs2 combos
-   post on you tube
-
-what's been going on since last login?
-
-friendships can be "newable"
-
 collapsable sidebar
+
+friends only mode (don't show crap from people i don't care about)

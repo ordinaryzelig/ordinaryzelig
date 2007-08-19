@@ -40,14 +40,18 @@ class MovieController < ApplicationController
   end
   
   def show
-    @movie = Movie.find_by_id(params[:id], :include => :reviews)
+    @movie = Movie.find_by_id(params[:id])
     unless @movie
       flash[:failure] = "movie not found."
       redirect_to(:action => "index")
       return
     end
-    @reviews = @movie.reviews.select { |review| review.review }
+    conditions = {:movie_id => @movie.id}
+    logger.info "message #{params[:friends_only]}"
+    conditions.store(:user_id, logged_in_user.friends.map { |friend| friend.id }) if 'true' == params[:friends_only]
+    @reviews_pages, @reviews = paginate(:movie_reviews, :conditions => conditions)
     @page_title = "#{@movie.title}"
+    render(:layout => false) if request.xhr?
   end
   
   def new

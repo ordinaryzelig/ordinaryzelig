@@ -34,7 +34,7 @@ module OrdinaryZelig
           if value.is_a?(Proc)
             prc = value
           else
-            prc = proc { strip_tags(eval("#{value}"))[0..summarize_max] }
+            prc = proc { strip_tags(eval("#{value}") || "")[0..summarize_max] }
           end
         else
           if value.is_a?(String) || value.is_a?(Symbol)

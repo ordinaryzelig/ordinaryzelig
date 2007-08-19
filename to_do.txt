@@ -15,4 +15,4 @@ friend count
 
 application error page
 
-edit reviews
+sidebar can expand section if user is in that conroller.

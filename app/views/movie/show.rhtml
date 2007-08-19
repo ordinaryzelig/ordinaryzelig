@@ -1,20 +1,24 @@
 <div style="margin-bottom: 10mm;">
-  overall rating: <%= ratings(@movie) %>
+  <%= "overall rating" %>: <%= ratings(@movie) %>
   
   <div style="margin-bottom: 10mm;">
     <% if logged_in_user -%>
-      <%= ratings(@movie, true) %>
+      friend rating: <%= ratings(@movie, true) %>
     <% else -%>
       <%= link_to("login to view your friends' rating", {:controller => "login", :action => "login"}, :style => "font-size: 10pt;") %>
-    <% end -%>
+    <% end -%><br>
+    <%= link_to(check_box_tag(:show_friends_only, 1, 'true' == params[:friends_only]), :friends_only => 'true' != params[:friends_only]) %> show friends only
   </div>
   
   <%= link_to("review this movie", :action => "edit_review", :movie_id => @movie.id) %>
 </div>
 
-<div>
-  <div><%= pluralize(@reviews.size, "review") %></div>
+<div><%= pluralize(@reviews.size, "review") %></div>
+
+<% content_for "MovieReview_pagination" do -%>
   <% @reviews.each do |review| -%>
     <%= render(:partial => "shared/summary", :locals => {:entity => review, :show_who => true}) %>
   <% end -%>
-</div>
+<% end -%>
+
+<%= render(:partial => "shared/pagination", :locals => {:pages => @reviews_pages, :entities => @reviews}) %>
