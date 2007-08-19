@@ -1,6 +1,0 @@
-<% if @message && @message.body %>
-  <div style="border: .5mm solid gray; padding: 2mm;">
-    <div style="margin-bottom: 3mm;"><span style="background-color: yellow;">PREVIEW</span></div>
-    <%= sanitize(@message.body) %>
-  </div>
-<% end %>

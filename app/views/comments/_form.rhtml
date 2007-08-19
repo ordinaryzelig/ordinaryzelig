@@ -1,9 +1,15 @@
 <div id="comment_form_content_<%= @comment.parent_id %>">
+  
   <%= error_messages(@comment) %>
+  
   <%= text_area(:comment, :comment, {:id => "comment_text_area_#{object_id}"}) %>
   <%= hidden_field(:comment, :parent_id) %>
   <%= hidden_field(:comment, :user_id) %>
   <%= hidden_field(:comment, :created_at) %>
   <%= hidden_field(:comment, :entity_type) %>
   <%= hidden_field(:comment, :entity_id) %>
+  
+  <% # preview. %>
+  <div id="comment_preview_<%= @comment.id %>" style="display: none;"></div>
+  
 </div>

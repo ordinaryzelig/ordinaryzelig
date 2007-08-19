@@ -2,7 +2,8 @@ comments
     preview for comments should just show preview without hiding editing components.
     comments post highlighting shouldn't highlight reply section, just the comment.
     focus on text area messes up in safari.  timeout, queue, or just forget it?
-
+    forget about blank comments.  allow it, just don't save it, just hide it.  then code won't show if rendered too fast.
+    
 rescue bad urls
     http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v
         routes -> map.connect to new controller which will determine if controller exists, if it does, redirect to index action.  otherwise, redirect to welcome page.

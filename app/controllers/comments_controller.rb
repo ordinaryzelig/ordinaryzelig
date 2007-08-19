@@ -2,8 +2,6 @@ class CommentsController < ApplicationController
   
   before_filter :validate_session
   
-  AJAX_ACTIONS = ["new", "post", "preview", "cancel"]
-  
   # params:
   #   parent_id or
   #   entity_type and entity_id
@@ -45,7 +43,7 @@ class CommentsController < ApplicationController
           @rendered_partial = render_to_string(:partial => "comment", :locals => {:comment => @comment})
           render(:action => "post", :layout => false)
         else
-          render(:partial => "form")
+          render(:partial => "shared/preview", :locals => {:entity => @comment})
         end
       else
         render(:partial => "form", :status => 409)

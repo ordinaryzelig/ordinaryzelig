@@ -4,7 +4,7 @@
   <div style="padding-bottom: 10mm;">
     
     <% if comment -%>
-      <div style="border: 1px solid black;">
+      <div id="comment_highlightable_<%= comment_id %>" style="border: 1px solid black;">
         <div class=listingSection style="<%= recent_background_color(comment) %>">
           <div class=listingInfo>
             <%= link_to_profile(comment.user) %> - <%= default_time(comment.created_at) %>
@@ -40,7 +40,7 @@
                                                      hide_comment_spinner(comment_id)),
                                   :id => "reply_button"}
             ) %>
-          </div>
+          </div> <% # end reply. -%>
         
           <% # ========================================================= %>
           <% # post. %>
@@ -58,55 +58,27 @@
                                                                    show_comment_action_bar("post", comment_id))}
             ) %>
             <%= submit_to_remote(:preview, "preview", {:url => {:controller => "comments", :action => "preview"},
-                                                       :update => "comment_form_#{comment_id}",
-                                                       :before => stack(show_comment_spinner(comment_id),
-                                                                        hide_comment_action_bar("post", comment_id),
-                                                                        hide_comment_form(comment_id)),
-                                                       :complete => stack(show_comment_form(comment_id), hide_comment_spinner(comment_id)),
-                                                       :success => stack(show_comment_action_bar("preview", comment_id)),
-                                                       :failure => stack(show_comment_action_bar("post", comment_id))}
+                                                       :update => "comment_preview_#{comment_id}",
+                                                       :before => show_comment_spinner(comment_id),
+                                                       :complete => hide_comment_spinner(comment_id),
+                                                       :success => show_preview(comment_id)}
             ) %>
             <%= submit_to_remote(:cancel, "cancel", {:url => {:controller => "comments", :action => "cancel"},
                                                      :before => stack(hide_comment_action_bar("post", comment_id),
                                                                       hide_comment_form(comment_id),
                                                                       show_comment_action_bar("reply", comment_id))}
             ) %>
-          </div>
-        
-          <% # ========================================================= %>
-          <% # preview. %>
-          <div id="comment_action_bar_preview_<%= comment_id %>" style="display: none;">
-            <%= submit_to_remote(:accept, "accept", {:url => {:controller => "comments", :action => "post", :post_action => "accept"},
-                                                     :loaded => stack(hide_comment_form(comment_id),
-                                                                      show_comment_spinner(comment_id),
-                                                                      hide_comment_action_bar("preview", comment_id)),
-                                                     :success => stack("eval(request.responseText);",
-                                                                        show_comment_action_bar("reply", comment_id),
-                                                                        remove_comment_form_content(comment_id)),
-                                                     :complete => stack(hide_comment_spinner(comment_id))}
-            ) %>
-            <%= submit_to_remote(:edit, "edit", {:url => {:controller => "comments", :action => "new"},
-                                                 :update => "comment_form_#{comment_id}",
-                                                 :loaded => stack(hide_comment_form(comment_id),
-                                                            show_comment_spinner(comment_id),
-                                                            hide_comment_action_bar("preview", comment_id)),
-                                                 :complete => stack(show_comment_form(comment_id),
-                                                                    hide_comment_spinner(comment_id),
-                                                                    show_comment_action_bar("post", comment_id))}
-            ) %>
-            <%= submit_to_remote(:cancel, "cancel", {:url => {:controller => "comments", :action => "cancel"},
-                                                     :loaded => stack(show_comment_action_bar("reply", comment_id),
-                                                                                 hide_comment_action_bar("preview", comment_id),
-                                                                                 hide_comment_form(comment_id))}
-            ) %>
-          </div>
+            
+          </div> <% # end post. -%>
+          
         <%= end_form_tag %>
-      </div>
-    
+        
+      </div> <% # end post actions. -%>
+      
     <% end -%>
-
+    
   </div>
-
+  
   <% # ========================================================= %>
   <% # children. -%>
   

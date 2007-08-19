@@ -143,6 +143,10 @@ module ApplicationHelper
     visual_effect(:slide_up, "comment_form_#{comment_id}", {:queue => {:position => 'end', :scope => 'comment_form'}})
   end
   
+  def show_preview(comment_id)
+    visual_effect(:slide_down, "comment_preview_#{comment_id}")
+  end
+  
   def remove_comment_form_content(comment_id)
     "Element.remove('comment_form_content_#{comment_id}');"
   end
