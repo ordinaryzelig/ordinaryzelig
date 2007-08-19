@@ -1,8 +1,4 @@
-comments
-    preview for comments should just show preview without hiding editing components.
-    comments post highlighting shouldn't highlight reply section, just the comment.
-    focus on text area messes up in safari.  timeout, queue, or just forget it?
-    forget about blank comments.  allow it, just don't save it, just hide it.  then code won't show if rendered too fast.
+focus on text area messes up in safari.  timeout, queue, or just forget it?
     
 rescue bad urls
     http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v
@@ -12,3 +8,9 @@ rescue bad urls
 what is ordinary zelig?
 
 log request uris
+
+action mailer for new user
+
+friend count
+
+application error page
