@@ -46,12 +46,8 @@ class MovieController < ApplicationController
       redirect_to(:action => "index")
       return
     end
-    # this code works in rails 1.2.3, but not on 1.1.6.
-    # conditions = {:movie_id => @movie.id}
-    # conditions.store(:user_id, logged_in_user.friends.map { |friend| friend.id }) if 'true' == params[:friends_only] && logged_in_user
-    conditions_sql = "movie_id = ? and user_id in (?)"
-    conditions_params = [@movie.id, logged_in_user.friends.map { |friend| friend.id }] if 'true' == params[:friends_only] && logged_in_user
-    conditions = [conditions_sql, *conditions_params]
+    conditions = {:movie_id => @movie.id}
+    conditions.store(:user_id, logged_in_user.friends.map { |friend| friend.id }) if 'true' == params[:friends_only] && logged_in_user
     @reviews_pages, @reviews = paginate(:movie_reviews, :conditions => conditions)
     @page_title = "#{@movie.title}"
     render(:layout => false) if request.xhr?
