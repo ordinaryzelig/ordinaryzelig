@@ -3,11 +3,11 @@
   
   <div style="margin-bottom: 10mm;">
     <% if logged_in_user -%>
-      friend rating: <%= ratings(@movie, true) %>
+      friend rating: <%= ratings(@movie, true) %><br>
+      <%= link_to(check_box_tag(:show_friends_only, 1, 'true' == params[:friends_only]), :friends_only => 'true' != params[:friends_only]) %> show friends only
     <% else -%>
-      <%= link_to("login to view your friends' rating", {:controller => "login", :action => "login"}, :style => "font-size: 10pt;") %>
-    <% end -%><br>
-    <%= link_to(check_box_tag(:show_friends_only, 1, 'true' == params[:friends_only]), :friends_only => 'true' != params[:friends_only]) %> show friends only
+      <%= link_to("login to view your friends' ratings", {:controller => "login", :action => "login"}, :style => "font-size: 10pt;") %><br>
+    <% end -%>
   </div>
   
   <%= link_to("review this movie", :action => "edit_review", :movie_id => @movie.id) %>
