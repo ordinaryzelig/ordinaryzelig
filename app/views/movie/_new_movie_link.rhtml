@@ -1,3 +1,7 @@
 <div style="margin-bottom: 10mm;">
-  <%= link_to("new movie", :action => "new") %> <span style="font-size: 10pt;">(please search for your movie first)</span>
+  <% if logged_in_user -%>
+    <%= link_to("new movie", :action => "new") %> <span style="font-size: 10pt;">(please search for your movie first)</span>
+  <% else -%>
+    login to submit a new movie
+  <% end -%>
 </div>
