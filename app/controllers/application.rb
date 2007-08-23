@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   
   after_filter :mark_requested_page
   
-  SESSION_HOURS = 24
-  SESSION_FORCE_RELOGIN_DAYS = 3
+  SESSION_HOURS = 12
+  SESSION_FORCE_RELOGIN_DAYS = 1
   
   helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?
   
