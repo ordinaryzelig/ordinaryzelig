@@ -22,6 +22,7 @@ html{
     padding: 3mm;
     margin-bottom: 3mm;
     background-color: lightblue;
+    border: 2px solid black;
 }
 
 .errorMessages{
@@ -33,8 +34,7 @@ html{
 }
 
 .flash{
-    border-width: 1mm;
-    border-style: groove;
+    border-width: 1px;
     border-style: solid;
     padding: 2mm;
     background-color: lightgray;
@@ -63,6 +63,7 @@ html{
     width: 35mm;
     padding: 3mm;
 	font-size: 80%;
+	border: 1px solid black;
 }
 
 #myBracket{

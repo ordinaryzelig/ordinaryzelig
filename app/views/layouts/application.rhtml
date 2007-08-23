@@ -1,4 +1,4 @@
-<html style="font-family: Helvetica;">
+<html style="font-family: Helvetica; margin: 10mm; background: midnightblue;">
   
   <head>
     <%= stylesheet_link_tag "application", "comments", controller.controller_name, :media => "all" %>
@@ -11,7 +11,7 @@
   
   <body>
     
-    <div style="background: white;">
+    <div style="background: white; padding: 5mm;">
       
       <% #=================================================== %>
       <% # sidebar. -%>
@@ -50,6 +50,8 @@
         <div id="layout_content"><%= @content_for_layout %></div>
       
       </div>
+      
+    </div>
       
   </body>
   
