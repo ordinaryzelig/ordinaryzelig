@@ -12,8 +12,8 @@ a:hover{
     text-decoration: underline;
 }
 
-html, body{
-    background: navy;
+html{
+    font-family: Helvetica;
 }
 
 #banner{

@@ -1,4 +1,4 @@
-<html>
+<html style="font-family: Helvetica;">
   
   <head>
     <%= stylesheet_link_tag "application", "comments", controller.controller_name, :media => "all" %>
@@ -11,37 +11,46 @@
   
   <body>
     
-    <% # sidebar. -%>
-    <%= render(:partial => "shared/sidebar") %>
+    <div style="background: white;">
+      
+      <% #=================================================== %>
+      <% # sidebar. -%>
+      
+      <%= render(:partial => "shared/sidebar") %>
+      
+      <div style="margin-left: 45mm;">
+      
+        <% #=================================================== %>
+        <% # flash. -%>
+      
+        <% if !flash.empty? -%>
+          <div id="flash" style="margin-bottom: 10mm;">
+            <% flash.each do |flash_type, msg| -%>
+              <div class=flash id="flash<%= flash_type %>">
+                <%= msg %>
+              </div>
+            <% end -%>
+          </div>
+        <% end -%>
+      
+        <% #=================================================== %>
+        <% # banner. -%>
+      
+        <% if @content_for_banner -%>
+          <%= yield "banner" %>
+        <% else -%>
+          <div id="banner">
+            <%= @page_title %>
+          </div>
+        <% end -%>
     
-    <% # flash and banner. -%>
-    <div style="background: white; padding-left: 45mm;">
+        <% #=================================================== %>
+        <% # layout. %>
       
-      <% # flash. -%>
-      <% if !flash.empty? -%>
-        <div id="flash" style="margin-bottom: 10mm;">
-          <% flash.each do |flash_type, msg| -%>
-            <div class=flash id="flash<%= flash_type %>">
-              <%= msg %>
-            </div>
-          <% end -%>
-        </div>
-      <% end -%>
+        <div id="layout_content"><%= @content_for_layout %></div>
       
-      <% # banner. -%>
-      <% if @content_for_banner -%>
-        <%= yield "banner" %>
-      <% else -%>
-        <div id="banner">
-          <%= @page_title %>
-        </div>
-      <% end -%>
+      </div>
       
-      <% # layout. %>
-      <div><%= @content_for_layout %></div>
-      
-    </div>
-    
   </body>
   
 </html>
