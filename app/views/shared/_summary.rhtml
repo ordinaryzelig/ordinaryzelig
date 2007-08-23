@@ -14,17 +14,19 @@
     <% # title. -%>
     <%= link_to(entity.summarize_title, entity.summarize_url) %>
     
-    <div class=listingInfo style="padding-left: 5mm;">
-      <% # who. -%>
-      <% if entity.summarize_who -%>
-        <%= "#{link_to_profile(entity.summarize_who)} - " if show_who %>
-        <%= default_time(entity.summarize_when) %>
-        <br>
-      <% end -%>
+    <% if show_who && entity.summarize_who || entity.summarize_when -%>
+      <div class=listingInfo style="padding-left: 5mm;">
+        <% # who. -%>
+        <% if entity.summarize_who -%>
+          <%= "#{link_to_profile(entity.summarize_who)} - " if show_who %>
+          <%= default_time(entity.summarize_when) %>
+          <br>
+        <% end -%>
       
-      <% # comments. -%>
-      <%= comment_info(entity) if entity.class.can_have_comments? %>
-    </div>
+        <% # comments. -%>
+        <%= comment_info(entity) if entity.class.can_have_comments? %>
+      </div>
+    <% end -%>
   </div>
   
   <% #========================================= -%>

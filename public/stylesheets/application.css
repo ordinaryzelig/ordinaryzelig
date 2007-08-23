@@ -22,7 +22,7 @@ html{
     padding: 3mm;
     margin-bottom: 3mm;
     background-color: lightblue;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 .errorMessages{

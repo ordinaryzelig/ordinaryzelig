@@ -5,14 +5,15 @@
     <% # logged in. -%>
     
     <%= h(logged_in_user.display_name) %><br>
-    <%= link_to("logout", :controller => "login", :action => "logout") %><br>
+    <%= link_to("logout", :controller => "login", :action => "logout") %>
+    <hr>
+    
     <%= link_to_profile(logged_in_user, "your profile") %><br>
     <%= link_to("blog", :controller => "blog", :action => "list", :id => logged_in_user.id) %><br>
     <%= link_to("friends", :controller => "user", :action => "friends", :id => logged_in_user.id) %><br>
     <%= link_to("people search", :controller => "user", :action => "search") %>
     <hr>
     
-    <% # admin. -%>
     <% if logged_in_user.is_admin? -%>
       admin<br>
       <%= link_to("users", :controller => "admin", :action => "users") %><br>
@@ -34,31 +35,26 @@
     
   <% end -%>
   
-  <% # ==================================== -%>
-  <% # message board. -%>
-  
-  <%= link_to "message board", :controller => "message_board" %>
+  <%= link_to_unless('movie' == controller.controller_name, "movie reviews", :controller => "movie") %><br>
+  <% if 'movie' == controller.controller_name -%>
+    <%= link_to("reviews", :controller => "movie", :action => "reviews") %><br>
+    <%= link_to("search", :controller => "movie", :action => "search") %><br>
+  <% end -%>
   <hr>
   
-  <% # ==================================== -%>
-  <% # movies. -%>
-  
-  <%= link_to "movie reviews", :controller => "movie" %>
-  <hr>
-  
-  <% # ==================================== -%>
-  <% # march madness. -%>
-  
-  march madness
-  <%= link_to("standings", :controller => "pool", :action => "standings") %><br>
-  <%= link_to("brackets", :controller => "pool") %>
-  <% if logged_in_user -%>
-    <%= link_to_my_bracket %>
-  <% end -%><br>
-  <%= link_to("tourney info", :controller => "pool", :action => "tournament_info") %>
-  scoreboards<br>
-  <%= link_to("espn", "http://scores.espn.go.com/ncb/scoreboard") %><br>
-  <%= link_to("cbs", "http://www.sportsline.com/collegebasketball/scoreboard") %>
+  <%= link_to_unless('pool' == controller.controller_name, "march madness", :controller => "pool") %>
+  <% if 'pool' == controller.controller_name -%>
+    <%= link_to("standings", :controller => "pool", :action => "standings") %><br>
+    <%= link_to("brackets", :controller => "pool") %>
+    <% if logged_in_user -%>
+      <%= link_to_my_bracket %>
+    <% end -%><br>
+    <%= link_to("tourney info", :controller => "pool", :action => "tournament_info") %><br>
+    <%= link_to("message board", :controller => "message_board") %><br>
+    scoreboards<br>
+    <%= link_to("espn", "http://scores.espn.go.com/ncb/scoreboard") %><br>
+    <%= link_to("cbs", "http://www.sportsline.com/collegebasketball/scoreboard") %>
+  <% end -%>
   <hr>
   
   <% # ==================================== -%>

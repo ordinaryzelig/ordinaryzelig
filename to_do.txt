@@ -11,8 +11,10 @@ log request uris
 
 action mailer for new user
 
-friend count
-
 application error page
 
 sidebar can expand section if user is in that conroller.
+
+move messageboard to pool controller?
+
+default nil for fields in db.
