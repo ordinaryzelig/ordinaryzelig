@@ -49,7 +49,10 @@
       
         <div id="layout_content"><%= @content_for_layout %></div>
       
-      </div>
+      </div> <% # end main section. -%>
+      
+      <% # this div is to limit the main section to at least the size of the sidebar. -%>
+      <div style="clear: both;"></div>
       
     </div>
       
