@@ -12,8 +12,8 @@ a:hover{
     text-decoration: underline;
 }
 
-html{
-    font-family: Helvetica;
+html, body{
+    background: navy;
 }
 
 #banner{
@@ -62,7 +62,6 @@ html{
     background: lightgray;
     width: 35mm;
     padding: 3mm;
-	position: fixed;
 	font-size: 80%;
 }
 
