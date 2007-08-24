@@ -11,51 +11,47 @@
   
   <body>
     
-    <div style="background: white; padding: 5mm;">
-      
-      <% #=================================================== %>
-      <% # sidebar. -%>
-      
-      <%= render(:partial => "shared/sidebar") %>
-      
-      <div style="margin-left: 45mm;">
-      
-        <% #=================================================== %>
-        <% # flash. -%>
-      
-        <% if !flash.empty? -%>
-          <div id="flash" style="margin-bottom: 10mm;">
-            <% flash.each do |flash_type, msg| -%>
-              <div class=flash id="flash<%= flash_type %>">
-                <%= msg %>
-              </div>
-            <% end -%>
-          </div>
-        <% end -%>
-      
-        <% #=================================================== %>
-        <% # banner. -%>
-      
-        <% if @content_for_banner -%>
-          <%= yield "banner" %>
-        <% else -%>
-          <div id="banner">
-            <%= @page_title %>
-          </div>
-        <% end -%>
+    <% #=================================================== %>
+    <% # sidebar. -%>
     
-        <% #=================================================== %>
-        <% # layout. %>
-      
-        <div id="layout_content"><%= @content_for_layout %></div>
-      
-      </div> <% # end main section. -%>
-      
-      <% # this div is to limit the main section to at least the size of the sidebar. -%>
-      <div style="clear: both;"></div>
-      
-    </div>
-      
+    <%= render(:partial => "shared/sidebar") %>
+    
+    <% #=================================================== %>
+    <% # main. -%>
+    
+    <div style="margin-left: 45mm; padding: 5mm; background: white;">
+    
+      <% #=================================================== %>
+      <% # flash. -%>
+    
+      <% if !flash.empty? -%>
+        <div id="flash" style="margin-bottom: 10mm;">
+          <% flash.each do |flash_type, msg| -%>
+            <div class=flash id="flash<%= flash_type %>">
+              <%= msg %>
+            </div>
+          <% end -%>
+        </div>
+      <% end -%>
+    
+      <% #=================================================== %>
+      <% # banner. -%>
+    
+      <% if @content_for_banner -%>
+        <%= yield "banner" %>
+      <% else -%>
+        <div id="banner">
+          <%= @page_title %>
+        </div>
+      <% end -%>
+  
+      <% #=================================================== %>
+      <% # layout. %>
+    
+      <div id="layout_content"><%= @content_for_layout %></div>
+    
+    </div> <% # end main section. -%>
+    
   </body>
   
 </html>
