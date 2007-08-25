@@ -28,6 +28,10 @@ module ApplicationHelper
     mail_to(user.email, str, :encode => "javascript")
   end
   
+  def link_to_login(to_do_str)
+    content_tag(:span, "#{link_to("login", :controller => "login")} #{to_do_str}", :style => "font-size: 10pt;")
+  end
+  
   def error_messages(model_obj)
     if !model_obj.errors.empty?
       div_id = "error_messages_#{model_obj.__id__}"

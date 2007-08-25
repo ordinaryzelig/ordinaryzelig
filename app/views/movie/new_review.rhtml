@@ -1,4 +1,4 @@
-<%= error_messages(@movie_review) %>
+<%= error_messages(@movie_rating) %>
 
 <%= form_tag(:movie_id => @movie.id) %>
 
@@ -7,28 +7,24 @@
       <td>rating</td>
       <td>
         <div style="margin-bottom: 10mm;">
-          <%= select(:movie_review, :movie_rating_id, MovieRating.container, :include_blank => true) %> <span style="font-size: 10px;">more rating types coming soon</span>
+          <%= select(:movie_rating, :rating, @movie_rating.rating_type.container, :include_blank => true) %> <span style="font-size: 10px;">more rating types coming soon</span>
         </div>
       </td>
     </tr>
     <tr>
-      <td></td>
-      <td>write a review (optional)</td>
-    </tr>
-    <tr>
-      <td>title</td>
-      <td><%= text_field(:movie_review, :title) %></td>
+      <td>summary</td>
+      <td><%= text_field(:movie_rating, :summary) %></td>
     </tr>
     <tr>
       <td valign=top>review</td>
-      <td><%= text_area(:movie_review, :review) %></td>
+      <td><%= text_area(:movie_rating, :explanation) %></td>
     </tr>
     <tr>
       <td></td>
       <td><%= submit_tag(:save) %></td>
     </tr>
   </table>
-  <%= hidden_field(:movie_review, :user_id) %>
-  <%= hidden_field(:movie_review, :movie_id) %>
+  <%= hidden_field(:movie_rating, :user_id) %>
+  <%= hidden_field(:movie_rating, :movie_id) %>
 
 <%= end_form_tag %>

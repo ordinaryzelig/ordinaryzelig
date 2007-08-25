@@ -7,7 +7,7 @@ class UserController < ApplicationController
   # params
   #   id (user)
   def profile
-    @user = User.find_by_id(params[:id], :include => [:blogs, :movie_reviews, :friends])
+    @user = User.find_by_id(params[:id], :include => [:blogs, :movie_ratings, :friends])
     if @user && !@user.is_admin_or_master?
       @page_title =  "profile - #{@user.display_name}"
       recents

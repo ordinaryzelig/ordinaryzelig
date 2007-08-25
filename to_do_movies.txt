@@ -30,11 +30,10 @@ more rating types
          c.save
       views
          update to work
-         differentiate review and rate
       remove review table
    add new rating types
       rewatchability
-         
+      differentiate review and rate
 
 handle spoilers?
 

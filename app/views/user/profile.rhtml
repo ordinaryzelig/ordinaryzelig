@@ -55,11 +55,11 @@
   <% # ============================================================= %>
   <% # movie reviews. -%>
   
-  <% unless @user.movie_reviews.empty? -%>
+  <% unless @user.reviews.empty? -%>
     <div class=profileSection>
       latest movie reviews
       <ul>
-        <% @user.movie_reviews[0..4].each do |review| -%>
+        <% @user.reviews[0..4].each do |review| -%>
           <li><%= link_to("#{review.movie.title}", :controller => "movie", :action => "review", :id => review.id) %> <span style="font-size: 10pt; color: gray;"><%= default_time(review.created_at) %></span></li>
         <% end -%>
       </ul>

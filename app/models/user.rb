@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :considering_friends, :through => :considering_friendships
   has_many :blogs
-  has_many :movie_reviews, :order => :created_at, :include => :movie
+  has_many :movie_ratings, :order => :created_at, :include => :movie
   
   validates_presence_of :first_name, :last_name, :display_name, :email
   validates_uniqueness_of :email, :message => "is already registered. <a href=\"mailto:help@ordinaryzelig.org\">email me</a> and i'll set you up."
@@ -171,6 +171,10 @@ class User < ActiveRecord::Base
   
   def can_read?(obj)
     obj.summarize_who.is_friend_of?(self)
+  end
+  
+  def reviews
+    movie_ratings.select { |rating| rating.is_review? }
   end
   
   private

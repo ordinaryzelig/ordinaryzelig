@@ -14,7 +14,7 @@ class MovieController < ApplicationController
   end
   
   def review
-    @review = MovieReview.find_by_id(params[:id])
+    @review = MovieRating.find_by_id(params[:id])
     unless @review
       flash[:failure] = "review not found."
       redirect_to(:action => "reviews")
@@ -24,7 +24,7 @@ class MovieController < ApplicationController
   end
   
   def new_review
-    @movie = Movie.find_by_id(params[:movie_id] || params[:movie_review][:movie_id], :include => :reviews)
+    @movie = Movie.find_by_id(params[:movie_id] || params[:movie_rating][:movie_id], :include => :reviews)
     # check for existing movie.
     unless @movie
       flash[:failure] = "movie not found."
@@ -37,15 +37,17 @@ class MovieController < ApplicationController
       redirect_to(:action => "show", :id => params[:movie_id])
       return
     end
+    
+    rating_type = MovieRatingType.find(1)
     if request.get?
-      # defaults.
-      @movie_review = MovieReview.new(:movie_id => params[:movie_id], :user_id => logged_in_user.id)
+      @movie_rating = MovieRating.new(:movie_id => params[:movie_id], :user_id => logged_in_user.id, :rating_type => rating_type)
       @page_title = @movie.title
     else
-      @movie_review = MovieReview.new(params[:movie_review])
-      if @movie_review.save
+      @movie_rating = MovieRating.new(params[:movie_rating])
+      @movie_rating.rating_type = rating_type
+      if @movie_rating.save
         flash[:success] = "review saved."
-        redirect_to(:action => "review", :id => @movie_review.id)
+        redirect_to(:action => "review", :id => @movie_rating.id)
       end
     end
   end
@@ -59,7 +61,7 @@ class MovieController < ApplicationController
     end
     conditions = {:movie_id => @movie.id}
     conditions.store(:user_id, logged_in_user.friends.map { |friend| friend.id }) if 'true' == params[:friends_only] && logged_in_user
-    @reviews_pages, @reviews = paginate(:movie_reviews, :conditions => conditions)
+    @reviews_pages, @reviews = paginate(:movie_ratings, :conditions => conditions)
     @page_title = "#{@movie.title}"
     render(:layout => false) if request.xhr?
   end
@@ -95,7 +97,7 @@ class MovieController < ApplicationController
   private
   
   def existing_review?(movie)
-    movie.reviews.map { |review| review.user_id }.include?(logged_in_user.id)
+    logged_in_user && movie.reviews.map { |review| review.user_id }.include?(logged_in_user.id)
   end
   
 end

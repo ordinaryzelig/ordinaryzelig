@@ -4,8 +4,8 @@ class MovieRatingType < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   
-  def self.container
-    MovieRating.find(:all, :order => :id).map { |rating| ["#{rating.id} - #{rating.description}", rating.id] }
+  def container
+    rating_options.map { |option| ["#{option.value} - #{option.description}", option.value] }
   end
   
 end

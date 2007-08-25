@@ -18,3 +18,5 @@ sidebar can expand section if user is in that conroller.
 move messageboard to pool controller?
 
 default nil for fields in db.
+
+summarize_max doesn't work when :what option is a self-defined proc.
