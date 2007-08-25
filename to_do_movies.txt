@@ -9,3 +9,5 @@ more reviews
 how handle spoilers?
 
 don't allow user to edit review.  and only allow 1 review per user.
+
+stars

@@ -1,6 +1,6 @@
 class MovieController < ApplicationController
   
-  before_filter :validate_session, :only => [:edit_review, :edit, :new]
+  before_filter :validate_session, :only => [:new_review, :edit, :new]
   ADMIN_ACTIONS = ["edit"]
   
   def index
@@ -22,19 +22,29 @@ class MovieController < ApplicationController
     @page_title = @review.movie.title
   end
   
-  def edit_review
-    @review = MovieReview.find_by_id(params[:id]) || MovieReview.new(:movie_id => params[:movie_id], :user_id => logged_in_user.id)
-    @movie = @review.movie || Movie.find_by_id(params[:movie_id])
-    unless @movie
-      flash[:failure] = "movie not found."
-      redirect_to(:action => "reviews")
-      return
-    end
-    @page_title = @movie.title
-    if request.post?
-      if @review.update_attributes(params[:review])
+  def new_review
+    @movie = Movie.find_by_id(params[:movie_id] || params[:movie_review][:movie_id], :include => :reviews)
+    if request.get?
+      # check for existing movie.
+      unless @movie
+        flash[:failure] = "movie not found."
+        redirect_to(:action => "reviews")
+        return
+      end
+      # check for existing user review.
+      if @movie.reviews.map { |review| review.user_id }.include?(logged_in_user.id)
+        flash[:failure] = "you've already written a review for this movie."
+        redirect_to(:action => "show", :id => params[:movie_id])
+        return
+      end
+      # defaults.
+      @movie_review = MovieReview.new(:movie_id => params[:movie_id], :user_id => logged_in_user.id)
+      @page_title = @movie.title
+    else
+      @movie_review = MovieReview.new(params[:movie_review])
+      if @movie_review.save
         flash[:success] = "review saved."
-        redirect_to(:action => "review", :id => @review.id)
+        redirect_to(:action => "review", :id => @movie_review.id)
       end
     end
   end
@@ -55,7 +65,7 @@ class MovieController < ApplicationController
   
   def new
     @movie = Movie.new(params[:movie] ? params[:movie] : nil)
-    redirect_to(:action => "edit_review", :movie_id => @movie.id) if request.post? && @movie.save
+    redirect_to(:action => "new_review", :movie_id => @movie.id) if request.post? && @movie.save
   end
   
   def edit
