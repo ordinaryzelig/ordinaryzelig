@@ -1,6 +1,7 @@
 class Movie < ActiveRecord::Base
   
-  has_many :reviews, :class_name => "MovieReview"
+  has_many :ratings, :class_name => "MovieRating"
+  has_many :reviews, :class_name => "MovieRating", :conditions => "movie_rating_type_id = 1", :include => :rating_type
   validates_presence_of :title
   validates_uniqueness_of :title
   

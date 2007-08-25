@@ -2,12 +2,40 @@ link to imdb
 
 who will like it
 
-smokin aces like traffic and ocean's 11
+smokin aces = traffic + ocean's 11
 
 more rating types
+   change review system over to rating system
+      add movie_rating_types
+         name
+         description
+      add movie_rating_options
+         rating_type_id
+         description
+         value
+      change movie_ratings to new ratings table
+         movie_id
+         rating_type_id
+         rating
+         summary
+         explanation
+         user
+      change models
+      migrate old review
+         a = MovieReview.find(:first)
+         b = MovieRating.new(:movie_id => a.movie_id, :user_id => a.user_id, :rating => a.movie_rating_id, :movie_rating_type_id => 1, :summary => a.title, :explanation => a.review, :created_at => a.created_at)
+         b.save
+         c = EntityType.find_by_name("MovieReview")
+         c.name = "MovieRating"
+         c.save
+      views
+         update to work
+         differentiate review and rate
+      remove review table
+   add new rating types
+      rewatchability
+         
 
-how handle spoilers?
-
-don't allow user to edit review.  and only allow 1 review per user.
+handle spoilers?
 
 stars
