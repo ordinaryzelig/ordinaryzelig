@@ -67,7 +67,7 @@ module OrdinaryZelig
       end
       
       def has_recency?
-        self.has_recency?
+        self.class.has_recency?
       end
       
     end
