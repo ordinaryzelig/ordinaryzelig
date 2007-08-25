@@ -2,6 +2,8 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   
+  protected
+  
   after_filter :mark_requested_page
   
   SESSION_HOURS = 12
@@ -105,11 +107,10 @@ class ApplicationController < ActionController::Base
   end
   
   # assign user_id to session.
-  def logged_in(user, url = nil)
+  def logged_in(user)
     session[:user_id] = user.id
     flash[:notice] = "logged in as #{logged_in_user.display_name}"
     set_last_authenticated_action_at
-    redirect_to(url) and return if url
     redirect_to_last_marked_page_or_default
   end
   
@@ -140,5 +141,32 @@ class ApplicationController < ActionController::Base
     @recents = @recents.map { |ent| ent.class == Comment ? ent.entity : ent }
     @recents = @recents.uniq
   end
-  
+  # 
+  # def log_error(ex)
+  #   super(ex)
+  #   logger.info "message #{ex.class}"
+  #   case ex
+  #   when ::ActionController::UnknownAction
+  #     flash[:failure] = "the page you requested does not exist."
+  #     redirect_to(:action => "index")
+  #     return
+  #   end
+  #   
+  #   # notify.
+  #   begin
+  #     # Notifier.create_error
+  #   rescue Exception => e
+  #     
+  #   end
+  #   
+  # end
+  # 
+  # def local_request?
+  #   false
+  # end
+  # 
+  # def rescue_action_in_public(ex)
+  #   logger.info "message rescue_action_in_public"
+  # end
+  # 
 end

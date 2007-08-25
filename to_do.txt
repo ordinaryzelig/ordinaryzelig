@@ -1,5 +1,3 @@
-focus on text area messes up in safari.  timeout, queue, or just forget it?
-    
 rescue bad urls
     http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v
         routes -> map.connect to new controller which will determine if controller exists, if it does, redirect to index action.  otherwise, redirect to welcome page.
@@ -9,14 +7,16 @@ what is ordinary zelig?
 
 log request uris
 
-action mailer for new user
+action mailer
+   new user
+   errors
 
 application error page
-
-sidebar can expand section if user is in that conroller.
-
-move messageboard to pool controller?
 
 default nil for fields in db.
 
 summarize_max doesn't work when :what option is a self-defined proc.
+
+entity isn't recent if i'm the last commentor
+
+log of activity

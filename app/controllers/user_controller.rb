@@ -1,8 +1,13 @@
 class UserController < ApplicationController
   
   before_filter :validate_session, :except => [:register]
+  skip_after_filter :mark_requested_page, :only => [:register]
   
   ADMIN_ACTIONS = ["new"]
+  
+  def index
+    redirect_to(:action => "profile", :id => logged_in_user.id)
+  end
   
   # params
   #   id (user)
@@ -85,7 +90,7 @@ class UserController < ApplicationController
       @user.needs_password_confirmation = true
       if @user.save
         flash[:success] = "registration successful."
-        logged_in(@user, {:action => "profile", :id => @user.id})
+        logged_in(@user)
       end
     end
   end
