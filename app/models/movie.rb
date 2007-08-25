@@ -26,7 +26,7 @@ class Movie < ActiveRecord::Base
     total = 0
     countable_reviews = user.nil? ? reviews : friend_reviews(user)
     countable_reviews.each do |review|
-      total += review.rating.id
+      total += review.rating
     end
     average_rating = (0.0 + total) / countable_reviews.size
     average_rating > 0 ? average_rating : 0
