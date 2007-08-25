@@ -1,6 +1,6 @@
 <%= error_messages(@event) %>
 
-<%= form_tag %>
+<% form_tag do -%>
   <table id="eventForm">
     <tr>
       <th>name</th>
@@ -24,4 +24,4 @@
     </tr>
     <%= hidden_field(:event, :created_by_user_id) %>
   </table>
-<%= end_form_tag %>
+<% end -%>

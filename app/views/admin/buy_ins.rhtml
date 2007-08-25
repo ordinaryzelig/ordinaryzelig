@@ -1,8 +1,8 @@
-<%= form_tag -%>
+<% form_tag do -%>
   <div id="seasonSelect">
     <%= season_select_tag(@season.id) %> <%= submit_tag("go") %>
   </div>
-<%= end_form_tag %>
+<% end -%>
 <% if @season -%>
   <% pot = 0 -%>
   <% total_num_brackets = 0 -%>

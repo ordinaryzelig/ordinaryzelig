@@ -5,7 +5,7 @@
     <%= error_message %><br>
   <% end -%>
 </div>
-<%= form_tag %>
+<% form_tag do -%>
   <div id="loginInfo">
     <table>
       <tr>
@@ -22,7 +22,7 @@
       </tr>
     </table>
   </div>
-<%= end_form_tag %>
+<% end -%>
 <script>
   $('email').focus();
   <% if !@user.errors.empty? -%>

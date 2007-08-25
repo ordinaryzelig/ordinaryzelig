@@ -1,7 +1,7 @@
-<%= form_tag %>
+<% form_tag do -%>
   <%= season_select_tag(@season.id) %> <%= submit_tag("go", :name => "go") %>
-<%= end_form_tag %>
-<%= form_tag %>
+<% end -%>
+<% form_tag do -%>
   <table>
     <tr>
       <td align=right>tournament starts at</td>
@@ -32,4 +32,4 @@
     </tr>
   </table>
   <%= hidden_field(:season, :id) %>
-<%= end_form_tag %>
+<% end -%>

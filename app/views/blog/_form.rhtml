@@ -1,6 +1,6 @@
 <%= error_messages(@blog) %>
 
-<%= form_tag %>
+<% form_tag do -%>
   <table id="blogFormTable">
     <tr>
       <th>title</th>
@@ -18,7 +18,7 @@
       </td>
     </tr>
   </table>
-<%= end_form_tag %>
+<% end -%>
 
 <div id="preview" style="margin-top: 5mm;"><%= render_component(:action => "preview") if @blog.body %></div>
 

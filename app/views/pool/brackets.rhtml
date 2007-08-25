@@ -3,12 +3,12 @@
 =end %>
 <div id="seasonSelectBracket">
   <div class=seasonSelect>
-    <%= form_tag %>
+    <% form_tag do -%>
       season <%= season_select_tag(@season.id) %> <%= submit_tag("go", :name => "go_season") %><br>
       scoring system: <%= ScoringSystems::SYSTEMS.default %>
-    <%= end_form_tag %>
+    <% end -%>
   </div>
-  <%= form_tag(:bracket_num => @bracket_num) -%>
+  <% form_tag(:bracket_num => @bracket_num) do -%>
     <table>
       <tr>
         <td align=right>user</td>
@@ -24,7 +24,7 @@
       </tr>
     </table>
     <%= hidden_field_tag(:season_id, @season.id) %>
-  <%= end_form_tag -%>
+  <% end -%>
 </div>
 <% if @user -%>
   <span class=largeUserName>

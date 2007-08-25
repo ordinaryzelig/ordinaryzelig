@@ -105,10 +105,11 @@ class ApplicationController < ActionController::Base
   end
   
   # assign user_id to session.
-  def logged_in(user)
+  def logged_in(user, url = nil)
     session[:user_id] = user.id
     flash[:notice] = "logged in as #{logged_in_user.display_name}"
     set_last_authenticated_action_at
+    redirect_to(url) and return if url
     redirect_to_last_marked_page_or_default
   end
   

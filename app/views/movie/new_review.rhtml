@@ -1,6 +1,6 @@
 <%= error_messages(@movie_rating) %>
 
-<%= form_tag(:movie_id => @movie.id) %>
+<% form_tag(:movie_id => @movie.id) do -%>
 
   <table>
     <tr valign=top>
@@ -27,4 +27,4 @@
   <%= hidden_field(:movie_rating, :user_id) %>
   <%= hidden_field(:movie_rating, :movie_id) %>
 
-<%= end_form_tag %>
+<% end -%>

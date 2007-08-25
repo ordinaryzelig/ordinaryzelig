@@ -85,7 +85,7 @@ class UserController < ApplicationController
       @user.needs_password_confirmation = true
       if @user.save
         flash[:success] = "registration successful."
-        logged_in(@user)
+        logged_in(@user, {:action => "profile", :id => @user.id})
       end
     end
   end
@@ -96,7 +96,6 @@ class UserController < ApplicationController
     else
     # post.
       @user = User.new(params[:user])
-      @user.password = User::DEFAULT_PASSWORD
       if @user.save
         flash[:success] = "user #{@user.id} created."
         redirect_to(:controller => "admin", :action => "users")

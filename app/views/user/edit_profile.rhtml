@@ -1,6 +1,6 @@
 <% if @user -%>
   <%= error_messages(@user) %>
-  <%= form_tag(:id => @user.id) %>
+  <% form_tag(:id => @user.id) do -%>
     <table>
       <%= render(:partial => "user") %>
       <tr>
@@ -13,7 +13,7 @@
       </tr>
     </table>
     <%= hidden_field(:user, :id) %>
-  <%= end_form_tag -%>
+  <% end -%>
 <% else -%>
   user not found.
 <% end -%>

@@ -1,5 +1,5 @@
 <%= error_messages(@user) %>
-<%= form_tag -%>
+<% form_tag do -%>
   <table>
     <%= render(:partial => "user") %>
     <tr>
@@ -15,6 +15,6 @@
       <td><%= submit_tag("submit") %></td>
     </tr>
   </table>
-<%= end_form_tag -%>
+<% end -%>
 <br>
 internet explorer users be warned: this site was tested mostly with safari and <%= link_to("firefox", url_for("http://mozilla.com")) %> and not so much with IE.

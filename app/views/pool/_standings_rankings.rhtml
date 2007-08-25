@@ -7,7 +7,7 @@ locals
   subject_user
   scoring_system
 =end %>
-<%= form_tag(:action => "pvp", :scoring_system_id => scoring_system::id) %>
+<% form_tag(:action => "pvp", :scoring_system_id => scoring_system::id) do -%>
   <table border=1>
     <tr class=standingHeader>
       <th>rank</th>
@@ -44,7 +44,7 @@ locals
       </tr>
     <% end -%>
   </table>
-<%= end_form_tag %>
+<% end -%>
 <% if show_pvp_selectors -%>
   *pvp (player vs player): choose player in left column to compare to players checked in right column. press the pvp button.
 <% end -%>

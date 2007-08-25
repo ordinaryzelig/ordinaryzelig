@@ -2,10 +2,10 @@
 =begin
 for each region, render partial of first round games.
 =end %>
-<%= form_tag %>
+<% form_tag do -%>
   <%= season_select_tag(@season.id) %> <%= submit_tag("go", :name => "go") %>
-<%= end_form_tag %><br>
-<%= form_tag %>
+<% end -%><br>
+<% form_tag do -%>
   <% @regions.reject{|region| 1 == region.order_num}.each do |region| %>
     <%= region.name %><br>
     <% games = region.games.reject{|game| game.round.number != 1} -%>
@@ -21,4 +21,4 @@ for each region, render partial of first round games.
     <%= submit_tag("save all", :name => "save") %><br><br>
   <% end %>
   <%= hidden_field_tag(:season_id, @regions[0].season_id) %>
-<%= end_form_tag %>
+<% end -%>

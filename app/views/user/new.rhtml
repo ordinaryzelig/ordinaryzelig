@@ -1,5 +1,5 @@
 <%= error_messages(@user) %>
-<%= form_tag -%>
+<% form_tag do -%>
   <table>
     <%= render(:partial => "user") %>
     <tr>
@@ -7,4 +7,4 @@
       <td><%= submit_tag("create") %></td>
     </tr>
   </table>
-<%= end_form_tag -%>
+<% end -%>

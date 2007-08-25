@@ -21,7 +21,7 @@
     
       <div>
         <div id="comment_spinner_<%= comment_id %>" style="display: none;"><%= image_tag("spinner.gif") %></div>
-        <%= form_tag %>
+        <% form_tag do -%>
           <div id="comment_form_<%= comment_id %>" style="display: none;"></div>
         
           <% # ========================================================= %>
@@ -69,7 +69,7 @@
             
           </div> <% # end post. -%>
           
-        <%= end_form_tag %>
+        <% end -%>
         
       </div> <% # end post actions. -%>
       
