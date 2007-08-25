@@ -10,7 +10,7 @@
     <% end -%>
   </div>
   
-  <%= link_to("review this movie", :action => "new_review", :movie_id => @movie.id) %>
+  <%= link_to("review this movie", :action => "new_review", :movie_id => @movie.id) if logged_in_user && !existing_review?(@movie) %>
 </div>
 
 <div><%= pluralize(@reviews.size, "review") %></div>

@@ -2,6 +2,7 @@ class MovieController < ApplicationController
   
   before_filter :validate_session, :only => [:new_review, :edit, :new]
   ADMIN_ACTIONS = ["edit"]
+  helper_method :existing_review?
   
   def index
     flash.keep
@@ -24,19 +25,19 @@ class MovieController < ApplicationController
   
   def new_review
     @movie = Movie.find_by_id(params[:movie_id] || params[:movie_review][:movie_id], :include => :reviews)
+    # check for existing movie.
+    unless @movie
+      flash[:failure] = "movie not found."
+      redirect_to(:action => "reviews")
+      return
+    end
     # check for existing user review.
-    if @movie.reviews.map { |review| review.user_id }.include?(logged_in_user.id)
+    if existing_review?(@movie)
       flash[:failure] = "you've already written a review for this movie."
       redirect_to(:action => "show", :id => params[:movie_id])
       return
     end
     if request.get?
-      # check for existing movie.
-      unless @movie
-        flash[:failure] = "movie not found."
-        redirect_to(:action => "reviews")
-        return
-      end
       # defaults.
       @movie_review = MovieReview.new(:movie_id => params[:movie_id], :user_id => logged_in_user.id)
       @page_title = @movie.title
@@ -89,6 +90,12 @@ class MovieController < ApplicationController
     else
       redirect_to(:action => "search", :id => params[:search_text])
     end
+  end
+  
+  private
+  
+  def existing_review?(movie)
+    movie.reviews.map { |review| review.user_id }.include?(logged_in_user.id)
   end
   
 end
