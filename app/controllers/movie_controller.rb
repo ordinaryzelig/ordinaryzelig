@@ -24,17 +24,17 @@ class MovieController < ApplicationController
   
   def new_review
     @movie = Movie.find_by_id(params[:movie_id] || params[:movie_review][:movie_id], :include => :reviews)
+    # check for existing user review.
+    if @movie.reviews.map { |review| review.user_id }.include?(logged_in_user.id)
+      flash[:failure] = "you've already written a review for this movie."
+      redirect_to(:action => "show", :id => params[:movie_id])
+      return
+    end
     if request.get?
       # check for existing movie.
       unless @movie
         flash[:failure] = "movie not found."
         redirect_to(:action => "reviews")
-        return
-      end
-      # check for existing user review.
-      if @movie.reviews.map { |review| review.user_id }.include?(logged_in_user.id)
-        flash[:failure] = "you've already written a review for this movie."
-        redirect_to(:action => "show", :id => params[:movie_id])
         return
       end
       # defaults.
