@@ -3,9 +3,9 @@
   <div style="border: .5mm solid black;">
   
     <div id="banner">
-      <%= link_to(@page_title, :action => "show", :id => @review.movie_id) %><br>
+      <%= @review.title %><br>
       <span style="font-size: 12pt">
-        <%= @review.title %><br>
+        <%= link_to(@page_title, :action => "show", :id => @review.movie_id) %> review<br>
         <%= @review.rating %><br>
         <%= link_to_profile(@review.user) %>
       </span>
