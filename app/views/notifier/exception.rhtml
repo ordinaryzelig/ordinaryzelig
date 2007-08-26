@@ -5,4 +5,4 @@ first: <%= @user.first_name %><br>
 last: <%= @user.last_name %><br>
 <% end -%>
 
-<%= @exception.backtrace.join %>
+<%= @exception.backtrace.join("\n") %>

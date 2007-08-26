@@ -2,6 +2,10 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   
+  def test
+    nil + 1
+  end
+  
   protected
   
   after_filter :mark_requested_page
@@ -149,7 +153,12 @@ class ApplicationController < ActionController::Base
       redirect_to_last_marked_page_or_default
     else
       render(:file => "#{RAILS_ROOT}/public/500.html", :status => "500 Error")
-      Notifier.create_exception(ex, logged_in_user)
+      begin
+        email = Notifier.deliver_exception(ex, logged_in_user)
+        logger.error "Notifier.exception\n#{email.subject}\n#{ex.backtrace[0]}"
+      rescue Exception => e
+        logger.error "error sending mail #{Time.now.localtime}"
+      end
     end
   end
   
