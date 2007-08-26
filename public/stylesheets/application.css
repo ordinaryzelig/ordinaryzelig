@@ -84,3 +84,7 @@ html{
     font-size: 10pt;
     color: gray;
 }
+
+#preview{
+    margin-top: 5mm;
+}

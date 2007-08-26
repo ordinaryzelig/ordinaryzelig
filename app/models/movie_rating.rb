@@ -13,6 +13,7 @@ class MovieRating < ActiveRecord::Base
                        :when => :created_at
   has_recency
   has_nested_comments
+  preview_using :explanation
   
   def validate
     if is_review?

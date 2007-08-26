@@ -52,6 +52,10 @@ class MovieController < ApplicationController
     end
   end
   
+  def preview
+    render(:partial => "shared/preview", :locals => {:entity => MovieRating.new(params[:movie_rating])}) if request.xhr?
+  end
+  
   def show
     @movie = Movie.find_by_id(params[:id])
     unless @movie
@@ -79,6 +83,8 @@ class MovieController < ApplicationController
     end
   end
   
+  auto_complete_for :movie, :title
+  
   def search
     if request.get?
       if params[:id]
@@ -90,7 +96,7 @@ class MovieController < ApplicationController
         end
       end
     else
-      redirect_to(:action => "search", :id => params[:search_text])
+      redirect_to(:action => "search", :id => params[:movie][:title])
     end
   end
   

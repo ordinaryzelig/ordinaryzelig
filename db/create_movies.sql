@@ -27,7 +27,7 @@ create table website.movie_rating_options(
 COPY website.movie_rating_options (id, movie_rating_type_id, description, value) FROM stdin;
 1	1	unwatchable	1
 2	1	bad	2
-3	1	typical	3
+3	1	average	3
 4	1	excellent	4
 5	1	classic	5
 \.

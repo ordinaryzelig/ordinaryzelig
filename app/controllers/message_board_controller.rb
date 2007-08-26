@@ -28,7 +28,7 @@ class MessageBoardController < ApplicationController
   end
   
   def preview
-    render(:partial => "shared/preview", :locals => {:entity => Message.new(params[:message])})
+    render(:partial => "shared/preview", :locals => {:entity => Message.new(params[:message])}) if request.xhr?
   end
   
 end

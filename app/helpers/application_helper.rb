@@ -100,6 +100,14 @@ module ApplicationHelper
     content_tag(:span, content, :id => paginated_page_num_id(object_class, str), :style => is_current_page ? "font-size: 120%; color: red;" : nil)
   end
   
+  def submit_to_remote_preview(str = "preview", url = {:action => "preview"})
+    submit_to_remote(:preview, str, {:update => "preview", :url => url, :complete => visual_effect(:slide_down, 'preview')})
+  end
+  
+  def preview_div
+    content_tag(:div, nil, {:id => "preview", :style => "display: none;"})
+  end
+  
   def paginated_page_num_id(object_class, str)
     "#{Inflector::pluralize(object_class.to_s)}_page_#{str}"
   end

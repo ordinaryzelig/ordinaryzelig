@@ -21,10 +21,15 @@
     </tr>
     <tr>
       <td></td>
-      <td><%= submit_tag(:save) %></td>
+      <td>
+        <%= submit_tag(:save) %>
+        <%= submit_to_remote_preview %>
+      </td>
     </tr>
   </table>
   <%= hidden_field(:movie_rating, :user_id) %>
   <%= hidden_field(:movie_rating, :movie_id) %>
-
+  
+  <%= preview_div %>
+  
 <% end -%>

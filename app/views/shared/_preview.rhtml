@@ -1,6 +1,6 @@
 <% if entity && entity.preview %>
-  <div style="border: .5mm solid gray; padding: 2mm;">
-    <div style="margin-bottom: 3mm;"><span style="background-color: yellow;">PREVIEW</span></div>
-    <%= sanitize(entity.preview) %>
+  <div style="border: 1px solid black;">
+    <div style="padding: 2mm; border-bottom: 1px solid black; margin-bottom: 3mm; background-color: yellow;">PREVIEW</div>
+    <div style="padding: 2mm;"><%= sanitize(entity.preview) %></div>
   </div>
 <% end %>

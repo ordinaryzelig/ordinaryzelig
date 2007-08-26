@@ -14,13 +14,13 @@
       <td></td>
       <td>
         <%= submit_tag("new" == controller.action_name ? "post" : "save") %>
-        <%= submit_to_remote(:preview, "preview body", {:update => "preview", :url => {:action => "preview"}}) %>
+        <%= submit_to_remote_preview %>
       </td>
     </tr>
   </table>
 <% end -%>
 
-<div id="preview" style="margin-top: 5mm;"><%= render_component(:action => "preview") if @blog.body %></div>
+<%= preview_div %>
 
 <script>
   <%= focus("title") %>
