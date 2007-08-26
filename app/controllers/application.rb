@@ -157,7 +157,7 @@ class ApplicationController < ActionController::Base
         email = Notifier.deliver_exception(ex, logged_in_user)
         logger.error "Notifier.exception\n#{email.subject}\n#{ex.backtrace[0]}"
       rescue Exception => e
-        logger.error "error sending mail #{Time.now.localtime}"
+        logger.error "error sending mail #{Time.now.localtime}\n#{e}\n#{e.backtrace.join("\n")}"
       end
     end
   end
