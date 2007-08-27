@@ -83,8 +83,6 @@ class MovieController < ApplicationController
     end
   end
   
-  auto_complete_for :movie, :title
-  
   def search
     if request.get?
       if params[:id]
@@ -96,7 +94,7 @@ class MovieController < ApplicationController
         end
       end
     else
-      redirect_to(:action => "search", :id => params[:movie][:title])
+      redirect_to(:action => "search", :id => params[:search_text])
     end
   end
   

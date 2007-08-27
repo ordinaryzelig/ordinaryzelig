@@ -6,7 +6,8 @@ smokin aces = traffic + ocean's 11
 
 add new rating types
    rewatchability
-   differentiate review and rate
+   hype
+   calculated (from all but overall rating)
       
 handle spoilers?
 

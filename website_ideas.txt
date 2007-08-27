@@ -1,3 +1,0 @@
-collapsable sidebar
-
-friends only mode (don't show crap from people i don't care about)

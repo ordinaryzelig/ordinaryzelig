@@ -8,10 +8,9 @@ what is ordinary zelig?
 log request uris
 
 action mailer
-   new user
+   new user confirmation?
    errors
-
-application error page
+   new items
 
 default nil for fields in db.
 
@@ -20,3 +19,7 @@ summarize_max doesn't work when :what option is a self-defined proc.
 entity isn't recent if i'm the last commentor
 
 log of activity
+
+don't care about this person's <entity>.
+
+latest blogs, friends' blogs...

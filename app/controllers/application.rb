@@ -152,12 +152,16 @@ class ApplicationController < ActionController::Base
       flash[:failure] = "the page you requested does not exist."
       redirect_to_last_marked_page_or_default
     else
-      render(:file => "#{RAILS_ROOT}/public/500.html", :status => "500 Error")
-      begin
-        email = Notifier.deliver_exception(ex, logged_in_user)
-        logger.error "Notifier.exception\n#{email.subject}\n#{ex.backtrace[0]}"
-      rescue Exception => e
-        logger.error "error sending mail #{Time.now.localtime}\n#{e}\n#{e.backtrace.join("\n")}"
+      if ENV['RAILS_ENV'] == 'production'
+        render(:file => "#{RAILS_ROOT}/public/500.html", :status => "500 Error")
+        begin
+          email = Notifier.deliver_exception(ex, logged_in_user)
+          logger.error "Notifier.exception\n#{email.subject}\n#{ex.backtrace[0]}"
+        rescue Exception => e
+          logger.error "error sending mail #{Time.now.localtime}\n#{e}\n#{e.backtrace.join("\n")}"
+        end
+      else
+        super
       end
     end
   end
