@@ -27,7 +27,7 @@
           <% # ========================================================= %>
           <% # reply. %>
           <div id="comment_action_bar_reply_<%= comment_id %>">
-            <%= submit_to_remote(:reply, "reply",
+            <%= submit_to_remote(:reply, "comment",
                                  {:update => "comment_form_#{comment_id}",
                                   :url => {:controller => "comments",
                                            :action => "new",
