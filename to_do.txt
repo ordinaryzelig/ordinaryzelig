@@ -23,3 +23,5 @@ log of activity
 don't care about this person's <entity>.
 
 latest blogs, friends' blogs...
+
+strip strings of optional fields like movie summary.
