@@ -1,6 +1,6 @@
 class MovieController < ApplicationController
   
-  before_filter :validate_session, :only => [:new_review, :edit, :new]
+  before_filter :validate_session, :only => [:new_rating, :edit, :new]
   ADMIN_ACTIONS = ["edit"]
   helper_method :existing_review?
   
@@ -23,31 +23,20 @@ class MovieController < ApplicationController
     @page_title = @review.movie.title
   end
   
-  def new_review
-    @movie = Movie.find_by_id(params[:movie_id] || params[:movie_rating][:movie_id], :include => :reviews)
-    # check for existing movie.
-    unless @movie
-      flash[:failure] = "movie not found."
-      redirect_to(:action => "reviews")
-      return
-    end
-    # check for existing user review.
-    if existing_review?(@movie)
-      flash[:failure] = "you've already written a review for this movie."
-      redirect_to(:action => "show", :id => params[:movie_id])
-      return
-    end
-    
-    rating_type = MovieRatingType.find(1)
-    if request.get?
-      @movie_rating = MovieRating.new(:movie_id => params[:movie_id], :user_id => logged_in_user.id, :rating_type => rating_type)
-      @page_title = @movie.title
-    else
-      @movie_rating = MovieRating.new(params[:movie_rating])
-      @movie_rating.rating_type = rating_type
+  def new_rating
+    @movie = Movie.find_by_id(params[:movie_id] || params[:movie_rating][:movie_id], :include => :ratings)
+    @rating_type = MovieRatingType.find_by_id(params[:rating_type_id] || params[:movie_rating][:movie_rating_type_id])
+    @movie_rating = @movie.ratings.detect do |rating|
+      params[:rating_type_id].to_i == rating.movie_rating_type_id && rating.user_id == logged_in_user.id
+    end || MovieRating.new(:movie_id => @movie.id, :rating_type => @rating_type, :user_id => logged_in_user.id)
+    @page_title = "#{@movie.title} - #{@rating_type.name} rating"
+    if request.post?
+      @movie_rating.attributes = params[:movie_rating]
       if @movie_rating.save
-        flash[:success] = "review saved."
-        redirect_to(:action => "review", :id => @movie_rating.id)
+        unless request.xhr?
+          flash[:success] = "review saved."
+          redirect_to(:action => "review", :id => @movie_rating.id)
+        end
       end
     end
   end
@@ -72,7 +61,7 @@ class MovieController < ApplicationController
   
   def new
     @movie = Movie.new(params[:movie] ? params[:movie] : nil)
-    redirect_to(:action => "new_review", :movie_id => @movie.id) if request.post? && @movie.save
+    redirect_to(:action => "show", :id => @movie.id) if request.post? && @movie.save
   end
   
   def edit
@@ -100,8 +89,8 @@ class MovieController < ApplicationController
   
   private
   
-  def existing_review?(movie)
-    logged_in_user && movie.reviews.map { |review| review.user_id }.include?(logged_in_user.id)
+  def existing_review?(movie, rating_type_id)
+    logged_in_user && movie.ratings.detect { |rating| rating == logged_in_user && rating_type_id == rating.rating_type_id }
   end
   
 end

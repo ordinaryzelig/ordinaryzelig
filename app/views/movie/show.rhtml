@@ -10,7 +10,7 @@
     <% end -%>
   </div>
   
-  <%= link_to("review this movie", :action => "new_review", :movie_id => @movie.id) if !existing_review?(@movie) %>
+  <%= link_to("rate this movie", :action => "new_rating", :movie_id => @movie.id, :rating_type_id => 1) %>
   
 </div>
 

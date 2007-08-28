@@ -1,22 +1,29 @@
+<% content_for "banner" do -%>
+  <div id="banner">
+    <%= link_to(@movie.title, :action => "show", :id => @movie.id) %><br>
+    <span style="font-size: 15pt;"><%= @rating_type.name %> rating</span>
+  </div>
+<% end -%>
+
 <%= error_messages(@movie_rating) %>
 
 <% form_tag(:movie_id => @movie.id) do -%>
-
+  
   <table>
     <tr valign=top>
       <td>rating</td>
       <td>
-        <div style="margin-bottom: 10mm;">
-          <%= select(:movie_rating, :rating, @movie_rating.rating_type.container, :include_blank => true) %> <span style="font-size: 10px;">more rating types coming soon</span>
-        </div>
+        <%= select(:movie_rating, :rating, @rating_type.container, :include_blank => true) %>
       </td>
     </tr>
+    <% if @rating_type.id == 1 -%>
+      <tr>
+        <td>summary</td>
+        <td><%= text_field(:movie_rating, :summary) %></td>
+      </tr>
+    <% end -%>
     <tr>
-      <td>summary</td>
-      <td><%= text_field(:movie_rating, :summary) %></td>
-    </tr>
-    <tr>
-      <td valign=top>review</td>
+      <td valign=top><%= @rating_type.id == 1 ? "review" : "explanation" %></td>
       <td><%= text_area(:movie_rating, :explanation) %></td>
     </tr>
     <tr>
@@ -29,6 +36,7 @@
   </table>
   <%= hidden_field(:movie_rating, :user_id) %>
   <%= hidden_field(:movie_rating, :movie_id) %>
+  <%= hidden_field(:movie_rating, :movie_rating_type_id) %>
   
   <%= preview_div %>
   

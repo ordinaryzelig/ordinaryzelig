@@ -11,9 +11,9 @@ create table website.movie_rating_types(
     name varchar(100) not null unique
 );
 
-COPY website.movie_rating_types (id, name) FROM stdin;
-1	overall
-2	rewatchability
+COPY website.movie_rating_types (name) FROM stdin;
+overall
+rewatchability
 \.
 
 drop table if exists website.movie_rating_options cascade;
@@ -21,15 +21,16 @@ create table website.movie_rating_options(
     id serial primary key,
     movie_rating_type_id integer not null references website.movie_rating_types (id),
     description varchar(50) not null,
-    value integer not null
+    value integer not null,
+    unique (movie_rating_type_id, value)
 );
 
-COPY website.movie_rating_options (id, movie_rating_type_id, description, value) FROM stdin;
-1	1	unwatchable	1
-2	1	bad	2
-3	1	average	3
-4	1	excellent	4
-5	1	classic	5
+COPY website.movie_rating_options (movie_rating_type_id, description, value) FROM stdin;
+1	unwatchable	1
+1	bad	2
+1	average	3
+1	excellent	4
+1	classic	5
 \.
 
 drop table if exists website.movie_ratings cascade;
