@@ -6,10 +6,10 @@ class MovieController < ApplicationController
   
   def index
     flash.keep
-    redirect_to(:action => "reviews")
+    redirect_to(:action => "ratings")
   end
   
-  def reviews
+  def ratings
     @movies = Movie.by_latest_ratings
   end
   
@@ -17,7 +17,7 @@ class MovieController < ApplicationController
     @review = MovieRating.find_by_id(params[:id])
     unless @review
       flash[:failure] = "review not found."
-      redirect_to(:action => "reviews")
+      redirect_to(:action => "ratings")
       return
     end
     @page_title = @review.movie.title

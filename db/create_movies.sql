@@ -44,14 +44,3 @@ create table website.movie_ratings(
     user_id integer not null references users.users (id),
     created_at timestamp with time zone not null
 );
-
-drop table if exists website.movie_reviews cascade;
-create table website.movie_reviews (
-    id serial primary key,
-    movie_id integer not null references website.movies (id),
-    title varchar(100),
-    review text,
-    movie_rating_id integer not null references website.movie_ratings,
-    user_id integer not null references users.users (id) on update cascade,
-    created_at timestamp with time zone not null
-);

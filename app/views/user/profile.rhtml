@@ -53,14 +53,14 @@
   </div>
   
   <% # ============================================================= %>
-  <% # movie reviews. -%>
+  <% # movie ratings. -%>
   
-  <% unless @user.reviews.empty? -%>
+  <% unless @user.ratings.empty? -%>
     <div class=profileSection>
-      latest movie reviews
+      latest movie ratings
       <ul>
-        <% @user.reviews[0..4].each do |review| -%>
-          <li><%= link_to("#{review.movie.title}", :controller => "movie", :action => "review", :id => review.id) %> <span style="font-size: 10pt; color: gray;"><%= default_time(review.created_at) %></span></li>
+        <% @user.ratings[0..4].each do |rating| -%>
+          <li><%= link_to("#{rating.movie.title}", :controller => "movie", :action => "rating", :id => rating.id) %> <span style="font-size: 10pt; color: gray;"><%= default_time(rating.created_at) %></span></li>
         <% end -%>
       </ul>
     </div>
