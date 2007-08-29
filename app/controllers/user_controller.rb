@@ -15,7 +15,7 @@ class UserController < ApplicationController
     @user = User.find_by_id(params[:id], :include => [:blogs, :movie_ratings, :friends])
     if @user && !@user.is_admin_or_master?
       @page_title =  "profile - #{@user.display_name}"
-      recents
+      @recents = @user.recents
     else
       @reason_not_visible = "user not found"
     end

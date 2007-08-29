@@ -173,6 +173,14 @@ class User < ActiveRecord::Base
     obj.summarize_who.is_friend_of?(self)
   end
   
+  def recents
+    recents = EntityType.find(:all).reject { |entity_type| entity_type.name == "Comment" }.map do |entity_type|
+      entity_type.entity_class.recents(self)
+    end.flatten.sort { |a, b| b.recency_time_obj <=> a.recency_time_obj }
+    recents = recents.map { |ent| ent.class == Comment ? ent.entity : ent }
+    recents = recents.uniq
+  end
+  
   private
   
   def hash(str)

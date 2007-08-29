@@ -138,14 +138,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def recents
-    @recents = EntityType.find(:all).reject { |entity_type| entity_type.name == "Comment" }.map do |entity_type|
-      entity_type.entity_class.recents(logged_in_user)
-    end.flatten.sort { |a, b| b.recency_time_obj <=> a.recency_time_obj }
-    @recents = @recents.map { |ent| ent.class == Comment ? ent.entity : ent }
-    @recents = @recents.uniq
-  end
-  
   def rescue_action(ex)
     case ex
     when ::ActionController::UnknownAction
