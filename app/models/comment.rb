@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
   
   acts_as_tree :order => "created_at"
   has_recency :time => :created_at, :user => :user
-  can_be_summarized_by :what => :comment, :title => proc { entity.summarize_title }, :type => proc { "#{self.class} for #{entity.class}" }, :url => proc { entity.summarize_url }
+  can_be_summarized_by :who => :user
   preview_using :comment
   
   belongs_to :user
