@@ -17,6 +17,7 @@ default nil for fields in db.
 summarize_max doesn't work when :what option is a self-defined proc.
 
 entity isn't recent if i'm the last commentor
+   can't do this because it's possible a recent item could be added in between time logged in user loads page and makes comment.
 
 log of activity
 

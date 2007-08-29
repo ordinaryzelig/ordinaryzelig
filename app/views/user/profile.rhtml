@@ -31,7 +31,7 @@
     <div class=profileSection>
       <%= pluralize(@recents.size, "recent item") %> since your previous login <span class=listingInfo><%= default_time(@user.previous_login_at) || "your previous login has not been logged yet." %></span>
       <% @recents.each do |obj| -%>
-        <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_type => true, :show_who => true, :show_recency => true}) %>
+        <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_who => true, :show_recency => true}) %>
       <% end -%>
     </div>
   <% end -%>
@@ -55,11 +55,11 @@
   <% # ============================================================= %>
   <% # movie ratings. -%>
   
-  <% unless @user.ratings.empty? -%>
+  <% unless @user.movie_ratings.empty? -%>
     <div class=profileSection>
       latest movie ratings
       <ul>
-        <% @user.ratings[0..4].each do |rating| -%>
+        <% @user.movie_ratings[0..4].each do |rating| -%>
           <li><%= link_to("#{rating.movie.title}", :controller => "movie", :action => "rating", :id => rating.id) %> <span style="font-size: 10pt; color: gray;"><%= default_time(rating.created_at) %></span></li>
         <% end -%>
       </ul>

@@ -10,7 +10,8 @@ class MovieRating < ActiveRecord::Base
                        :what => :explanation,
                        :max => 100,
                        :who => :user,
-                       :when => :created_at
+                       :when => :created_at,
+                       :type => proc { "#{rating_type.name} rating" }
   has_recency
   has_nested_comments
   preview_using :explanation
