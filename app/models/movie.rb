@@ -14,6 +14,7 @@ class Movie < ActiveRecord::Base
     movies = find(:all, :include => :ratings, :order => "created_at desc").reject { |movie| movie.ratings.empty? }
   end
   
+  # returns rating and number of ratings it was based on.
   def average_rating(&block)
     total = 0
     countable_ratings = block ? ratings.select(&block) : ratings
@@ -22,7 +23,7 @@ class Movie < ActiveRecord::Base
     end
     average_rating = countable_ratings.empty? ? 0 : (0.0 + total) / countable_ratings.size
     # only 1 decimal.
-    (0.0 + (average_rating * 10).round) / 10
+    [(0.0 + (average_rating * 10).round) / 10, countable_ratings.size]
   end
   
 end

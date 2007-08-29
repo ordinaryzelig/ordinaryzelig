@@ -1,6 +1,7 @@
 <div style="margin-bottom: 10mm;">
   
-  <table id="ratingsTable" border=1>
+  <table id="ratingsTable" border=1 cellpadding="5mm">
+    <tr><th colspan=4 style="background-color: lightgray;">ratings</th></tr>
     <tr>
       <th></th>
       <th>everyone</th>
@@ -12,9 +13,9 @@
     <% @used_rating_types.each do |rating_type| -%>
       <tr>
         <th><%= rating_type.name %></th>
-        <td><%= @movie.average_rating %></td>
+        <td><%= rating_cell(@movie) { |rating| rating.rating_type == rating_type} %></td>
         <% if logged_in_user -%>
-          <td><%= rating_str(@movie.average_rating { |rating| rating.rating_type == rating_type && logged_in_user.friends.include?(rating.user) }) %></td>
+          <td><%= rating_cell(@movie) { |rating| rating.rating_type == rating_type && logged_in_user.friends.include?(rating.user)} %></td>
           <td><%= rating_link(@movie, rating_type) %></td>
         <% end -%>
       </tr>
