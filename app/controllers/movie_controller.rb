@@ -22,9 +22,12 @@ class MovieController < ApplicationController
     @page_title = @rating.movie.title
   end
   
+  # first try to find is when redirected here.
+  # second is from post request.
+  # the point is to use this method to create, edit, and save.
   def edit_rating
-    @movie = Movie.find_by_id(params[:movie_id] || params[:movie_rating][:movie_id], :include => :ratings)
     @rating_type = MovieRatingType.find_by_id(params[:rating_type_id] || params[:movie_rating][:movie_rating_type_id])
+    @movie = Movie.find_by_id(params[:movie_id] || params[:movie_rating][:movie_id], :include => :ratings)
     @movie_rating = @movie.ratings.detect do |rating|
       params[:rating_type_id].to_i == rating.movie_rating_type_id && rating.user_id == logged_in_user.id
     end || MovieRating.new(:movie_id => @movie.id, :rating_type => @rating_type, :user_id => logged_in_user.id)

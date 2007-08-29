@@ -14,8 +14,8 @@
         <th><%= rating_type.name %></th>
         <td><%= @movie.average_rating %></td>
         <% if logged_in_user -%>
-          <td><%= @movie.average_rating { |rating| rating.rating_type == rating_type && logged_in_user.friends.include?(rating.user) } %></td>
-          <td><%= @movie.average_rating { |rating| rating.rating_type == rating_type && rating.user == logged_in_user } %></td>
+          <td><%= rating_str(@movie.average_rating { |rating| rating.rating_type == rating_type && logged_in_user.friends.include?(rating.user) }) %></td>
+          <td><%= rating_link(@movie, rating_type) %></td>
         <% end -%>
       </tr>
     <% end -%>

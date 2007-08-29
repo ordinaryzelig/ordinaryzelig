@@ -20,8 +20,9 @@ class Movie < ActiveRecord::Base
     countable_ratings.each do |rating|
       total += rating.rating
     end
-    average_rating = (0.0 + total) / countable_ratings.size
-    average_rating > 0 ? average_rating : 0
+    average_rating = countable_ratings.empty? ? 0 : (0.0 + total) / countable_ratings.size
+    # only 1 decimal.
+    (0.0 + (average_rating * 10).round) / 10
   end
   
 end
