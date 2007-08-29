@@ -32,7 +32,7 @@
   <% # what. -%>
   
   <% if entity.summarize_what && '' != entity.summarize_what -%>
-    <div class=listingSection>
+    <div class=listingSection style="background: white;">
       <% if show_recency && !entity.is_recent?(logged_in_user) -%>
         <%= link_to(pluralize(entity.recent_comments(logged_in_user).size, "new comment"), entity.summarize_url) -%>
       <% else -%>
