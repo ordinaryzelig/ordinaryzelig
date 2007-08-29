@@ -1,6 +1,6 @@
 class MovieController < ApplicationController
   
-  before_filter :validate_session, :only => [:new_rating, :edit, :new]
+  before_filter :validate_session, :only => [:edit_rating, :edit, :new]
   ADMIN_ACTIONS = ["edit"]
   
   def index
@@ -22,7 +22,7 @@ class MovieController < ApplicationController
     @page_title = @rating.movie.title
   end
   
-  def new_rating
+  def edit_rating
     @movie = Movie.find_by_id(params[:movie_id] || params[:movie_rating][:movie_id], :include => :ratings)
     @rating_type = MovieRatingType.find_by_id(params[:rating_type_id] || params[:movie_rating][:movie_rating_type_id])
     @movie_rating = @movie.ratings.detect do |rating|
@@ -60,7 +60,7 @@ class MovieController < ApplicationController
       @used_rating_types = @movie.ratings.map { |rating| rating.rating_type }.uniq
       @unused_rating_types = MovieRatingType.find(:all, :conditions => ["id not in (?)", @used_rating_types.map(&:id)])
     else
-      redirect_to(:action => "new_rating", :movie_id => params[:movie_id], :rating_type_id => params[:rating_type_id])
+      redirect_to(:action => "edit_rating", :movie_id => params[:movie_id], :rating_type_id => params[:rating_type_id])
     end
   end
   
