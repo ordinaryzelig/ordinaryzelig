@@ -13,14 +13,14 @@ class MovieController < ApplicationController
     @movies = Movie.by_latest_ratings
   end
   
-  def review
-    @review = MovieRating.find_by_id(params[:id])
-    unless @review
-      flash[:failure] = "review not found."
+  def rating
+    @rating = MovieRating.find_by_id(params[:id])
+    unless @rating
+      flash[:failure] = "rating not found."
       redirect_to(:action => "ratings")
       return
     end
-    @page_title = @review.movie.title
+    @page_title = @rating.movie.title
   end
   
   def new_rating

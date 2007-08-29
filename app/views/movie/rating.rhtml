@@ -1,0 +1,22 @@
+<% content_for("banner") do -%>
+  
+  <div style="border: .5mm solid black;">
+  
+    <div id="banner">
+      <%= @rating.summary %><br>
+      <span style="font-size: 12pt">
+        <%= link_to(@page_title, :action => "show", :id => @rating.movie_id) %> rating<br>
+        <%= @rating.rating_to_s %><br>
+        <%= link_to_profile(@rating.user) %>
+      </span>
+    </div>
+    
+    <% if @rating.explanation -%>
+      <div style="padding: 2mm; padding-bottom: 5mm;"><%= sanitize(@rating.explanation) %></div>
+    <% end -%>
+    
+  </div>
+  
+<% end -%>
+
+<%= render(:partial => "comments/comments", :locals => {:entity => @rating}) %>

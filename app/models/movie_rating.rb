@@ -6,7 +6,7 @@ class MovieRating < ActiveRecord::Base
   validates_presence_of :movie_id, :movie_rating_type_id, :rating, :user_id, :created_at
   
   can_be_summarized_by :title => proc { (summary ? "#{summary}: " : "") << rating_to_s },
-                       :url => proc { {:controller => "movie", :action => is_review? ? "review" : "rating", :id => self.id} },
+                       :url => proc { {:controller => "movie", :action => "rating", :id => self.id} },
                        :what => :explanation,
                        :max => 100,
                        :who => :user,
