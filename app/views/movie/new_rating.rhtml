@@ -16,14 +16,14 @@
         <%= select(:movie_rating, :rating, @rating_type.container, :include_blank => true) %>
       </td>
     </tr>
-    <% if @rating_type.id == 1 -%>
-      <tr>
-        <td>summary</td>
-        <td><%= text_field(:movie_rating, :summary) %></td>
-      </tr>
-    <% end -%>
+    <tr><td>&nbsp;</td><td></td></tr>
+    <tr><td><span style="font-size: 10pt;">optional</span></td><td></td></tr>
     <tr>
-      <td valign=top><%= @rating_type.id == 1 ? "review" : "explanation" %></td>
+      <td>summary</td>
+      <td><%= text_field(:movie_rating, :summary) %></td>
+    </tr>
+    <tr>
+      <td valign=top>explanation</td>
       <td><%= text_area(:movie_rating, :explanation) %></td>
     </tr>
     <tr>

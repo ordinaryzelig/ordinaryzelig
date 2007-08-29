@@ -173,10 +173,6 @@ class User < ActiveRecord::Base
     obj.summarize_who.is_friend_of?(self)
   end
   
-  def reviews
-    movie_ratings.select { |rating| rating.is_review? }
-  end
-  
   private
   
   def hash(str)

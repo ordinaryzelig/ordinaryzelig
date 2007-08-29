@@ -15,33 +15,16 @@ class MovieRating < ActiveRecord::Base
   has_nested_comments
   preview_using :explanation
   
-  def validate
-    if is_review?
-      errors.add_on_blank(:summary)
-      errors.add_on_blank(:explanation)
-    end
-  end
-  
   def before_validation_on_create
     self.created_at = Time.now.localtime if self.created_at.nil? || new_record?
   end
-  
-  def self.reviews(options = {})
-    with_scope :find => options do
-      find(:all).detect { |rating| rating.is_review? }
-    end
-  end
-  
+    
   def rating_option
     rating_type.rating_options.detect { |option| option.value == rating }
   end
   
   def rating_to_s
     "#{rating} out of #{rating_type.rating_options.size} (#{rating_option.description})"
-  end
-  
-  def is_review?
-    1 == movie_rating_type_id
   end
   
 end
