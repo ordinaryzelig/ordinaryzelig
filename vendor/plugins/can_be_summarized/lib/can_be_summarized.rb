@@ -8,11 +8,10 @@ module OrdinaryZelig
     
     module ClassMethods
       
-      KEYS = [:max, :title, :type, :url, :what, :when, :who]
+      KEYS = [:max, :title, :url, :what, :when, :who, :name]
       
       def can_be_summarized_by(options)
         defaults = {:max => 50,
-                    :type => proc { self.class },
                     :url => proc{ {:controller => self.class.to_s.downcase, :action => "show", :id => self.id} },
                     # :when => :created_at,
                     :who => :user}

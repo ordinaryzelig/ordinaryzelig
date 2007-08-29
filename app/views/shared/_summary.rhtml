@@ -1,14 +1,9 @@
 <% show_who ||= false -%>
 <% show_recency ||= false -%>
+<% show_name ||= false -%>
 
 <div class=listing>
   <div class=listingSection style="<%= recent_background_color(entity) %>">
-    
-    <% # type. -%>
-    <% if entity.summarize_type -%>
-      <%= content_tag(:span, entity.summarize_type) -%>
-      <br>
-    <% end -%>
     
     <% # title. -%>
     <%= link_to(entity.summarize_title, entity.summarize_url) %>

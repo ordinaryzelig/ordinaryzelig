@@ -5,13 +5,12 @@ class MovieRating < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :movie_id, :movie_rating_type_id, :rating, :user_id, :created_at
   
-  can_be_summarized_by :title => proc { (summary ? "#{summary}: " : "") << rating_to_s },
+  can_be_summarized_by :title => proc { ["'#{movie.title}'", rating_type.name, "rating<br>", summary, rating_to_s].join(" ") },
                        :url => proc { {:controller => "movie", :action => "rating", :id => self.id} },
                        :what => :explanation,
                        :max => 100,
                        :who => :user,
-                       :when => :created_at,
-                       :type => proc { "#{rating_type.name} rating" }
+                       :when => :created_at
   has_recency
   has_nested_comments
   preview_using :explanation
