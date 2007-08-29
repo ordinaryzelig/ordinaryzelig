@@ -33,7 +33,7 @@ class MovieRating < ActiveRecord::Base
   end
   
   def rating_option
-    rating_type.rating_options.detect { |option| option.id == rating }
+    rating_type.rating_options.detect { |option| option.value == rating }
   end
   
   def rating_to_s

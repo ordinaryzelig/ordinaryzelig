@@ -1,25 +1,35 @@
 <div style="margin-bottom: 10mm;">
-  <%= "overall rating" %>: <%= ratings(@movie) %>
   
-  <div style="margin-bottom: 10mm;">
-    <% if logged_in_user -%>
-      friend rating: <%= ratings(@movie, true) %><br>
-      <%= link_to(check_box_tag(:show_friends_only, 1, 'true' == params[:friends_only]), :friends_only => 'true' != params[:friends_only]) %> show friends only
-    <% else -%>
-      <%= link_to_login("to view your friends' ratings") %><br>
+  <table id="ratingsTable" border=1>
+    <tr>
+      <th></th>
+      <th>everyone</th>
+      <% if logged_in_user -%>
+        <th>friends</th>
+        <th>you</th>
+      <% end -%>
+    </tr>
+    <% @used_rating_types.each do |rating_type| -%>
+      <tr>
+        <th><%= rating_type.name %></th>
+        <td><%= @movie.average_rating %></td>
+        <% if logged_in_user -%>
+          <td><%= @movie.average_rating { |rating| rating.rating_type == rating_type && logged_in_user.friends.include?(rating.user) } %></td>
+          <td><%= @movie.average_rating { |rating| rating.rating_type == rating_type && rating.user == logged_in_user } %></td>
+        <% end -%>
+      </tr>
     <% end -%>
-  </div>
+  </table>
   
-  <%= link_to("rate this movie", :action => "new_rating", :movie_id => @movie.id, :rating_type_id => 1) %>
+  <% form_tag do -%>
+    add rating type <%= select_tag(:rating_type_id, options_for_select([nil] + @unused_rating_types.map { |rating_type| [rating_type.name, rating_type.id] }), :onchange => "this.form.submit();") %>
+    <%= hidden_field_tag(:movie_id, @movie.id) %>
+  <% end unless @unused_rating_types.empty? -%>
   
 </div>
 
-<div><%= pluralize(@reviews.size, "review") %></div>
+<div><%= pluralize(@ratings.size, "rating") %></div>
 
-<% content_for "MovieRating_pagination" do -%>
-  <% @reviews.each do |review| -%>
-    <%= render(:partial => "shared/summary", :locals => {:entity => review, :show_who => true}) %>
-  <% end -%>
+<% @ratings.each do |rating| -%>
+  <%= render(:partial => "shared/summary", :locals => {:entity => rating, :show_who => true}) %>
 <% end -%>
-
-<%= render(:partial => "shared/pagination", :locals => {:pages => @reviews_pages, :entities => @reviews}) %>

@@ -10,7 +10,7 @@ class MovieController < ApplicationController
   end
   
   def reviews
-    @movies = Movie.by_latest_reviews
+    @movies = Movie.by_latest_ratings
   end
   
   def review
@@ -35,7 +35,7 @@ class MovieController < ApplicationController
       if @movie_rating.save
         unless request.xhr?
           flash[:success] = "review saved."
-          redirect_to(:action => "review", :id => @movie_rating.id)
+          redirect_to(:action => "show", :id => @movie_rating.movie_id)
         end
       end
     end
@@ -46,17 +46,23 @@ class MovieController < ApplicationController
   end
   
   def show
-    @movie = Movie.find_by_id(params[:id])
-    unless @movie
-      flash[:failure] = "movie not found."
-      redirect_to(:action => "index")
-      return
+    if request.get?
+      @movie = Movie.find_by_id(params[:id])
+      unless @movie
+        flash[:failure] = "movie not found."
+        redirect_to(:action => "index")
+        return
+      end
+      @page_title = "#{@movie.title}"
+      conditions = {:movie_id => @movie.id}
+      conditions.store(:user_id, logged_in_user.friends.map { |friend| friend.id }) if 'true' == params[:friends_only] && logged_in_user
+      conditions.store(:movie_rating_type_id, params[:movie_rating_type_id]) if params[:movie_rating_type_id]
+      @ratings = @movie.ratings.find(:all, :conditions => conditions, :include => [:user, :rating_type])
+      @used_rating_types = @movie.ratings.map { |rating| rating.rating_type }.uniq
+      @unused_rating_types = MovieRatingType.find(:all, :conditions => ["id not in (?)", @used_rating_types.map(&:id)])
+    else
+      redirect_to(:action => "new_rating", :movie_id => params[:movie_id], :rating_type_id => params[:rating_type_id])
     end
-    conditions = {:movie_id => @movie.id}
-    conditions.store(:user_id, logged_in_user.friends.map { |friend| friend.id }) if 'true' == params[:friends_only] && logged_in_user
-    @reviews_pages, @reviews = paginate(:movie_ratings, :conditions => conditions)
-    @page_title = "#{@movie.title}"
-    render(:layout => false) if request.xhr?
   end
   
   def new
