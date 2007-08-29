@@ -35,7 +35,7 @@
     
   <% end -%>
   
-  <%= link_to_unless('movie' == controller.controller_name, "movie ratings", :controller => "movie") %><br>
+  <%= link_to_unless('movie' == controller.controller_name, "movies", :controller => "movie") %><br>
   <% if 'movie' == controller.controller_name -%>
     <%= link_to("ratings", :controller => "movie", :action => "ratings") %><br>
     <%= link_to("search", :controller => "movie", :action => "search") %><br>

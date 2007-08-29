@@ -2,7 +2,6 @@ class MovieController < ApplicationController
   
   before_filter :validate_session, :only => [:new_rating, :edit, :new]
   ADMIN_ACTIONS = ["edit"]
-  helper_method :existing_review?
   
   def index
     flash.keep
@@ -34,7 +33,7 @@ class MovieController < ApplicationController
       @movie_rating.attributes = params[:movie_rating]
       if @movie_rating.save
         unless request.xhr?
-          flash[:success] = "review saved."
+          flash[:success] = "rating saved."
           redirect_to(:action => "show", :id => @movie_rating.movie_id)
         end
       end
@@ -94,9 +93,5 @@ class MovieController < ApplicationController
   end
   
   private
-  
-  def existing_review?(movie, rating_type_id)
-    logged_in_user && movie.ratings.detect { |rating| rating == logged_in_user && rating_type_id == rating.rating_type_id }
-  end
   
 end
