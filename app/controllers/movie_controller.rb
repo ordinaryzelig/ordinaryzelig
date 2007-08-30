@@ -60,7 +60,7 @@ class MovieController < ApplicationController
       conditions.store(:user_id, logged_in_user.friends.map { |friend| friend.id }) if 'true' == params[:friends_only] && logged_in_user
       conditions.store(:movie_rating_type_id, params[:movie_rating_type_id]) if params[:movie_rating_type_id]
       @ratings = @movie.ratings.find(:all, :conditions => conditions, :include => [:user, :rating_type])
-      @used_rating_types = @movie.ratings.map { |rating| rating.rating_type }.uniq
+      @used_rating_types = @movie.rating_types_uniq
       @unused_rating_types = MovieRatingType.find(:all, :conditions => ["id not in (?)", @used_rating_types.map(&:id)])
     else
       redirect_to(:action => "edit_rating", :movie_id => params[:movie_id], :rating_type_id => params[:rating_type_id])

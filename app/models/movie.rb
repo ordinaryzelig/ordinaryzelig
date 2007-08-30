@@ -4,7 +4,15 @@ class Movie < ActiveRecord::Base
   validates_presence_of :title
   validates_uniqueness_of :title
   
-  can_be_summarized_by :title => :title, :what => proc { pluralize(ratings.size, "rating") }, :who => nil
+  what_proc = proc do
+    ratings_strs = []
+    rating_types_uniq.each do |rating_type|
+      rating, ratings = average_rating{|rating| rating.rating_type == rating_type}
+      ratings_strs << "#{rating_type.name}: #{rating} out of 5 (#{pluralize(ratings, 'rating')})"
+    end
+    [pluralize(ratings.size, 'rating'), ratings_strs.join("<br>")].join("<br>")
+  end
+  can_be_summarized_by :title => :title, :what => what_proc, :who => nil, :enable_html => true
   
   def before_save
     self.imdb_id = nil if self.imdb_id.blank?
@@ -24,6 +32,10 @@ class Movie < ActiveRecord::Base
     average_rating = countable_ratings.empty? ? 0 : (0.0 + total) / countable_ratings.size
     # only 1 decimal.
     [(0.0 + (average_rating * 10).round) / 10, countable_ratings.size]
+  end
+  
+  def rating_types_uniq
+    ratings.map { |rating| rating.rating_type }.uniq.sort { |a, b| a.id <=> b.id }
   end
   
 end

@@ -31,7 +31,7 @@
       <% if show_recency && !entity.is_recent?(logged_in_user) -%>
         <%= link_to(pluralize(entity.recent_comments(logged_in_user).size, "new comment"), entity.summarize_url) -%>
       <% else -%>
-        <%= h(entity.summarize_what) %><%= link_to('...', entity.summarize_url, :title => "read more") %>
+        <%= entity.summarize_what %><%= link_to('...', entity.summarize_url, :title => "read more") %>
       <% end -%>
     </div>
   <% end -%>

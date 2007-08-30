@@ -8,13 +8,14 @@ module OrdinaryZelig
     
     module ClassMethods
       
-      KEYS = [:max, :title, :url, :what, :when, :who, :name]
+      KEYS = [:max, :title, :url, :what, :when, :who, :name, :enable_html]
       
       def can_be_summarized_by(options)
         defaults = {:max => 50,
                     :url => proc{ {:controller => self.class.to_s.downcase, :action => "show", :id => self.id} },
                     # :when => :created_at,
-                    :who => :user}
+                    :who => :user,
+                    :enable_html => false}
         mod = Module.new
         options.each { |key, value| mod.send('define_method', "summarize_#{key}", proc_for_option(key, value)) }
         defaults.each { |key, value| mod.send('define_method', "summarize_#{key}", proc_for_option(key, value)) unless mod.method_defined?("summarize_#{key}") }
