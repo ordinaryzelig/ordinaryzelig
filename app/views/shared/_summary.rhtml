@@ -6,7 +6,9 @@
   <div class=listingSection style="<%= recent_background_color(entity) %>">
     
     <% # title. -%>
-    <%= link_to(entity.summarize_title, entity.summarize_url) %>
+    <% full_title_str = entity.summarize_title -%>
+    <% full_title_str = "#{entity.summarize_name}<br>#{entity.summarize_title}" if show_name -%>
+    <%= link_to(full_title_str, entity.summarize_url) %>
     
     <% if show_who && entity.summarize_who || entity.summarize_when -%>
       <div class=listingInfo style="padding-left: 5mm;">

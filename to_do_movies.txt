@@ -26,3 +26,6 @@ clickable stars or other type of GUI
 easy ratings for movie/show.
    need to ajaxily update entire row so averages can update too.
    elaborate link.
+
+profile latest movie ratings
+   don't list movies more than once.
