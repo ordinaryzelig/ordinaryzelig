@@ -8,6 +8,7 @@ add new rating types
    types
       rewatchability
       hype
+      quotability
       calculated (from all but overall rating)
       user submitted
    alter
@@ -21,3 +22,7 @@ add new rating types
 handle spoilers?
 
 clickable stars or other type of GUI
+
+easy ratings for movie/show.
+   need to ajaxily update entire row so averages can update too.
+   elaborate link.

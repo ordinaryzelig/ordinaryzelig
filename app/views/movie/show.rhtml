@@ -10,7 +10,7 @@
         <th>you</th>
       <% end -%>
     </tr>
-    <% @used_rating_types.each do |rating_type| -%>
+    <% @rating_types.each do |rating_type| -%>
       <tr>
         <th><%= rating_type.name %></th>
         <td><%= rating_cell(@movie) { |rating| rating.rating_type == rating_type} %></td>
@@ -21,11 +21,6 @@
       </tr>
     <% end -%>
   </table>
-  
-  <% form_tag do -%>
-    add rating type <%= select_tag(:rating_type_id, options_for_select([nil] + @unused_rating_types.map { |rating_type| [rating_type.name, rating_type.id] }), :onchange => "this.form.submit();") %>
-    <%= hidden_field_tag(:movie_id, @movie.id) %>
-  <% end unless @unused_rating_types.empty? -%>
   
 </div>
 
