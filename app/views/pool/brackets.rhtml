@@ -4,7 +4,7 @@
 <div id="seasonSelectBracket">
   <div class=seasonSelect>
     <% form_tag do -%>
-      season <%= season_select_tag(@season.id) %> <%= submit_tag("go", :name => "go_season") %><br>
+      season <%= season_select_tag(@season.id) %> <%= submit_tag("go", :name => "go_season") %><br/>
       scoring system: <%= ScoringSystems::SYSTEMS.default %>
     <% end -%>
   </div>
@@ -30,7 +30,7 @@
   <span class=largeUserName>
     <%= link_to_profile(@user) %>
   </span>
-  <br>
+  <br/>
   <% if @pool_user -%>
     <% if @season.max_num_brackets > 1 && 1 < @pool_users.size -%>
       <span class=bracketNums>brackets:
@@ -49,8 +49,8 @@
         <div id="picsEditable">brackets closed.</div>
       <% elsif Time.now < @season.tournament_starts_at -%>
         <div id="picsEditable">
-          click on the team and your pic will be saved.<br>
-          your pics must be made BEFORE the first game starts (<%= @season.tournament_starts_at.strftime("%A %B %d at %I:%M %p") %> central time).<br>
+          click on the team and your pic will be saved.<br/>
+          your pics must be made BEFORE the first game starts (<%= @season.tournament_starts_at.strftime("%A %B %d at %I:%M %p") %> central time).<br/>
           DO NOT USE INTERNET EXPLORER.  use <%= link_to("firefox", "http://mozilla.com") %>.
         </div>
       <% end -%>

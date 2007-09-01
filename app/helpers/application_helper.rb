@@ -35,7 +35,7 @@ module ApplicationHelper
   def error_messages(model_obj)
     if !model_obj.errors.empty?
       div_id = "error_messages_#{model_obj.__id__}"
-      rhtml_str = "<div class=errorMessages id=\"#{div_id}\">#{model_obj.errors.full_messages.join("<br>")}</div>"
+      rhtml_str = "<div class=errorMessages id=\"#{div_id}\">#{model_obj.errors.full_messages.join("<br/>")}</div>"
       rhtml_str
     end
   end
@@ -117,15 +117,15 @@ module ApplicationHelper
     "background-color: #{color};" if color
   end
   
-  def comment_info(entity)
-    if !entity.comments.empty?
-      com_str = pluralize(entity.comments.size, "comment")
-      com_str += " - last: #{link_to_profile(entity.latest_comment.user)} - #{default_time(entity.latest_comment.created_at)}" if !entity.comments.empty?
-    else
-      com_str = "no comments"
-    end
-    com_str
-  end
+  # def comment_info(entity)
+  #   if !entity.comments.empty?
+  #     com_str = pluralize(entity.comments.size, "comment")
+  #     com_str += " - last: #{link_to_profile(entity.latest_comment.user)} - #{default_time(entity.latest_comment.created_at)}" if !entity.comments.empty?
+  #   else
+  #     com_str = "no comments"
+  #   end
+  #   com_str
+  # end
   
   # ===========================================================
   # comment ajax methods.

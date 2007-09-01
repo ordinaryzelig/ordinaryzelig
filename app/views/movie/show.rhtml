@@ -24,8 +24,6 @@
   
 </div>
 
-<div><%= pluralize(@ratings.size, "rating") %></div>
-
 <% @ratings.each do |rating| -%>
   <%= render(:partial => "shared/summary", :locals => {:entity => rating, :show_who => true}) %>
 <% end -%>

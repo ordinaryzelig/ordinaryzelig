@@ -4,10 +4,10 @@
 
 <% if params[:id] -%>
   
-  <%= pluralize(@movies.size, "movie") %> found<br>
+  <%= pluralize(@movies.size, "movie") %> found<br/>
   
   <% @movies.each do |movie| -%>
-    <%= link_to(movie.title, :action => "show", :id => movie.id) %><br>
+    <%= link_to(movie.title, :action => "show", :id => movie.id) %><br/>
   <% end -%>
   
 <% end -%>

@@ -3,10 +3,10 @@
   <div style="border: .5mm solid black;">
   
     <div id="banner">
-      <%= @rating.summary %><br>
+      <%= @rating.summary %><br/>
       <span style="font-size: 12pt">
-        <%= link_to(@page_title, :action => "show", :id => @rating.movie_id) %> rating<br>
-        <%= @rating.rating_to_s %><br>
+        <%= link_to(@page_title, :action => "show", :id => @rating.movie_id) %> rating<br/>
+        <%= @rating.rating_to_s %><br/>
         <%= link_to_profile(@rating.user) %>
       </span>
     </div>

@@ -31,7 +31,7 @@ class PoolController < ApplicationController
             flash[:failure] = "sorry, you can't view others' brackets until the tournament starts."
             redirect_to(:action => "index")
           else
-            flash[:failure] = "#{@season.tournament_year} brackets are private until the tournament starts.<br>login to make pics."
+            flash[:failure] = "#{@season.tournament_year} brackets are private until the tournament starts.<br/>login to make pics."
             redirect_to(:action => "index")
           end
         end

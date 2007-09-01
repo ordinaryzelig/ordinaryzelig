@@ -10,9 +10,13 @@ class Movie < ActiveRecord::Base
       rating, ratings = average_rating{|rating| rating.rating_type == rating_type}
       ratings_strs << "#{rating_type.name}: #{rating} out of 5 (#{pluralize(ratings, 'rating')})"
     end
-    [pluralize(ratings.size, 'rating'), ratings_strs.join("<br>")].join("<br>")
+    [pluralize(ratings.size, 'rating'), ratings_strs.join("<br>")].join("<br>") << "<br>"
   end
   can_be_summarized_by :title => :title, :what => what_proc, :who => nil, :enable_html => true
+  
+  has_recency :user => proc { |user| recent_ratings(user).last.user },
+              :time => proc { |user| recent_ratings(user).last.created_at },
+              :block => proc { |user| !recent_ratings(user).empty? }
   
   def before_save
     self.imdb_id = nil if self.imdb_id.blank?
@@ -36,6 +40,10 @@ class Movie < ActiveRecord::Base
   
   def rating_types_uniq
     ratings.map { |rating| rating.rating_type }.uniq.sort { |a, b| a.id <=> b.id }
+  end
+  
+  def recent_ratings(user)
+    ratings.select { |rating| rating.is_recent?(user) }
   end
   
 end

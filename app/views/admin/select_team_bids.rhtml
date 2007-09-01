@@ -4,10 +4,10 @@ for each region, render partial of first round games.
 =end %>
 <% form_tag do -%>
   <%= season_select_tag(@season.id) %> <%= submit_tag("go", :name => "go") %>
-<% end -%><br>
+<% end -%><br/>
 <% form_tag do -%>
   <% @regions.reject{|region| 1 == region.order_num}.each do |region| %>
-    <%= region.name %><br>
+    <%= region.name %><br/>
     <% games = region.games.reject{|game| game.round.number != 1} -%>
     <% Bid::SEEDS.each do |seed| -%>
       <% bid = nil -%>
@@ -16,9 +16,9 @@ for each region, render partial of first round games.
         break if bid
       end -%>
       <span><%= seed %></span>
-      <%= select("bids", bid.id, Team::select_options, {:selected => bid.team_id, :include_blank => true}) %><br>
+      <%= select("bids", bid.id, Team::select_options, {:selected => bid.team_id, :include_blank => true}) %><br/>
     <% end %>
-    <%= submit_tag("save all", :name => "save") %><br><br>
+    <%= submit_tag("save all", :name => "save") %><br/><br/>
   <% end %>
   <%= hidden_field_tag(:season_id, @regions[0].season_id) %>
 <% end -%>

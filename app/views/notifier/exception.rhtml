@@ -1,8 +1,8 @@
 <% if @user -%>
-logged_in_user<br>
-id: <%= @user.id %><br>
-first: <%= @user.first_name %><br>
-last: <%= @user.last_name %><br>
+logged_in_user<br/>
+id: <%= @user.id %><br/>
+first: <%= @user.first_name %><br/>
+last: <%= @user.last_name %><br/>
 <% end -%>
 
 <%= @exception.backtrace.join("\n") %>

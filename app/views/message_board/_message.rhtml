@@ -2,7 +2,7 @@
   <div style="<%= recent_background_color(message) %> padding: 2mm;">
     <%= link_to(message.subject, :action => "show", :id => message.id) %>
     <div style="padding-left: 5mm; font-size: smaller; color: gray;">
-      <%= link_to_profile(message.poster) %> - <%= default_time(message.posted_at) %><br>
+      <%= link_to_profile(message.poster) %> - <%= default_time(message.posted_at) %><br/>
       <% if message.latest_comment -%>
         latest comment: <%= link_to_profile(message.latest_comment.user) %> - <%= default_time(message.latest_comment.created_at) %>
       <% else -%>

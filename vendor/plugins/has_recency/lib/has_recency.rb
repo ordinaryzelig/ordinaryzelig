@@ -42,6 +42,10 @@ module OrdinaryZelig
         end
       end
       
+      def is_recent_entity_type?
+        RecentEntityType.find(:all).map { |ret| ret.entity_type.entity_class }.include?(self)
+      end
+      
     end
     
     module InstanceMethods
@@ -51,11 +55,12 @@ module OrdinaryZelig
           recency_block_obj(user)
         else
           # check if user is owner and is allowed to read it.
-          if recency_user_obj != user && user.considers_friend?(recency_user_obj) && user.can_read?(self)
+          ruo = recency_user_obj(user)
+          if ruo && ruo != user && user.considers_friend?(recency_user_obj) && user.can_read?(self)
             # check if user has user_activity and previous_login_at.
             if user.previous_login_at
               # return if recency_time_obj is recent.
-              return recency_time_obj >= user.previous_login_at
+              return recency_time_obj(user) >= user.previous_login_at
             end
           end
           false
@@ -68,6 +73,10 @@ module OrdinaryZelig
       
       def has_recency?
         self.class.has_recency?
+      end
+      
+      def is_recent_entity_type?
+        self.class.is_recent_entity_type?
       end
       
     end
