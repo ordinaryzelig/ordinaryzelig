@@ -1,6 +1,6 @@
 class Movie < ActiveRecord::Base
   
-  has_many :ratings, :class_name => "MovieRating"
+  has_many :ratings, :class_name => "MovieRating", :order => "created_at desc"
   validates_presence_of :title
   validates_uniqueness_of :title
   
@@ -48,6 +48,16 @@ class Movie < ActiveRecord::Base
   
   def existing_rating(user_id, rating_type_id)
     ratings.find(:first, :conditions => {:movie_rating_type_id => rating_type_id, :user_id => user_id})
+  end
+  
+  def user_ratings(user)
+    ratings.select { |rating| user == rating.user }.sort do |a, b|
+      if a.user_id == b.user_id
+        a.movie_rating_type_id <=> b.movie_rating_type_id
+      else
+        a.user_id <=> b.user_id
+      end
+    end
   end
   
 end

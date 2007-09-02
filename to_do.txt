@@ -31,7 +31,9 @@ entity isn't recent if i'm the last commentor
 
 log of activity
 
-don't care about this person's <entity>.
+don't care
+   about this person's <entity>.
+   about these movie_rating_types.
 
 latest blogs, friends' blogs...
 

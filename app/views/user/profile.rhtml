@@ -58,11 +58,16 @@
   <% unless @user.movie_ratings.empty? -%>
     <div class=profileSection>
       latest movie ratings
-      <ul>
-        <% @user.movie_ratings[0..4].each do |rating| -%>
-          <li><%= link_to("#{rating.movie.title}", :controller => "movie", :action => "rating", :id => rating.id) %> <span style="font-size: 10pt; color: gray;"><%= default_time(rating.created_at) %></span></li>
+      <div style="margin-left: 10mm;">
+        <% @user.movies_with_ratings[0..4].each do |movie| -%>
+          <%= link_to("#{movie.title}", :controller => "movie", :action => "show", :id => movie.id) %>
+          <div style="margin-left: 5mm;">
+            <% movie.user_ratings(@user).each do |rating| -%>
+              <%= link_to "#{rating.rating_type.name}: #{rating}", :controller => "movie", :action => "rating", :id => rating.id %><br/>
+            <% end -%>
+          </div>
         <% end -%>
-      </ul>
+      </div>
     </div>
   <% end -%>
   

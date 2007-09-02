@@ -11,14 +11,7 @@ add new rating types
       quotability
       calculated (from all but overall rating)
       user submitted
-   alter
-      alter table website.movie_rating_options add constraint movie_rating_type_id_value_key unique (movie_rating_type_id, value);
-      MovieRatingOption.new(:movie_rating_type_id => 2, :value => 1, :description => 'not even if you paid me').save
-      MovieRatingOption.new(:movie_rating_type_id => 2, :value => 2, :description => 'once was enough').save
-      MovieRatingOption.new(:movie_rating_type_id => 2, :value => 3, :description => 'would watch it again').save
-      MovieRatingOption.new(:movie_rating_type_id => 2, :value => 4, :description => 'seen it several times').save
-      MovieRatingOption.new(:movie_rating_type_id => 2, :value => 5, :description => 'never gets old').save
-      
+   
 handle spoilers?
 
 clickable stars or other type of GUI
@@ -29,3 +22,5 @@ easy ratings for movie/show.
 
 profile latest movie ratings
    don't list movies more than once.
+
+profile uniq movies

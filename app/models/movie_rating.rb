@@ -7,7 +7,7 @@ class MovieRating < ActiveRecord::Base
   validates_uniqueness_of :movie_id, :scope => [:movie_rating_type_id, :user_id], :message => " already rated for this rating type."
   nil_if_blank
   
-  can_be_summarized_by :title => proc { ["#{rating_type.name}:", summary, rating_to_s].join(" ") },
+  can_be_summarized_by :title => proc { ["#{rating_type.name}:", summary, rating.to_s].join(" ") },
                        :url => proc { {:controller => "movie", :action => "rating", :id => self.id} },
                        :what => :explanation,
                        :max => 100,
@@ -26,7 +26,7 @@ class MovieRating < ActiveRecord::Base
     rating_type.rating_options.detect { |option| option.value == rating }
   end
   
-  def rating_to_s
+  def to_s
     "#{rating} out of #{rating_type.rating_options.size} (#{rating_option.description})"
   end
   
