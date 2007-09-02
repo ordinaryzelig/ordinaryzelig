@@ -26,17 +26,16 @@ class MovieController < ApplicationController
   # second is from post request.
   # the point is to use this method to create, edit, and save.
   def edit_rating
-    @rating_type = MovieRatingType.find_by_id(params[:rating_type_id] || params[:movie_rating][:movie_rating_type_id])
-    @movie = Movie.find_by_id(params[:movie_id] || params[:movie_rating][:movie_id], :include => :ratings)
+    @rating_type = MovieRatingType.find_by_id(params[:rating_type_id])
+    @movie = Movie.find_by_id(params[:movie_id])
     @movie_rating = @movie.existing_rating(logged_in_user.id, @rating_type.id) ||
                     MovieRating.new(:movie_id => @movie.id, :movie_rating_type_id => @rating_type.id, :user_id => logged_in_user.id)
     @page_title = "#{@movie.title} - #{@rating_type.name} rating"
     if request.post?
-      if @movie_rating.update_attributes(params[:movie_rating])
-        unless request.xhr?
-          flash[:success] = "rating saved."
-          redirect_to(:action => "show", :id => @movie_rating.movie_id)
-        end
+      @movie_rating.attributes = params[:movie_rating]
+      if @movie_rating.save
+        flash[:success] = "rating saved."
+        redirect_to(:action => "show", :id => @movie_rating.movie_id)
       end
     end
   end

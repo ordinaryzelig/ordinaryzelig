@@ -7,24 +7,24 @@
 
 <%= error_messages(@movie_rating) %>
 
-<% form_for :movie_rating do |form| -%>
+<% form_tag :movie_id => @movie.id, :rating_type_id => @rating_type.id do |form| -%>
   
   <table>
     <tr valign=top>
       <td>rating</td>
       <td>
-        <%= form.select(:rating, @rating_type.container, :include_blank => true) %>
+        <%= select(:movie_rating, :rating, @rating_type.container, :include_blank => true) %>
       </td>
     </tr>
     <tr><td>&nbsp;</td><td></td></tr>
     <tr><td><span style="font-size: 10pt;">optional</span></td><td></td></tr>
     <tr>
       <td>summary</td>
-      <td><%= form.text_field(:summary) %></td>
+      <td><%= text_field(:movie_rating, :summary) %></td>
     </tr>
     <tr>
       <td valign=top>explanation</td>
-      <td><%= form.text_area(:explanation) %></td>
+      <td><%= text_area(:movie_rating, :explanation) %></td>
     </tr>
     <tr>
       <td></td>
@@ -34,9 +34,9 @@
       </td>
     </tr>
   </table>
-  <%= form.hidden_field(:user_id) %>
-  <%= form.hidden_field(:movie_id) %>
-  <%= form.hidden_field(:movie_rating_type_id) %>
+  <%= hidden_field(:movie_rating, :user_id) %>
+  <%= hidden_field(:movie_rating, :movie_id) %>
+  <%= hidden_field(:movie_rating, :movie_rating_type_id) %>
   
   <%= preview_div %>
   

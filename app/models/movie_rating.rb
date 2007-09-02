@@ -4,6 +4,7 @@ class MovieRating < ActiveRecord::Base
   belongs_to :rating_type, :class_name => "MovieRatingType", :foreign_key => "movie_rating_type_id", :include => :rating_options
   belongs_to :user
   validates_presence_of :movie_id, :movie_rating_type_id, :rating, :user_id, :created_at
+  validates_uniqueness_of :movie_id, :scope => [:movie_rating_type_id, :user_id], :message => " already rated for this rating type."
   nil_if_blank
   
   can_be_summarized_by :title => proc { ["#{rating_type.name}:", summary, rating_to_s].join(" ") },
