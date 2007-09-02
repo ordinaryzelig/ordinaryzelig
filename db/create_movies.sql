@@ -2,7 +2,7 @@ drop table if exists website.movies cascade;
 create table website.movies (
     id serial primary key,
     title varchar(100) not null unique,
-    imdb_id varchar(20) default null unique
+    imdb_id varchar(20) unique
 );
 
 drop table if exists website.movie_rating_types cascade;
@@ -39,8 +39,8 @@ create table website.movie_ratings(
     movie_id integer not null references website.movies (id),
     movie_rating_type_id integer not null references website.movie_rating_types (id),
     rating integer not null,
-    summary varchar(100) default null,
-    explanation text default null,
+    summary varchar(100),
+    explanation text,
     user_id integer not null references users.users (id),
     created_at timestamp with time zone not null
 );

@@ -39,10 +39,10 @@
     <% content = pluralize(entity.recent_comments(logged_in_user).size, 'new comment') %>
   <% else -%>
     <% if entity.summarize_what -%>
-        <% content = entity.summarize_what %><%= link_to('...', entity.summarize_url, :title => "read more") %>
+      <% content = entity.summarize_what << link_to('...', entity.summarize_url, :title => "read more") %>
     <% end -%>
   <% end -%>
   
-  <%= content_tag :div, content, :class => "listingInfo" %>
+  <%= content_tag :div, content, :class => "listingSection" %>
   
 </div>

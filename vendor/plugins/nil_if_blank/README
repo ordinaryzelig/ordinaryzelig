@@ -5,3 +5,4 @@ forms return emtpy strings for blank fields.  a model class that calls nil_if_bl
 
 usage:
    in the model, declare nil_if_blank :field1, :field2, ...
+   if no symbols are passed, all columns will be checked.

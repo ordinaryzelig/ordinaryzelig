@@ -9,7 +9,8 @@ module OrdinaryZelig
     module ClassMethods
       
       def nil_if_blank(*options)
-        options.each do |symbol|
+        symbols = options.empty? ? self.column_names.reject { |name| "id" == name } : options
+        symbols.each do |symbol|
           before_validation proc { |obj| obj[symbol] = nil if obj[symbol].blank? }
         end
       end

@@ -46,4 +46,8 @@ class Movie < ActiveRecord::Base
     ratings.select { |rating| rating.is_recent?(user) }
   end
   
+  def existing_rating(user_id, rating_type_id)
+    ratings.find(:first, :conditions => {:movie_rating_type_id => rating_type_id, :user_id => user_id})
+  end
+  
 end
