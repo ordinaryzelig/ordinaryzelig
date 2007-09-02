@@ -119,11 +119,11 @@ class ApplicationController < ActionController::Base
   end
   
   def is_self_or_admin?(user)
-    is_self?(user) || logged_in_user.is_admin?
+    is_self?(user) || (logged_in_user && logged_in_user.is_admin?)
   end
   
   def is_self?(user)
-    session[:user_id] == user.id
+    user && session[:user_id] == user.id
   end
   
   def is_ajax_action?
