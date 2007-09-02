@@ -10,7 +10,7 @@ module OrdinaryZelig
       
       def nil_if_blank(*options)
         options.each do |symbol|
-          before_validation proc { |obj| obj["summary"] = nil if obj["summary"].blank? }
+          before_validation proc { |obj| obj[symbol] = nil if obj[symbol].blank? }
         end
       end
       
