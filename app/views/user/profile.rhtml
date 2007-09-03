@@ -40,11 +40,18 @@
   <% # blog. -%>
   
   <div class=profileSection>
-    <% if is_self_or_admin?(@user) || @user.considers_friend?(logged_in_user) -%>
-      <div style="margin-bottom: 3mm;"><%= link_to(is_self?(@user) ? "your blog" : "blog", :controller => "blog", :action => "list", :id => @user.id) %></div>
-      <% if is_self_or_admin?(@user) -%>
-        <div>
-          <%= link_to("your friends' blogs", :controller => "blog", :action => "friends_blogs", :id => @user.id) %>
+    <% if is_self?(@user) || @user.considers_friend?(logged_in_user) -%>
+      <div style="margin-bottom: 3mm;">
+        <%= link_to("blogs", :controller => "blog", :action => "list", :id => @user.id) %>
+        <div style="padding-left: 10mm;">
+          <%= render :partial => 'blog_list', :locals => {:blogs => @user.blogs.sort { |a, b| b.created_at <=> a.created_at }[0..4]} %>
+        </div>
+      </div>
+      
+      <% if is_self?(@user) -%>
+        <%= link_to("friends' blogs", :controller => "blog", :action => "friends_blogs", :id => @user.id) %>
+        <div style="padding-left: 10mm;">
+          <%= render :partial => 'blog_list', :locals => {:blogs => @user.friends_blogs.sort { |a, b| b.created_at <=> a.created_at }[0..4]} %>
         </div>
       <% end -%>
     <% else -%>
@@ -57,16 +64,9 @@
   
   <% unless @user.movie_ratings.empty? -%>
     <div class=profileSection>
-      latest movie ratings
+      <%= link_to("movie ratings", :controller => "movie", :action => "user_ratings", :id => @user.id) %>
       <div style="margin-left: 10mm;">
-        <% @user.movies_with_ratings[0..4].each do |movie| -%>
-          <%= link_to("#{movie.title}", :controller => "movie", :action => "show", :id => movie.id) %>
-          <div style="margin-left: 5mm;">
-            <% movie.user_ratings(@user).each do |rating| -%>
-              <%= link_to "#{rating.rating_type.name}: #{rating}", :controller => "movie", :action => "rating", :id => rating.id %><br/>
-            <% end -%>
-          </div>
-        <% end -%>
+        <%= render :partial => 'shared/movie_ratings_list', :locals => {:movies => @user.movies_with_ratings[0..4], :user => @user} %>
       </div>
     </div>
   <% end -%>

@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :considering_friends, :through => :considering_friendships
   has_many :blogs
-  has_many :movie_ratings, :order => "created_at desc", :include => :movie
+  has_many :movie_ratings, :include => :movie
   
   validates_presence_of :first_name, :last_name, :display_name, :email
   validates_uniqueness_of :email, :message => "is already registered. <a href=\"mailto:help@ordinaryzelig.org\">email me</a> and i'll set you up."
@@ -182,7 +182,11 @@ class User < ActiveRecord::Base
   end
   
   def movies_with_ratings
-    movie_ratings.map { |rating| rating.movie }.uniq
+    movie_ratings.sort { |a, b| b.created_at <=> a.created_at }.map { |rating| rating.movie }.uniq
+  end
+  
+  def friends_blogs
+    mutual_friends.map(&:blogs).flatten.sort { |a, b| b.created_at <=> a.created_at }
   end
   
   private

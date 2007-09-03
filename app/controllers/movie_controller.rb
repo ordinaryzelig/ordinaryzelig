@@ -91,6 +91,8 @@ class MovieController < ApplicationController
     end
   end
   
-  private
+  def user_ratings
+    @user = User.find_by_id(params[:id], :include => :movie_ratings)
+  end
   
 end
