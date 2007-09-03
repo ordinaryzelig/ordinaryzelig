@@ -3,7 +3,7 @@
   <table id="ratingsTable">
     <tr>
       <td style="background: beige; border: none;"></td>
-      <th><%= link_to("everyone") %></th>
+      <th><%= link_to_if(logged_in_user, "everyone") %></th>
       <% if logged_in_user -%>
         <th><%= link_to("friends", :filter => "friends") %></th>
         <th><%= link_to("you", :filter => "you") %></th>

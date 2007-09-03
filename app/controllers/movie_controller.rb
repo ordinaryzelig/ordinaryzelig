@@ -63,7 +63,7 @@ class MovieController < ApplicationController
         @ratings.delete_if { |rating| !logged_in_user.friends.include?(rating.user) }
       when "you"
         @ratings.delete_if { |rating| logged_in_user != rating.user }
-      end
+      end if logged_in_user
       @rating_types = MovieRatingType.find(:all)
     else
       redirect_to(:action => "edit_rating", :movie_id => params[:movie_id], :rating_type_id => params[:rating_type_id])
