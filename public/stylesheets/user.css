@@ -4,6 +4,7 @@
 
 .profileSection{
     margin-top: 10mm;
-    background-color: moccasin;
+    background-color: white;
     padding: 2mm;
+    border: 1px solid black;
 }
