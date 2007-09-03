@@ -94,6 +94,7 @@ html{
 
 table{
     border-collapse: collapse;
+    background: white;
 }
 
 td, th{
