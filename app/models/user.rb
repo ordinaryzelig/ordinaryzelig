@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :accounts
   has_one :user_activity
   has_many :friendships, :foreign_key => "user_id"
-  has_many :friends, :through => :friendships
+  has_many :friends, :through => :friendships, :order => "lower(last_name)"
   has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :considering_friends, :through => :considering_friendships
   has_many :blogs
