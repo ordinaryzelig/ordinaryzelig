@@ -46,7 +46,7 @@ class MovieController < ApplicationController
   
   def show
     if request.get?
-      @movie = Movie.find_by_id(params[:id])
+      @movie = Movie.find_by_id(params[:id], :include => {:ratings => [:user, :rating_type]})
       unless @movie
         flash[:failure] = "movie not found."
         redirect_to(:action => "index")
@@ -56,7 +56,7 @@ class MovieController < ApplicationController
       conditions = {:movie_id => @movie.id}
       conditions.store(:user_id, logged_in_user.friends.map { |friend| friend.id }) if 'true' == params[:friends_only] && logged_in_user
       conditions.store(:movie_rating_type_id, params[:movie_rating_type_id]) if params[:movie_rating_type_id]
-      @ratings = @movie.ratings.find(:all, :conditions => conditions, :include => [:user, :rating_type]).select { |rating| rating.explanation || rating.summary }
+      @ratings = @movie.ratings.select { |rating| rating.explanation || rating.summary }
       @rating_types = MovieRatingType.find(:all)
     else
       redirect_to(:action => "edit_rating", :movie_id => params[:movie_id], :rating_type_id => params[:rating_type_id])
