@@ -28,18 +28,12 @@ module OrdinaryZelig
       end
       private :def_meth
       
-      def has_recency?
-        @has_recency || false
+      def recents(user)
+        find(:all, :include => :user).select { |obj| obj.has_recent_activity?(user) }
       end
       
-      def recents(user, options = {})
-        if user.previous_login_at
-          with_scope :find => options do
-            find(:all).select { |obj| obj.has_recent_activity?(user) }
-          end
-        else
-          []
-        end
+      def has_recency?
+        @has_recency || false
       end
       
       def is_recent_entity_type?

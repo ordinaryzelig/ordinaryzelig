@@ -4,8 +4,9 @@ class UserActivity < ActiveRecord::Base
   belongs_to :user
   
   def log_login!
-    self.previous_login_at = self.last_login_at
-    self.last_login_at = Time.now.localtime
+    now = Time.now.localtime
+    self.previous_login_at = self.last_login_at || now
+    self.last_login_at = now
     save!
   end
   

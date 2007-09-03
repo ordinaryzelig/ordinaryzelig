@@ -16,4 +16,8 @@ class Message < ActiveRecord::Base
     self.posted_at ||= Time.now.localtime
   end
   
+  def self.recents(user)
+    find(:all, :include => :poster).select { |message| message.has_recent_activity?(user) }
+  end
+  
 end

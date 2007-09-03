@@ -46,3 +46,5 @@ recent entitiy types
    ["Blog", "Message", "Comment", "Friendship", "Movie"].each do |et|
      RecentEntityType.new(:entity_type => EntityType.find_by_name(et)).save
    end
+
+grow sidebar when moused over?
