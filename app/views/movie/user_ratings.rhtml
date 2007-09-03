@@ -1,1 +1,7 @@
+<% content_for :banner do -%>
+  <div id="banner">
+    <%= link_to_profile(@user) %>'s movie ratings
+  </div>
+<% end -%>
+
 <%= render(:partial => "shared/movie_ratings_list", :locals => {:movies => @user.movies_with_ratings, :user => @user}) %>

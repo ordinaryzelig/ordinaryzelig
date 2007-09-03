@@ -93,6 +93,7 @@ class MovieController < ApplicationController
   
   def user_ratings
     @user = User.find_by_id(params[:id], :include => :movie_ratings)
+    @page_title = "movie ratings - #{@user.display_name}"
   end
   
 end
