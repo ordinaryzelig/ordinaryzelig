@@ -91,3 +91,11 @@ html{
 #sidebar, #main{
     border: 2px solid black;
 }
+
+table{
+    border-collapse: collapse;
+}
+
+td, th{
+    padding: 2mm;
+}
