@@ -57,6 +57,13 @@ class MovieController < ApplicationController
       conditions.store(:user_id, logged_in_user.friends.map { |friend| friend.id }) if 'true' == params[:friends_only] && logged_in_user
       conditions.store(:movie_rating_type_id, params[:movie_rating_type_id]) if params[:movie_rating_type_id]
       @ratings = @movie.ratings.select { |rating| rating.explanation || rating.summary }
+      # filter.
+      case params[:filter]
+      when "friends"
+        @ratings.delete_if { |rating| !logged_in_user.friends.include?(rating.user) }
+      when "you"
+        @ratings.delete_if { |rating| logged_in_user != rating.user }
+      end
       @rating_types = MovieRatingType.find(:all)
     else
       redirect_to(:action => "edit_rating", :movie_id => params[:movie_id], :rating_type_id => params[:rating_type_id])
