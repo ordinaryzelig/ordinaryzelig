@@ -44,7 +44,7 @@
       <div style="margin-bottom: 3mm;">
         <%= link_to("blogs", :controller => "blog", :action => "list", :id => @user.id) %>
         <div style="padding-left: 10mm;">
-          <%= render :partial => 'blog_list', :locals => {:blogs => @user.blogs.sort { |a, b| b.created_at <=> a.created_at }[0..4]} %>
+          <%= render :partial => 'blog_list', :locals => {:blogs => @user.blogs.sort { |a, b| b.created_at <=> a.created_at }[0..4], :hide_who => true} %>
         </div>
       </div>
       
