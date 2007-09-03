@@ -63,7 +63,6 @@ html{
     width: 35mm;
     padding: 3mm;
 	font-size: 80%;
-	border: 1px solid black;
 }
 
 #myBracket{
@@ -87,4 +86,8 @@ html{
 
 #preview{
     margin-top: 5mm;
+}
+
+#sidebar, #main{
+    border: 2px solid black;
 }
