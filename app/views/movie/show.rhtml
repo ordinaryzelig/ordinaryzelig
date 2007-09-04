@@ -1,3 +1,7 @@
+<% content_for :banner do -%>
+  <%= content_tag :div, link_to(@movie.title, :action => "show"), :id => 'banner' %>
+<% end -%>
+
 <div style="margin-bottom: 10mm;">
   
   <table id="ratingsTable">

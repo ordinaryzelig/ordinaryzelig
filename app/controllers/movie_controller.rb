@@ -52,7 +52,7 @@ class MovieController < ApplicationController
         redirect_to(:action => "index")
         return
       end
-      @page_title = "#{@movie.title}"
+      @page_title = "movie - #{@movie.title}"
       conditions = {:movie_id => @movie.id}
       conditions.store(:user_id, logged_in_user.friends.map { |friend| friend.id }) if 'true' == params[:friends_only] && logged_in_user
       conditions.store(:movie_rating_type_id, params[:movie_rating_type_id]) if params[:movie_rating_type_id]

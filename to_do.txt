@@ -23,6 +23,4 @@ don't care
    about this person's <entity>.
    about these movie_rating_types.
 
-slide_up flash after 5 seconds?
-
 grow sidebar when moused over?
