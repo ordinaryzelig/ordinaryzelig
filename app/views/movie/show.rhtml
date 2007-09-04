@@ -3,15 +3,21 @@
   <table id="ratingsTable">
     <tr>
       <td style="background: beige; border: none;"></td>
-      <th><%= link_to_if(logged_in_user, "everyone") %></th>
+      <th><%= link_to_if(logged_in_user, "everyone", :filter_type => params[:filter_type]) %></th>
       <% if logged_in_user -%>
-        <th><%= link_to("friends", :filter => "friends") %></th>
-        <th><%= link_to("you", :filter => "you") %></th>
+        <th><%= link_to("friends", :filter_who => "friends", :filter_type => params[:filter_type]) %></th>
+        <th><%= link_to("you", :filter_who => "you", :filter_type => params[:filter_type]) %></th>
       <% end -%>
     </tr>
     <% @rating_types.each do |rating_type| -%>
       <tr>
-        <th><%= rating_type.name %></th>
+        <th>
+          <%= link_to(rating_type.name, :filter_type => rating_type.name) %>
+          <% if params[:filter_type] == rating_type.name -%>
+            <br/>
+            <%= content_tag :span, link_to("remove filter", :filter_who => params[:filter_who]), :style => "font-size: 60%;" %>
+          <% end -%>
+        </th>
         <td><%= rating_cell(@movie) { |rating| rating.rating_type == rating_type} %></td>
         <% if logged_in_user -%>
           <td><%= rating_cell(@movie) { |rating| rating.rating_type == rating_type && logged_in_user.friends.include?(rating.user)} %></td>
@@ -22,6 +28,9 @@
   </table>
   
 </div>
+
+<%= pluralize(@ratings.size, 'rating') %>
+<%= content_tag :span, '(filtered)', :style => "font-size: 60%" if params[:filter_who] || params[:filter_type] %>
 
 <% @ratings.each do |rating| -%>
   <%= render(:partial => "shared/summary", :locals => {:entity => rating, :show_who => true}) %>

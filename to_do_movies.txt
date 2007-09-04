@@ -19,3 +19,5 @@ clickable stars or other type of GUI
 easy ratings for movie/show.
    need to ajaxily update entire row so averages can update too.
    elaborate link.
+
+in profile, recent movie won't link to friend-filtered show action.

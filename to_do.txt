@@ -12,18 +12,6 @@ action mailer
    errors
    new items
 
-default null for fields in db.
-   movie_ratings.explanation, summary
-      MovieRating.find(:all).each do |mr|
-        if mr.summary && mr.summary.blank?
-          mr.summary = nil
-        end
-        if mr.explanation && mr.explanation.blank?
-          mr.explanation = nil
-        end
-        mr.save
-      end
-
 summarize_max doesn't work when :what option is a self-defined proc.
 
 entity isn't recent if i'm the last commentor
@@ -36,15 +24,5 @@ don't care
    about these movie_rating_types.
 
 slide_up flash after 5 seconds?
-
-recent entitiy types
-   create table website.recent_entity_types (
-       id serial primary key,
-       entity_type_id integer references entities.entity_types (id)
-   );
-   EntityType.new(:name => "Movie").save
-   ["Blog", "Message", "Comment", "Friendship", "Movie"].each do |et|
-     RecentEntityType.new(:entity_type => EntityType.find_by_name(et)).save
-   end
 
 grow sidebar when moused over?
