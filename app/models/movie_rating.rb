@@ -27,7 +27,7 @@ class MovieRating < ActiveRecord::Base
   end
   
   def to_s
-    "#{rating} out of #{rating_type.rating_options.size} (#{rating_option.description})"
+    "#{rating} (#{rating_option.description})"
   end
   
 end
