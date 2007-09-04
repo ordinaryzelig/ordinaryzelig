@@ -37,24 +37,24 @@ html{
     border-width: 1px;
     border-style: solid;
     padding: 2mm;
-    background-color: lightgray;
     margin-bottom: 2mm;
     margin-top: 2mm;
+    text-align: center;
 }
 
 #flashnotice{
-    color: blue;
-    border-color: blue;
+    color: white;
+    background: blue;
 }
 
 #flashsuccess{
-    color: limegreen;
-    border-color: limegreen;
+    color: white;
+    background: green;
 }
 
 #flashfailure{
-    color: red;
-    border-color: red;
+    color: white;
+    background: red;
 }
 
 #sidebar{

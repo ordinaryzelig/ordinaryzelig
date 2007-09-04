@@ -21,3 +21,5 @@ easy ratings for movie/show.
    elaborate link.
 
 in profile, recent movie won't link to friend-filtered show action.
+
+rating scales with descriptions
