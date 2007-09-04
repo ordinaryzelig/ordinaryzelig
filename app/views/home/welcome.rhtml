@@ -1,12 +1,22 @@
-<% logger.info "rendering" %>
-<div id="welcome">
-  <span>welcome to o</span><span id="rdinary" style="display: none;">rdinary</span><span>z</span><span id="eligDotOrg" style="display: none;">elig.org</span>
+<div style="text-align: center; margin: auto; margin-top: 25%;">
+
+  <div id="welcome" style="font-weight: bold; font-size: 150%; margin-bottom: 20mm;">
+    <span>welcome to</span><br/>
+    o<span id="rdinary" style="display: none;">rdinary </span><span>z</span><span id="eligDotOrg" style="display: none;">elig</span>
+  </div>
+
+  <div id="welcomeLinks" style="display: none;">
+    <span><%= link_to("march madness", :controller => "pool") %></span>
+    <span><%= link_to("movie ratings", :controller => "movie") %></span>
+    <% if logged_in_user -%>
+      <%= content_tag :span, link_to_profile(logged_in_user, "profile") %>
+    <% else -%>
+      <span><%= link_to("login/register", :controller => "login") %></span>
+    <% end -%>
+  </div>
+
 </div>
-<div id="welcomeLinks" style="display: none;">
-  <span><%= link_to("march madness", :controller => "pool") %></span>
-  <span><%= link_to("movie ratings", :controller => "movie") %></span>
-  <span><%= link_to("login/register", :controller => "login") %></span>
-</div>
+
 <script>
   Element.hide('rdinary');
   Element.hide('eligDotOrg');
