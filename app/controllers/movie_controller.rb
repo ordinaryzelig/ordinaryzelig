@@ -45,8 +45,6 @@ class MovieController < ApplicationController
   end
   
   def show
-    flash.now[:success] = "Successfully created..."
-    flash.now[:failure] = "Successfully created..."
     if request.get?
       @movie = Movie.find_by_id(params[:id], :include => {:ratings => [:user, :rating_type]})
       unless @movie
