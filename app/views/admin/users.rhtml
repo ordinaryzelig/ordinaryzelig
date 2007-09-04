@@ -2,7 +2,7 @@
   <%= link_to("new user", :controller => "user", :action => "new") %>
 </div>
 <table border=1>
-  <tr>
+  <tr style="background: lightgray;">
     <th>id</th>
     <th>last</th>
     <th>first</th>
@@ -10,20 +10,18 @@
     <th>email</th>
     <th>last login</th>
     <th>authorization</th>
-    <th colspan=2>action</th>
   </tr>
   <% @users.each do |user| -%>
     <tr>
-      <td><%= user.id %></td>
+      <td><%= link_to_profile(user, user.id) %></td>
       <td><%= user.last_name %></td>
       <td><%= user.first_name %></td>
       <td><%= user.display_name %></td>
       <td><%= link_to_email(user.email, user) %></td>
-      <td><%= user.last_login_at.strftime("%a %Y-%m-%d %H:%M") if user.user_activity && user.last_login_at %></td>
+      <td><%= user.last_login_at.strftime("%m-%d %H:%M") if user.user_activity && user.last_login_at %></td>
       <td align=center>
         <%= render(:partial => "user_authorization", :locals => {:user => user}) %>
       </td>
-      <td><%= link_to_edit_profile("edit", user) %></td>
     </tr>
   <% end -%>
 </table>

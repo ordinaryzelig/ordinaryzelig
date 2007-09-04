@@ -174,7 +174,7 @@ class User < ActiveRecord::Base
   end
   
   def recents
-    if user_activity.previous_login_at
+    if user_activity && user_activity.previous_login_at
       recents = RecentEntityType.find(:all).map(&:entity_type).map do |entity_type|
         entity_type.entity_class.recents(self)
       end.flatten.sort { |a, b| b.recency_time_obj(self) <=> a.recency_time_obj(self) }

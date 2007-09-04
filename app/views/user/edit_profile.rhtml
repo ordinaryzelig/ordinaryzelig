@@ -1,7 +1,7 @@
 <% if @user -%>
   <%= error_messages(@user) %>
   <% form_tag(:id => @user.id) do -%>
-    <table>
+    <table style="background: none;">
       <%= render(:partial => "user") %>
       <tr>
         <td></td>

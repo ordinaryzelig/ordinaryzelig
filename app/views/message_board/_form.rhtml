@@ -1,7 +1,7 @@
 <%= error_messages(@message) %>
 
 <% form_tag do -%>
-  <table id="blogFormTable">
+  <table id="blogFormTable" style="background: none;">
     <tr>
       <th>subject</th>
       <td><%= text_field(:message, :subject, :id => "title") %></td>

@@ -1,6 +1,6 @@
 <% content_for("banner") do -%>
   
-  <div style="border: .5mm solid black;">
+  <div style="border: .5mm solid black; background: white;">
   
     <div id="banner">
       <%= @rating.summary %><br/>
@@ -11,7 +11,7 @@
       </span>
     </div>
     
-    <div style="padding: 2mm;">
+    <div style="margin: 2mm;">
       
       <% if @rating.explanation -%>
         <div style="padding-bottom: 5mm;"><%= sanitize(@rating.explanation) %></div>
