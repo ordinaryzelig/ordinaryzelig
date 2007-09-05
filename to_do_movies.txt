@@ -23,3 +23,7 @@ easy ratings for movie/show.
 in profile, recent movie won't link to friend-filtered show action.
 
 rating scales with descriptions
+
+highlight appropriately for ratings table.
+   highlight row/column if only one filter on.
+   if 2 filters on, highlight intersection.
