@@ -37,13 +37,13 @@ module OrdinaryZelig
       end
       
       def recent_comments(user, &block)
-        comments do |c|
+        @recent_comments ||= comments do |c|
           c.is_recent?(user) && (block.nil? || block.call(c))
         end
       end
       
       def comments(&block)
-        root_comments.map do |com|
+        @comments ||= root_comments.map do |com|
           com.self_and_descendants { |c| block.nil? || block.call(c) }
         end.flatten
       end

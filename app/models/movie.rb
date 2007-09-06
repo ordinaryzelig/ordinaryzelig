@@ -61,7 +61,7 @@ class Movie < ActiveRecord::Base
   end
   
   def self.recents(user)
-    find(:all, :include => {:ratings => :user}).select { |movie| movie.has_recent_activity?(user) }
+    find(:all, :include => {:ratings => :user}).select { |movie| movie.is_recent?(user) }
   end
   
 end

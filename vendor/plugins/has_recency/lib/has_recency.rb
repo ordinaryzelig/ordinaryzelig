@@ -29,7 +29,7 @@ module OrdinaryZelig
       private :def_meth
       
       def recents(user)
-        find(:all, :include => :user).select { |obj| obj.has_recent_activity?(user) }
+        find(:all, :include => :user).select { |obj| obj.is_recent?(user) }
       end
       
       def has_recency?
@@ -44,25 +44,36 @@ module OrdinaryZelig
     
     module InstanceMethods
       
-      def is_recent?(user)
-        if defined?(recency_block_obj)
-          recency_block_obj(user)
-        else
-          # check if user is owner and is allowed to read it.
-          ruo = recency_user_obj(user)
-          if ruo && ruo != user && user.considers_friend?(recency_user_obj) && user.can_read?(self)
-            # check if user has user_activity and previous_login_at.
-            if user.previous_login_at
-              # return if recency_time_obj is recent.
-              return recency_time_obj(user) >= user.previous_login_at
-            end
-          end
-          false
-        end
+      # return the date of the reason this model is recent.
+      def most_recent_date(user, check_comments_if_any = false)
+        recent_obj = most_recent_because_of(user, check_comments_if_any)
+        recent_obj.recency_time_obj(user) if recent_obj
       end
       
-      def has_recent_activity?(user)
-        is_recent?(user) || (self.class.can_have_comments? && !recent_comments(user).empty?)
+      # returns the most recent object that is the reason this model is recent.
+      # either self or latest recent comment.
+      def most_recent_because_of(user, check_comments_if_any = false)
+        return @most_recent_obj if @most_recent_obj
+        if defined?(recency_block_obj)
+          # self-defined block.
+          recent_obj = self if recency_block_obj(user)
+        else
+          ruo = recency_user_obj(user)
+          if ruo && user.considers_friend?(ruo) && user.can_read?(self)
+            recent_obj = self if recency_time_obj(user) >= user.previous_login_at
+          end
+        end
+        if check_comments_if_any && self.class.can_have_comments?
+          most_recent_of_recent_comments = recent_comments(user).last if recent_comments(user) && recent_comments(user)
+          @most_recent_obj = [recent_obj, most_recent_of_recent_comments].compact.max { |a, b| a.recency_time_obj(user) <=> b.recency_time_obj(user) }
+        else
+          @most_recent_obj = recent_obj
+        end
+        @most_recent_obj
+      end
+      
+      def is_recent?(user, check_comments_if_any = false)
+        !most_recent_date(user, check_comments_if_any).nil?
       end
       
       def has_recency?

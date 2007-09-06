@@ -16,7 +16,7 @@ class Friendship < ActiveRecord::Base
   end
   
   def self.recents(user)
-    find(:all, :include => [:user, :friend]).select { |friendship| friendship.has_recent_activity?(user) }
+    find(:all, :include => [:user, :friend]).select { |friendship| friendship.is_recent?(user) }
   end
   
 end

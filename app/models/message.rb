@@ -17,7 +17,7 @@ class Message < ActiveRecord::Base
   end
   
   def self.recents(user)
-    find(:all, :include => :poster).select { |message| message.has_recent_activity?(user) }
+    find(:all, :include => :poster).select { |message| message.is_recent?(user) }
   end
   
 end
