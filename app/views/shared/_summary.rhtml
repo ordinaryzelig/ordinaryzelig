@@ -5,10 +5,15 @@
 
 <div class=listing>
   
-  <%= content_tag(:div, entity.class, :class => "listingSection", :style => "background: lightblue; font-size: 10pt;") if show_type %>
-  
+  <% if show_recency && !entity.is_recent?(logged_in_user) -%>
+    <% type_str = pluralize(entity.recent_comments(logged_in_user).size, "new #{entity.class} comment") %>
+  <% else -%>
+    <% type_str = entity.class.to_s -%>
+  <% end -%>
+  <%= content_tag(:div, type_str, :class => "listingSection", :style => "background: lightblue; font-size: 10pt;") if show_type %>
+  <% logger.info "blah2 #{!entity.is_recent?(logged_in_user)}" %>
   <div class=listingSection style="<%= recent_background_color(entity) %>">
-    
+    <% logger.info "blah1 #{!entity.is_recent?(logged_in_user)}" %>
     <% #========================================= -%>
     <% # title. -%>
     
@@ -35,8 +40,8 @@
   <% # what. -%>
   
   <% content = nil -%>
-  <% if show_recency && (!entity.is_recent?(logged_in_user) || !entity.is_recent_entity_type?) -%>
-    <% content = pluralize(entity.recent_comments(logged_in_user).size, 'new comment') %>
+  <% if show_recency && !entity.is_recent?(logged_in_user) -%>
+    <% content = entity.recent_comments(logged_in_user)[0..2].map { |comment| comment_summary(comment) }.join("<br/>") %>
   <% else -%>
     <% if entity.summarize_what -%>
       <% content = entity.summarize_what << link_to('...', entity.summarize_url, :title => "read more") %>

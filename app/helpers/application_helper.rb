@@ -113,8 +113,13 @@ module ApplicationHelper
   end
   
   def recent_background_color(object, default_color = "lightgray")
-    color = (logged_in_user && object.class.has_recency? && object.is_recent?(logged_in_user)) ? "lightgreen" : default_color
+    color = (logged_in_user && object.class.has_recency? && object.is_recent?(logged_in_user, true)) ? "lightgreen" : default_color
     "background-color: #{color};" if color
+  end
+  
+  def comment_summary(comment)
+    who_when = content_tag(:span, "#{link_to_profile(comment.summarize_who)} - #{default_time(comment.summarize_when)}", :style => "font-size: 60%; color: gray;")
+    ["#{comment.summarize_what}...", '-', who_when].join(" ")
   end
   
   # def comment_info(entity)

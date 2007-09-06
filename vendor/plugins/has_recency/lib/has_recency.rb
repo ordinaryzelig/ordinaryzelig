@@ -53,27 +53,29 @@ module OrdinaryZelig
       # returns the most recent object that is the reason this model is recent.
       # either self or latest recent comment.
       def most_recent_because_of(user, check_comments_if_any = false)
-        return @most_recent_obj if @most_recent_obj
-        if defined?(recency_block_obj)
-          # self-defined block.
-          recent_obj = self if recency_block_obj(user)
-        else
-          ruo = recency_user_obj(user)
-          if ruo && user.considers_friend?(ruo) && user.can_read?(self)
-            recent_obj = self if recency_time_obj(user) >= user.previous_login_at
+        unless @recent_obj
+          # if not already calculated.
+          if defined?(recency_block_obj)
+            # self-defined block.
+            @recent_obj = self if recency_block_obj(user)
+          else
+            ruo = recency_user_obj(user)
+            if ruo && user.considers_friend?(ruo) && user.can_read?(self)
+              @recent_obj = self if recency_time_obj(user) >= user.previous_login_at
+            end
           end
         end
-        if check_comments_if_any && self.class.can_have_comments?
-          most_recent_of_recent_comments = recent_comments(user).last if recent_comments(user) && recent_comments(user)
-          @most_recent_obj = [recent_obj, most_recent_of_recent_comments].compact.max { |a, b| a.recency_time_obj(user) <=> b.recency_time_obj(user) }
+        # if checking for comments, return most recent object between most recent comment and self.
+        @most_recent_of_recent_comments ||= recent_comments(user).last if check_comments_if_any && self.class.can_have_comments?
+        if check_comments_if_any
+          @max_of_recents ||= [@recent_obj, @most_recent_of_recent_comments].compact.max { |a, b| a.recency_time_obj(user) <=> b.recency_time_obj(user) }
         else
-          @most_recent_obj = recent_obj
+          @recent_obj
         end
-        @most_recent_obj
       end
       
       def is_recent?(user, check_comments_if_any = false)
-        !most_recent_date(user, check_comments_if_any).nil?
+        !most_recent_because_of(user, check_comments_if_any).nil?
       end
       
       def has_recency?

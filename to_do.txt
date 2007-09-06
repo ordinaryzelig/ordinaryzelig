@@ -21,3 +21,9 @@ don't care
 grow sidebar when moused over?
 
 rename pool controller to march_madness
+
+one_line_summary
+   for
+      blog list
+      movie_review
+      recent comments in summary
