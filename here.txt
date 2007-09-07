@@ -1,0 +1,4 @@
+User.has_many :user_activities
+   say, 10?
+   profile recents section can have select of activities from user to choose from.
+   so maybe, pass is_recent?() an activity instead of user.
