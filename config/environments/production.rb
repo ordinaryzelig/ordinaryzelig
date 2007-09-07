@@ -19,4 +19,3 @@ config.action_controller.perform_caching             = true
 
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.delivery_method = :sendmail
-4
