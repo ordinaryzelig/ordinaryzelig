@@ -12,11 +12,13 @@ class UserController < ApplicationController
   # params
   #   id (user)
   def profile
-    logged_in_user.activity(UserActivityType.find_by_name('recents checked').id).log!
     @user = User.find_by_id(params[:id])#, :include => [:blogs, :movie_ratings, :friends, :considering_friends])
     if @user && !@user.is_admin_or_master?
       @page_title =  "profile - #{@user.display_name}"
-      @recents = @user.recents
+      if is_self?(@user)
+        logged_in_user.log!(UserActivityType.find_by_name('recents checked').id)
+        @recents = @user.recents
+      end
     else
       @reason_not_visible = "user not found"
     end

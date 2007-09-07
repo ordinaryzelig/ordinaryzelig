@@ -199,6 +199,10 @@ class User < ActiveRecord::Base
     user_activities.detect { |a| activity_type_id == a.user_activity_type_id } || UserActivity.new(:user_activity_type_id => activity_type_id, :user_id => self.id)
   end
   
+  def log!(activity_type_id)
+    activity(activity_type_id).log!
+  end
+  
   private
   
   def hash(str)
