@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   
-  before_filter :validate_session, :except => [:register]
-  skip_after_filter :mark_requested_page, :only => [:register]
+  before_filter :validate_session, :except => :register
+  skip_after_filter :mark_requested_page, :only => :register
   
   ADMIN_ACTIONS = ["new"]
   
@@ -12,6 +12,7 @@ class UserController < ApplicationController
   # params
   #   id (user)
   def profile
+    logged_in_user.activity(UserActivityType.find_by_name('recents checked').id).log!
     @user = User.find_by_id(params[:id])#, :include => [:blogs, :movie_ratings, :friends, :considering_friends])
     if @user && !@user.is_admin_or_master?
       @page_title =  "profile - #{@user.display_name}"

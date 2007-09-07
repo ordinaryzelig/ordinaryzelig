@@ -29,7 +29,7 @@
   
   <% if is_self?(@user) -%>
     <div class=profileSection>
-      <%= pluralize(@recents.size, "recent item") %> since your previous login <span class=listingInfo><%= default_time(@user.previous_login_at) || "your previous login has not been logged yet." %></span>
+      <%= pluralize(@recents.size, "recent item") %> since the last time you checked <span class=listingInfo><%= default_time(@user.previous_recents_checked_at) %></span>
       <% @recents.each do |obj| -%>
         <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_who => true, :show_recency => true, :show_name => true, :show_type => true}) %>
       <% end -%>

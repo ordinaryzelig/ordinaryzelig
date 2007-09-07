@@ -6,7 +6,7 @@ class Friendship < ActiveRecord::Base
   
   validates_presence_of :user_id, :friend_id, :created_at
   
-  has_recency :block => proc { |user| friend == user && created_at >= user.previous_login_at }
+  has_recency :block => proc { |user| friend == user && created_at >= user.previous_recents_checked_at }
   can_be_summarized_by :title => proc { "#{user.first_last_display} added you as a friend." },
                        :url => proc { {:controller => "user", :action => "profile", :id => user.id} },
                        :who => nil

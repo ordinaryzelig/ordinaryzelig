@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   
   has_many :pool_users, :order => "season_id"
   has_many :accounts
-  has_one :user_activity
+  has_many :user_activities, :dependent => :destroy
   has_many :friendships, :foreign_key => "user_id"
   has_many :friends, :through => :friendships, :order => "lower(last_name)"
   has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
@@ -22,11 +22,6 @@ class User < ActiveRecord::Base
   attr_accessor :confirmation_password
   attr_accessor :needs_password_confirmation
   
-  def after_create
-    self.user_activity = UserActivity.new
-    self.user_activity.log_login!
-  end
-  
   # return user with matching email and password.
   def authenticate
     authenticated_user = nil
@@ -39,8 +34,7 @@ class User < ActiveRecord::Base
     if errors.empty?
       authenticated_user = User.find(:first, :conditions => ["email = ? AND password = ?", *[self.email.downcase, hash(@unhashed_password)]])
       if authenticated_user
-        authenticated_user.user_activity ||= UserActivity.new
-        authenticated_user.user_activity.log_login!
+        authenticated_user.activity(1).log!
       else
         errors.add(nil, "authentication failed.")
       end
@@ -162,11 +156,18 @@ class User < ActiveRecord::Base
   end
   
   def last_login_at
-    user_activity.last_login_at if user_activity
+    activity = activity(UserActivityType.find_by_name('login').id)
+    activity.last_action_at if !activity.new_record?
   end
   
   def previous_login_at
-    user_activity.previous_login_at if user_activity
+    activity = activity(UserActivityType.find_by_name('login').id)
+    activity.previous_action_at if !activity.new_record?
+  end
+  
+  def previous_recents_checked_at
+    activity = activity(UserActivityType.find_by_name('recents checked').id)
+    activity.previous_action_at if !activity.new_record?
   end
   
   def can_read?(obj)
@@ -174,7 +175,7 @@ class User < ActiveRecord::Base
   end
   
   def recents
-    if user_activity && user_activity.previous_login_at
+    @recents ||= if previous_recents_checked_at
       recents = RecentEntityType.find(:all).map(&:entity_type).map do |entity_type|
         entity_type.entity_class.recents(self)
       end.flatten.sort { |a, b| b.recency_time_obj(self) <=> a.recency_time_obj(self) }
@@ -183,6 +184,7 @@ class User < ActiveRecord::Base
     else
       []
     end
+    @recents
   end
   
   def movies_with_ratings
@@ -191,6 +193,10 @@ class User < ActiveRecord::Base
   
   def friends_blogs
     mutual_friends.map(&:blogs).flatten.sort { |a, b| b.created_at <=> a.created_at }
+  end
+  
+  def activity(activity_type_id)
+    user_activities.detect { |a| activity_type_id == a.user_activity_type_id } || UserActivity.new(:user_activity_type_id => activity_type_id, :user_id => self.id)
   end
   
   private

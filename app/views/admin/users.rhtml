@@ -18,7 +18,7 @@
       <td><%= user.first_name %></td>
       <td><%= user.display_name %></td>
       <td><%= link_to_email(user.email, user) %></td>
-      <td><%= user.last_login_at.strftime("%m-%d %H:%M") if user.user_activity && user.last_login_at %></td>
+      <td><%= user.last_login_at.strftime("%m-%d %H:%M") if user.last_login_at %></td>
       <td align=center>
         <%= render(:partial => "user_authorization", :locals => {:user => user}) %>
       </td>

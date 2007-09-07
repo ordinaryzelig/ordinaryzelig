@@ -17,16 +17,28 @@ COPY users.users (first_name, last_name, display_name, email, "password", is_adm
 master	master	master	admin@ordinaryzelig.org	3da541559918a808c2402bba5012f6c60b27661c	1	\N
 \.
 
-create table users.user_activities (
-    user_id integer primary key references users.users (id),
-    previous_login_at timestamp with time zone,
-    last_login_at timestamp with time zone
+create table website.user_activity_types (
+    id serial primary key,
+    name varchar(50) not null unique
+);
+insert into website.user_activity_types (name) values
+    ('login'),
+    ('recents checked')
+;
+
+create table website.user_activities (
+    id serial primary key,
+    user_id integer references users.users (id),
+    user_activity_type_id integer references website.user_activity_types (id),
+    last_action_at timestamp with time zone,
+    previous_action_at timestamp with time zone,
+    unique (user_id, user_activity_type_id)
 );
 
 create table users.friendships (
     id serial PRIMARY KEY,
     user_id int REFERENCES users.users (id),
     friend_id int REFERENCES users.users (id),
-		created_at timestamp with time zone,
+	created_at timestamp with time zone,
     constraint user_friend unique (user_id, friend_id)
 );
