@@ -1,5 +1,344 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 1
-another:
-  id: 2
+--- 
+messages_025: 
+  posted_by_user_id: "2"
+  body: you've seen them, but do you really appreciate them?  the <a href=http://whiteboard.ups.com/>ups whiteboard commercials</a> are amazing, particularly the 2 on delivery intercept, freight, and accessibility.  my favorite is the one about accessibility.  the man turns a frickin keyboard into a parking lot.  brilliant.
+  subject: ups?  brilliant!
+  id: "73"
+  posted_at: 2007-04-08 13:44:57-05
+  parent_id: 
+messages_014: 
+  posted_by_user_id: "2"
+  body: |-
+    <p>unlv just beat georgia tech, a 7 seed over a 10 seed.  surprisingly, only 2 people <a href="http://ordinaryzelig.org/pool/game_pics/142">picked unlv over georgia tech</a> (that's where the "see all pics" link takes you in the brackets).  and those 2 people are now in first place.</p>
+    
+    <p>i have a feeling the games tonight will be more exciting and topsy-turvy since we didn't get much of that last night.  either way, we now have a tournament without duke or gonzaga, so that's nice.</p>
+  subject: 7-10 split.  so what?
+  id: "28"
+  posted_at: 2007-03-16 13:56:46-05
+  parent_id: 
+messages_003: 
+  posted_by_user_id: "2"
+  body: john suggested i put some babes on my website to make it "more pleasing to the eye."  since it's his birthday today, <a href='http://www.imdb.com/gallery/ss/0285403/2SCRawN04.jpg.html?path=pgallery&path_key=Reyes%2C%20Judy%20(II)&seq=31'>here you go turkleton</a>
+  subject: babes for john
+  id: "4"
+  posted_at: 2007-02-28 15:08:29-06
+  parent_id: 
+messages_026: 
+  posted_by_user_id: "2"
+  body: |-
+    <p><a href="http://www.livingto100.com/">http://www.livingto100.com/</a></p>
+    
+    i'm dying at 83.  i could be 88 if i exercised 5 times a week.  either way, i really should stop eating.
+  subject: living to 100
+  id: "75"
+  posted_at: 2007-04-11 09:37:32-05
+  parent_id: 
+messages_015: 
+  posted_by_user_id: "4"
+  body: Does last place person get their money back? It's not looking good Mister-second-place-last-year-who-lost-to-your-own-daughter.
+  subject: Last place
+  id: "30"
+  posted_at: 2007-03-16 23:05:09-05
+  parent_id: 
+messages_004: 
+  posted_by_user_id: "2"
+  body: george mason was THIS close to being in the tournament again this year.  i would like to point out that cece had ohio state losing to george mason last year in the <a href="http://ordinaryzelig.org/pool/brackets/31?bracket_num=1&region_order=1&season_id=2">final four</a>.  so no george mason standing in the way may mean trouble for everybody.  it looks like there are some damn cute mascots that are highly ranked!  forget florida repeating.  the only repeat this year is going to be by the prophet.
+  subject: you got lucky
+  id: "5"
+  posted_at: 2007-03-12 00:50:24-05
+  parent_id: 
+messages_027: 
+  posted_by_user_id: "2"
+  body: |-
+    <p>how would you like your state represented on the new quarter?  <a href="http://www.ok.gov/governor/coin.php">vote</a> or <a href="http://images.southparkstudios.com/media/images/808/808_img_07.jpg">die, MF</a>.</p>
+    
+    <p>you have your choice of a gay bird, gigantic hash pipe, or a woman and a child next to an erect structure spewing stuff.  i'm going with hash pipe.  specifically, i opted for the one that doesn't have oklahoma upstaged by the hash pipe.  we're not just about our weed.  we have other things to do like...umm...like...damn.  football!  we oklahomans love us some foosball.  OR...how about a picture of 2 million smiling republicans raising their hands while standing on native americans, and 3 million democrats sitting on their ass doing nothing, and then a picture of a chinaman, me, mooning all of them (not the natives) while drinking matzah ball soup.  viva las oklahoma diverso.</p>
+  subject: "\"vote your quarter bioatch\""
+  id: "79"
+  posted_at: 2007-04-13 06:44:31-05
+  parent_id: 
+messages_016: 
+  posted_by_user_id: "2"
+  body: apparently i have 10 tickets (really infinite) to watch <a href="http://www.imdb.com/title/tt0438315/">peaceful warrior</a> at amc quail for the weekend of march 30.  i don't know anything about it, but it's free.  if you're interested, let me know.
+  subject: peaceful warrior
+  id: "31"
+  posted_at: 2007-03-20 17:28:44-05
+  parent_id: 
+messages_005: 
+  posted_by_user_id: "8"
+  body: "Hey ten center, why they hell do you have a turkleton? I've watched scrubs, he and JD are OBVIOUSLY closet gay :) But, i would soooo say Stuart would be a dr. cox.\r\n\
+    \r\n\
+    I LOVE your website so far--good job!\r\n\
+    \r\n\
+    I look foward to watching someone else win my (and by my i mean stuart's) money.\r\n\
+    :)"
+  subject: WTF?!
+  id: "6"
+  posted_at: 2007-03-12 08:00:04-05
+  parent_id: 
+messages_028: 
+  posted_by_user_id: "2"
+  body: |-
+    <p>check out this <a href="http://www.tudou.com/programs/view.php?itemID=5296053">mario video</a> of the classic mario we all know, but mod'd SLIGHTLY.</p>
+    
+    <p>it's like watching stephanie do fractions.  it starts out like, "what the hell is this?  you don't expect me to do this do you?  is this even possible?  maybe if i do this...yeah, yeah, ok.  shit...fuck...goddamn it..."</p>
+  subject: hardcore mario
+  id: "77"
+  posted_at: 2007-04-12 11:08:29-05
+  parent_id: 
+messages_017: 
+  posted_by_user_id: "2"
+  body: before anybody freaks out, i switched carol's and THE MOTHER's brackets but just in name.  it was a clerical error by stephanie, so blame her.  but nothing else has changed.
+  subject: doppleganger
+  id: "33"
+  posted_at: 2007-03-22 11:36:04-05
+  parent_id: 
+messages_006: 
+  posted_by_user_id: "5"
+  body: "I could have sworn that last night's poker match was a horrific dream.  I mean, Jared won, \"he beat me, straight up, give him his money.\"  I guess it's true when they say that a sun shines on a dog's pooper shoot every once in awhile.  Yes, Jared.  You are like a dog's pooper shoot.  BTW, thanks for the babe's link and I do not look like Turk.    "
+  subject: poker night
+  id: "7"
+  posted_at: 2007-03-12 09:46:03-05
+  parent_id: 
+messages_030: 
+  posted_by_user_id: "2"
+  body: in the <a href="http://www.imdb.com/title/tt0230030/goofs">bedazzled goofs</a>, the last one about the basketball score was submitted by yours truly.  i'm famous!
+  subject: I'M PUBLISHED!!!!!!
+  id: "84"
+  posted_at: 2007-04-20 18:09:55-05
+  parent_id: 
+messages_029: 
+  posted_by_user_id: "3"
+  body: Well clearly, just about anything is better than ie, thus the pimpage for <a href="http://www.mozilla.org">firefox</a> and <a href="http://www.apple.com/safari/">safari</a>, but why no linkage for poor old <a href="http://www.apple.com/safari/">safari</a>. I mean it can have an internet too, like to <a href="http://www.apple.com/safari/">here</a>
+  subject: Best Viewed
+  id: "83"
+  posted_at: 2007-04-17 17:41:06-05
+  parent_id: 
+messages_018: 
+  posted_by_user_id: "5"
+  body: How about those Aggies? Hahaha... suckers!
+  subject: Aggies
+  id: "36"
+  posted_at: 2007-03-23 09:17:35-05
+  parent_id: 
+messages_007: 
+  posted_by_user_id: "36"
+  body: What the F@!? kind of password did you pick for me?  Apparently my husband can't pick a decent one for me.
+  subject: Password
+  id: "13"
+  posted_at: 2007-03-14 23:25:56-05
+  parent_id: 
+messages_031: 
+  posted_by_user_id: "3"
+  body: |-
+    Two things:
+    
+    Have you beat Soda, Bull or Flamenco?
+    
+    Also were are any updates to your internet?
+  subject: Hey Centie
+  id: "86"
+  posted_at: 2007-05-22 14:27:00-05
+  parent_id: 
+messages_020: 
+  posted_by_user_id: "2"
+  body: |-
+    <p>i have no more pics left.  this season didn't have as many upsets as last year.  yes, last year set the bar high, but for this kind of season, it's surprising how even keel it has been.  at any rate...</p>
+    <p>congratulations, caroline.  you are the only player with all final 4 pics correct.  except you picked florida to win it all, so boooo!</p>
+    <p>sorry, allaire.  you are the only player with no final 4 pics.</p>
+    <p>nguyen, you may get your money back for the 2nd time in 3 years.  good luck!</p>
+    <p>even though it's over for me, i think this final 4 is going to be really good to watch.  gtown vs osu looks like a good matchup.  and i'll definitely enjoy watching anybody beat florida.</p>
+    <dl>
+       <dt>for your enjoyment</dt>
+       <dd><a href="http://www.youtube.com/watch?v=P5T6RFE3XVo">http://www.youtube.com/watch?v=P5T6RFE3XVo</a></dd>
+       <dd><a href="http://www.youtube.com/watch?v=GianETEHqhk">http://www.youtube.com/watch?v=GianETEHqhk</a></dd>
+    </dl>
+  subject: and i'm spent.
+  id: "39"
+  posted_at: 2007-03-25 20:50:51-05
+  parent_id: 
+messages_019: 
+  posted_by_user_id: "5"
+  body: Hey Jared, Look who just past who in the standings.  Haha... Loser!
+  subject: Ten Cent Who?
+  id: "38"
+  posted_at: 2007-03-25 20:23:13-05
+  parent_id: 
+messages_008: 
+  posted_by_user_id: "2"
+  body: normally, i'd be sitting right by my computer to update the master bracket pics for the <a href="http://ordinaryzelig.org/pool/standings">pool standings</a>.  unfortunately, i have a dentist appointment right about the time the first 3 games should end.  so you'll have to wait an hour or so for the very first results to come out.  after that, though, they should come out as soon as the games end.
+  subject: instant gratification
+  id: "15"
+  posted_at: 2007-03-15 08:54:22-05
+  parent_id: 
+messages_032: 
+  posted_by_user_id: "2"
+  body: |-
+    <p>i added blogs with ajaxy comments.  only your friends can read your blogs.  there are no friend requests in oz.  just friends.  but like in the real world, you can be someone's friend, but that doesn't mean they consider you their friend.</p>
+    
+    <p>to add a friend, just go their profile (you can search for them in the sidebar) and click the ajaxy link.  this is the extent to security in oz for the time being.  currently, you have to consider someone your friend before they can see just about anything of yours (not much right now, just your blogs or your other friends).  i'll add more powerful and specific security features later.</p>
+  subject: blog it up
+  id: "91"
+  posted_at: 2007-05-25 20:48:52-05
+  parent_id: 
+messages_021: 
+  posted_by_user_id: "7"
+  body: |-
+    (For those of you on my email and myspace, sorry for repeating this!)
+    
+    Hey everyone, 
+     
+    Here is the link to my brother Alex's TurboTax Rap video.  It's a contest and he could win $25,000.  And you can have a good chuckle!
+    
+    It would be awesome if you would all vote for him and pass the link along to your friends!
+     
+    Thanks so much!
+     
+    Allaire
+     
+    http://www.youtube.com/contest/TheTaxRap&results_all=true?goto=227
+  subject: Plug for my bro's video
+  id: "52"
+  posted_at: 2007-03-30 21:54:49-05
+  parent_id: 
+messages_010: 
+  posted_by_user_id: "2"
+  body: |-
+    <table>
+      <tr><th>1st:</th><td>$130</td></tr>
+      <tr><th>2nd:</th><td>$50</td></tr>
+      <tr><th>last:</th><td>$10</td></tr>
+    </table>
+  subject: 2007 march madness pay structure
+  id: "20"
+  posted_at: 2007-03-15 22:44:15-05
+  parent_id: 
+messages_009: 
+  posted_by_user_id: "2"
+  body: hahaha.  i know, right now, i'm not one to talk, but donna and david don't even have brackets and you're tied with them.
+  subject: hey, ken, are you playing?
+  id: "17"
+  posted_at: 2007-03-15 15:45:21-05
+  parent_id: 
+messages_033: 
+  posted_by_user_id: "25"
+  body: "During the Miss Universe pagent, Miss USA fell on her ass!  "
+  subject: you missed it
+  id: "97"
+  posted_at: 2007-05-28 16:51:45-05
+  parent_id: 
+messages_022: 
+  posted_by_user_id: "2"
+  body: |-
+    <p>i'm sure what will be going through sanjaya's mind when he eventually gets voted off is what it would be like if he were being judged on different criteria other than the criteria he's actually being judged on -- singing.  fortunately, in oz, you can.  you can see how well your bracket would've done if we were using scoring systems of some other sites.  go to the <a href="http://ordinaryzelig.org/pool/standings">standings</a>, change the scoring system, and dream on.  (if you know of any scoring systems that you'd like to simulate, let me know.)</p>
+    
+    <p>now that you've seen the results, i'd like to present the very first annual sanjaya malakar award to john meyer, aka JoJoMe.  yes, you did well in the other systems, but they don't count.  maybe next year the sanjaya award recipient will get their money back.  but probably not.  congratulations.  it's ironic that you won this award when it clearly should've gone to stephanie, but hey, we're obviously not judging on hair.  and before you give me the william hung award, i'd like to say that that is just mean and racist.</p>
+    
+    <p>my scoring system obviously rewards players who correctly pick upsets if they happen.  someone asked me to see how a bracket would do if it were composed of only upsets (naturally this request came from a person who was at the bottom of the standings 2 years in a row), so i did.</p>
+    
+    <p>this year, all upsets would result in only 5 correct pics, all in the first round, totalling only 49 points.  but this year upsets were sparse.</p>
+    
+    <p>last year, however, picking all upsets would result in 10 correct pics totalling 128 points.  the only upset that wasn't in the first round was bradley.  interestingly enough, picking all upsets wouldn't have even gotten last place:  2 people did worse than that.  what's funny is that the <strong style="font-size: 125%;">adler women</strong> were those 2.  yes, this year paints quite a different picture, but theoretically, if someone had picked only upsets in the first round, picked bradley, and then just quit, that would have been enough to beat the adler women.  almost as embarrassing as getting beat by them, ever.</p>
+    
+    <p>i'm open to discussion on scoring systems, suggestions, criticisms, etc.  as a cubs fan, i've already started thinking about next year.</p>
+    
+    <h2>thanks for playing everybody.</h2>
+  subject: "a sanjaya season: technically, it's not over, but c'mon, it's over."
+  id: "53"
+  posted_at: 2007-04-01 14:23:34-05
+  parent_id: 
+messages_011: 
+  posted_by_user_id: "6"
+  body: G'Town is gonna win it all!!!
+  subject: Go Hoyas!
+  id: "21"
+  posted_at: 2007-03-15 23:04:08-05
+  parent_id: 
+messages_034: 
+  posted_by_user_id: "2"
+  body: <a href="http://www.flickr.com/photos/12644185@N00/673371497/" title="Photo Sharing"><img src="http://farm2.static.flickr.com/1082/673371497_cab9e900ab.jpg" width="375" height="500" alt="first iphone pic" /></a>
+  subject: jared = cool kid!!!!!
+  id: "99"
+  posted_at: 2007-06-30 08:19:02-05
+  parent_id: 
+messages_023: 
+  posted_by_user_id: "3"
+  body: is all i gots to be saying, ps i typed this one letter at a time by pointing my wiimote. it rocks the socks
+  subject: gpo ohio
+  id: "55"
+  posted_at: 2007-04-01 22:06:57-05
+  parent_id: 
+messages_012: 
+  posted_by_user_id: "2"
+  body: |-
+    <style>
+      #mascots td{text-align: center; vertical-align: top; padding: 5mm;}
+    </style>
+    here's how cece plans on defending her title.  all high seeds.  pretty strong bracket if you ask me.
+    <table id="mascots">
+      <tr>
+        <td>
+          <h3>fighting duck (3)</h3>
+          <h5>oregon (midwest region and national champion)</h5>
+          <a href="http://www.flickr.com/photos/12644185@N00/422494599/" title="Photo Sharing"><img src="http://farm1.static.flickr.com/131/422494599_fb46233672_m.jpg" width="240" height="160" alt="fighting duck" /></a>
+        </td>
+        <td>
+          <h3>jack the bulldog (2)</h3>
+          <h5>georgetown (east region)</h5>
+          <a href="http://www.flickr.com/photos/12644185@N00/422494587/" title="Photo Sharing"><img src="http://farm1.static.flickr.com/161/422494587_c019e97e70_m.jpg" width="190" height="240" alt="jack the bulldog" /></a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h3>joe bruin (2)</h3>
+          <h5>ucla (west region)</h5>
+          <a href="http://www.flickr.com/photos/12644185@N00/422494612/" title="Photo Sharing"><img src="http://farm1.static.flickr.com/175/422494612_7ef4a1934c_m.jpg" width="144" height="196" alt="joe bruin" /></a>
+        </td>
+        <td>
+          <h3>brutus (1)</h3>
+          <h5>ohio state (south region)</h5>
+          <a href="http://www.flickr.com/photos/12644185@N00/422494592/" title="Photo Sharing"><img src="http://farm1.static.flickr.com/173/422494592_878b4237af_o.gif" width="125" height="314" alt="brutus" /></a>
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2>
+          <h5>and just wait until western kentucky gets in the tournament<br></h5>
+          <a href="http://www.flickr.com/photos/12644185@N00/422494615/" title="Photo Sharing"><img src="http://farm1.static.flickr.com/124/422494615_3b633001f2_m.jpg" width="160" height="240" alt="big red" /></a>
+        </td>
+      </tr>
+    </table>
+  subject: be afraid.  be very afraid.
+  id: "19"
+  posted_at: 2007-03-15 19:50:00-05
+  parent_id: 
+messages_001: 
+  posted_by_user_id: "2"
+  body: so, this is my website.  it's a little bare, but it's also a bit ajaxy, so that nice.  hope you like it.
+  subject: welcome
+  id: "1"
+  posted_at: 2007-02-27 22:33:10-06
+  parent_id: 
+messages_024: 
+  posted_by_user_id: "3"
+  body: |-
+    <i>MySpace is the Internet Explorer of online friends internet place things. People don't know they have a choice</i>
+    <br>
+    True dat, I say get new friends
+  subject: Jared On Myspace
+  id: "70"
+  posted_at: 2007-04-05 08:55:28-05
+  parent_id: 
+messages_013: 
+  posted_by_user_id: "5"
+  body: Nice Job, Carol!  Good luck today.
+  subject: Current Leader
+  id: "24"
+  posted_at: 2007-03-16 09:00:18-05
+  parent_id: 
+messages_002: 
+  posted_by_user_id: "2"
+  body: the march madness part of my site is almost ready.  i have a few things to do before i release the hounds, but rest assured it is my priority as selection sunday is VERY close.
+  subject: where's the madness?
+  id: "2"
+  posted_at: 2007-02-27 22:39:18-06
+  parent_id: 

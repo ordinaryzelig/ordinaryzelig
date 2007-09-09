@@ -16,7 +16,7 @@ development:
   username: postgres
   password: 
   host: localhost
-  schema_search_path: march_madness, users, message_board, blogs, entities, comments, website
+  schema_search_path: march_madness,users,message_board,blogs,entities,comments,website
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.

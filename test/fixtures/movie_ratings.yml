@@ -1,5 +1,52 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
-  id: 1
-two:
-  id: 2
+--- 
+movie_ratings_001: 
+  rating: "4"
+  explanation: What say you? I say pretty good, a bit slow, but nice british here and there and a good set of laughs. I say you should at least go rent this film
+  movie_id: "4"
+  id: "1"
+  summary: Fuzzy Briches
+  movie_rating_type_id: "1"
+  user_id: "3"
+  created_at: 2007-08-22 06:38:24-05
+movie_ratings_002: 
+  rating: "3"
+  explanation: |-
+    <p><a href="http://www.imdb.com/name/nm0000114/">steve buscemi</a> is a political journalist who is forced to do a piece on the country's top soap star played by <a href="http://www.imdb.com/name/nm1092227/">sienna miller</a>.  the movie is fueled by the uncomfortable culture clash between the 2.  if it weren't for the alcohol, there wouldn't be any motivation.  it seems to be the only plausible explanation for the relationship between the 2.  each time i started to lose confidence in the movie, there would be a revelation.  it's like being on a roller coaster, going through a pitch black tunnel, and coming out on the other side on a merry-go-round.  but i went along with it and found myself going on the ride over and over again.  the movie actually drives surprisingly well.  but like a bad on-again-off-again relationship, i started to get sick of the routine.  but in the end, it all comes together and it's all worth it.</p>
+    
+    <p>sienna miller's character is pretty refreshing.  from the very beginning, she both fits the stereotype AND breaks the mold, which you get a taste of with "the dog in the purse".  steve buscemi says it the best:  you know her only by repuatation.  as more and more of her character is revealed, there is more to her than the stereotype she finds herself in.  she starts out as a shallow, but likable stereotype, but the deeper you go, the more interesting she is.  steve buscemi's character starts out being the character i sympathized with, but by the end, SHE ended up being the character i sympathized with.  as frustrating as the relationship was, it's strange that i didn't fully enjoy the ride until it was over.</p>
+  movie_id: "5"
+  id: "2"
+  summary: roller-go-round
+  movie_rating_type_id: "1"
+  user_id: "2"
+  created_at: 2007-08-25 17:26:39.254094-05
+movie_ratings_003: 
+  rating: "2"
+  explanation: |-
+    <p>this is one of those movies where if you watch the trailer, you've seen the movie.  in fact, i'm actually quite upset with the trailers because it promised something it didn't deliver.  the reason i was so excited to see it is because it looked like it was going to be the blood sport of ping pong.  i really like movies where you see so many different styles of play.  in blood sport you see 20 different fighters each with very distinct styles.  i like that kind of creativity.  i was excited to see how that concept would translate to ping pong.  the ping pong action you see in the trailers is 90% of what's in the movie.  very disappointing.</p>
+    
+    <p>it's very immature, and not in a good way like "dodgeball".  the characters were shallow and appealing only to a 10 year old on a sugar rush.  going in i knew that it had a large potential to be bad, but was somewhat optimistically reassured after i found out that dangle and junior from reno 911 wrote it with junior directing.  the gang from reno 911 and the state were meant to be on tv.  their humor just doesn't translate well to a theater.</p>
+  movie_id: "6"
+  id: "3"
+  summary: not blood sport of ping pong
+  movie_rating_type_id: "1"
+  user_id: "2"
+  created_at: 2007-08-29 17:51:25.14996-05
+movie_ratings_004: 
+  rating: "1"
+  explanation: "the only thing that saved me from asking for my money back, was the panda moment. "
+  movie_id: "6"
+  id: "4"
+  summary: "why can't the summary be blank? "
+  movie_rating_type_id: "1"
+  user_id: "25"
+  created_at: 2007-08-30 12:53:39.268134-05
+movie_ratings_005: 
+  rating: "2"
+  explanation: 
+  movie_id: "6"
+  id: "5"
+  summary: 
+  movie_rating_type_id: "2"
+  user_id: "2"
+  created_at: 2007-08-31 12:35:47.048394-05

@@ -1,5 +1,76 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 1
-another:
-  id: 2
+--- 
+regions_013: 
+  name: east (san antonio)
+  season_id: "3"
+  id: "13"
+  order_num: "4"
+regions_002: 
+  name: chicago
+  season_id: "1"
+  id: "2"
+  order_num: "2"
+regions_014: 
+  name: south (san jose)
+  season_id: "3"
+  id: "14"
+  order_num: "5"
+regions_003: 
+  name: albuquerque
+  season_id: "1"
+  id: "3"
+  order_num: "3"
+regions_015: 
+  name: west (st. louis)
+  season_id: "3"
+  id: "15"
+  order_num: "3"
+regions_004: 
+  name: syracuse
+  season_id: "1"
+  id: "4"
+  order_num: "4"
+regions_005: 
+  name: austin
+  season_id: "1"
+  id: "5"
+  order_num: "5"
+regions_006: 
+  name: final four
+  season_id: "2"
+  id: "6"
+  order_num: "1"
+regions_007: 
+  name: atlanta
+  season_id: "2"
+  id: "7"
+  order_num: "2"
+regions_008: 
+  name: oakland
+  season_id: "2"
+  id: "8"
+  order_num: "3"
+regions_009: 
+  name: washington, d.c.
+  season_id: "2"
+  id: "9"
+  order_num: "4"
+regions_010: 
+  name: minneapolis
+  season_id: "2"
+  id: "10"
+  order_num: "5"
+regions_011: 
+  name: final four (atlanta)
+  season_id: "3"
+  id: "11"
+  order_num: "1"
+regions_012: 
+  name: midwest (new jersey)
+  season_id: "3"
+  id: "12"
+  order_num: "2"
+regions_001: 
+  name: final four
+  season_id: "1"
+  id: "1"
+  order_num: "1"

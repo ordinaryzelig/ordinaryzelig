@@ -1,5 +1,29 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 1
-another:
-  id: 2
+--- 
+rounds_007: 
+  name: play-in
+  number: "0"
+  id: "7"
+rounds_001: 
+  name: championship
+  number: "6"
+  id: "1"
+rounds_002: 
+  name: final 4
+  number: "5"
+  id: "2"
+rounds_003: 
+  name: elite 8
+  number: "4"
+  id: "3"
+rounds_004: 
+  name: sweet 16
+  number: "3"
+  id: "4"
+rounds_005: 
+  name: field of 32
+  number: "2"
+  id: "5"
+rounds_006: 
+  name: field of 64
+  number: "1"
+  id: "6"

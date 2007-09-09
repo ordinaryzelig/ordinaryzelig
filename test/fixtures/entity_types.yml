@@ -1,5 +1,19 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
-  id: 1
-two:
-  id: 2
+--- 
+entity_types_004: 
+  name: Friendship
+  id: "4"
+entity_types_005: 
+  name: MovieRating
+  id: "5"
+entity_types_006: 
+  name: Movie
+  id: "6"
+entity_types_001: 
+  name: Blog
+  id: "1"
+entity_types_002: 
+  name: Message
+  id: "2"
+entity_types_003: 
+  name: Comment
+  id: "3"

@@ -46,3 +46,19 @@ last time user checked recents.
 convert recent_entities to a column in entities table is_recent_entity_type.
 
 has_recency option and user preference to show new movies from everyone, not just users.
+
+migrate
+   update users.users set is_admin = 0 where is_admin is null;
+   dump and backup
+   lib/active_record/connection_adapters/postgresql_adapter.rb
+      scehams = schema_search_path.split(/\s*,\s*/).map { |p| quote(p) }.join(',')
+   schema_search_path: march_madness,users,message_board,blogs,entities,comments,website
+   rake extract_fixtures
+   schema_search_path: website
+   if on lgs056: drop/create database/schema.
+   rake db:migrate VERSION=1
+   alter table website.games drop constraint games_parent_id_fkey;
+   alter table website.comment_groups drop constraint comment_groups_root_comment_id_fkey;
+   alter table website.comments drop constraint comment_comment_id_fkey;
+   rake db:fixtures:load FIXTURES='users,friendships,user_activities,seasons,regions,rounds,teams,games,pool_users,bids,pics,accounts,entity_types,recent_entity_types,messages,blogs,movies,movie_rating_types,movie_rating_options,movie_ratings,comment_groups,comments'
+   rake db:migrate

@@ -1,5 +1,334 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 1
-another:
-  id: 2
+--- 
+users_037: 
+  is_admin: "0"
+  id: "40"
+  display_name: David
+  first_name: David
+  is_authorized: "1"
+  password: 7a6aef768f0c6fbfacfc9f10dbd1c83b3c0aaa56
+  last_name: Dalton
+  email: soonerman99@hotmail.com
+users_026: 
+  is_admin: "0"
+  id: "25"
+  display_name: Stephanie
+  first_name: stephanie
+  is_authorized: "1"
+  password: c8f843409a26bea7ff2aacc40261cf9f3b54575c
+  last_name: adler
+  email: sadler23@gmail.com
+users_015: 
+  is_admin: "0"
+  id: "21"
+  display_name: matt
+  first_name: matt
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: m
+  email: matt_m@ordinaryzelig.org
+users_004: 
+  is_admin: "0"
+  id: "6"
+  display_name: jonnybosu
+  first_name: Jonathan
+  is_authorized: "1"
+  password: 6dfd0e118c52a2fdf6f4bf99413f35e9f43b1869
+  last_name: Baker
+  email: jon.c.baker@gmail.com
+users_027: 
+  is_admin: "0"
+  id: "32"
+  display_name: mike
+  first_name: mike
+  is_authorized: "1"
+  password: 117227ed357cd30b75ec70a504d357dd7f8bf37f
+  last_name: minster
+  email: mminster@hotmail.com
+users_016: 
+  is_admin: "0"
+  id: "24"
+  display_name: sharon
+  first_name: sharon
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: johnson
+  email: sharon_johnson@ordinaryzelig.org
+users_005: 
+  is_admin: "0"
+  id: "5"
+  display_name: JoJoMe
+  first_name: John
+  is_authorized: "1"
+  password: 0e7b9015d54a6e94d52274b5d13da09996066e13
+  last_name: Meyer
+  email: john-meyer@ouhsc.edu
+users_028: 
+  is_admin: "0"
+  id: "35"
+  display_name: Kristin A
+  first_name: Kristin
+  is_authorized: "1"
+  password: 56c830af09b974ce894b1d268c8d77862eb42ac5
+  last_name: Adkins
+  email: kristin.adkins@lmco.com
+users_017: 
+  is_admin: "0"
+  id: "27"
+  display_name: trevor
+  first_name: trevor
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: hoppers
+  email: trevor_hoppers@ordinaryzelig.org
+users_006: 
+  is_admin: "0"
+  id: "2"
+  display_name: ten cent
+  first_name: jared
+  is_authorized: "1"
+  password: 001bd03935b1a49791f283339e8e8909de90b99d
+  last_name: ning
+  email: theoz@ordinaryzelig.org
+users_030: 
+  is_admin: "0"
+  id: "19"
+  display_name: kyle
+  first_name: kyle
+  is_authorized: "1"
+  password: dbe2177bfb7ae63f98588c8b51c10e56ef94bf80
+  last_name: adler
+  email: kadler1@ou.edu
+users_029: 
+  is_admin: "0"
+  id: "37"
+  display_name: lil finch
+  first_name: Adair
+  is_authorized: "1"
+  password: c9ca3b7fe7405661894a5bc802f1c282a07b22e0
+  last_name: Fincher
+  email: saturnflair@hotmail.com
+users_018: 
+  is_admin: "0"
+  id: "9"
+  display_name: brandon
+  first_name: brandon
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: geister
+  email: brandon_geister@ordinaryzelig.org
+users_007: 
+  is_admin: "0"
+  id: "7"
+  display_name: allaire
+  first_name: allaire
+  is_authorized: "1"
+  password: 7640efe93a89e0135248409a80bfe69cc633ed19
+  last_name: speers
+  email: agspeers@gmail.com
+users_031: 
+  is_admin: "0"
+  id: "28"
+  display_name: THE MOTHER
+  first_name: vivian
+  is_authorized: "1"
+  password: b9f9ef9e00c258208ea831c64cc129eda4ac78b4
+  last_name: adler
+  email: oksea@aol.com
+users_020: 
+  is_admin: "0"
+  id: "30"
+  display_name: adam
+  first_name: adam
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: adler
+  email: adam_adler@ordinaryzelig.org
+users_019: 
+  is_admin: "0"
+  id: "20"
+  display_name: lina
+  first_name: lina
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: ea
+  email: lina_ea@ordinaryzelig.org
+users_008: 
+  is_admin: "0"
+  id: "1"
+  display_name: master bracket
+  first_name: master
+  is_authorized: "1"
+  password: 001bd03935b1a49791f283339e8e8909de90b99d
+  last_name: bracket
+  email: master@ordinaryzelig.org
+users_032: 
+  is_admin: "0"
+  id: "17"
+  display_name: kendrick
+  first_name: kendrick
+  is_authorized: "1"
+  password: c94d0493a9044cd31f601fa5ffbbf7fa7f20ecb9
+  last_name: wong
+  email: kendrick.wong@jackinthebox.com
+users_021: 
+  is_admin: "0"
+  id: "36"
+  display_name: allison
+  first_name: allison
+  is_authorized: "1"
+  password: cbed445f2ee4fb58e6a4fac129bd35a69e1d2b47
+  last_name: eldridge
+  email: allisonmeldridge@hotmail.com
+users_010: 
+  is_admin: "0"
+  id: "11"
+  display_name: daniel
+  first_name: daniel
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: williams
+  email: daniel_williams@ordinaryzelig.org
+users_009: 
+  is_admin: "0"
+  id: "15"
+  display_name: gail
+  first_name: gail
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: bruner
+  email: gail_bruner@ordinaryzelig.org
+users_033: 
+  is_admin: "0"
+  id: "31"
+  display_name: the prophet
+  first_name: cecelia
+  is_authorized: "0"
+  password: 2375480d508c9905d91c45b58074de997d9db012
+  last_name: wong
+  email: cecelia_wong@ordinaryzelig.org
+users_022: 
+  is_admin: "0"
+  id: "8"
+  display_name: arlena
+  first_name: arlena
+  is_authorized: "1"
+  password: c1ff1deaa8a45ac831f4d7f828f2613b4b08de2a
+  last_name: hamby
+  email: arlenahamby@jmaenergy.com
+users_011: 
+  is_admin: "0"
+  id: "13"
+  display_name: diana
+  first_name: diana
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: szeto
+  email: diana_szeto@ordinaryzelig.org
+users_034: 
+  is_admin: "0"
+  id: "38"
+  display_name: carol
+  first_name: carol
+  is_authorized: "1"
+  password: 0c7b1c9702eb921a44eeb1e5e3ff7cd244894b23
+  last_name: faulk
+  email: carolfrdh@msn.com
+users_023: 
+  is_admin: "0"
+  id: "34"
+  display_name: B_Pham
+  first_name: Nguyen
+  is_authorized: "1"
+  password: aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d
+  last_name: Pham
+  email: nguyen.p.pham@gmail.com
+users_012: 
+  is_admin: "0"
+  id: "26"
+  display_name: tan
+  first_name: tan
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: pham
+  email: tan_pham@ordinaryzelig.org
+users_001: 
+  is_admin: "1"
+  id: "29"
+  display_name: admin
+  first_name: admin
+  is_authorized: "1"
+  password: 001bd03935b1a49791f283339e8e8909de90b99d
+  last_name: admin
+  email: admin@ordinaryzelig.org
+users_035: 
+  is_admin: "0"
+  id: "14"
+  display_name: boo
+  first_name: donna
+  is_authorized: "1"
+  password: 75105193bfdd0db68cd7b988dda79744a9baea41
+  last_name: white
+  email: nonnamw@yahoo.com
+users_024: 
+  is_admin: "0"
+  id: "10"
+  display_name: caroline
+  first_name: caroline
+  is_authorized: "1"
+  password: d3d4ed515da51b61cd992bf1122fb91a1fad97bf
+  last_name: cox
+  email: caroline.cox@gmail.com
+users_013: 
+  is_admin: "0"
+  id: "22"
+  display_name: melissa
+  first_name: melissa
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: pearce
+  email: melissa_pearce@ordinaryzelig.org
+users_002: 
+  is_admin: "0"
+  id: "3"
+  display_name: Surly Stuka
+  first_name: Stuart
+  is_authorized: "1"
+  password: 878c34a6cb8c4fe9530a7f31e611f9ca37cf4591
+  last_name: Glenn
+  email: random@theonline.org
+users_036: 
+  is_admin: "0"
+  id: "39"
+  display_name: OSUchigga
+  first_name: Eric
+  is_authorized: "1"
+  password: f65d5a1148dcf8958850557e62509d7c151c0b29
+  last_name: Chiu
+  email: echiu22@yahoo.com
+users_025: 
+  is_admin: "0"
+  id: "33"
+  display_name: cw
+  first_name: Charlie
+  is_authorized: "1"
+  password: ca2487c451822ad6a667cf8bcfcd01f2df8e3f54
+  last_name: Charlesworth
+  email: cjcharlesworth@gmail.com
+users_014: 
+  is_admin: "0"
+  id: "16"
+  display_name: jean
+  first_name: jean
+  is_authorized: "0"
+  password: ffba52c7b5167769703e5e7dd2cc71df7feae1fb
+  last_name: morrisey
+  email: jean_morrisey@ordinaryzelig.org
+users_003: 
+  is_admin: "0"
+  id: "4"
+  display_name: Felice
+  first_name: Felice
+  is_authorized: "1"
+  password: 0fcbd924a21e57d1292a4192a98678b8aee19f21
+  last_name: Szeto-Wong
+  email: felicenavidad812@gmail.com

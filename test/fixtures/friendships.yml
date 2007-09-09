@@ -1,5 +1,86 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
-  id: 1
-two:
-  id: 2
+--- 
+friendships_012: 
+  id: "12"
+  user_id: "2"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "32"
+friendships_001: 
+  id: "1"
+  user_id: "2"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "3"
+friendships_013: 
+  id: "13"
+  user_id: "25"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "32"
+friendships_002: 
+  id: "2"
+  user_id: "3"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "2"
+friendships_014: 
+  id: "14"
+  user_id: "2"
+  created_at: 2007-08-19 11:38:01-05
+  friend_id: "8"
+friendships_003: 
+  id: "3"
+  user_id: "3"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "8"
+friendships_015: 
+  id: "15"
+  user_id: "8"
+  created_at: 2007-08-22 14:57:49.403326-05
+  friend_id: "3"
+friendships_004: 
+  id: "4"
+  user_id: "25"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "2"
+friendships_016: 
+  id: "16"
+  user_id: "8"
+  created_at: 2007-08-22 14:58:41.506235-05
+  friend_id: "2"
+friendships_005: 
+  id: "5"
+  user_id: "2"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "25"
+friendships_017: 
+  id: "17"
+  user_id: "2"
+  created_at: 2007-09-02 16:43:29.372058-05
+  friend_id: "10"
+friendships_006: 
+  id: "6"
+  user_id: "2"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "5"
+friendships_007: 
+  id: "7"
+  user_id: "2"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "37"
+friendships_008: 
+  id: "8"
+  user_id: "25"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "3"
+friendships_009: 
+  id: "9"
+  user_id: "3"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "25"
+friendships_010: 
+  id: "10"
+  user_id: "25"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "37"
+friendships_011: 
+  id: "11"
+  user_id: "25"
+  created_at: 2006-07-07 17:04:57-05
+  friend_id: "5"

@@ -1,5 +1,51 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
-  id: 1
-two:
-  id: 2
+--- 
+movie_rating_options_001: 
+  id: "1"
+  value: "1"
+  description: unwatchable
+  movie_rating_type_id: "1"
+movie_rating_options_002: 
+  id: "2"
+  value: "2"
+  description: bad
+  movie_rating_type_id: "1"
+movie_rating_options_003: 
+  id: "3"
+  value: "3"
+  description: average
+  movie_rating_type_id: "1"
+movie_rating_options_004: 
+  id: "4"
+  value: "4"
+  description: excellent
+  movie_rating_type_id: "1"
+movie_rating_options_005: 
+  id: "5"
+  value: "5"
+  description: classic
+  movie_rating_type_id: "1"
+movie_rating_options_006: 
+  id: "6"
+  value: "1"
+  description: not even if you paid me
+  movie_rating_type_id: "2"
+movie_rating_options_007: 
+  id: "7"
+  value: "2"
+  description: once was enough
+  movie_rating_type_id: "2"
+movie_rating_options_008: 
+  id: "8"
+  value: "3"
+  description: would watch it again
+  movie_rating_type_id: "2"
+movie_rating_options_010: 
+  id: "10"
+  value: "5"
+  description: never gets old
+  movie_rating_type_id: "2"
+movie_rating_options_009: 
+  id: "9"
+  value: "4"
+  description: seen it several times
+  movie_rating_type_id: "2"
