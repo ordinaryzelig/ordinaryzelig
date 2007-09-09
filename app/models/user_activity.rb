@@ -1,13 +1,12 @@
 class UserActivity < ActiveRecord::Base
   
+  set_primary_key("user_id")
   belongs_to :user
-  belongs_to :user_activity_type
-  validates_presence_of :user_id, :user_activity_type_id, :previous_action_at, :last_action_at
   
-  def log!
+  def log_login!
     now = Time.now.localtime
-    self.previous_action_at = self.last_action_at || now
-    self.last_action_at = now
+    self.previous_login_at = self.last_login_at || now
+    self.last_login_at = now
     save!
   end
   

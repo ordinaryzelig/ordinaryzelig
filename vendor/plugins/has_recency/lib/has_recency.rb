@@ -61,7 +61,7 @@ module OrdinaryZelig
           else
             ruo = recency_user_obj(user)
             if ruo && user.considers_friend?(ruo) && user.can_read?(self)
-              @recent_obj = self if recency_time_obj(user) >= user.previous_recents_checked_at
+              @recent_obj = self if recency_time_obj(user) >= user.previous_login_at
             end
           end
         end
