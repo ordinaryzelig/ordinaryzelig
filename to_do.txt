@@ -42,3 +42,5 @@ last time user checked recents.
          users.user_activities;
    drop table users.user_activities;
    alter models and views
+
+convert recent_entities to a column in entities table is_recent_entity_type.
