@@ -16,7 +16,8 @@ class UserController < ApplicationController
     if @user && !@user.is_admin_or_master?
       @page_title =  "profile - #{@user.display_name}"
       if is_self?(@user)
-        @recents = @user.recents
+        @recents = @user.recents(read_entities)
+        # logger.info "blah #{read_entities.inspect}"
       end
     else
       @reason_not_visible = "user not found"
@@ -188,7 +189,5 @@ class UserController < ApplicationController
       redirect_to(:action => "search", :id => params[:search_text])
     end
   end
-  
-  private
   
 end

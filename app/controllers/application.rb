@@ -158,4 +158,17 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def mark_entity_as_read
+    logger.info "marked #{read_entities.inspect}"
+    if request.xhr?
+      (read_entities[params[:entity_type]] ||= []) << params[:id]
+      # logger.info "marked #{read_entities.inspect}"
+      render(:nothing => true)
+    end
+  end
+  
+  def read_entities
+    session[:read_entities] ||= {}
+  end
+  
 end

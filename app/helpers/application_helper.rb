@@ -122,15 +122,15 @@ module ApplicationHelper
     ["#{comment.summarize_what}...", '-', who_when].join(" ")
   end
   
-  # def comment_info(entity)
-  #   if !entity.comments.empty?
-  #     com_str = pluralize(entity.comments.size, "comment")
-  #     com_str += " - last: #{link_to_profile(entity.latest_comment.user)} - #{default_time(entity.latest_comment.created_at)}" if !entity.comments.empty?
-  #   else
-  #     com_str = "no comments"
-  #   end
-  #   com_str
-  # end
+  def mark_as_read_link(entity)
+    link = link_to_remote('mark as read', {:url => {:action => 'mark_entity_as_read', :entity_type => entity.class, :id => entity.id},
+                                           :before => visual_effect(:switch_off, summary_div_id(entity))})
+    content_tag :span, link, :style => 'font-size: 75%;'
+  end
+  
+  def summary_div_id(entity)
+    "#{entity.class}_#{entity.id}_summary"
+  end
   
   # ===========================================================
   # comment ajax methods.

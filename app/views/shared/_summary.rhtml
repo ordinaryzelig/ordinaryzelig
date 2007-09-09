@@ -3,17 +3,17 @@
 <% show_name ||= false -%>
 <% show_type ||= false -%>
 
-<div class=listing>
+<div class=listing id="<%= summary_div_id(entity) %>">
   
   <% if show_recency && !entity.is_recent?(logged_in_user) -%>
     <% type_str = pluralize(entity.recent_comments(logged_in_user).size, "new #{entity.class} comment") %>
   <% else -%>
-    <% type_str = entity.class.to_s -%>
+    <% type_str = entity.class.to_s << ' ' << mark_as_read_link(entity) -%>
   <% end -%>
   <%= content_tag(:div, type_str, :class => "listingSection", :style => "background: lightblue; font-size: 10pt;") if show_type %>
-  <% logger.info "blah2 #{!entity.is_recent?(logged_in_user)}" %>
+  
   <div class=listingSection style="<%= recent_background_color(entity) %>">
-    <% logger.info "blah1 #{!entity.is_recent?(logged_in_user)}" %>
+    
     <% #========================================= -%>
     <% # title. -%>
     
