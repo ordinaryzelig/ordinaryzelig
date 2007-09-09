@@ -15,14 +15,12 @@ class UserController < ApplicationController
     @user = User.find_by_id(params[:id])
     if @user && !@user.is_admin_or_master?
       @page_title =  "profile - #{@user.display_name}"
-      if is_self?(@user)
-        @recents = @user.recents(read_entities)
-        # logger.info "blah #{read_entities.inspect}"
-      end
+      @recents = @user.recents(read_entities) if is_self?(@user)
     else
       @reason_not_visible = "user not found"
+      flash.now[:failure] = @reason_not_visible
+      render :nothing => true, :layout => true
     end
-    flash.now[:failure] = @reason_not_visible if @reason_not_visible
   end
   
   def edit_profile

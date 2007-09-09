@@ -44,3 +44,5 @@ last time user checked recents.
    alter models and views
 
 convert recent_entities to a column in entities table is_recent_entity_type.
+
+has_recency option and user preference to show new movies from everyone, not just users.

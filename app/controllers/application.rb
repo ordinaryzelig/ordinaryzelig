@@ -6,6 +6,13 @@ class ApplicationController < ActionController::Base
     nil + 1
   end
   
+  def mark_entity_as_read
+    if request.xhr?
+      (read_entities[params[:entity_type]] ||= []) << params[:id].to_i
+      render(:nothing => true)
+    end
+  end
+  
   protected
   
   after_filter :mark_requested_page
@@ -155,15 +162,6 @@ class ApplicationController < ActionController::Base
       else
         super
       end
-    end
-  end
-  
-  def mark_entity_as_read
-    logger.info "marked #{read_entities.inspect}"
-    if request.xhr?
-      (read_entities[params[:entity_type]] ||= []) << params[:id]
-      # logger.info "marked #{read_entities.inspect}"
-      render(:nothing => true)
     end
   end
   

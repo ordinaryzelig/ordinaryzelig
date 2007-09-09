@@ -179,7 +179,7 @@ class User < ActiveRecord::Base
         entity_type.entity_class.recents(self)
       end.flatten.sort { |a, b| b.recency_time_obj(self) <=> a.recency_time_obj(self) }
       # remove recents that have been marked as read.
-      read_entities.each { |entity_name, ids| recents.reject { |recent_obj| entity_name == recent_obj.class.to_s && ids.include?(recent_obj.id) } }
+      read_entities.each { |entity_name, ids| recents.reject! { |recent_obj| entity_name == recent_obj.class.to_s && ids.include?(recent_obj.id) } }
       # if it's a comment, store the entity
       recents = recents.map { |ent| ent.class == Comment ? ent.entity : ent }
       # in case there are multiple comments for an object, list it only once.
