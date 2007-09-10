@@ -56,9 +56,8 @@ migrate
    rake extract_fixtures
    schema_search_path: website
    if on lgs056: drop/create database/schema.
-   rake db:migrate VERSION=1
+   rake db:migrate
    alter table website.games drop constraint games_parent_id_fkey;
-   alter table website.comment_groups drop constraint comment_groups_root_comment_id_fkey;
-   alter table website.comments drop constraint comment_comment_id_fkey;
-   rake db:fixtures:load FIXTURES='users,friendships,user_activities,seasons,regions,rounds,teams,games,pool_users,bids,pics,accounts,entity_types,recent_entity_types,messages,blogs,movies,movie_rating_types,movie_rating_options,movie_ratings,comment_groups,comments'
+   alter table website.comments drop constraint comments_parent_id_fkey;
+   rake db:fixtures:load FIXTURES='users,friendships,user_activities,seasons,regions,rounds,teams,games,pool_users,bids,pics,accounts,entity_types,recent_entity_types,messages,blogs,movies,movie_rating_types,movie_rating_options,movie_ratings,comments,comment_groups'
    rake db:migrate

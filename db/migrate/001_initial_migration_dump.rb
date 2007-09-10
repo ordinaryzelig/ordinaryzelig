@@ -2,7 +2,7 @@ class InitialMigrationDump < ActiveRecord::Migration
 
   def self.up
     
-    def fkey(table_name, field_name, other_table = Inflector.pluralize(field_name.gsub('_id', '')))
+    def self.fkey(table_name, field_name, other_table = Inflector.pluralize(field_name.gsub('_id', '')))
       execute "alter table #{table_name} add constraint #{table_name}_#{field_name}_fkey foreign key (#{field_name}) references #{other_table} (id);"
     end
     
@@ -141,14 +141,6 @@ class InitialMigrationDump < ActiveRecord::Migration
 
     add_index "entity_types", ["name"], :name => "entity_types_name_key", :unique => true
 
-    create_table "comment_groups", :force => true do |t|
-      t.column "entity_type",     :string,  :limit => 30
-      t.column "entity_id",       :integer,               :null => false
-      t.column "root_comment_id", :integer
-    end
-
-    add_index "comment_groups", ["entity_type", "entity_id", "root_comment_id"], :name => "comment_groups_entity_type_key", :unique => true
-
     create_table "comments", :force => true do |t|
       t.column "parent_id",  :integer
       t.column "comment",    :string,   :limit => 1000
@@ -156,7 +148,17 @@ class InitialMigrationDump < ActiveRecord::Migration
       t.column "created_at", :datetime
     end
     
+    fkey 'comments', 'parent_id', 'comments'
     fkey 'comments', 'user_id'
+
+    create_table "comment_groups", :force => true do |t|
+      t.column "entity_type",     :string,  :limit => 30
+      t.column "entity_id",       :integer,               :null => false
+      t.column "root_comment_id", :integer
+    end
+
+    add_index "comment_groups", ["entity_type", "entity_id", "root_comment_id"], :name => "comment_groups_entity_type_key", :unique => true
+    fkey 'comment_groups', 'root_comment_id', 'comments'
 
     create_table "movies", :force => true do |t|
       t.column "title",   :string, :limit => 100, :null => false
