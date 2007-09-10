@@ -28,21 +28,6 @@ one_line_summary
       movie_review
       recent comments in summary
 
-last time user checked recents.
-   create table and insert types.
-   create new table in website schema
-   import
-      insert into website.user_activities (user_id, user_activity_type_id, last_action_at, previous_action_at)
-      select
-         user_id,
-         1,
-         last_login_at,
-         previous_login_at
-      from
-         users.user_activities;
-   drop table users.user_activities;
-   alter models and views
-
 convert recent_entities to a column in entities table is_recent_entity_type.
 
 has_recency option and user preference to show new movies from everyone, not just users.
