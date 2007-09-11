@@ -119,7 +119,7 @@ module ApplicationHelper
   
   def comment_summary(comment)
     who_when = content_tag(:span, "#{link_to_profile(comment.summarize_who)} - #{default_time(comment.summarize_when)}", :style => "font-size: 60%; color: gray;")
-    ["#{comment.summarize_what}...", '-', who_when].join(" ")
+    content_tag :div, ["#{comment.summarize_what}...", '-', who_when, mark_as_read_link(comment)].join(" "), :id => summary_div_id(comment)
   end
   
   def mark_as_read_link(entity)

@@ -12,7 +12,7 @@ class Movie < ActiveRecord::Base
     end
     [pluralize(ratings.size, 'rating'), ratings_strs.join("<br>")].join("<br>") << "<br>"
   end
-  can_be_summarized_by :title => :title, :what => what_proc, :who => nil, :enable_html => true
+  can_be_summarized_by :title => :title, :what => what_proc, :who => nil, :enable_html => true, :recency => proc { |user| recent_ratings(user) }
   
   has_recency :user => proc { |user| recent_ratings(user).last.user },
               :time => proc { |user| recent_ratings(user).last.created_at },

@@ -80,6 +80,11 @@ html{
     background: white;
 }
 
+.listingSubsection{
+    margin-left: 10mm;
+    margin-right: 10mm;
+}
+
 .listingInfo{
     font-size: 10pt;
     color: gray;

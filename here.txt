@@ -1,2 +1,2 @@
-something wrong with mark_as_read link.  values not being passed.
-need to watch out for entities whose comments are checked for recency.
+still can't figure ot elegant way to mark things as read and not affect the parent entity nor comments.
+may need to rethink it.  user.recents is doing too much.  need to figure out way of grouping.

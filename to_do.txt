@@ -1,8 +1,3 @@
-rescue bad urls
-    http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v
-        routes -> map.connect to new controller which will determine if controller exists, if it does, redirect to index action.  otherwise, redirect to welcome page.
-    or use rescue_action?
-
 what is ordinary zelig?
 
 log request uris
@@ -11,8 +6,6 @@ action mailer
    new user confirmation?
    errors
    new items
-
-summarize_max doesn't work when :what option is a self-defined proc.
 
 don't care
    about this person's <entity>.
@@ -27,8 +20,6 @@ one_line_summary
       blog list
       movie_review
       recent comments in summary
-
-convert recent_entities to a column in entities table is_recent_entity_type.
 
 has_recency option and user preference to show new movies from everyone, not just users.
 
@@ -46,3 +37,11 @@ migrate
    alter table website.comments drop constraint comments_parent_id_fkey;
    rake db:fixtures:load FIXTURES='users,friendships,user_activities,seasons,regions,rounds,teams,games,pool_users,bids,pics,accounts,entity_types,recent_entity_types,messages,blogs,movies,movie_rating_types,movie_rating_options,movie_ratings,comments,comment_groups'
    rake db:migrate
+
+mark as read
+   for comments
+      need to remove if another object's summarize_recenct_comments is in there.
+   recents(): mark as read :as_of => date. so to be able to remove it from recents, recent object's recency_time_obj must be before :as_of.
+
+profile url for display name.
+   http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v

@@ -2,5 +2,3 @@ search
    highlight search text.
 
 polls
-
-move comments to plugin.

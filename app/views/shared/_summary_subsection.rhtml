@@ -1,0 +1,8 @@
+<div style="margin: 2mm;">
+  <%= pluralize(entities.size, entities.first.class.to_s) %>
+  <div class=listingSubsection>
+    <% for obj in entities -%>
+      <%= render(:partial => 'shared/summary', :locals => {:entity => obj, :show_recency => true, :show_who => true}) %>
+    <% end -%>
+  </div>
+</div>
