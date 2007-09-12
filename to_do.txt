@@ -31,7 +31,13 @@ migrate
    schema_search_path: march_madness,users,message_board,blogs,entities,comments,website
    rake extract_fixtures
    schema_search_path: website
-   if on lgs056: drop/create database/schema.
+   drop schema march_madness cascade;
+   drop schema users cascade;
+   drop schema message_board cascade;
+   drop schema blogs cascade;
+   drop schema entities cascade;
+   drop schema comments cascade;
+   drop schema website cascade;
    rake db:migrate
    alter table website.games drop constraint games_parent_id_fkey;
    alter table website.comments drop constraint comments_parent_id_fkey;
