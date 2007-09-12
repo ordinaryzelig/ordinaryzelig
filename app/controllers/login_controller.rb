@@ -21,8 +21,8 @@ class LoginController < ApplicationController
   end
   
   def logout
+    flash[:notice] = "logged out." if logged_in_user
     reset_session
-    flash[:notice] = "logged out."
     redirect_to :action => "index"
   end
   

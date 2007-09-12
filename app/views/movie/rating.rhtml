@@ -15,7 +15,7 @@
     <div style="margin: 2mm;">
       
       <% if @rating.explanation -%>
-        <div style="padding-bottom: 5mm;"><%= sanitize(@rating.explanation) %></div>
+        <div style="padding-bottom: 5mm;"><%= simp_san(@rating.explanation) %></div>
       <% end -%>
       
       <%= content_tag :div, link_to("edit", :action => "edit_rating", :movie_id => @rating.movie_id, :rating_type_id => @rating.movie_rating_type_id) if is_self_or_admin?(logged_in_user) %>

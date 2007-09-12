@@ -1,8 +1,0 @@
-still can't figure ot elegant way to mark things as read and not affect the parent entity nor comments.
-may need to rethink it.  user.recents is doing too much.  need to figure out way of grouping.
-   user.recent_entities.each do find recents (do not include recent comments)
-   remove read entities
-   if comment's entity is already included, remove it
-   a = RecentEntityType.find_by_entity_type_id(EntityType.find_by_name('Movie').id)
-   a.entity_type_id = EntityType.find_by_name('MovieRating').id
-   a.save

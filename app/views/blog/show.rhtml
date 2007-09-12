@@ -15,7 +15,7 @@
       </div>
       
       <% # body. -%>
-      <div style="padding: 2mm; padding-bottom: 5mm;"><%= sanitize(@blog.body) %></div>
+      <div style="padding: 2mm; padding-bottom: 5mm;"><%= simp_san(@blog.body) %></div>
       
       <% # edit link. -%>
       <% if is_self_or_admin?(@blog.user) %>

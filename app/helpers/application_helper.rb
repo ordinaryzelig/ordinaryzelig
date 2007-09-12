@@ -132,6 +132,10 @@ module ApplicationHelper
     "#{entity.class}_#{entity.id}_summary"
   end
   
+  def simp_san(text)
+    simple_format(sanitize(text))
+  end
+  
   # ===========================================================
   # comment ajax methods.
   
