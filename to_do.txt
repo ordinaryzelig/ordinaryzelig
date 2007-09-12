@@ -21,7 +21,7 @@ one_line_summary
       movie_review
       recent comments in summary
 
-has_recency option and user preference to show new movies from everyone, not just users.
+has_recency option and user preference to show new movies from everyone, not just friends.
 
 migrate
    update users.users set is_admin = 0 where is_admin is null;
@@ -39,9 +39,7 @@ migrate
    rake db:migrate
 
 mark as read
-   for comments
-      need to remove if another object's summarize_recenct_comments is in there.
-   recents(): mark as read :as_of => date. so to be able to remove it from recents, recent object's recency_time_obj must be before :as_of.
+   use rjs to update counts and switch_off entire summary if there's nothing new about it.
 
 profile url for display name.
    http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v

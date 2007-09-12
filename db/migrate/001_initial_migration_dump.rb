@@ -2,10 +2,6 @@ class InitialMigrationDump < ActiveRecord::Migration
 
   def self.up
     
-    def self.fkey(table_name, field_name, other_table = Inflector.pluralize(field_name.gsub('_id', '')))
-      execute "alter table #{table_name} add constraint #{table_name}_#{field_name}_fkey foreign key (#{field_name}) references #{other_table} (id);"
-    end
-    
     create_table "users", :force => true do |t|
       t.column "first_name",    :string,  :limit => 50
       t.column "last_name",     :string,  :limit => 50
@@ -26,8 +22,8 @@ class InitialMigrationDump < ActiveRecord::Migration
     end
 
     add_index "friendships", ["user_id", "friend_id"], :name => "user_friend", :unique => true
-    fkey 'friendships', 'user_id'
-    fkey 'friendships', 'friend_id', 'users'
+    fkey :friendships, :user_id
+    fkey :friendships, :friend_id, :users
     
     create_table "user_activities", :id => false, :force => true do |t|
       t.column "user_id",           :integer,  :null => false
@@ -35,7 +31,7 @@ class InitialMigrationDump < ActiveRecord::Migration
       t.column "previous_login_at", :datetime
     end
     
-    fkey 'user_activities', 'user_id'
+    fkey :user_activities, :user_id
     
     create_table "seasons", :force => true do |t|
       t.column "tournament_year",      :integer
@@ -55,7 +51,7 @@ class InitialMigrationDump < ActiveRecord::Migration
     end
 
     add_index "regions", ["season_id", "order_num"], :name => "regions_season_id_key", :unique => true
-    fkey 'regions', 'season_id'
+    fkey :regions, :season_id
     
     create_table "rounds", :force => true do |t|
       t.column "name",   :string,  :limit => 30
@@ -76,7 +72,7 @@ class InitialMigrationDump < ActiveRecord::Migration
     end
     
     %w{season_id round_id region_id}.each { |field_name| fkey 'games', field_name }
-    fkey 'games', 'parent_id', 'games'
+    fkey :games, :parent_id, :games
     
     create_table "pool_users", :force => true do |t|
       t.column "season_id",   :integer
@@ -94,8 +90,8 @@ class InitialMigrationDump < ActiveRecord::Migration
     end
 
     add_index "bids", ["team_id", "first_game_id"], :name => "bids_team_id_key", :unique => true
-    fkey 'bids', 'team_id'
-    fkey 'bids', 'first_game_id', 'games'
+    fkey :bids, :team_id
+    fkey :bids, :first_game_id, :games
     
     create_table "pics", :force => true do |t|
       t.column "pool_user_id", :integer
@@ -123,8 +119,8 @@ class InitialMigrationDump < ActiveRecord::Migration
       t.column "posted_at",         :datetime
     end
     
-    fkey 'messages', 'parent_id', 'messages'
-    fkey 'messages', 'posted_by_user_id', 'users'
+    fkey :messages, :parent_id, :messages
+    fkey :messages, :posted_by_user_id, :users
     
     create_table "blogs", :force => true do |t|
       t.column "title",      :string,   :limit => 100
@@ -133,7 +129,7 @@ class InitialMigrationDump < ActiveRecord::Migration
       t.column "created_at", :datetime
     end
     
-    fkey 'blogs', 'user_id'
+    fkey :blogs, :user_id
 
     create_table "entity_types", :force => true do |t|
       t.column "name", :string, :limit => 30
@@ -148,8 +144,8 @@ class InitialMigrationDump < ActiveRecord::Migration
       t.column "created_at", :datetime
     end
     
-    fkey 'comments', 'parent_id', 'comments'
-    fkey 'comments', 'user_id'
+    fkey :comments, :parent_id, :comments
+    fkey :comments, :user_id
 
     create_table "comment_groups", :force => true do |t|
       t.column "entity_type",     :string,  :limit => 30
@@ -158,7 +154,7 @@ class InitialMigrationDump < ActiveRecord::Migration
     end
 
     add_index "comment_groups", ["entity_type", "entity_id", "root_comment_id"], :name => "comment_groups_entity_type_key", :unique => true
-    fkey 'comment_groups', 'root_comment_id', 'comments'
+    fkey :comment_groups, :root_comment_id, :comments
 
     create_table "movies", :force => true do |t|
       t.column "title",   :string, :limit => 100, :null => false
@@ -181,7 +177,7 @@ class InitialMigrationDump < ActiveRecord::Migration
     end
     
     add_index "movie_rating_options", ["movie_rating_type_id", "value"], :name => "movie_rating_options_movie_rating_type_id_key", :unique => true
-    fkey 'movie_rating_options', 'movie_rating_type_id'
+    fkey :movie_rating_options, :movie_rating_type_id
 
     create_table "movie_ratings", :force => true do |t|
       t.column "movie_id",             :integer,                 :null => false
@@ -193,13 +189,13 @@ class InitialMigrationDump < ActiveRecord::Migration
       t.column "created_at",           :datetime,                :null => false
     end
     
-    fkey 'movie_ratings', 'user_id'
+    fkey :movie_ratings, :user_id
     
     create_table "recent_entity_types", :force => true do |t|
       t.column "entity_type_id", :integer
     end
     
-    fkey 'recent_entity_types', 'entity_type_id'
+    fkey :recent_entity_types, :entity_type_id
     
   end
 
