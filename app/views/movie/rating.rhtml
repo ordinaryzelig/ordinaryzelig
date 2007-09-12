@@ -5,9 +5,10 @@
     <div id="banner">
       <%= @rating.summary %><br/>
       <span style="font-size: 12pt">
-        <%= link_to(@page_title, :action => "show", :id => @rating.movie_id) %> rating<br/>
-        <%= @rating.rating %><br/>
-        <%= link_to_profile(@rating.user) %>
+        <%= link_to(@page_title, :action => "show", :id => @rating.movie_id) %><br/>
+        <%= @rating %><br/>
+        <%= link_to_profile(@rating.user) %><br/>
+        <%= default_time_format(@rating.created_at) %>
       </span>
     </div>
     

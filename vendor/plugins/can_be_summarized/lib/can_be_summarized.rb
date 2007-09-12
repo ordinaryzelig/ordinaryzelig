@@ -8,7 +8,7 @@ module OrdinaryZelig
     
     module ClassMethods
       
-      KEYS = [:max, :title, :url, :what, :when, :who, :name, :enable_html, :recency, :recent_comments]
+      KEYS = [:max, :title, :url, :what, :when, :who, :name, :enable_html, :recent_comments]
       
       def can_be_summarized_by(options)
         defaults = {:max => 50,
@@ -16,7 +16,6 @@ module OrdinaryZelig
                     # :when => :created_at,
                     :who => :user,
                     :enable_html => false,
-                    :recency => proc { summarize_what },
                     :recent_comments => proc { |user| recent_comments(user) if self.class.can_have_comments? }}
         mod = Module.new
         options.each { |key, value| mod.send('define_method', "summarize_#{key}", proc_for_option(key, value)) }

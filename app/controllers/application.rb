@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   
   SESSION_HOURS = 30
   
-  helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?
+  helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?, :read_entities, :read?
   
   def logged_in_user
     @logged_in_user ||= User.find_by_id(session[:user_id])
@@ -158,6 +158,10 @@ class ApplicationController < ActionController::Base
   
   def read_entities
     session[:read_entities] ||= {}
+  end
+  
+  def read?(entity)
+    read_entities[entity.class.to_s] && read_entities[entity.class.to_s].include?(entity.id)
   end
   
 end

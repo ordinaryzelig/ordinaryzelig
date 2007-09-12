@@ -15,16 +15,19 @@ class UserController < ApplicationController
     @user = User.find_by_id(params[:id])
     if @user && !@user.is_admin_or_master?
       @page_title =  "profile - #{@user.display_name}"
-      @recents = @user.recents(read_entities) if is_self?(@user)
-      # if it's a comment, check to see if it will be included with a recent object's summarize_recent_comments.
-      @recents.select { |ent| ent.is_a?(Comment) }.each do |comment|
-        @recents.delete_if { |ent| !ent.is_a?(Comment) && ent.class.can_have_comments? && ent.summarize_recent_comments.include?(comment) }
+      if is_self?(@user)
+        @recents = @user.recents 
+        # if it's a comment, check to see if it will be included with a recent object's summarize_recent_comments.
+        @recents.select { |ent| ent.is_a?(Comment) }.each do |comment|
+          @recents.delete_if { |ent| !ent.is_a?(Comment) && ent.class.can_have_comments? && ent.summarize_recent_comments(logged_in_user).include?(comment) }
+        end
+        # remove recents that have been marked as read.
+        @recents.delete_if { |recent_obj| read?(recent_obj) }
+        # if it's a comment, store the entity
+        @recents = @recents.map { |ent| ent.class == Comment ? ent.entity : ent }
+        # in case there are multiple comments for an object, list it only once.
+        @recents = @recents.uniq
       end
-      # if it's a comment, store the entity
-      @recents = @recents.map { |ent| ent.class == Comment ? ent.entity : ent }
-      # in case there are multiple comments for an object, list it only once.
-      @recents = @recents.uniq
-      logger.info "blah #{@recents.inspect}"
     else
       @reason_not_visible = "user not found"
       flash.now[:failure] = @reason_not_visible
