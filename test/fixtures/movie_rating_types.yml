@@ -1,7 +1,0 @@
---- 
-movie_rating_types_001: 
-  name: overall
-  id: "1"
-movie_rating_types_002: 
-  name: rewatchability
-  id: "2"
