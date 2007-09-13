@@ -48,3 +48,5 @@ mark as read
 
 profile url for display name.
    http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v
+
+split profile into you and friend columns.
