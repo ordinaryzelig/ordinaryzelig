@@ -62,7 +62,7 @@
 
 <% unless @user.movie_ratings.empty? -%>
   <div class=profileSection>
-    <%= link_to("movie ratings", :controller => "movie", :action => "user_ratings", :id => @user.id) %>
+    <%= link_to("movie ratings", :controller => "movie", :action => "ratings", :id => @user.id) %>
     <div style="margin-left: 10mm;">
       <%= render :partial => 'shared/movie_ratings_list', :locals => {:movies => @user.movies_with_ratings[0..4], :user => @user} %>
     </div>

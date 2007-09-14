@@ -10,6 +10,7 @@ class MovieController < ApplicationController
   
   def ratings
     @movies = Movie.by_latest_ratings
+    @movies.reject! { |movie| movie.ratings.map { |rating| rating.user_id }.include?(params[:id].to_i) } if params[:id]
   end
   
   def rating

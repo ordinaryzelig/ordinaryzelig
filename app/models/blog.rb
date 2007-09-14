@@ -3,6 +3,7 @@ class Blog < ActiveRecord::Base
   has_nested_comments
   has_recency :time => :created_at, :user => :user
   can_be_summarized_by :what => :body, :title => :title, :when => :created_at
+  can_be_syndicated_by :title => proc { "Blog: #{title}" }, :description => :body
   preview_using :body
   
   belongs_to :user

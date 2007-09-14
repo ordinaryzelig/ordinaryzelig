@@ -14,9 +14,13 @@ class MovieRating < ActiveRecord::Base
                        :who => :user,
                        :when => :created_at,
                        :name => proc { movie.title }
+  can_be_syndicated_by :title => proc {"#{movie}: #{rating_type} rating" },
+                       :link => proc { {:controller => 'movie', :action => 'rating', :id => id} },
+                       :description => proc { [summary, explanation].compact.inject(content_tag(:p, to_s)) { |str, element| "#{str}\n#{content_tag(:p, element)}" } }
   has_recency
   has_nested_comments
   preview_using :explanation
+  include ActionView::Helpers::TagHelper
   
   def before_validation_on_create
     self.created_at = Time.now.localtime if self.created_at.nil? || new_record?

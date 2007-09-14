@@ -1,14 +1,15 @@
 module OrdinaryZelig
   
-  module ChecksForRecency
+  module HasRecency
     
     def self.included(base)
-      base.extend OrdinaryZelig::ChecksForRecency::ClassMethods
+      base.extend OrdinaryZelig::HasRecency::ClassMethods
     end
     
     module ClassMethods
       
       def has_recency(options = [])
+        extend OrdinaryZelig::HasRecency::PrivateClassMethods
         object_types = [:user, :time, :block]
         defaults = {:user => :user, :time => :created_at}
         # each model that has_recency will include a unique Module that defines recency_user_obj and recency_time_obj.
@@ -19,14 +20,9 @@ module OrdinaryZelig
         end
         defaults.each { |key, value| def_meth(key, value, mod) unless mod.method_defined?("recency_#{key}_obj") }
         include mod
-        include OrdinaryZelig::ChecksForRecency::InstanceMethods
+        include OrdinaryZelig::HasRecency::InstanceMethods
         @has_recency = true
       end
-      
-      def def_meth(key, value, mod)
-        mod.send('define_method', "recency_#{key}_obj", value.is_a?(Proc) ? value : eval("Proc.new { #{value} }"))
-      end
-      private :def_meth
       
       def recents(user)
         find(:all, :include => :user).select { |obj| obj.is_recent?(user) }
@@ -38,6 +34,16 @@ module OrdinaryZelig
       
       def is_recent_entity_type?
         RecentEntityType.find(:all).map { |ret| ret.entity_type.entity_class }.include?(self)
+      end
+      
+    end
+    
+    module PrivateClassMethods
+      
+      private
+      
+      def def_meth(key, value, mod)
+        mod.send('define_method', "recency_#{key}_obj", value.is_a?(Proc) ? value : eval("Proc.new { #{value} }"))
       end
       
     end

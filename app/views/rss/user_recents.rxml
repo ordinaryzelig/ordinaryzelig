@@ -8,16 +8,16 @@ xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/' do
     xml.language 'en-us'
     @recents.each do |obj|
       xml.item do
-        xml.title obj.summarize_title
-        url_for_options = {:only_path => false}.inject(obj.summarize_url) do |hash, option|
+        xml.title simp_san(obj.syndicate_title)
+        url_for_options = {:only_path => false}.inject(obj.syndicate_link) do |hash, option|
           hash[option[0]] = option[1]
           hash
         end
         xml.link url_for(url_for_options)
-        xml.description simp_san(obj.summarize_what)
-        xml.pubDate CGI.rfc1123_date(obj.summarize_when)
-        xml.guid url_for(url_for_options)
-        xml.author h(obj.summarize_who.display_name)
+        xml.description simp_san(obj.syndicate_description || '')
+        xml.pubDate CGI.rfc1123_date(obj.syndicate_pubdate)
+        # xml.guid "#{obj.class}_#{obj.id}"
+        xml.author h(obj.syndicate_author.display_name)
       end
     end
   end

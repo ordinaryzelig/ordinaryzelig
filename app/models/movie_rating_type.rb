@@ -8,4 +8,8 @@ class MovieRatingType < ActiveRecord::Base
     rating_options.map { |option| ["#{option.value} - #{option.description}", option.value] }.sort { |a, b| a[1] <=> b[1] }
   end
   
+  def to_s
+    name
+  end
+  
 end

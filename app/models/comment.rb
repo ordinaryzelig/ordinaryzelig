@@ -3,6 +3,7 @@ class Comment < ActiveRecord::Base
   acts_as_tree :order => "created_at"
   has_recency :time => :created_at, :user => :user
   can_be_summarized_by :who => :user, :what => :comment, :when => :created_at, :title => :summarize_what, :url => proc { self.entity.summarize_url }
+  can_be_syndicated_by :title => proc { "comment for #{entity.class}: #{entity.summarize_title}" }, :link => proc { entity.syndicate_link }, :description => proc { comment }
   preview_using :comment
   
   belongs_to :user

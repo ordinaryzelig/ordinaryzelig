@@ -6,11 +6,12 @@ module OrdinaryZelig
       base.extend OrdinaryZelig::CanBeSummarized::ClassMethods
     end
     
+    KEYS = [:max, :title, :url, :what, :when, :who, :name, :enable_html, :recent_comments]
+    
     module ClassMethods
       
-      KEYS = [:max, :title, :url, :what, :when, :who, :name, :enable_html, :recent_comments]
-      
       def can_be_summarized_by(options)
+        extend OrdinaryZelig::CanBeSummarized::PrivateClassMethod
         defaults = {:max => 50,
                     :url => proc { {:controller => self.class.to_s.downcase, :action => "show", :id => self.id} },
                     # :when => :created_at,
@@ -25,6 +26,10 @@ module OrdinaryZelig
         include mod
         include ActionView::Helpers::TextHelper
       end
+      
+    end
+      
+    module PrivateClassMethod
       
       private
       

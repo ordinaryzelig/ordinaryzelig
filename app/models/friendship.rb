@@ -10,6 +10,10 @@ class Friendship < ActiveRecord::Base
   can_be_summarized_by :title => proc { "#{user.first_last_display} added you as a friend." },
                        :url => proc { {:controller => "user", :action => "profile", :id => user.id} },
                        :who => nil
+  can_be_syndicated_by :title => proc { "#{user.first_last} added you as a friend." },
+                       :link => proc { {:controller => 'user', :action => 'profile', :id => user.id} }
+  
+  include ActionView::Helpers::UrlHelper
   
   def before_validation_on_create
     self.created_at ||= Time.now.localtime

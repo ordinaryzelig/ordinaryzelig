@@ -153,6 +153,10 @@ class User < ActiveRecord::Base
     considering_friends.reject { |considering_friend| friends.include?(considering_friend) }
   end
   
+  def first_last
+    "#{first_name} #{last_name}"
+  end
+  
   def last_first_display
     "#{last_name}, #{first_name} (#{display_name})"
   end

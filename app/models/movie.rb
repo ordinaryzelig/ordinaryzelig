@@ -64,4 +64,8 @@ class Movie < ActiveRecord::Base
     find(:all, :include => {:ratings => :user}).select { |movie| movie.is_recent?(user) }
   end
   
+  def to_s
+    title
+  end
+  
 end

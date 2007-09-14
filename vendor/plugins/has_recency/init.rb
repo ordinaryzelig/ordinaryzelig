@@ -1,2 +1,2 @@
 require 'has_recency'
-ActiveRecord::Base.send 'include', OrdinaryZelig::ChecksForRecency
+ActiveRecord::Base.send 'include', OrdinaryZelig::HasRecency
