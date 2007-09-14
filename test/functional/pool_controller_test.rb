@@ -7,7 +7,7 @@ class PoolController; def rescue_action(e) raise e end; end
 class PoolControllerTest < Test::Unit::TestCase
   def setup
     @controller = PoolController.new
-    @request    = ActionController::TestRequest.new
+    request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
 

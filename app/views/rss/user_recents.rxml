@@ -3,16 +3,20 @@ xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/' do
   xml.channel do
     xml.title "#{@user.display_name} recents"
     xml.link url_for(:only_path => false, :controller => :user, :action => :profile, :id => @user.id)
-    xml.pubDate CGI.rfc1123_date(@recents.first.recency_time_obj)
+    xml.pubDate CGI.rfc1123_date(@recents.empty? ? Time.now : @recents.first.recency_time_obj)
     xml.description h("recent items for #{@user.display_name}")
     xml.language 'en-us'
     @recents.each do |obj|
       xml.item do
         xml.title obj.summarize_title
-        xml.link url_for(:only_path => false, obj.summarize_url)
+        url_for_options = {:only_path => false}.inject(obj.summarize_url) do |hash, option|
+          hash[option[0]] = option[1]
+          hash
+        end
+        xml.link url_for(url_for_options)
         xml.description simp_san(obj.summarize_what)
         xml.pubDate CGI.rfc1123_date(obj.summarize_when)
-        xml.guid url_for(:only_path => false, obj.summarize_url)
+        xml.guid url_for(url_for_options)
         xml.author h(obj.summarize_who.display_name)
       end
     end

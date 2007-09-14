@@ -28,7 +28,7 @@ class MockController
   end
   
   def request
-    @request ||= MockRequest.new(false)
+    request ||= MockRequest.new(false)
   end
   
   def action_name
