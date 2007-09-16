@@ -174,7 +174,7 @@ class User < ActiveRecord::Base
   end
   
   def can_read?(obj)
-    obj.summarize_who.is_friend_of?(self)
+    obj.recency_user_obj.is_friend_of?(self) && obj.is_a?(Comment) ? can_read?(obj.entity) : true
   end
   
   def recents
