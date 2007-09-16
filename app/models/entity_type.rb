@@ -1,11 +1,11 @@
 class EntityType < ActiveRecord::Base
   
-  def self.entity_class(entity_type_name)
-    eval "#{entity_type_name}"
+  def entity_class
+    Object.const_get to_s.classify
   end
   
-  def entity_class
-    self.class.entity_class("#{self.name}")
+  def to_s
+    name
   end
   
 end

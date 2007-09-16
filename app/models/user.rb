@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :blogs
   has_many :movie_ratings, :include => :movie
   
-  validates_presence_of :first_name, :last_name, :display_name, :email
+  validates_presence_of :first_name, :last_name, :display_name, :email, :secret_id
   validates_uniqueness_of :email, :message => "is already registered. <a href=\"mailto:help@ordinaryzelig.org\">email me</a> and i'll set you up."
   validates_uniqueness_of :display_name, :message => "is already taken."
   validates_format_of :email, :with => %r{.+@.+\..*}
@@ -117,10 +117,6 @@ class User < ActiveRecord::Base
   #   save
   # end
   
-  def before_save
-    self.email.downcase!
-  end
-  
   def validate_set_new_password
     confirm_and_set_password
   end
@@ -194,6 +190,10 @@ class User < ActiveRecord::Base
   
   def friends_blogs
     mutual_friends.map(&:blogs).flatten.sort { |a, b| b.created_at <=> a.created_at }
+  end
+  
+  def generate_secret_id
+    self.secret_id = hash("#{id}#{rand}")
   end
   
   private
