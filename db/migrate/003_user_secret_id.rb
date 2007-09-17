@@ -7,7 +7,6 @@ class UserSecretId < ActiveRecord::Migration
         user.save!
       end
     end
-    puts 'blah ' << User.find(2).secret_id
   end
 
   def self.down

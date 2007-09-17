@@ -42,6 +42,7 @@ class UserController < ApplicationController
         flash[:failure] = "user not found."
         logger.warn "user #{logged_in_user.id} attempted to edit user #{params[:id]}"
         redirect_to_last_marked_page_or_default
+        return
       end
     else
     # post.
@@ -197,6 +198,14 @@ class UserController < ApplicationController
       @page_title = "user search"
     else
       redirect_to(:action => "search", :id => params[:search_text])
+    end
+  end
+  
+  def generate_secret_id
+    if request.post?
+      @user = User.find_by_id(params[:id])
+      @user.generate_secret_id
+      flash[:success] = "your rss url has been changed. please update your bookmarks." and redirect_to :back if @user.save
     end
   end
   

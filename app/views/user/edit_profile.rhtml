@@ -1,19 +1,19 @@
-<% if @user -%>
-  <%= error_messages(@user) %>
-  <% form_tag(:id => @user.id) do -%>
-    <table style="background: none;">
-      <%= render(:partial => "user") %>
-      <tr>
-        <td></td>
-        <td><%= submit_tag("save") %></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><%= link_to("set password", :action => "set_password", :id => @user.id) %></td>
-      </tr>
-    </table>
-    <%= hidden_field(:user, :id) %>
-  <% end -%>
-<% else -%>
-  user not found.
+<%= error_messages(@user) %>
+<% form_tag(:id => @user.id) do -%>
+  <table style="background: none;">
+    <%= render(:partial => "user") %>
+    <tr>
+      <td></td>
+      <td><%= submit_tag("save") %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= link_to("set password", :action => "set_password", :id => @user.id) %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= link_to("generate new rss url", {:action => "generate_secret_id", :id => @user.id}, :method => :post) %></td>
+    </tr>
+  </table>
+  <%= hidden_field(:user, :id) %>
 <% end -%>

@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
   attr_accessor :confirmation_password
   attr_accessor :needs_password_confirmation
   
+  def before_validation_on_create
+    generate_secret_id
+  end
+  
   def after_create
     self.user_activity = UserActivity.new
     self.user_activity.log_login!
