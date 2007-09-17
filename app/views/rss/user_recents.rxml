@@ -1,7 +1,7 @@
 xml.instruct!
 xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/' do
   xml.channel do
-    xml.title "#{@user.display_name} recents"
+    xml.title "ordinary zelig - #{@user.display_name} recents"
     xml.link url_for(:only_path => false, :controller => :user, :action => :profile, :id => @user.id)
     xml.pubDate CGI.rfc1123_date(@recents.empty? ? Time.now : @recents.first.recency_time_obj)
     xml.description h("recent items for #{@user.display_name}")
@@ -16,7 +16,7 @@ xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/' do
         xml.link url_for(url_for_options)
         xml.description simp_san(obj.syndicate_description || '')
         xml.pubDate CGI.rfc1123_date(obj.syndicate_pubdate)
-        # xml.guid "#{obj.class}_#{obj.id}"
+        xml.guid "#{obj.class}_#{obj.id}"
         xml.author h(obj.syndicate_author.display_name)
       end
     end

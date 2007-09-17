@@ -164,4 +164,10 @@ class ApplicationController < ActionController::Base
     read_entities[entity.class.to_s] && read_entities[entity.class.to_s].include?(entity.id)
   end
   
+  def remove_read_entities(recent_objs)
+    # remove recents that have been marked as read.
+    recent_objs.delete_if { |recent_obj| read?(recent_obj) }
+    recent_objs
+  end
+  
 end
