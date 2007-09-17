@@ -88,9 +88,9 @@ class MovieController < ApplicationController
   def search
     if request.get?
       if params[:id]
-        if params[:id].size > 0
-        search_text = "%#{params[:id]}%"
-        @movies = Movie.find(:all, :conditions => ["lower(title) like ?", search_text.downcase]) if search_text
+        @search_text = params[:id]
+        if @search_text.size > 0
+          @movies = Movie.search(@search_text) if @search_text
         else
           flash.now[:failure] = "search for something."
         end

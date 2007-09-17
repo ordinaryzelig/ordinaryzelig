@@ -7,7 +7,7 @@
   <%= pluralize(@movies.size, "movie") %> found<br/>
   
   <% @movies.each do |movie| -%>
-    <%= link_to(movie.title, :action => "show", :id => movie.id) %><br/>
+    <%= link_to(highlight(movie.title, @search_text), :action => "show", :id => movie.id) %><br/>
   <% end -%>
   
 <% end -%>

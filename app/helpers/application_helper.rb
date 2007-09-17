@@ -9,8 +9,10 @@ module ApplicationHelper
   end
   
   # return link to user's profile.  displays str.
-  def link_to_profile(user, str = user.display_name)
-    link_to(h(str), {:controller => "user", :action => "profile", :id => user.id})
+  def link_to_profile(user, str = user.display_name, highlight_text = nil)
+    str = h(str)
+    str = highlight(str, highlight_text) if highlight_text
+    link_to(str, {:controller => "user", :action => "profile", :id => user.id})
   end
   
   def link_to_edit_profile(str, user)

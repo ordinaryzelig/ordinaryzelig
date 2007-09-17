@@ -106,3 +106,8 @@ table{
 td, th{
     padding: 2mm;
 }
+
+.highlight{
+    font-size: 125%;
+    color: limegreen;
+}

@@ -233,4 +233,13 @@ class User < ActiveRecord::Base
     end
   end
   
+  def self.search(search_text)
+    User.find(:all,
+              :conditions => ["lower(display_name) like :search_text or " <<
+                              "lower(first_name) like :search_text or " <<
+                              "lower(last_name) like :search_text",
+                              {:search_text => "%#{search_text.downcase}%"}],
+              :order => "last_name, first_name, display_name")
+  end
+  
 end

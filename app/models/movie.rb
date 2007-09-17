@@ -68,4 +68,8 @@ class Movie < ActiveRecord::Base
     title
   end
   
+  def self.search(search_text)
+    Movie.find(:all, :conditions => ["lower(title) like ?", "%#{search_text.downcase}%"])
+  end
+  
 end

@@ -12,6 +12,6 @@
 
 <% if @users -%>
   <% @users.each do |user| -%>
-    <%= link_to_profile(user, user.last_first_display) %>
+    <%= link_to_profile(user, user.last_first_display, @search_text) %>
   <% end -%>
 <% end -%>
