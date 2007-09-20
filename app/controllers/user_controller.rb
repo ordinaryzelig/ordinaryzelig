@@ -21,8 +21,6 @@ class UserController < ApplicationController
         @recents.select { |ent| ent.is_a?(Comment) }.each do |comment|
           @recents.delete_if { |ent| !ent.is_a?(Comment) && ent.class.can_have_comments? && ent.summarize_recent_comments(logged_in_user).include?(comment) }
         end
-        read_entities = logged_in_user.read_items.entities
-        @recents.delete_if { |ent| read_entities.include?(ent) }
         # if it's a comment, store the entity
         @recents = @recents.map { |ent| ent.class == Comment ? ent.entity : ent }
         # in case there are multiple comments for an object, list it only once.
