@@ -11,6 +11,11 @@ class User < ActiveRecord::Base
   has_many :considering_friends, :through => :considering_friendships
   has_many :blogs
   has_many :movie_ratings, :include => :movie
+  has_many :read_items do
+    def entities
+      map(&:entity)
+    end
+  end
   
   validates_presence_of :first_name, :last_name, :display_name, :email, :secret_id
   validates_uniqueness_of :email, :message => "is already registered. <a href=\"mailto:help@ordinaryzelig.org\">email me</a> and i'll set you up."

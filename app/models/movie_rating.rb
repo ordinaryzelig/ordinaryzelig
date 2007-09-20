@@ -20,6 +20,7 @@ class MovieRating < ActiveRecord::Base
   has_recency
   has_nested_comments
   preview_using :explanation
+  can_be_marked_as_read
   include ActionView::Helpers::TagHelper
   
   def before_validation_on_create

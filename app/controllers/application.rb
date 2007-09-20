@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   
   def mark_entity_as_read
     if request.xhr?
-      (read_entities[params[:entity_type]] ||= []) << params[:id].to_i
+      Object.const_get(params[:entity_type]).find_by_id(params[:id]).mark_as_read(logged_in_user)
       render(:nothing => true)
     end
   end
