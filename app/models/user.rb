@@ -197,7 +197,7 @@ class User < ActiveRecord::Base
   end
   
   def generate_secret_id
-    self.secret_id = hash("#{id}#{rand}")
+    self.secret_id = "#{id}_" << hash("#{id}#{rand}")
   end
   
   private
