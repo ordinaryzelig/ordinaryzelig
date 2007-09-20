@@ -23,28 +23,6 @@ one_line_summary
       movie_review
       recent comments in summary
 
-has_recency option and user preference to show new movies from everyone, not just friends.
-
-migrate
-   update users.users set is_admin = 0 where is_admin is null;
-   dump and backup
-   lib/active_record/connection_adapters/postgresql_adapter.rb
-      schemas = schema_search_path.split(/\s*,\s*/).map { |p| quote(p) }.join(',')
-   schema_search_path: march_madness,users,message_board,blogs,entities,comments,website
-   rake extract_fixtures
-   schema_search_path: website
-   drop schema march_madness cascade;
-   drop schema users cascade;
-   drop schema message_board cascade;
-   drop schema blogs cascade;
-   drop schema entities cascade;
-   drop schema comments cascade;
-   drop schema website cascade;
-   rake db:migrate
-   alter table website.games drop constraint games_parent_id_fkey;
-   alter table website.comments drop constraint comments_parent_id_fkey;
-   rake db:fixtures:load FIXTURES='users,friendships,user_activities,seasons,regions,rounds,teams,games,pool_users,bids,pics,accounts,entity_types,recent_entity_types,messages,blogs,movies,movie_rating_types,movie_rating_options,movie_ratings,comments,comment_groups'
-
 mark as read
    use rjs to update counts and switch_off entire summary if there's nothing new about it.
 
@@ -52,3 +30,5 @@ profile url for display name.
    http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v
 
 split profile into you and friend columns.
+
+put switch_time javascript function in a js file.

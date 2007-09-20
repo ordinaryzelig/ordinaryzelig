@@ -46,6 +46,14 @@ module ApplicationHelper
     time.strftime("%A %B %d, %I:%M %p %Z") if time
   end
   
+  def time_til(time)
+    Time.now.time_til(time).practical
+  end
+  
+  def clickable_time(time)
+    content_tag :span, time_til(time), :title => default_time_format(time), :onclick => 'switch_time_format(this);', :style => 'color: gray;'
+  end
+  
   def link_to_my_bracket
     link_to("(mine)", {:controller => "pool", :action => "brackets", :id => logged_in_user.id, :season_id => current_season.id}, :id => "myBracket")
   end
@@ -62,23 +70,6 @@ module ApplicationHelper
         0
       end
     end
-  end
-  
-  def time_til(time)
-    pract = Time.now.time_til(time).to_practical
-    str = pract.practical(true)
-    if pract.is_negative?
-      str << " ago"
-    elsif "0 seconds" == str
-      str = "now"
-    else
-      str = "in #{str}"
-    end
-    str
-  end
-  
-  def default_time(time)
-    "#{default_time_format(time)} (#{time_til(time)})" if time
   end
   
   def hide_banner

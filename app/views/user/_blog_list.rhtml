@@ -4,6 +4,6 @@
   <%= link_to(blog.title, :controller => "blog", :action => "show", :id => blog.id) %> - 
   <span style="font-size: 75%; color: gray;">
     <%= link_to_profile(blog.user) unless hide_who %>
-    <%= default_time(blog.created_at) %>
+    <%= clickable_time(blog.created_at) %>
   </span><br/>
 <% end -%>

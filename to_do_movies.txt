@@ -1,29 +1,21 @@
-link to imdb
-
 who will like it
 
 smokin aces = traffic + ocean's 11
 
 add new rating types
    types
-      rewatchability
       hype
       quotability
-      calculated (from all but overall rating)
       user submitted
    
 handle spoilers?
 
 clickable stars or other type of GUI
 
-easy ratings for movie/show.
-   need to ajaxily update entire row so averages can update too.
-   elaborate link.
-
-in profile, recent movie won't link to friend-filtered show action.
-
 rating scales with descriptions
 
 highlight appropriately for ratings table.
    highlight row/column if only one filter on.
    if 2 filters on, highlight intersection.
+
+has_recency option and user preference to show new movies from everyone, not just friends.

@@ -3,7 +3,7 @@
   <div style="margin-left: 5mm;">
     <% movie.user_ratings(user).each do |rating| -%>
       <%= link_to "#{rating.rating_type.name}: #{rating}", :controller => "movie", :action => "rating", :id => rating.id %>
-      <span style="font-size: 75%; color: gray;"><%= default_time(rating.created_at) %></span><br/>
+      <%= clickable_time(rating.created_at) %><br/>
     <% end -%>
   </div>
 <% end -%>

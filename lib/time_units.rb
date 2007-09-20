@@ -2,6 +2,8 @@ module UnitOfTime
 
   module TimeUnit
     
+    include ActionView::Helpers::TextHelper
+    
     attr_accessor :unit_id
     attr_accessor :units
     attr_reader :units_up
@@ -18,31 +20,6 @@ module UnitOfTime
     # if > 1, self is acceptable but see if up is MORE practical.
     # if = 1, return self.
     # if < 1 check to see if down is a more practical unit.
-    def to_practical(last_was_acceptable = false)
-      case units.abs <=> 1
-      when 1
-        up_unit = up
-        if up_unit
-          up_unit.to_practical(true)
-        else
-          self
-        end
-      when 0
-        self
-      else
-        down_unit = down
-        if last_was_acceptable
-          down
-        else
-          if down_unit
-            down_unit.to_practical
-          else
-            self
-          end
-        end
-      end
-    end
-    
     def convert_to(unit_class)
       case UNIT_CLASSES.index(unit_class) <=> unit_id
       when 0
@@ -58,17 +35,6 @@ module UnitOfTime
     
     def to_i
       units.to_i
-    end
-    
-    def up_class
-      UNIT_CLASSES[unit_id + 1]
-    end
-    
-    def down_class
-      offset = unit_id - 1
-      if offset >= 0
-        UNIT_CLASSES[offset]
-      end
     end
     
     def up
@@ -100,21 +66,12 @@ module UnitOfTime
     end
     
     def pretty
-      str = "#{to_i}"
-      if to_i.abs <= 1
-        if 0 == to_i
-          str << " #{class_to_s}"
-        else
-          str << " #{singular}"
-        end
-      else
-        str << " #{class_to_s}"
-      end
+      str = pluralize(to_i, Inflector.demodulize(self.class.to_s.downcase))
     end
     
-    # Days.new(8).practical => in 1 week and 1 day.
-    # Days.new(-8).practical => 1 week and 1 day ago.
-    # Days.new(0).practical => now.
+    # Day.new(8).practical => in 1 week and 1 day.
+    # Day.new(-8).practical => 1 week and 1 day ago.
+    # Day.new(0).practical => now.
     def practical(abs = false)
       if 0 == units
         "now"
@@ -124,80 +81,112 @@ module UnitOfTime
         is_negative = p_unit.is_negative?
         p_unit.units = p_unit.units.abs
         str << p_unit.pretty
-        leftover ||= (p_unit - p_unit.to_i).to(p_unit.down_class) if p_unit.down_class
-        if leftover && leftover.units.abs > 0
+        leftover = (p_unit - p_unit.to_i).to(p_unit.down_class) if p_unit.down_class
+        if leftover && leftover.to_i.abs > 0
           str << " and #{leftover.pretty}"
         end
         if is_negative && !abs
-          str = "-#{str}"
+          str << " ago"
+        else
+          str = "in #{str}"
         end
         str
       end
     end
     
-    def class_to_s
-      self.class.to_s.downcase.split('::').last
+    def to_practical(last_was_acceptable = false)
+      case units.abs <=> 1
+      when 1
+        up_unit = up
+        if up_unit
+          up_unit.to_practical(true)
+        else
+          self
+        end
+      when 0
+        self
+      else
+        down_unit = down
+        if last_was_acceptable
+          down
+        else
+          if down_unit
+            down_unit.to_practical
+          else
+            self
+          end
+        end
+      end
     end
     
-    def singular
-      class_to_s[0..-2]
+    def up_class
+      UNIT_CLASSES[unit_id + 1]
     end
+    
+    def down_class
+      offset = unit_id - 1
+      if offset >= 0
+        UNIT_CLASSES[offset]
+      end
+    end
+    
+    private
     
   end
   
-  class Seconds
+  class Second
     include TimeUnit
     def initialize(units = 0)
       super(units, 60, nil)
     end
   end
   
-  class Minutes
+  class Minute
     include TimeUnit
     def initialize(units = 0)
       super(units, 60, 60)
     end
   end
   
-  class Hours
+  class Hour
     include TimeUnit
     def initialize(units = 0)
       super(units, 24, 60)
     end
   end
   
-  class Days
+  class Day
     include TimeUnit
     def initialize(units = 0)
       super(units, 7, 24)
     end
   end
   
-  class Weeks
+  class Week
     include TimeUnit
     def initialize(units = 0)
       super(units, 4.34812141, 7)
     end
   end
   
-  class Months
+  class Month
     include TimeUnit
     def initialize(units = 0)
       super(units, 12, 4.35)
     end
   end
   
-  class Years
+  class Year
     include TimeUnit
     def initialize(units = 0)
       super(units, nil, 12)
     end
   end
   
-  UNIT_CLASSES = [Seconds, Minutes, Hours, Days, Weeks, Months, Years]
+  UNIT_CLASSES = [Second, Minute, Hour, Day, Week, Month, Year]
   
   def time_til(time)
-    Seconds.new(time - self).to_practical
+    Second.new(time - self).to_practical
   end
   
 end

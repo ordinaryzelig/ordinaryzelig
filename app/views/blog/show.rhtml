@@ -10,7 +10,7 @@
         <span style="font-weight: bold;"><%= h(@blog.title) %></span><br/>
         <div style="font-size: 10pt;">
           <%= link_to_profile(@blog.user) %><br/>
-          <span title="<%= time_til(@blog.created_at) %>" style="color: gray;"><%= default_time_format(@blog.created_at) %></span>
+          <%= clickable_time(@blog.created_at) %>
         </div>
       </div>
       

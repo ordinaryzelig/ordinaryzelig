@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   
-  before_filter :validate_session, :except => [:register]
+  before_filter :validate_session, :except => [:register, :test]
   skip_after_filter :mark_requested_page, :only => [:register]
   
   ADMIN_ACTIONS = ["new"]
