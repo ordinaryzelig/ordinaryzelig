@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   
   SESSION_HOURS = 30
   
-  helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?, :read_entities, :read?
+  helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?, :read_entities
   
   def logged_in_user
     @logged_in_user ||= User.find_by_id(session[:user_id])
@@ -158,16 +158,6 @@ class ApplicationController < ActionController::Base
         super
       end
     end
-  end
-  
-  def read_entities
-    session[:read_entities] ||= {}
-  end
-  
-  def remove_read_entities(recent_objs)
-    # remove recents that have been marked as read.
-    recent_objs.delete_if { |recent_obj| read?(recent_obj) }
-    recent_objs
   end
   
 end

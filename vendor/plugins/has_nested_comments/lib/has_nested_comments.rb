@@ -38,7 +38,8 @@ module OrdinaryZelig
       
       def recent_comments(user, &block)
         @recent_comments ||= comments do |c|
-          c.is_recent?(user) && (block.nil? || block.call(c))
+          read_entities = user.read_items.entities
+          c.is_recent?(user) && (block.nil? || block.call(c)) && !read_entities.include?(c)
         end.sort { |a, b| a.created_at <=> b.created_at }
       end
       

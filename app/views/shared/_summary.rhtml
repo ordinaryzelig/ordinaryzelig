@@ -51,7 +51,7 @@
   <% if show_recency -%>
 
     <% if entity.class.can_have_comments? -%>
-      <% comments = entity.summarize_recent_comments(logged_in_user).reject { |comment| read?(comment) } %>
+      <% comments = entity.summarize_recent_comments(logged_in_user) %>
       <% unless comments.empty? -%>
         <div class=listingSection style="border-top: 1px solid black;">
           <%= pluralize(comments.size, 'new comment') %><br/>
