@@ -9,7 +9,7 @@
     <% end -%>
   </div>
   <% form_tag(:bracket_num => @bracket_num) do -%>
-    <table>
+    <table style="background: none;">
       <tr>
         <td align=right>user</td>
         <td><%= select(:user, :id, User::container(@season.id), :include_blank => true) %></td>
@@ -43,8 +43,8 @@
       <% end -%>
       </span>
     <% end -%>
-    <% if @is_self || @is_admin -%>
-      <% is_editable = (Time.now < @season.tournament_starts_at && 1 == @season.is_current) || @is_admin -%>
+    <% if is_self_or_admin?(logged_in_user) -%>
+      <% is_editable = (Time.now < @season.tournament_starts_at && 1 == @season.is_current) || is_admin?(logged_in_user) -%>
       <% if !is_editable && 1 == @season.is_current -%>
         <div id="picsEditable">brackets closed.</div>
       <% elsif Time.now < @season.tournament_starts_at -%>

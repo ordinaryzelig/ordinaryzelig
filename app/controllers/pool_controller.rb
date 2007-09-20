@@ -21,7 +21,7 @@ class PoolController < ApplicationController
   #   redirect to brackets with new season, user, and/or region.
   def brackets
     if request.get?
-      @season = Season.find(params[:season_id])
+      @season = Season.find_by_id(params[:season_id]) || Season.latest
       @user = User.find_by_id(params[:id], :include => {:pool_users, {:pics => :bid}})
       if @user
         # allowed to view if user is self or admin.
@@ -36,7 +36,6 @@ class PoolController < ApplicationController
           end
         end
         @is_self = is_self?(@user)
-        @is_admin = logged_in_user.is_admin?
         @bracket_num = params[:bracket_num].to_i if params[:bracket_num]
         @pool_users = @user.season_pool_users(@season.id)
         @pool_user = @pool_users.detect{|pool_user| pool_user.bracket_num == @bracket_num}

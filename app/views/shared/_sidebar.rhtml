@@ -45,7 +45,7 @@
   <%= link_to_unless('pool' == controller.controller_name, "march madness", :controller => "pool") %>
   <% if 'pool' == controller.controller_name -%>
     <%= link_to("standings", :controller => "pool", :action => "standings") %><br/>
-    <%= link_to("brackets", :controller => "pool") %>
+    <%= link_to("brackets", :controller => "pool", :action => 'brackets') %>
     <% if logged_in_user -%>
       <%= link_to_my_bracket %>
     <% end -%><br/>

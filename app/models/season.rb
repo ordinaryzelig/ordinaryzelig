@@ -47,4 +47,8 @@ class Season < ActiveRecord::Base
     Season.find(:all, :order => "tournament_year").collect{|season| [season.tournament_year, season.id]}
   end
   
+  def self.latest
+    Season.find(:all, :order => :tournament_year).last
+  end
+  
 end

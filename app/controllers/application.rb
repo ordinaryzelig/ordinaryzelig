@@ -124,6 +124,10 @@ class ApplicationController < ActionController::Base
     user && session[:user_id] == user.id
   end
   
+  def is_admin?(user)
+    user && user.is_admin?
+  end
+  
   def is_ajax_action?
     if defined?(self.class::AJAX_ACTIONS)
       self.class::AJAX_ACTIONS.include?(action_name)
