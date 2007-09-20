@@ -8,7 +8,7 @@
         <%= link_to(@page_title, :action => "show", :id => @rating.movie_id) %><br/>
         <%= @rating %><br/>
         <%= link_to_profile(@rating.user) %><br/>
-        <%= clickable_time(@rating.created_at) %>
+        <%= clickable_time(@rating.created_at, true, nil) %>
       </span>
     </div>
     

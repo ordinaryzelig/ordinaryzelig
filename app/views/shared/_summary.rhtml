@@ -26,7 +26,7 @@
         <% # who. -%>
         <% if entity.summarize_who -%>
           <%= "#{link_to_profile(entity.summarize_who)} - " if show_who %>
-          <%= clickable_time(entity.summarize_when) %>
+          <%= clickable_time(entity.summarize_when, nil, nil) %>
         <% end -%>
       </div>
     <% end -%>

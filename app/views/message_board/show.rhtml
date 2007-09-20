@@ -6,7 +6,7 @@
       <div style="font-weight: bold;"><%= @message.subject %></div>
       <div style="font-size: 10pt;">
         <%= link_to_profile(@message.poster) %><br/>
-        <%= clickable_time(@message.posted_at) %>
+        <%= clickable_time(@message.posted_at, true, nil) %>
       </div>
     </div>
     

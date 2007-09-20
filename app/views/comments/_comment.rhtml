@@ -7,7 +7,7 @@
       <div id="comment_highlightable_<%= comment_id %>" style="border: 1px solid black;">
         <div class=listingSection style="<%= recent_background_color(comment) %>">
           <div class=listingInfo>
-            <%= link_to_profile(comment.user) %> - <%= clickable_time(comment.created_at) %>
+            <%= link_to_profile(comment.user) %> - <%= clickable_time(comment.created_at, nil, nil) %>
           </div>
         </div>
         <div class=listingSection><%= simp_san(comment.comment) %></div>

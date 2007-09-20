@@ -50,8 +50,15 @@ module ApplicationHelper
     Time.now.time_til(time).practical
   end
   
-  def clickable_time(time)
-    content_tag :span, time_til(time), :title => default_time_format(time), :onclick => 'switch_time_format(this);', :style => 'color: gray;'
+  def clickable_time(time, default_time_format_first = false, style = 'font-size: 75%; color: gray;')
+    if default_time_format_first
+      content = default_time_format(time)
+      title = time_til(time)
+    else
+      content = time_til(time)
+      title = default_time_format(time)
+    end
+    content_tag :span, content, :title => title, :onclick => 'switch_time_format(this);', :style => style
   end
   
   def link_to_my_bracket
