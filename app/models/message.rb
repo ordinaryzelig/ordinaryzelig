@@ -11,6 +11,7 @@ class Message < ActiveRecord::Base
                        :author => :poster
   preview_using :body
   can_be_marked_as_read
+  nil_if_blank
   
   belongs_to :poster, :class_name => "User", :foreign_key => "posted_by_user_id"
   validates_presence_of :posted_by_user_id, :posted_at

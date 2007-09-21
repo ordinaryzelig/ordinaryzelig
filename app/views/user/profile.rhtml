@@ -29,7 +29,7 @@
   <div class=profileSection>
     <%= pluralize(@recents.size, "recent item") %>
     <% @recents.each do |obj| -%>
-      <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_who => true, :show_recency => true, :show_name => true, :show_type => true}) %>
+      <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_who => true, :show_name => true, :show_type => true}) %>
     <% end -%>
   </div>
 <% end -%>

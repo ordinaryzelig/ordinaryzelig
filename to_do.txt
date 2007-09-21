@@ -29,6 +29,6 @@ mark as read
 profile url for display name.
    http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v
 
-split profile into you and friend columns.
+split profile into you and friend columns?
 
 put switch_time javascript function in a js file.

@@ -1,5 +1,4 @@
 <% show_who ||= false -%>
-<% show_recency ||= false -%>
 <% show_name ||= false -%>
 <% show_type ||= false -%>
 
@@ -33,37 +32,12 @@
     
   </div>
   
-  <% unless show_recency && !entity.is_recent?(logged_in_user) %>
-  
-    <% #========================================= -%>
-    <% # what. -%>
-  
-    <%= content_tag :div,
-                    entity.summarize_what << link_to('...', entity.summarize_url, :title => "read more"),
-                    :class => "listingSection",
-                    :style => "background: white;" if entity.summarize_what %>
-  
-  <% end -%>
-  
   <% #========================================= -%>
-  <% # recent_comments. -%>
-  
-  <% if show_recency -%>
+  <% # what. -%>
 
-    <% if entity.class.can_have_comments? -%>
-      <% comments = entity.summarize_recent_comments(logged_in_user) %>
-      <% unless comments.empty? -%>
-        <div class=listingSection style="border-top: 1px solid black;">
-          <%= pluralize(comments.size, 'new comment') %><br/>
-          <div class=listingSubsection>
-            <% comments.each do |comment| -%>
-              <%= comment_summary comment %>
-            <% end -%>
-          </div>
-        </div>
-      <% end -%>
-    <% end -%>
-    
-  <% end -%>
+  <%= content_tag :div,
+                  entity.summarize_what << link_to('...', entity.summarize_url, :title => "read more"),
+                  :class => "listingSection",
+                  :style => "background: white;" if entity.summarize_what if entity.summarize_what %>
   
 </div>
