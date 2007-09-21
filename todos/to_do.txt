@@ -1,30 +1,13 @@
-what is ordinary zelig?
-
-log request uris
-
 action mailer
    new user confirmation?
    errors
    new items
-
-don't care
-   about this person's <entity>.
-   about these movie_rating_types.
-
-grow sidebar when moused over?
-
-sidebar -> menubar
-
-rename pool controller to march_madness
 
 one_line_summary
    for
       blog list
       movie_review
       recent comments in summary
-
-mark as read
-   use rjs to update counts and switch_off entire summary if there's nothing new about it.
 
 profile url for display name.
    http://media.railscasts.com/ipod_videos/046_catch_all_route.m4v

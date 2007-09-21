@@ -1,0 +1,13 @@
+don't care
+   about this person's <entity>.
+   about these movie_rating_types.
+
+sidebar -> menubar
+	visual_effect when moused over
+
+log request uris
+
+what is ordinary zelig?
+
+rename pool controller to march_madness
+
