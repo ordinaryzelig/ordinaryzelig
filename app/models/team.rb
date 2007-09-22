@@ -5,6 +5,7 @@ university team.
 class Team < ActiveRecord::Base
   
   has_many :bids
+  validates_presence_of :name
   
   # return array for select input selectables.
   def Team::select_options

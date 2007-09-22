@@ -36,40 +36,13 @@ class UserController < ApplicationController
   
   # params
   #   id (user)
-  def set_password
-    if request.get?
-      @user = User.find_exclusive(params[:id])
-      unless @user && is_self_or_logged_in_as_admin?(@user)
-        flash[:failure] = "user not found."
-        logger.warn "user #{logged_in_user.id} tried to set password for user #{params[:id]}"
-        redirect_to_last_marked_page_or_default
+  def change_password
+    @user = logged_in_user
+    if request.post?
+      if @user.change_password(params[:old_password], params[:new_password], params[:confirmation_password])
+        flash[:success] = "password set."
+        redirect_to(:action => "edit_profile", :id => @user.id)
       end
-      @user_with_new_password = User.new
-    else
-      @user = User.new(params[:user])
-      @user_with_new_password = User.new(params[:user_with_new_password])
-      params[:user] = nil # just in case.
-      params[:user_with_new_password] = nil # just in case.
-      # unless admin, authenticate before setting password.
-      # else, admin can just set it and forget it.
-      if logged_in_user.is_admin?
-        user_to_set_new_password_on = User.find(params[:id])
-      else
-        user_to_set_new_password_on = @user.authenticate
-      end
-      if user_to_set_new_password_on
-        user_to_set_new_password_on.unhashed_password = @user_with_new_password.unhashed_password
-        user_to_set_new_password_on.confirmation_password = @user_with_new_password.confirmation_password
-        user_to_set_new_password_on.needs_password_confirmation = true
-        user_to_set_new_password_on.validate_set_new_password
-        if user_to_set_new_password_on.errors.empty? && user_to_set_new_password_on.save
-          flash[:success] = "password set."
-          redirect_to(:action => "edit_profile", :id => user_to_set_new_password_on.id)
-        else
-          @user = user_to_set_new_password_on
-        end
-      end
-      # else, render with errors.
     end
   end
   

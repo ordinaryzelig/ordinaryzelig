@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   
   SESSION_HOURS = 30
   
-  helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_logged_in_as_admin?, :read_entities
+  helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_logged_in_as_admin?, :logged_in_as_admin?, :read_entities
   
   def mark_entity_as_read
     if request.xhr?
@@ -108,7 +108,11 @@ class ApplicationController < ActionController::Base
   end
   
   def is_self_or_logged_in_as_admin?(user)
-    is_self?(user) || (logged_in_user && logged_in_user.is_admin?)
+    is_self?(user) || logged_in_as_admin?
+  end
+  
+  def logged_in_as_admin?
+    logged_in_user && logged_in_user.is_admin?
   end
   
   def is_self?(user)

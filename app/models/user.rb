@@ -17,18 +17,15 @@ class User < ActiveRecord::Base
     end
   end
   
-  validates_presence_of :first_name, :last_name, :display_name, :email, :secret_id
+  validates_presence_of :first_name, :last_name, :display_name, :email, :secret_id, :password
   validates_uniqueness_of :email, :message => "is already registered. <a href=\"mailto:help@ordinaryzelig.org\">email me</a> and i'll set you up."
   validates_uniqueness_of :display_name, :message => "is already taken."
   validates_format_of :email, :with => %r{.+@.+\..*}
-  validate_on_create :confirm_and_set_password
-  
   attr_accessor :unhashed_password
-  attr_accessor :confirmation_password
-  attr_accessor :needs_password_confirmation
   
   def before_validation_on_create
     generate_secret_id
+    set_password unhashed_password
   end
   
   def after_create
@@ -39,8 +36,8 @@ class User < ActiveRecord::Base
   # return user with matching email and password.
   def authenticate
     authenticated_user = nil
-    if @unhashed_password.nil? || @unhashed_password.empty?
-      errors.add(nil, "password cannot be blank.")
+    if @unhashed_password.blank?
+      errors.add(nil, "password can't be blank.")
     end
     if @email.nil? || @email.empty?
       errors.add_on_blank(:email)
@@ -120,16 +117,6 @@ class User < ActiveRecord::Base
     self.is_authorized = 1 - self.is_authorized.to_i
   end
   
-  # set password to gonzagasucks.
-  # def reset_password
-  #   self.password = DEFAULT_PASSWORD
-  #   save
-  # end
-  
-  def validate_set_new_password
-    confirm_and_set_password
-  end
-  
   def self.default_order_by_string
     "lower(last_name), lower(first_name), lower(display_name)"
   end
@@ -207,36 +194,24 @@ class User < ActiveRecord::Base
     self.secret_id = "#{id}_" << hash("#{id}#{rand}")
   end
   
-  private
-  
-  def hash(str)
-    Digest::SHA1.hexdigest(str)
+  def set_password(pword)
+    self.password = hash(pword)
   end
   
-  def validates_presence_of_passwords
-    is_valid = true
-    if @unhashed_password.nil? || @unhashed_password.empty?
-      errors.add(nil, "password cannot be blank.")
-      is_valid = false
-    end
-    if @confirmation_password.nil? || @confirmation_password.empty?
-      errors.add_on_blank("confirmation_password")
-      is_valid = false
-    end
-    is_valid
+  def set_password!(pword)
+    set_password pword
+    save!
   end
   
-  def confirm_and_set_password
-    if @needs_password_confirmation && validates_presence_of_passwords
-      hashed_password = hash(@unhashed_password)
-      hashed_confirmation_password = hash(@confirmation_password)
-      @unhashed_password = nil
-      @confirmation_password = nil
-      if hashed_password == hashed_confirmation_password
-        self.password = hashed_password
-      else
-        errors.add(nil, "confirmation password does not match.")
-      end
+  def change_password(old_pword, new_pword, confirmation_pword)
+    errors.add(nil, "old password can't be blank") if old_pword.blank?
+    errors.add(nil, "new password can't be blank") if new_pword.blank?
+    errors.add(nil, "confirmation password can't be blank") if confirmation_pword.blank?
+    errors.add(nil, "new passwords don't match") unless new_pword == confirmation_pword
+    if hash(old_pword) == password && errors.empty?
+      set_password! new_pword
+    else
+      errors.add(nil, 'old password incorrect')
     end
   end
   
@@ -258,6 +233,16 @@ class User < ActiveRecord::Base
     with_scope :find => {:conditions => ["#{table_name}.id = ?", id]} do
       find_all_exclusive(options).first
     end
+  end
+  
+  def valid?
+    errors.empty? && super
+  end
+  
+  private
+  
+  def hash(str)
+    Digest::SHA1.hexdigest(str)
   end
   
 end

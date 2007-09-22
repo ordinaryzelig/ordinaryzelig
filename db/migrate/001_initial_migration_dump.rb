@@ -59,7 +59,7 @@ class InitialMigrationDump < ActiveRecord::Migration
     end
 
     create_table "teams", :force => true do |t|
-      t.column "name", :string, :limit => 20
+      t.column "name", :string, :limit => 20, :null => false
     end
 
     add_index "teams", ["name"], :name => "teams_name_key", :unique => true
