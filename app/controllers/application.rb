@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
   def require_login(msg = "please log in.")
     mark_requested_page
     flash[:notice] = msg
-    if is_ajax_action?
+    if request.xhr?
       render :update do |page|
         page.redirect_to(:controller => 'login')
       end
@@ -105,7 +105,7 @@ class ApplicationController < ActionController::Base
   end
   
   def mark_requested_page
-    session[:last_marked_page] = request.parameters unless is_ajax_action?
+    session[:last_marked_page] = request.parameters unless request.xhr?
   end
   
   # assign user_id to session.
@@ -126,12 +126,6 @@ class ApplicationController < ActionController::Base
   
   def is_admin?(user)
     user && user.is_admin?
-  end
-  
-  def is_ajax_action?
-    if defined?(self.class::AJAX_ACTIONS)
-      self.class::AJAX_ACTIONS.include?(action_name)
-    end
   end
   
   def is_admin_action?(action = action_name)

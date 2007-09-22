@@ -2,7 +2,6 @@ class MessageBoardController < ApplicationController
   
   before_filter :validate_session, :except => ["index", "show"]
   
-  #AJAX_ACTIONS = ["new", "post", "preview", "edit_new", "cancel"]
   ADMIN_ACTIONS = ["edit"]
   
   def index
