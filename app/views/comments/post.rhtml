@@ -1,2 +1,2 @@
 new Insertion.Bottom('<%= @id_to_update %>', '<%= escape_javascript(@rendered_partial) %>');
-<%= visual_effect(:highlight, "comment_highlightable_#{@comment.id}", {:duration => 3}) %>
+<%= visual_effect(:pulsate, "comment_highlightable_#{@comment.id}") %>
