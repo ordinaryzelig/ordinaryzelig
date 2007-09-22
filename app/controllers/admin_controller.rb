@@ -7,19 +7,8 @@ class AdminController < ApplicationController
     redirect_to(:action => "users")
   end
   
-  # create a new season of teams, participants, bids, etc.
-  # get:
-  #   
-  # post:
-  #   create new season, assign years, save.
-  #   assign region names.
-  #   params:
-  #     started_in
-  #     "region_#{region_num}"[:name]
   def create_new_season
-    if request.get?
-      
-    else
+    if request.post?
       @season = Season::new_season
       redirect_to(:action => :edit_season, :id => @season.id)
     end

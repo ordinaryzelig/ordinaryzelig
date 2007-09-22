@@ -16,7 +16,7 @@
   <% @users.each do |user| %>
     <tr>
       <td>
-        <%= link_to_email(last_first_display(user), user) %>
+        <%= link_to_email(user.last_first_display, user) %>
       </td>
       <td>
         <% user.season_pool_users(@season.id).each do |pool_user| -%>
