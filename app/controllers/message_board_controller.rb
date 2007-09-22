@@ -1,6 +1,6 @@
 class MessageBoardController < ApplicationController
   
-  before_filter :validate_session, :except => ["index", "show"]
+  before_filter :require_authentication, :except => ["index", "show"]
   
   ADMIN_ACTIONS = ["edit"]
   

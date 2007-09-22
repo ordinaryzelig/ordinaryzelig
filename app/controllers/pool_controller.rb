@@ -24,7 +24,7 @@ class PoolController < ApplicationController
       if @user
         # allowed to view if user is self or admin.
         # if tournament hasn't started and requested user is neither self nor admin, redirect to own bracket.
-        if Time.now < @season.tournament_starts_at && !is_self_or_admin?(@user)
+        if Time.now < @season.tournament_starts_at && !is_self_or_logged_in_as_admin?(@user)
           if logged_in_user
             flash[:failure] = "sorry, you can't view others' brackets until the tournament starts."
             redirect_to(:action => "index")

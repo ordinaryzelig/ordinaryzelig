@@ -1,11 +1,11 @@
 class BlogController < ApplicationController
   
-  before_filter :validate_session
+  before_filter :require_authentication
   
   def list
     @user = User.find_by_id(params[:id], :include => :blogs, :order => "created_at desc")
     if @user
-      @reason_not_visible = "you must be this person's friend to view their blogs." unless @user.considers_friend?(logged_in_user) || is_self_or_admin?(@user)
+      @reason_not_visible = "you must be this person's friend to view their blogs." unless @user.considers_friend?(logged_in_user) || is_self_or_logged_in_as_admin?(@user)
     else
       @reason_not_visible = "user not found."
     end
@@ -16,7 +16,7 @@ class BlogController < ApplicationController
   def show
     @blog = Blog.find_by_id(params[:id], :include => :user)
     if @blog
-      unless is_self_or_admin?(@blog.user) || @blog.user.considers_friend?(logged_in_user)
+      unless is_self_or_logged_in_as_admin?(@blog.user) || @blog.user.considers_friend?(logged_in_user)
         @reason_not_visible = "this blog is private."
       end
     else
@@ -47,7 +47,7 @@ class BlogController < ApplicationController
     @blog = Blog.find_by_id(params[:id])
     if request.get?
       if @blog
-        unless is_self_or_admin?(@blog.user)
+        unless is_self_or_logged_in_as_admin?(@blog.user)
           @reason_not_visible = "this blog is private."
           logger.warn "user #{logged_in_user.id} tried to edit blog #{params[:id]}."
         end

@@ -18,7 +18,7 @@
         <div style="padding-bottom: 5mm;"><%= simp_san(@rating.explanation) %></div>
       <% end -%>
       
-      <%= content_tag :div, link_to("edit", :action => "edit_rating", :movie_id => @rating.movie_id, :rating_type_id => @rating.movie_rating_type_id) if is_self_or_admin?(@rating.user) %>
+      <%= content_tag :div, link_to("edit", :action => "edit_rating", :movie_id => @rating.movie_id, :rating_type_id => @rating.movie_rating_type_id) if is_self_or_logged_in_as_admin?(@rating.user) %>
       
     </div>
     

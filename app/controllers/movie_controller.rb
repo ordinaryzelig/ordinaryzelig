@@ -1,6 +1,6 @@
 class MovieController < ApplicationController
   
-  before_filter :validate_session, :only => [:edit_rating, :edit, :new]
+  before_filter :require_authentication, :only => [:edit_rating, :edit, :new]
   ADMIN_ACTIONS = ["edit"]
   
   def index

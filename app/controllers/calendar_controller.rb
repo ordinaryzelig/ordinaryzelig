@@ -1,6 +1,6 @@
 class CalendarController < ApplicationController
   
-  before_filter :validate_session
+  before_filter :require_authentication
   
   def view
     @events = Event.find(:all, :conditions => ["starts_at > ?", Date.today], :order => "starts_at")

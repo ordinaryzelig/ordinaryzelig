@@ -10,7 +10,7 @@
   <% # action bar. -%>
   <div style="text-align: center;">
     
-    <%= link_to_edit_profile("edit", @user) if is_self_or_admin?(@user) %>
+    <%= link_to_edit_profile("edit", @user) if is_self_or_logged_in_as_admin?(@user) %>
     
     <% # add/remove friend. -%>
     <% unless is_self?(@user) -%>
@@ -74,14 +74,14 @@
 
 <div class=profileSection>
   <% # friends. -%>
-  <% if @user.considers_friend?(logged_in_user) || is_self_or_admin?(@user) -%>
+  <% if @user.considers_friend?(logged_in_user) || is_self_or_logged_in_as_admin?(@user) -%>
     <%= link_to("friends: #{@user.friends.size}", :action => "friends", :id => @user.id) %><br/>
   <% else -%>
     friends (restricted to <%= @user.display_name %>'s friends)
   <% end -%>
   
   <% # friends of. -%>
-  <% if is_self_or_admin?(@user) -%>
+  <% if is_self_or_logged_in_as_admin?(@user) -%>
     <%= link_to_considering_friends("people that consider you their friend: #{@user.considering_friends.size}", @user) %>
     (<%= link_to_considering_friends("#{@user.wannabe_friends.size} not mutual", @user, true) %>)
   <% end -%>

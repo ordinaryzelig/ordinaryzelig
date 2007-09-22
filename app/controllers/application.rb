@@ -1,6 +1,10 @@
-# Filters added to this controller will be run for all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
+  
+  after_filter :mark_requested_page
+  
+  SESSION_HOURS = 30
+  
+  helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_logged_in_as_admin?, :read_entities
   
   def mark_entity_as_read
     if request.xhr?
@@ -11,12 +15,6 @@ class ApplicationController < ActionController::Base
   
   protected
   
-  after_filter :mark_requested_page
-  
-  SESSION_HOURS = 30
-  
-  helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_admin?, :read_entities
-  
   def logged_in_user
     @logged_in_user ||= User.find_by_id(session[:user_id])
   end
@@ -25,7 +23,7 @@ class ApplicationController < ActionController::Base
     @current_season ||= Season::current
   end
   
-  def validate_session
+  def require_authentication
     unless session[:user_id]
     # not logged in.
       require_login
@@ -47,7 +45,7 @@ class ApplicationController < ActionController::Base
         return_val = true
       end
     end
-    raise "something escaped validate_session()." if return_val.nil?
+    raise "something escaped require_authentication() return_val." if return_val.nil?
     return_val
   end
   
@@ -94,14 +92,7 @@ class ApplicationController < ActionController::Base
   # try to go to last marked page.
   # otherwise, go to default.
   def redirect_to_last_marked_page_or_default(default = {:controller => "user", :action => "profile", :id => logged_in_user})
-    unless redirect_to_last_marked_page
-      if logged_in_user.is_admin?
-        redirect_to(:controller => "admin")
-      else
-        logger.info "message #{default}"
-        redirect_to(default)
-      end
-    end
+    logged_in_user.is_admin? ? redirect_to(:controller => "admin") : redirect_to(default) unless redirect_to_last_marked_page
   end
   
   def mark_requested_page
@@ -116,12 +107,12 @@ class ApplicationController < ActionController::Base
     redirect_to_last_marked_page_or_default
   end
   
-  def is_self_or_admin?(user)
+  def is_self_or_logged_in_as_admin?(user)
     is_self?(user) || (logged_in_user && logged_in_user.is_admin?)
   end
   
   def is_self?(user)
-    user && session[:user_id] == user.id
+    user && user.id == session[:user_id]
   end
   
   def is_admin?(user)

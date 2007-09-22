@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   
-  before_filter :validate_session
+  before_filter :require_authentication
   
   def index
     flash.keep

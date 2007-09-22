@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   
-  before_filter :validate_session, :except => [:register, :test]
+  before_filter :require_authentication, :except => [:register, :test]
   skip_after_filter :mark_requested_page, :only => [:register]
   
   ADMIN_ACTIONS = ["new"]
@@ -26,7 +26,7 @@ class UserController < ApplicationController
   def edit_profile
     if request.get?
       @user = User.find_by_id(params[:id])
-      unless @user && is_self_or_admin?(@user) && !@user.is_admin_or_master?
+      unless @user && is_self_or_logged_in_as_admin?(@user) && !@user.is_admin_or_master?
         flash[:failure] = "user not found."
         logger.warn "user #{logged_in_user.id} attempted to edit user #{params[:id]}"
         redirect_to_last_marked_page_or_default
@@ -47,7 +47,7 @@ class UserController < ApplicationController
   def set_password
     if request.get?
       @user = User.find_by_id(params[:id])
-      unless @user && is_self_or_admin?(@user)
+      unless @user && is_self_or_logged_in_as_admin?(@user)
         flash[:failure] = "user not found."
         logger.warn "user #{logged_in_user.id} tried to set password for user #{params[:id]}"
         redirect_to_last_marked_page_or_default
@@ -127,7 +127,7 @@ class UserController < ApplicationController
   def friends_to
     @user = User.find_by_id(params[:id])
     if @user && !@user.is_admin_or_master?
-      if is_self_or_admin?(@user)
+      if is_self_or_logged_in_as_admin?(@user)
         @considering_friendships = @user.considering_friendships
         @hide_mutual_friends = "true" == params[:hide_mutual_friends]
         @considering_friendships.reject! { |considering_friendship| @user.friends.include?(considering_friendship.user) } if @hide_mutual_friends

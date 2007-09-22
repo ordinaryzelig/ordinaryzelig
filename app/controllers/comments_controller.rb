@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   
-  before_filter :validate_session
+  before_filter :require_authentication
   
   # params:
   #   parent_id or
