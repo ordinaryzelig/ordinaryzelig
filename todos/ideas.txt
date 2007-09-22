@@ -11,3 +11,4 @@ what is ordinary zelig?
 
 rename pool controller to march_madness
 
+user search: link to 'first', 'last', 'display name' that will submit form for that specific field.

@@ -15,7 +15,7 @@ class UserController < ApplicationController
     @user = User.find_by_id(params[:id])
     if @user && !@user.is_admin_or_master?
       @page_title =  "profile - #{@user.display_name}"
-      @recents = @user.recents if is_self?(@user)
+      @recents = @user.recents if is_self_or_logged_in_as_admin?(@user)
     else
       @reason_not_visible = "user not found"
       flash.now[:failure] = @reason_not_visible
@@ -169,15 +169,7 @@ class UserController < ApplicationController
   def search
     if request.get?
       @search_text = params[:id]
-      if @search_text
-        if @search_text.length >= 3
-          @users = User.search(@search_text)
-          @users.reject! { |user| user.is_admin_or_master? }
-          @search_text_valid = true
-        else
-          flash.now[:failure] = "search for at least 3 characters."
-        end
-      end
+      @users = User.search(@search_text) if @search_text
       @page_title = "user search"
     else
       redirect_to(:action => "search", :id => params[:search_text])

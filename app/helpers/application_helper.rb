@@ -8,7 +8,6 @@ module ApplicationHelper
     select_tag(:season_id, options_for_select(Season::container, season_id))
   end
   
-  # return link to user's profile.  displays str.
   def link_to_profile(user, str = user.display_name, highlight_text = nil)
     str = h(str)
     str = highlight(str, highlight_text) if highlight_text

@@ -241,12 +241,17 @@ class User < ActiveRecord::Base
   end
   
   def self.search(search_text)
-    User.find(:all,
-              :conditions => ["lower(display_name) like :search_text or " <<
-                              "lower(first_name) like :search_text or " <<
-                              "lower(last_name) like :search_text",
-                              {:search_text => "%#{search_text.downcase}%"}],
-              :order => "last_name, first_name, display_name")
+    excluding_admin_and_master({:conditions => ["lower(display_name) like :search_text or " <<
+                                                "lower(first_name) like :search_text or " <<
+                                                "lower(last_name) like :search_text",
+                                                {:search_text => "%#{search_text.downcase}%"}],
+                                :order => "last_name, first_name, display_name"})
+  end
+  
+  def self.excluding_admin_and_master(options = {})
+    with_scope :find => options do
+      find :all, :conditions => ["#{table_name}.id not in (?)", [1, 29]]
+    end
   end
   
 end

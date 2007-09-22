@@ -6,12 +6,12 @@
   <% end -%>
 </div>
 
-<% if @search_text_valid -%>
+<% if params[:id] -%>
+  
   <div style="margin-bottom: 5mm;"><%= pluralize(@users.size, "user") %> found</div>
-<% end -%>
-
-<% if @users -%>
+  
   <% @users.each do |user| -%>
-    <%= link_to_profile(user, user.last_first_display, @search_text) %>
+    <%= link_to_profile(user, user.last_first_display, @search_text) %><br/>
   <% end -%>
+  
 <% end -%>
