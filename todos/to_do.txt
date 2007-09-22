@@ -15,3 +15,5 @@ profile url for display name.
 split profile into you and friend columns?
 
 put switch_time javascript function in a js file.
+
+highlight and preview for comment not working.
