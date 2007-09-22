@@ -135,7 +135,6 @@ class ApplicationController < ActionController::Base
         render(:file => "#{RAILS_ROOT}/public/500.html", :status => "500 Error")
         begin
           email = Notifier.deliver_exception(ex, logged_in_user)
-          logger.error "Notifier.exception\n#{email.subject}\n#{ex.backtrace[0]}"
         rescue Exception => e
           logger.error "error sending mail #{Time.now.localtime}\n#{e}\n#{e.backtrace.join("\n")}"
         end
@@ -143,6 +142,11 @@ class ApplicationController < ActionController::Base
         super
       end
     end
+  end
+  
+  def render_layout_only(flash_msg = nil)
+    flash.now[:notice] = flash_msg if flash_msg
+    render :nothing => true, :layout => true
   end
   
 end

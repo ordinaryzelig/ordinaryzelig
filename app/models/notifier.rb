@@ -7,4 +7,11 @@ class Notifier < ActionMailer::Base
     body :exception => ex, :user => user
   end
   
+  def warning(msg)
+    recipients 'theoz@ordinaryzelig'
+    from 'rails@ordinaryzelig'
+    subject 'warning'
+    body :message => msg
+  end
+  
 end

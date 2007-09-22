@@ -12,29 +12,21 @@ class UserController < ApplicationController
   # params
   #   id (user)
   def profile
-    @user = User.find_by_id(params[:id])
-    if @user && !@user.is_admin_or_master?
-      @page_title =  "profile - #{@user.display_name}"
-      @recents = @user.recents if is_self_or_logged_in_as_admin?(@user)
-    else
-      @reason_not_visible = "user not found"
-      flash.now[:failure] = @reason_not_visible
-      render :nothing => true, :layout => true
-    end
+    @user = User.find_exclusive params[:id]
+    render_layout_only 'user not found' and return unless @user
+    @page_title =  "profile - #{@user.display_name}"
+    @recents = @user.recents if is_self_or_logged_in_as_admin?(@user)
   end
   
   def edit_profile
-    if request.get?
-      @user = User.find_by_id(params[:id])
-      unless @user && is_self_or_logged_in_as_admin?(@user) && !@user.is_admin_or_master?
-        flash[:failure] = "user not found."
-        logger.warn "user #{logged_in_user.id} attempted to edit user #{params[:id]}"
-        redirect_to_last_marked_page_or_default
-        return
-      end
-    else
-    # post.
-      @user = User.find(params[:id])
+    @user = User.find_exclusive params[:id]
+    unless @user && is_self_or_logged_in_as_admin?(@user)
+      flash[:failure] = "user #{params[:id]} not found."
+      redirect_to_last_marked_page_or_default
+      Notifier.deliver_warning "#{logged_in_user.first_last_display} attempted to edit user #{params[:id]}"
+      return
+    end
+    if request.post?
       if @user.update_attributes(params[:user])
         flash[:success] = "profile saved"
         redirect_to(:action => "profile", :id => @user.id)
@@ -46,7 +38,7 @@ class UserController < ApplicationController
   #   id (user)
   def set_password
     if request.get?
-      @user = User.find_by_id(params[:id])
+      @user = User.find_exclusive(params[:id])
       unless @user && is_self_or_logged_in_as_admin?(@user)
         flash[:failure] = "user not found."
         logger.warn "user #{logged_in_user.id} tried to set password for user #{params[:id]}"
@@ -111,8 +103,8 @@ class UserController < ApplicationController
   end
   
   def friends
-    @user = User.find_by_id(params[:id])
-    if @user && !@user.is_admin_or_master?
+    @user = User.find_exclusive(params[:id])
+    if @user
       if is_self?(@user) || @user.considers_friend?(logged_in_user)
         @page_title = "#{@user.display_name} friends"
       else
@@ -125,8 +117,8 @@ class UserController < ApplicationController
   end
   
   def friends_to
-    @user = User.find_by_id(params[:id])
-    if @user && !@user.is_admin_or_master?
+    @user = User.find_exclusive(params[:id])
+    if @user
       if is_self_or_logged_in_as_admin?(@user)
         @considering_friendships = @user.considering_friendships
         @hide_mutual_friends = "true" == params[:hide_mutual_friends]
@@ -143,22 +135,15 @@ class UserController < ApplicationController
   
   def add_friend
     if request.xhr?
-      @user = User.find_by_id(params[:id])
-      if @user && !@user.is_admin_or_master?
-        friendship = Friendship.new(:user => logged_in_user, :friend_id => params[:id])
-        if friendship.save
-          render(:partial => "add_remove_friend", :locals => {:friend => friendship.friend})
-        else
-          render(:text => "there was an error adding your friend.")
-          logger.error "error saving friendship #{friendship.inspect}."
-        end
-      end
+      friendship = Friendship.new(:user => logged_in_user, :friend_id => params[:id])
+      friendship.save!
+      render(:partial => "add_remove_friend", :locals => {:friend => friendship.friend})
     end
   end
   
   def remove_friend
     if request.xhr?
-      if User.find_by_id(params[:id])
+      if User.find_exclusive(params[:id])
         friendship = Friendship.find_by_user_id_and_friend_id(logged_in_user.id, params[:id])
         friendship.destroy if friendship
         render(:partial => "add_remove_friend", :locals => {:friend => friendship.friend})
@@ -178,7 +163,7 @@ class UserController < ApplicationController
   
   def generate_secret_id
     if request.post?
-      @user = User.find_by_id(params[:id])
+      @user = User.find_exclusive(params[:id])
       @user.generate_secret_id
       flash[:success] = "your rss url has been changed. please update your bookmarks." and redirect_to :back if @user.save
     end
