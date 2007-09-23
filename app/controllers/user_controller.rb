@@ -61,20 +61,8 @@ class UserController < ApplicationController
   end
   
   def friends_to
-    @user = User.find_exclusive(params[:id])
-    if @user
-      if is_self_or_logged_in_as_admin?(@user)
-        @considering_friendships = @user.considering_friendships
-        @hide_mutual_friends = "true" == params[:hide_mutual_friends]
-        @considering_friendships.reject! { |considering_friendship| @user.friends.include?(considering_friendship.user) } if @hide_mutual_friends
-      else
-        @reason_not_visible = "sorry, this is private."
-      end
-      @page_title = "users who consider you their friend"
-    else
-      @reason_not_visible = "user not found."
-    end
-    flash.now[:failure] = @reason_not_visible if @reason_not_visible
+    @hide_mutual_friends = 'true' == params[:hide_mutual_friends]
+    @page_title = "people who consider you their friend"
   end
   
   def add_friend

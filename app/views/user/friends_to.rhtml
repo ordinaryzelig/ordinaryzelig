@@ -1,20 +1,15 @@
-<% unless @reason_not_visible -%>
-  
-  <table border=1>
-    <tr>
-      <th>user</th>
-      <th>
-        mutual<br/>
-        <span style="font-size: 75%; font-weight: normal;">hide mutual friends</span>
-        <%= link_to(check_box_tag(:hide_mutual_friends, 1, @hide_mutual_friends), :hide_mutual_friends => !@hide_mutual_friends) %>
-      </th>
+<table border=1>
+  <tr>
+    <th>user</th>
+    <th>
+      mutual<br/>
+      <%= link_to(@hide_mutual_friends ? 'show mutual friends' : 'hide mutual friends', {:hide_mutual_friends => !@hide_mutual_friends}, {:style => 'font-size: 75%; font-weight: normal;'}) %>
+    </th>
+  </tr>
+  <% (@hide_mutual_friends ? logged_in_user.considering_friendships.not_mutual : logged_in_user.considering_friendships).each do |considering_friendship| %>
+    <tr style="<%= recent_background_color(considering_friendship, nil) %>">
+      <td><%= link_to_profile(considering_friendship.user, considering_friendship.user.first_last_display) %></td>
+      <td align=center><%= logged_in_user.is_mutual_friend?(considering_friendship.user) ? "yes" : "no" %></td>
     </tr>
-    <% @considering_friendships.each do |considering_friendship| %>
-      <tr style="<%= recent_background_color(considering_friendship, nil) %>">
-        <td><%= link_to_profile(considering_friendship.user, considering_friendship.user.first_last_display) %></td>
-        <td align=center><%= @user.is_mutual_friend?(considering_friendship.user) ? "yes" : "no" %></td>
-      </tr>
-    <% end %>
-  </table>
-  
-<% end -%>
+  <% end %>
+</table>

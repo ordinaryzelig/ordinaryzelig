@@ -7,8 +7,14 @@ class User < ActiveRecord::Base
   has_one :user_activity
   has_many :friendships, :foreign_key => "user_id"
   has_many :friends, :through => :friendships, :order => "lower(last_name)"
-  has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
-  has_many :considering_friends, :through => :considering_friendships
+  has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id" do
+    def not_mutual
+      return @not_mutual || [] if @not_mutual || empty?
+      user = first.friend
+      @not_mutual = reject { |considering_friendship| user.considers_friend?(considering_friendship.user) }
+    end
+  end
+  has_many :considering_friends, :through => :considering_friendships, :order => "lower(last_name)"
   has_many :blogs
   has_many :movie_ratings, :include => :movie
   has_many :read_items do
@@ -142,15 +148,6 @@ class User < ActiveRecord::Base
   # both self and user consider each other friends.
   def is_mutual_friend?(user)
     considers_friend?(user) && is_friend_of?(user)
-  end
-  
-  # users in both friends and considering_friends
-  def mutual_friends
-    friends.select { |friend| considering_friends.include?(friend) }
-  end
-  
-  def wannabe_friends
-    considering_friends.reject { |considering_friend| friends.include?(considering_friend) }
   end
   
   def first_last

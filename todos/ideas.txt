@@ -12,3 +12,5 @@ what is ordinary zelig?
 rename pool controller to march_madness
 
 user search: link to 'first', 'last', 'display name' that will submit form for that specific field.
+
+option to make friends with anybody who makes friends with you.  also, button to make friends with all unmutual friends.
