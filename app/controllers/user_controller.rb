@@ -57,16 +57,7 @@ class UserController < ApplicationController
   
   def friends
     @user = User.find_exclusive(params[:id])
-    if @user
-      if is_self?(@user) || @user.considers_friend?(logged_in_user)
-        @page_title = "#{@user.display_name} friends"
-      else
-        @reason_not_visible = "sorry, this is private."
-      end
-    else
-      @reason_not_visible = "user not found."
-    end
-    flash.now[:failure] = @reason_not_visible if @reason_not_visible
+    render_layout_only 'user not found' and return unless @user && (is_self?(@user) || @user.considers_friend?(logged_in_user) || logged_in_as_admin?)
   end
   
   def friends_to

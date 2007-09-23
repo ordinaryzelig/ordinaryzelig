@@ -1,9 +1,5 @@
-<% unless @reason_not_visible -%>
-  
-  <div style="margin-bottom: 3mm;"><%= pluralize(@user.friends.size, "friend") %></div>
-  
-  <% @user.friends.each do |friend| -%>
-    <%= link_to_profile(friend, friend.first_last_display) %><br/>
-  <% end -%>
-    
+<div style="margin-bottom: 3mm;"><%= pluralize(@user.friends.size, "friend") %></div>
+
+<% @user.friends.each do |friend| -%>
+  <%= link_to_profile(friend, friend.first_last_display) %><br/>
 <% end -%>

@@ -148,8 +148,8 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def render_layout_only(flash_msg = nil)
-    flash.now[:notice] = flash_msg if flash_msg
+  def render_layout_only(msg, flash_type = :failure)
+    flash.now[flash_type] = msg if msg
     render :nothing => true, :layout => true
   end
   
