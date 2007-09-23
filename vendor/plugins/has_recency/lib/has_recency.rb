@@ -9,20 +9,22 @@ module OrdinaryZelig
     module ClassMethods
       
       def has_recency(options = [])
-        extend OrdinaryZelig::HasRecency::PrivateClassMethods
         object_types = [:user, :time, :block]
         defaults = {:user => :user, :time => :created_at}
         # each model that has_recency will include a unique Module that defines recency_user_obj and recency_time_obj.
-        mod = Module.new
         options.each do |key, value|
           raise "unrecognized recency object type '#{key}'." unless object_types.include?(key)
-          def_meth(key, value, mod)
+          def_meth key, value
         end
-        defaults.each { |key, value| def_meth(key, value, mod) unless mod.method_defined?("recency_#{key}_obj") }
-        include mod
+        defaults.each { |key, value| def_meth(key, value) unless method_defined?("recency_#{key}_obj") }
         include OrdinaryZelig::HasRecency::InstanceMethods
         @has_recency = true
       end
+      
+      def def_meth(key, value, mod)
+        define_method "recency_#{key}_obj", value.is_a?(Proc) ? value : eval("Proc.new { #{value} }")
+      end
+      private_class_method def_meth
       
       def recents(user)
         find(:all, :include => :user).select { |obj| obj.is_recent?(user) }
@@ -34,16 +36,6 @@ module OrdinaryZelig
       
       def is_recent_entity_type?
         RecentEntityType.find(:all).map { |ret| ret.entity_type.entity_class }.include?(self)
-      end
-      
-    end
-    
-    module PrivateClassMethods
-      
-      private
-      
-      def def_meth(key, value, mod)
-        mod.send('define_method', "recency_#{key}_obj", value.is_a?(Proc) ? value : eval("Proc.new { #{value} }"))
       end
       
     end
@@ -82,14 +74,6 @@ module OrdinaryZelig
       
       def is_recent?(user, check_comments_if_any = false)
         !most_recent_because_of(user, check_comments_if_any).nil?
-      end
-      
-      def has_recency?
-        self.class.has_recency?
-      end
-      
-      def is_recent_entity_type?
-        self.class.is_recent_entity_type?
       end
       
     end
