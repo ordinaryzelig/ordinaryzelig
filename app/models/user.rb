@@ -9,10 +9,10 @@ class User < ActiveRecord::Base
     def blogs
       return @blogs || [] if @blogs || empty?
       user = first.user
-      @blogs = friends.map { |friend| friend.blogs.readable_by(user) }
+      @blogs = friends.map { |friend| friend.blogs.readable_by(user) }.flatten
     end
     def friends
-      map(&:user)
+      map(&:friend)
     end
   end
   has_many :friends, :through => :friendships, :order => "lower(last_name)"
