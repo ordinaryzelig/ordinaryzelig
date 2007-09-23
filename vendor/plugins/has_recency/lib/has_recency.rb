@@ -9,23 +9,31 @@ module OrdinaryZelig
     module ClassMethods
       
       def has_recency(options = {})
-        object_types = [:user, :time, :block]
-        defaults = {:user => :user, :time => :created_at}
-        # each model that has_recency will include a unique Module that defines recency_user_obj and recency_time_obj.
+        object_types = [:user_obj, :user_obj_name, :time_obj, :time_obj_name, :block]
+        defaults = {:user_obj => :user,
+                    :user_obj_name => "#{options[:user_obj] || :user}_id",
+                    :time_obj => :created_at,
+                    :time_obj_name => options[:time_obj] || :created_at}
         options.each do |key, value|
           raise "unrecognized recency object type '#{key}'." unless object_types.include?(key)
           def_meth key, value
         end
-        defaults.each { |key, value| def_meth(key, value) unless method_defined?("recency_#{key}_obj") }
+        defaults.each { |key, value| def_meth(key, value) unless method_defined?("recency_#{key}") }
         include OrdinaryZelig::HasRecency::InstanceMethods
         @has_recency = true
-        def recents(user)
-          find(:all, :include => :user).select { |obj| obj.is_recent?(user) }
-        end
+        extend RuntimeClassMethods
       end
       
       def def_meth(key, value)
-        define_method "recency_#{key}_obj", value.is_a?(Proc) ? value : eval("Proc.new { #{value} }")
+        if key.to_s.include?('_obj_name')
+          module_eval <<-END
+            def self.recency_#{key}
+              #{value.inspect}
+            end
+          END
+        else
+          define_method "recency_#{key}_obj", value.is_a?(Proc) ? value : eval("Proc.new { #{value} }")
+        end
       end
       private :def_meth
       
@@ -35,6 +43,26 @@ module OrdinaryZelig
       
       def is_recent_entity_type?
         RecentEntityType.find(:all).map { |ret| ret.entity_type.entity_class }.include?(self)
+      end
+      
+      module RuntimeClassMethods
+        
+        def since_scope(time)
+          {:find => {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", time]}}
+        end
+        
+        def users_scope(users)
+          {:find => {:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", users.map(&:id)]}}
+        end
+        
+        def recents(user)
+          with_scope since_scope(user.previous_login_at) do
+            with_scope users_scope(user.friends) do
+              find :all
+            end
+          end
+        end
+        
       end
       
     end
