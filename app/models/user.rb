@@ -17,11 +17,19 @@ class User < ActiveRecord::Base
     end
   end
   
-  validates_presence_of :first_name, :last_name, :display_name, :email, :secret_id, :password
-  validates_uniqueness_of :email, :message => "is already registered. <a href=\"mailto:help@ordinaryzelig.org\">email me</a> and i'll set you up."
+  validates_presence_of :first_name, :last_name, :display_name, :email, :secret_id
+  validates_uniqueness_of :email, :message => "is already registered."
   validates_uniqueness_of :display_name, :message => "is already taken."
   validates_format_of :email, :with => %r{.+@.+\..*}
   attr_accessor :unhashed_password
+  
+  def self.new_registrant(attributes, confirmation_password)
+    user = new attributes
+    user.valid?
+    user.errors.add nil, "password can't be blank" if user.unhashed_password.blank?
+    user.errors.add nil, "passwords don't match" if user.errors.empty? && user.unhashed_password != confirmation_password
+    user
+  end
   
   def before_validation_on_create
     generate_secret_id

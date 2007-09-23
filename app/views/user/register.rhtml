@@ -8,7 +8,7 @@
     </tr>
     <tr>
       <td align=right>confirm password:</td>
-      <td><%= password_field(:user, :confirmation_password) %></td>
+      <td><%= password_field_tag(:confirmation_password) %></td>
     </tr>
     <tr>
       <td></td>
@@ -17,4 +17,4 @@
   </table>
 <% end -%>
 <br/>
-internet explorer users be warned: this site was tested mostly with safari and <%= link_to("firefox", url_for("http://mozilla.com")) %> and not so much with IE.
+this site was tested mostly with <%= link_to("safari", "http://www.apple.com/safari/") %> and <%= link_to("firefox", url_for("http://mozilla.com")) %> and not so much with inernet explorer because nobody likes IE.

@@ -48,13 +48,8 @@ class UserController < ApplicationController
   
   # new user creates own user record.
   def register
-    if request.get?
-      @user = User.new
-    else
-    # post.
-      @user = User.new(params[:user])
-      params[:user] = nil # just in case.
-      @user.needs_password_confirmation = true
+    @user = params[:user] ? User.new_registrant(params[:user], params[:confirmation_password]) : User.new
+    if request.post?
       if @user.save
         flash[:success] = "registration successful."
         logged_in(@user)
