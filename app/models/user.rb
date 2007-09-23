@@ -195,12 +195,12 @@ class User < ActiveRecord::Base
   end
   
   def set_password(pword)
-    self.password = hash(pword)
+    pword.blank? ? errors.add(nil, "password can't be blank") : self.password = hash(pword)
   end
   
   def set_password!(pword)
     set_password pword
-    save!
+    save
   end
   
   def change_password(old_pword, new_pword, confirmation_pword)

@@ -174,6 +174,16 @@ class AdminController < ApplicationController
     redirect_to(:action => "buy_ins")
   end
   
+  def set_password
+    @user = User.find_by_id(params[:id])
+    if request.post?
+      if @user.set_password!(params[:new_password])
+        flash[:success] = "password set"
+        redirect_to :action => 'users'
+      end
+    end
+  end
+  
   private
   
   # return the lowest number that isn't taken.
