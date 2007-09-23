@@ -49,7 +49,7 @@
     <% if is_self?(@user) -%>
       <%= link_to("friends' blogs", :controller => "blog", :action => "friends_blogs", :id => @user.id) %>
       <div style="padding-left: 10mm;">
-        <%= render :partial => 'blog_list', :locals => {:blogs => @user.friends_blogs.sort { |a, b| b.created_at <=> a.created_at }[0..4]} %>
+        <%= render :partial => 'blog_list', :locals => {:blogs => @user.friends.blogs[0..4]} %>
       </div>
     <% end -%>
   <% else -%>

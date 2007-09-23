@@ -12,7 +12,7 @@ module UserHelper
   end
   
   def link_to_considering_friends(str, user, hide_mutual_friends = false)
-    link_to(str, :action => "friends_to", :id => @user.id, :hide_mutual_friends => hide_mutual_friends)
+    link_to(str, :action => "friends_to", :hide_mutual_friends => hide_mutual_friends)
   end
   
 end

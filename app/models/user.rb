@@ -5,7 +5,16 @@ class User < ActiveRecord::Base
   has_many :pool_users, :order => "season_id"
   has_many :accounts
   has_one :user_activity
-  has_many :friendships, :foreign_key => "user_id"
+  has_many :friendships, :foreign_key => "user_id" do
+    def blogs
+      return @blogs || [] if @blogs || empty?
+      user = first.user
+      @blogs = friends.map { |friend| friend.blogs.readable_by(user) }
+    end
+    def friends
+      map(&:user)
+    end
+  end
   has_many :friends, :through => :friendships, :order => "lower(last_name)"
   has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id" do
     def not_mutual
@@ -15,7 +24,11 @@ class User < ActiveRecord::Base
     end
   end
   has_many :considering_friends, :through => :considering_friendships, :order => "lower(last_name)"
-  has_many :blogs
+  has_many :blogs do
+    def readable_by(user)
+      self.select { |blog| user.can_read?(blog) }
+    end
+  end
   has_many :movie_ratings, :include => :movie
   has_many :read_items do
     def entities
@@ -189,10 +202,6 @@ class User < ActiveRecord::Base
   
   def movies_with_ratings
     movie_ratings.sort { |a, b| b.created_at <=> a.created_at }.map { |rating| rating.movie }.uniq
-  end
-  
-  def friends_blogs
-    mutual_friends.map(&:blogs).flatten.sort { |a, b| b.created_at <=> a.created_at }
   end
   
   def generate_secret_id
