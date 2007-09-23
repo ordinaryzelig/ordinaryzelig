@@ -184,6 +184,11 @@ class AdminController < ApplicationController
     end
   end
   
+  def new_user
+    @user = params[:user] ? User.new(params[:user]) : User.new
+    flash[:success] = "user #{@user.id} created." and redirect_to(:controller => "admin", :action => "users") if request.post? && @user.save
+  end
+  
   private
   
   # return the lowest number that isn't taken.

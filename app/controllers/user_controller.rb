@@ -3,8 +3,6 @@ class UserController < ApplicationController
   before_filter :require_authentication, :except => [:register, :test]
   skip_after_filter :mark_requested_page, :only => [:register]
   
-  ADMIN_ACTIONS = ["new"]
-  
   def index
     redirect_to(:action => "profile", :id => logged_in_user.id)
   end
@@ -53,19 +51,6 @@ class UserController < ApplicationController
       if @user.save
         flash[:success] = "registration successful."
         logged_in(@user)
-      end
-    end
-  end
-  
-  def new
-    if request.get?
-      @user = User.new
-    else
-    # post.
-      @user = User.new(params[:user])
-      if @user.save
-        flash[:success] = "user #{@user.id} created."
-        redirect_to(:controller => "admin", :action => "users")
       end
     end
   end

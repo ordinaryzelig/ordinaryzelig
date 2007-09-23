@@ -1,7 +1,7 @@
 <%= error_messages(@user) %>
 <% form_tag do -%>
   <table style="background: none;">
-    <%= render(:partial => "user") %>
+    <%= render :partial => 'shared/user_form', :locals => {:user => @user} %>
     <tr>
       <td align=right>password:</td>
       <td><%= password_field(:user, :unhashed_password) %></td>
