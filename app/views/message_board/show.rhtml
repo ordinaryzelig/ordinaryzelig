@@ -1,12 +1,12 @@
 <% content_for :banner do -%>
   
-  <div style="border: .5mm solid black;">
+  <div style="border: .5mm solid black; background: white;">
     
     <div id="banner">
       <div style="font-weight: bold;"><%= @message.subject %></div>
       <div style="font-size: 10pt;">
-        <%= link_to_profile(@message.poster) %><br/>
-        <%= clickable_time(@message.posted_at, true, nil) %>
+        <%= link_to_profile(@message.user) %><br/>
+        <%= clickable_time(@message.created_at, true, nil) %>
       </div>
     </div>
     

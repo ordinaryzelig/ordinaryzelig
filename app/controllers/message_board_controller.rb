@@ -5,7 +5,7 @@ class MessageBoardController < ApplicationController
   ADMIN_ACTIONS = ["edit"]
   
   def index
-    @messages_pages, @messages = paginate(:messages, :order => "posted_at desc")
+    @messages_pages, @messages = paginate(:messages, :order => "created_at desc")
     @page_title = "message board"
     render(:layout => false) if request.xhr?
   end
@@ -19,7 +19,7 @@ class MessageBoardController < ApplicationController
       @message = Message.new
     else
       @message = Message.new(params[:message])
-      @message.poster = logged_in_user
+      @message.user = logged_in_user
       if @message.save
         redirect_to(:action => "index")
       end

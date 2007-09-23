@@ -14,10 +14,6 @@ class Movie < ActiveRecord::Base
   end
   can_be_summarized_by :title => :title, :what => what_proc, :who => nil, :enable_html => true
   
-  has_recency :user => proc { |user| recent_ratings(user).last.user },
-              :time => proc { |user| recent_ratings(user).last.created_at },
-              :block => proc { |user| !recent_ratings(user).empty? }
-  
   def before_save
     self.imdb_id = nil if self.imdb_id.blank?
   end
@@ -58,10 +54,6 @@ class Movie < ActiveRecord::Base
         a.user_id <=> b.user_id
       end
     end
-  end
-  
-  def self.recents(user)
-    find(:all, :include => {:ratings => :user}).select { |movie| movie.is_recent?(user) }
   end
   
   def to_s

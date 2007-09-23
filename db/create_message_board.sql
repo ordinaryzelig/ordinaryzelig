@@ -7,6 +7,6 @@ CREATE TABLE message_board.messages (
     parent_id integer REFERENCES message_board.messages (id) ON DELETE CASCADE,
     subject varchar(100),
     body text,
-    posted_by_user_id integer REFERENCES users.users (id),
+    user_id integer REFERENCES users.users (id),
     posted_at timestamp with time zone DEFAULT current_timestamp
 );

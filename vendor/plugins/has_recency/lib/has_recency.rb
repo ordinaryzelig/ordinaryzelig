@@ -8,7 +8,7 @@ module OrdinaryZelig
     
     module ClassMethods
       
-      def has_recency(options = [])
+      def has_recency(options = {})
         object_types = [:user, :time, :block]
         defaults = {:user => :user, :time => :created_at}
         # each model that has_recency will include a unique Module that defines recency_user_obj and recency_time_obj.
@@ -19,16 +19,15 @@ module OrdinaryZelig
         defaults.each { |key, value| def_meth(key, value) unless method_defined?("recency_#{key}_obj") }
         include OrdinaryZelig::HasRecency::InstanceMethods
         @has_recency = true
+        def recents(user)
+          find(:all, :include => :user).select { |obj| obj.is_recent?(user) }
+        end
       end
       
-      def def_meth(key, value, mod)
+      def def_meth(key, value)
         define_method "recency_#{key}_obj", value.is_a?(Proc) ? value : eval("Proc.new { #{value} }")
       end
-      private_class_method def_meth
-      
-      def recents(user)
-        find(:all, :include => :user).select { |obj| obj.is_recent?(user) }
-      end
+      private :def_meth
       
       def has_recency?
         @has_recency || false
