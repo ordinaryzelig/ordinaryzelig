@@ -23,3 +23,5 @@ more centering
 entity.is_recent? => not if already read.
 
 'mark as read' link at actual page (and comment)
+
+see if there's anything about populating created_at

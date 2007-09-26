@@ -188,15 +188,16 @@ class User < ActiveRecord::Base
   end
   
   def recents
+    return @recents if @recents
     if previous_login_at
-      recents = RecentEntityType.find(:all).map(&:entity_type).map do |entity_type|
+      @recents = RecentEntityType.find(:all).map(&:entity_type).map do |entity_type|
         entity_type.entity_class.recents(self)
       end.flatten.sort { |a, b| b.recency_time_obj(self) <=> a.recency_time_obj(self) }
       read_entities = read_items.entities
-      recents.delete_if { |ent| read_entities.include?(ent) }
-      recents
+      @recents.delete_if { |ent| read_entities.include?(ent) }
+      @recents
     else
-      []
+      @recents = []
     end
   end
   

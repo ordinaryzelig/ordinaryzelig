@@ -1,1 +1,0 @@
-refactor is_recent? to just calling Class.recents and seeing if it's included???

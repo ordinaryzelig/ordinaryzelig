@@ -6,3 +6,5 @@ color code what is restricted
 once established, handle whether a model can be recent if there is a comment to that model by someone who is not a friend.
 
 require login for important actions like editing profile after, say, 1 hour.
+
+attr_accessible (http://media.railscasts.com/ipod_videos/026_hackers_love_mass_assignment.m4v)
