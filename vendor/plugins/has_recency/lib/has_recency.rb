@@ -8,13 +8,12 @@ module OrdinaryZelig
     
     module ClassMethods
       
-      def has_recency(options = {}, &block)
-        object_types = [:user_obj, :user_obj_name, :time_obj, :time_obj_name, :block]
+      def has_recency(options = {})
+        object_types = [:user_obj, :user_obj_name, :time_obj, :time_obj_name]
         defaults = {:user_obj => :user,
                     :user_obj_name => "#{options[:user_obj] || :user}_id",
                     :time_obj => :created_at,
                     :time_obj_name => options[:time_obj] || 'created_at'}
-        options[:block] = &block if block_given?
         options.each do |key, value|
           raise "unrecognized recency object type '#{key}'." unless object_types.include?(key)
           def_meth key, value
@@ -24,12 +23,8 @@ module OrdinaryZelig
         @has_recency = true
         def self.recents(user, *more_scopes)
           return @recents if @recents
-          all_scopes = if block_given?
-            yield user
-          else
-            [{:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)]},
-             {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]}]
-          end
+          all_scopes = [{:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)]},
+                       {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]}]
           find_all_with_scopes *(all_scopes + more_scopes)
         end
       end
