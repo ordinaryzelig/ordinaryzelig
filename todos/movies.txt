@@ -7,6 +7,9 @@ add new rating types
       hype
       quotability
       user submitted
+      music overall
+      score
+      soundtrack
    
 handle spoilers?
 

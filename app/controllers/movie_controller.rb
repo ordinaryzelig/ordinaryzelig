@@ -15,7 +15,7 @@ class MovieController < ApplicationController
   
   def rating
     @rating = MovieRating.find_by_id(params[:id])
-    unless @rating && @rating.summary
+    unless @rating
       flash[:failure] = "rating not found."
       redirect_to(:action => "ratings")
       return

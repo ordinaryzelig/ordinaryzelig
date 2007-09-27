@@ -3,7 +3,9 @@
   <div style="border: .5mm solid black; background: white;">
   
     <div id="banner">
-      <%= @rating.summary %><br/>
+      <% if @rating.summary -%>
+        <%= @rating.summary %><br/>
+      <% end -%>
       <span style="font-size: 12pt">
         <%= link_to(@page_title, :action => "show", :id => @rating.movie_id) %><br/>
         <%= @rating %><br/>
