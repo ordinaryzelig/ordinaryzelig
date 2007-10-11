@@ -14,8 +14,6 @@ profile url for display name.
 
 split profile into you and friend columns?
 
-put switch_time javascript function in a js file.
-
 has_recency :block -> has_recency do |user| end
 
 more centering
