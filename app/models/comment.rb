@@ -9,6 +9,8 @@ class Comment < ActiveRecord::Base
   
   belongs_to :user
   validates_presence_of :comment, :user_id, :created_at
+  
+  attr_accessible :comment
   attr_accessor :entity_type, :entity_id
   
   def before_validation_on_create

@@ -10,6 +10,8 @@ class Blog < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :created_at, :title, :body, :user_id
   
+  attr_accessible :title, :body
+  
   def before_validation_on_create
     self.created_at ||= Time.now.localtime
   end

@@ -14,6 +14,8 @@ class Movie < ActiveRecord::Base
   end
   can_be_summarized_by :title => :title, :what => what_proc, :who => nil, :enable_html => true
   
+  attr_accessible :title
+  
   def before_save
     self.imdb_id = nil if self.imdb_id.blank?
   end

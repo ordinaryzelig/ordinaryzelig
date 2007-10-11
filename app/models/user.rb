@@ -40,7 +40,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :message => "is already registered."
   validates_uniqueness_of :display_name, :message => "is already taken."
   validates_format_of :email, :with => %r{.+@.+\..*}
-  attr_accessor :unhashed_password
+  
+  attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password
+  
+  attr_accessor :unhashed_password, :password, :is_admin
   
   def self.new_registrant(attributes, confirmation_password)
     user = new attributes
@@ -96,10 +99,6 @@ class User < ActiveRecord::Base
   
   def is_master?
     User::master_id == id
-  end
-  
-  def is_admin_or_master?
-    is_admin? || is_master?
   end
   
   # return seasons that user is not participating in.

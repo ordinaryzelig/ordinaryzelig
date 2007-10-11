@@ -67,7 +67,9 @@ class UserController < ApplicationController
   
   def add_friend
     if request.xhr?
-      friendship = Friendship.new(:user => logged_in_user, :friend_id => params[:id])
+      friendship = Friendship.new
+      friendship.user = logged_in_user
+      friendship.friend_id = params[:id].to_s
       friendship.save!
       render(:partial => "add_remove_friend", :locals => {:friend => friendship.friend})
     end

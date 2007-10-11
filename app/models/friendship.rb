@@ -1,5 +1,7 @@
 class Friendship < ActiveRecord::Base
   
+  include ActionView::Helpers::UrlHelper
+  
   belongs_to :user
   belongs_to :friend, :class_name => "User", :foreign_key => "friend_id"
   belongs_to :considering_friend, :class_name => "User", :foreign_key => "user_id"
@@ -13,8 +15,6 @@ class Friendship < ActiveRecord::Base
                        :who => nil
   can_be_syndicated_by :title => proc { "#{user.first_last} added you as a friend." },
                        :link => proc { {:controller => 'user', :action => 'profile', :id => user.id} }
-  
-  include ActionView::Helpers::UrlHelper
   
   def before_validation_on_create
     self.created_at ||= Time.now.localtime

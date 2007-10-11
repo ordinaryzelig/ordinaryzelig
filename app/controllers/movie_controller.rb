@@ -29,8 +29,15 @@ class MovieController < ApplicationController
   def edit_rating
     @rating_type = MovieRatingType.find_by_id(params[:rating_type_id])
     @movie = Movie.find_by_id(params[:movie_id])
-    @movie_rating = @movie.existing_rating(logged_in_user.id, @rating_type.id) ||
-                    MovieRating.new(:movie_id => @movie.id, :movie_rating_type_id => @rating_type.id, :user_id => logged_in_user.id)
+    existing_rating = @movie.existing_rating(logged_in_user.id, @rating_type.id)
+    if existing_rating
+      @movie_rating = existing_rating
+    else
+      @movie_rating = MovieRating.new
+      @movie_rating.movie_id = @movie.id
+      @movie_rating.movie_rating_type_id = @rating_type.id
+      @movie_rating.user_id = logged_in_user.id
+    end
     @page_title = "#{@movie.title} - #{@rating_type.name} rating"
     if request.post?
       @movie_rating.attributes = params[:movie_rating]
@@ -73,7 +80,7 @@ class MovieController < ApplicationController
   end
   
   def new
-    @movie = Movie.new(params[:movie] ? params[:movie] : nil)
+    @movie = Movie.new(params[:movie])
     redirect_to(:action => "show", :id => @movie.id) if request.post? && @movie.save
   end
   

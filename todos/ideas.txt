@@ -19,3 +19,9 @@ who's reading what?
 
 new favorite ...
 	'make new favorite'
+
+import other blogs?
+
+rss customization
+   only blogs/movie reviews/etc.
+   only blogs from...

@@ -1,5 +1,7 @@
 class MovieRating < ActiveRecord::Base
   
+  include ActionView::Helpers::TagHelper
+  
   belongs_to :movie
   belongs_to :rating_type, :class_name => "MovieRatingType", :foreign_key => "movie_rating_type_id", :include => :rating_options
   belongs_to :user
@@ -21,7 +23,8 @@ class MovieRating < ActiveRecord::Base
   has_nested_comments
   preview_using :explanation
   can_be_marked_as_read
-  include ActionView::Helpers::TagHelper
+  
+  attr_accessible :rating, :summary, :explanation
   
   def before_validation_on_create
     self.created_at = Time.now.localtime if self.created_at.nil? || new_record?
