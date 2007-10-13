@@ -1,6 +1,5 @@
 action mailer
    new user confirmation?
-   errors
    new items
 
 one_line_summary
@@ -18,10 +17,8 @@ has_recency :block -> has_recency do |user| end
 
 more centering
 
-entity.is_recent? => not if already read.
-
-'mark as read' link at actual page (and comment)
-
 see if there's anything about populating created_at
 
 after hiding flash, pulsate notifications.
+
+movie rating best of

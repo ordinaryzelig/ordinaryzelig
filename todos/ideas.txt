@@ -27,3 +27,5 @@ rss customization
    only blogs from...
 
 when recent comment clicked from profile, go to page AND go to comment.
+
+link to pictures.
