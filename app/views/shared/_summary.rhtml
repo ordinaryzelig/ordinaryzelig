@@ -8,7 +8,7 @@
   
   <div class=listingSection style="<%= recent_background_color(entity) %>">
     
-    <%= content_tag :div, mark_as_read_link(entity, show_type), :style => 'float: right;' if logged_in_user && entity.class.has_recency? && entity.is_recent?(logged_in_user) -%>
+    <%= mark_as_read_div if logged_in_user && entity.class.has_recency? && entity.is_recent?(logged_in_user) -%>
     
     <% #========================================= -%>
     <% # title. -%>

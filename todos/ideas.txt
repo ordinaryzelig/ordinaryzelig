@@ -25,3 +25,5 @@ import other blogs?
 rss customization
    only blogs/movie reviews/etc.
    only blogs from...
+
+when recent comment clicked from profile, go to page AND go to comment.

@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
         []
       else
         user = first.entity.user
-        entities.select { |entity| entity.created_at >= entity.user.previous_login_at }
+        self.select { |ri| ri.read_at >= user.previous_login_at }.map(&:entity)
       end
     end
   end

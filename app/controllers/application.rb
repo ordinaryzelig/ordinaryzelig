@@ -11,11 +11,10 @@ class ApplicationController < ActionController::Base
       @entity = Object.const_get(params[:entity_type]).find_by_id(params[:id])
       @entity.mark_as_read(logged_in_user)
       render :update do |page|
+        page.replace_html "markAsReadLink_#{@entity.div_id}", 'read'
         if params[:hide_entity]
           page[@entity.div_id].visual_effect(:switch_off)
           page.replace_html :recentItemsCount, pluralize(logged_in_user.recents.size, 'recent item')
-        else
-          page.replace_html "markAsReadLink_#{@entity.div_id}", 'read'
         end
       end
     end

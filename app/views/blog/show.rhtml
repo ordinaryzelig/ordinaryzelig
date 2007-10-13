@@ -10,7 +10,8 @@
         <span style="font-weight: bold;"><%= h(@blog.title) %></span><br/>
         <div style="font-size: 50%;">
           <%= link_to_profile(@blog.user) %><br/>
-          <%= clickable_time(@blog.created_at, true, nil) %>
+          <%= clickable_time(@blog.created_at, true, nil) %><br/>
+          <%= mark_as_read_link @blog if @blog.is_recent?(logged_in_user) %>
         </div>
       </div>
       

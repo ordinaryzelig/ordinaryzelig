@@ -124,6 +124,10 @@ module ApplicationHelper
     content_tag :span, link, :style => 'font-size: 75%;', :id => "markAsReadLink_#{entity.div_id}"
   end
   
+  def mark_as_read_div(entity, hide_entity = false)
+    content_tag :div, mark_as_read_link(entity, hide_entity), :style => 'float: right;'
+  end
+  
   def simp_san(text)
     simple_format(sanitize(text))
   end
