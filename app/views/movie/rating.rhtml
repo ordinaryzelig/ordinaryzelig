@@ -10,7 +10,8 @@
         <%= link_to(@page_title, :action => "show", :id => @rating.movie_id) %><br/>
         <%= @rating %><br/>
         <%= link_to_profile(@rating.user) %><br/>
-        <%= clickable_time(@rating.created_at, true, nil) %>
+        <%= clickable_time(@rating.created_at, true, nil) %><br/>
+        <%= mark_as_read_link @rating if @rating.is_recent?(logged_in_user) %>
       </span>
     </div>
     
