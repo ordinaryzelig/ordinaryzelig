@@ -20,6 +20,17 @@ module OrdinaryZelig
         @is_entity_type || false
       end
       
+      def is_polymorphic
+        @is_polymorphic = true
+        belongs_to :entity, :polymorphic => true
+        validates_presence_of :entity_type
+        validates_presence_of :entity_id
+      end
+      
+      def is_polymorphic?
+        @is_polymorphic ||= false
+      end
+      
     end
     
     module InstanceMethods

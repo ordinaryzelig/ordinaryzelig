@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
     def entities
       map(&:entity)
     end
+    def entities_since_previous_login
+      if empty?
+        []
+      else
+        user = first.entity.user
+        entities.select { |entity| entity.created_at >= entity.user.previous_login_at }
+      end
+    end
   end
   
   validates_presence_of :first_name, :last_name, :display_name, :email, :secret_id
@@ -192,8 +200,6 @@ class User < ActiveRecord::Base
       @recents = RecentEntityType.find(:all).map(&:entity_type).map do |entity_type|
         entity_type.entity_class.recents(self)
       end.flatten.sort { |a, b| b.recency_time_obj(self) <=> a.recency_time_obj(self) }
-      read_entities = read_items.entities
-      @recents.delete_if { |ent| read_entities.include?(ent) }
       @recents
     else
       @recents = []

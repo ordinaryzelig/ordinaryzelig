@@ -25,7 +25,8 @@ module OrdinaryZelig
           return @recents if @recents
           all_scopes = [{:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)]},
                        {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]}]
-          find_all_with_scopes *(all_scopes + more_scopes)
+          @recents = find_all_with_scopes *(all_scopes + more_scopes)
+          @recents.delete_if { |r| user.read_items.entities_since_previous_login.include?(r) }
         end
       end
       
