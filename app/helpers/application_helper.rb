@@ -116,10 +116,12 @@ module ApplicationHelper
     "background-color: #{color};" if color
   end
   
-  def mark_as_read_link(entity, hide = false)
-    link = link_to_remote('mark as read', {:url => {:action => 'mark_entity_as_read', :entity_type => entity.class, :id => entity.id},
-                                           :before => visual_effect(:switch_off, entity.div_id)})
-    content_tag :span, link, :style => 'font-size: 75%;'
+  def mark_as_read_link(entity, hide_entity = false)
+    link = link_to_remote('mark as read', {:url => {:action => 'mark_entity_as_read',
+                                                    :entity_type => entity.class,
+                                                    :id => entity.id,
+                                                    :hide_entity => hide_entity || nil}})
+    content_tag :span, link, :style => 'font-size: 75%;', :id => "markAsReadLink_#{entity.div_id}"
   end
   
   def simp_san(text)

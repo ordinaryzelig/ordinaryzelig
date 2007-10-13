@@ -27,7 +27,7 @@
 
 <% if is_self?(@user) -%>
   <div class=profileSection>
-    <%= pluralize(@recents.size, "recent item") %>
+    <div id="recentItemsCount"><%= pluralize(@recents.size, "recent item") %></div>
     <% @recents.each do |obj| -%>
       <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_who => true, :show_name => true, :show_type => true}) %>
     <% end -%>
