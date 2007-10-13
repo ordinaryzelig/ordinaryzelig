@@ -7,10 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_logged_in_as_admin?, :logged_in_as_admin?, :read_entities
   
   def mark_entity_as_read
-    if request.xhr?
-      Object.const_get(params[:entity_type]).find_by_id(params[:id]).mark_as_read(logged_in_user)
-      render(:nothing => true)
-    end
+    Object.const_get(params[:entity_type]).find_by_id(params[:id]).mark_as_read(logged_in_user) if request.xhr?
   end
   
   protected

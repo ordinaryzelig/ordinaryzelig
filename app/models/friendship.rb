@@ -15,6 +15,7 @@ class Friendship < ActiveRecord::Base
                        :who => nil
   can_be_syndicated_by :title => proc { "#{user.first_last} added you as a friend." },
                        :link => proc { {:controller => 'user', :action => 'profile', :id => user.id} }
+  is_entity_type
   
   def before_validation_on_create
     self.created_at ||= Time.now.localtime

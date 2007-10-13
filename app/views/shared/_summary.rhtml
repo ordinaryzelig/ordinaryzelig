@@ -2,7 +2,7 @@
 <% show_name ||= false -%>
 <% show_type ||= false -%>
 
-<div class=listing id="<%= summary_div_id(entity) %>">
+<div class=listing id="<%= entity.div_id %>">
   
   <%= content_tag(:div, entity.class.to_s, :class => "listingSection", :style => "background: lightblue; font-size: 10pt;") if show_type %>
   

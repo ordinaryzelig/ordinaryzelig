@@ -13,6 +13,7 @@ class Movie < ActiveRecord::Base
     [pluralize(ratings.size, 'rating'), ratings_strs.join("<br>")].join("<br>") << "<br>"
   end
   can_be_summarized_by :title => :title, :what => what_proc, :who => nil, :enable_html => true
+  is_entity_type
   
   attr_accessible :title
   

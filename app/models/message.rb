@@ -12,6 +12,7 @@ class Message < ActiveRecord::Base
   preview_using :body
   can_be_marked_as_read
   nil_if_blank
+  is_entity_type
   
   belongs_to :user
   

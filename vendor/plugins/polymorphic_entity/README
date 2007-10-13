@@ -1,0 +1,61 @@
+PolymorphicEntity
+
+
+
+==========
+SHORT, VISUAL DESCRIPTION
+
+   migrate the following table (the data is just for the following example).
+   ---------------
+   | entity_types |
+   ---------------
+   | id |  name   |
+   -----|---------|
+   | 1  | Plate   |
+   | 2  | Chip    |
+   ---------------
+   Plate model 'has_entity_type'
+   plate_active_record.entity_type returns EntityType(:id => 1, :name => "Plate")
+
+
+
+==========
+LONG, MORE EXPLANATORY DESCRIPTION
+
+   we here at the LGS like foreign keys.  but rails' system of polymorphic models isn't as tight as we would like it to be.
+   let's say we have a table 'tasks'.  a task can be conducted on several different model types (e.g. Plate, Chip, etc.).
+   the rails way is to make an association in the Task model:
+      has_one :entity, :polymorphic => true.
+   if, for example, when you save a task for a Plate, tasks.entity_type will store "Plate" instead of our preferred entity_types.id.
+   but we play nice with rails.
+   so we just put a foreign key on tasks.entity_type that references entity_types.name.
+
+   now, there may be occasion where you would need to retrieve an EntityType object from an ActiveRecord::Base object.
+   to do that, in the model definition, declare that the model 'has_entity_type'.
+   that will inject a method called 'entity_type' which returns the EntityType object.
+
+
+
+==========
+INSTALL
+
+   make link to entity_type.rb in app/models.
+   if you have to make app specific code changes, move the file entirely.
+   the link just makes it more 'pluggin-like' in case the plugin code changes, you don't have to do anything.
+   here's more on the issue: http://localhost3000.de/2007/04/17/acts_as_commentable-reload-fubar/
+   
+   link to migration file
+   be sure to use the correct version numbers.
+
+   
+
+==========
+HOW TO USE
+
+   add 'has_entity_type' to model definition.
+   
+   an instance of that model can call entity_type which returns an EntityType object.
+   find_options is passed to with_scope method
+   
+   an EntityType instance can call entity_class() to get the class for that entity_type.
+   e.g. an entity_type instance of "Plate" that calls entity_class() would return a Plate class.

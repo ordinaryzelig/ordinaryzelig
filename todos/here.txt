@@ -1,0 +1,2 @@
+mark as read on actual page
+   use rjs

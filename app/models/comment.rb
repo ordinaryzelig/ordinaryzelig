@@ -6,6 +6,7 @@ class Comment < ActiveRecord::Base
   can_be_syndicated_by :title => proc { "comment for #{entity.class}: #{entity.summarize_title}" }, :link => proc { entity.syndicate_link }, :description => proc { comment }
   preview_using :comment
   can_be_marked_as_read
+  is_entity_type
   
   belongs_to :user
   validates_presence_of :comment, :user_id, :created_at

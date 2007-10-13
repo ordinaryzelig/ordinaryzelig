@@ -116,19 +116,10 @@ module ApplicationHelper
     "background-color: #{color};" if color
   end
   
-  def comment_summary(comment)
-    who_when = content_tag(:span, "#{link_to_profile(comment.summarize_who)} - #{clickable_time(comment.summarize_when, nil, nil)}", :style => "font-size: 60%; color: gray;")
-    content_tag :div, ["#{comment.summarize_what}...", '-', who_when, mark_as_read_link(comment)].join(" "), :id => summary_div_id(comment)
-  end
-  
-  def mark_as_read_link(entity)
+  def mark_as_read_link(entity, hide = false)
     link = link_to_remote('mark as read', {:url => {:action => 'mark_entity_as_read', :entity_type => entity.class, :id => entity.id},
-                                           :before => visual_effect(:switch_off, summary_div_id(entity))})
+                                           :before => visual_effect(:switch_off, entity.div_id)})
     content_tag :span, link, :style => 'font-size: 75%;'
-  end
-  
-  def summary_div_id(entity)
-    "#{entity.class}_#{entity.id}_summary"
   end
   
   def simp_san(text)
