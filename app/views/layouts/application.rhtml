@@ -15,7 +15,7 @@
     <% #=================================================== %>
     <% # sidebar. -%>
     
-    <%= render(:partial => "shared/sidebar") %>
+    <%= render(:partial => "shared/sidebar") unless @hide_sidebar %>
     
     <% #=================================================== %>
     <% # main. -%>

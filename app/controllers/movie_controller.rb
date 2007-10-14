@@ -114,7 +114,7 @@ class MovieController < ApplicationController
   
   def scales
     @page_title = 'movie rating scales'
-    render :layout => false
+    @hide_sidebar = true
   end
   
 end

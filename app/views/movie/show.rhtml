@@ -7,7 +7,7 @@
   <table id="ratingsTable">
     <% # headers. -%>
     <tr>
-      <td style="font-size: 75%; border: none; background: beige;"><%= link_to 'scales', {:action => 'scales'}, :popup => true %></td>
+      <td style="font-size: 75%; border: none; background: beige;"></td>
       <th><%= link_to_if(logged_in_user, "everyone", :filter_type => params[:filter_type]) %></th>
       <% if logged_in_user -%>
         <th><%= link_to("friends", :filter_who => "friends", :filter_type => params[:filter_type]) %></th>
@@ -36,6 +36,11 @@
         <% end -%>
       </tr>
     <% end -%>
+    <tr>
+      <% 4.times do |i| -%>
+        <td style="font-size: 75%; border: none; background: beige;"><%= link_to 'scales', {:action => 'scales'}, :popup => true if 0 == i %></td>
+      <% end -%>
+    </tr>
   </table>
   
 </div>

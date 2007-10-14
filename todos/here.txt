@@ -1,1 +1,2 @@
 rating type scales
+   don't make popup.  ajaxify it.
