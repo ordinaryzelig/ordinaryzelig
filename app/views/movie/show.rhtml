@@ -33,9 +33,9 @@
   
 </div>
 
-<%= pluralize(@ratings.size, 'rating') %>
+<%= pluralize(@filtered_ratings.size, 'rating') %>
 <%= content_tag :span, '(filtered)', :style => "font-size: 60%" if params[:filter_who] || params[:filter_type] %>
 
-<% @ratings.each do |rating| -%>
+<% @filtered_ratings.each do |rating| -%>
   <%= render(:partial => "shared/summary", :locals => {:entity => rating, :show_who => true}) %>
 <% end -%>

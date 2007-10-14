@@ -1,1 +1,1 @@
-movie rating types
+ratings table
