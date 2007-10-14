@@ -1,5 +1,3 @@
-<% hide_banner -%>
-
 <% MovieRatingType.find(:all, :include => :rating_options).each do |rating_type| -%>
   <p>
     <h3><%= rating_type %></h3>
