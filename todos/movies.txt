@@ -10,6 +10,6 @@ handle spoilers?
 
 clickable stars or other type of GUI
 
-rating scales with descriptions
-
 was this rating useful?
+
+movie rating best of
