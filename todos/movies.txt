@@ -2,27 +2,14 @@ who will like it
 
 smokin aces = traffic + ocean's 11
 
-add new rating types
-   types
-      hype
-      quotability
-      user submitted
-      music overall
-      score
-      soundtrack
-   
+new rating types
+   hype
+   user submitted
+
 handle spoilers?
 
 clickable stars or other type of GUI
 
 rating scales with descriptions
-
-highlight appropriately for ratings table.
-   highlight row/column if only one filter on.
-   if 2 filters on, highlight intersection.
-
-has_recency option and user preference to show new movies from everyone, not just friends.
-
-movie_rating.summarize_what = title || truncated explanation
 
 was this rating useful?

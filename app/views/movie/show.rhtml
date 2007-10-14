@@ -2,12 +2,12 @@
   <%= content_tag :div, link_to(@movie.title, :action => "show"), :id => 'banner' %>
 <% end -%>
 
-<div style="margin-bottom: 10mm;">
+<div style="margin-bottom: 10mm; margin-top: 10mm;">
   
   <table id="ratingsTable">
     <% # headers. -%>
     <tr>
-      <td style="background: beige; border: none;"></td>
+      <td style="font-size: 75%; border: none; background: beige;"><%= link_to 'scales', {:action => 'scales'}, :popup => true %></td>
       <th><%= link_to_if(logged_in_user, "everyone", :filter_type => params[:filter_type]) %></th>
       <% if logged_in_user -%>
         <th><%= link_to("friends", :filter_who => "friends", :filter_type => params[:filter_type]) %></th>

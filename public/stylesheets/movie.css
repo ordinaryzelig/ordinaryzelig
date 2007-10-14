@@ -11,3 +11,8 @@
 #ratingsTable{
     margin-left: auto; margin-right: auto;
 }
+
+.invisibleTableCell{
+    background: beige;
+    border: none;
+}

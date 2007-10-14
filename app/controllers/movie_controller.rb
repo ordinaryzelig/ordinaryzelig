@@ -11,6 +11,7 @@ class MovieController < ApplicationController
   def ratings
     @movies = Movie.by_latest_ratings
     @movies.reject! { |movie| movie.ratings.map { |rating| rating.user_id }.include?(params[:id].to_i) } if params[:id]
+    @page_title = 'movie ratings'
   end
   
   def rating
@@ -109,6 +110,11 @@ class MovieController < ApplicationController
   def user_ratings
     @user = User.find_by_id(params[:id], :include => :movie_ratings)
     @page_title = "movie ratings - #{@user.display_name}"
+  end
+  
+  def scales
+    @page_title = 'movie rating scales'
+    render :layout => false
   end
   
 end

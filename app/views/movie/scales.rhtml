@@ -1,0 +1,8 @@
+<% MovieRatingType.find(:all, :include => :rating_options).each do |rating_type| -%>
+  <p>
+    <h3><%= rating_type %></h3>
+    <% rating_type.rating_options.sorted.each do |option| -%>
+      <%= "#{option.value}: #{option.description}" %><br/>
+    <% end -%><br/>
+  </p>
+<% end -%>
