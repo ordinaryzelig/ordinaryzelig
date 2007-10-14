@@ -5,6 +5,7 @@
 <div style="margin-bottom: 10mm;">
   
   <table id="ratingsTable">
+    <% # headers. -%>
     <tr>
       <td style="background: beige; border: none;"></td>
       <th><%= link_to_if(logged_in_user, "everyone", :filter_type => params[:filter_type]) %></th>
@@ -13,19 +14,25 @@
         <th><%= link_to("you", :filter_who => "you", :filter_type => params[:filter_type]) %></th>
       <% end -%>
     </tr>
+    <% # rows. -%>
     <% @rating_types.each do |rating_type| -%>
       <tr>
+        <% # rating type links. -%>
         <th>
-          <%= link_to(rating_type.name, :filter_type => rating_type.name) %>
+          <%= link_to(rating_type.name, :filter_type => rating_type.name, :filter_who => params[:filter_who]) %>
+          <% # remove filter link. -%>
           <% if params[:filter_type] == rating_type.name -%>
             <br/>
             <%= content_tag :span, link_to("remove filter", :filter_who => params[:filter_who]), :style => "font-size: 60%;" %>
           <% end -%>
         </th>
-        <td><%= rating_cell(@movie) { |rating| rating.rating_type == rating_type} %></td>
+        <% # everyone. -%>
+        <td style="<%= filtered_background_color(rating_type, 'everyone') %>"><%= rating_cell(@movie) { |rating| rating.rating_type == rating_type} %></td>
         <% if logged_in_user -%>
-          <td><%= rating_cell(@movie) { |rating| rating.rating_type == rating_type && logged_in_user.friends.include?(rating.user)} %></td>
-          <td><%= rating_link(@movie, rating_type) %></td>
+          <% # friends. -%>
+          <td style="<%= filtered_background_color(rating_type, 'friends') %>"><%= rating_cell(@movie) { |rating| rating.rating_type == rating_type && logged_in_user.friends.include?(rating.user)} %></td>
+          <% # you. -%>
+          <td style="<%= filtered_background_color(rating_type, 'you') %>"><%= rating_link(@movie, rating_type) %></td>
         <% end -%>
       </tr>
     <% end -%>

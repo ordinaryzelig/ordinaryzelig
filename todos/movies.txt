@@ -23,8 +23,6 @@ highlight appropriately for ratings table.
 
 has_recency option and user preference to show new movies from everyone, not just friends.
 
-ratings table doesn't look right when filtering.  e.g. filter for a rating type and the other type(s) will be blank with a 'rate it' link.
-
 movie_rating.summarize_what = title || truncated explanation
 
 was this rating useful?

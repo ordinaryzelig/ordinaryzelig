@@ -16,4 +16,17 @@ module MovieHelper
     end
   end
   
+  def filtered_background_color(rating_type, who)
+    type_filtered = params[:filter_type]
+    who_filtered = params[:filter_who]
+    type_matches = params[:filter_type] == rating_type.name
+    who_matches = params[:filter_who] == who
+    return unless type_matches || who_matches
+    if type_filtered && who_filtered && type_matches && who_matches ||
+       type_filtered && type_matches && !who_filtered ||
+       who_filtered && who_matches && !type_filtered
+      'background: lightblue;'
+    end
+  end
+  
 end
