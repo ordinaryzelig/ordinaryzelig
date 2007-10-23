@@ -37,7 +37,7 @@
       </tr>
     <% end -%>
     <tr>
-      <% 4.times do |i| -%>
+      <% (logged_in_user ? 4 : 2).times do |i| -%>
         <td style="font-size: 75%; border: none; background: beige;"><%= link_to 'scales', {:action => 'scales'}, :popup => true if 0 == i %></td>
       <% end -%>
     </tr>

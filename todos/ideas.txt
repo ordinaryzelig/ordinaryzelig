@@ -16,6 +16,7 @@ user search: link to 'first', 'last', 'display name' that will submit form for t
 option to make friends with anybody who makes friends with you.  also, button to make friends with all unmutual friends.
 
 who's reading what?
+   if entity.user is_self?, list readers?
 
 import other blogs?
 
@@ -48,3 +49,5 @@ profile url for display name.
 more centering
 
 after hiding flash, pulsate notifications.
+
+conversations (as opposed to the myspace comments or facebook wall)
