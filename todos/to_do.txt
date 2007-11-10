@@ -1,3 +1,2 @@
 add url to error notification
-
-ratings table has extra columns if not logged in.
+admin doesn't work

@@ -51,3 +51,7 @@ more centering
 after hiding flash, pulsate notifications.
 
 conversations (as opposed to the myspace comments or facebook wall)
+
+invitations
+
+random crap: if no controller found, or use public controller.

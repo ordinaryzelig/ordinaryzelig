@@ -49,9 +49,9 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :display_name, :message => "is already taken."
   validates_format_of :email, :with => %r{.+@.+\..*}
   
-  attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password
+  attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password, :is_admin
   
-  attr_accessor :unhashed_password, :password, :is_admin
+  attr_accessor :unhashed_password, :password
   
   def self.new_registrant(attributes, confirmation_password)
     user = new attributes

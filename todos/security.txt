@@ -1,19 +1,17 @@
-searchable
-entire profile
-blog
-friends
-color code what is restricted
 once established, handle whether a model can be recent if there is a comment to that model by someone who is not a friend.
 
 things that have security levels
    profile
+   searchable?
+   default
    friends
    blog
 security levels
-   nobody
+   nobody (self)
    friends
-   public
+   anybody
 user_security_items
-   user_id
-   security_entity_id
+   entity_type
+   entity_id
    security_level_id
+   (if entity is not found here, default to the user's profile security, which can be stored here.)
