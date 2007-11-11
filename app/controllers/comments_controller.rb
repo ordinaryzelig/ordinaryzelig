@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
         else
           @id_to_update = "comments"
         end
-        @comment.save
+        @comment.save!
         @rendered_partial = render_to_string(:partial => "comment", :locals => {:comment => @comment})
         render(:action => "post", :layout => false)
       else
