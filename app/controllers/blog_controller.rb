@@ -64,7 +64,7 @@ class BlogController < ApplicationController
   end
   
   def friends_blogs
-    @blogs = logged_in_user.friends_blogs
+    @blogs = logged_in_user.friends.blogs(logged_in_user)
     @page_title = "friends' blogs"
     render(:layout => false) if request.xhr?
   end

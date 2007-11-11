@@ -1,2 +1,1 @@
-add url to error notification
-admin doesn't work
+comments don't work.

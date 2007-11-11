@@ -5,24 +5,16 @@ class User < ActiveRecord::Base
   has_many :pool_users, :order => "season_id"
   has_many :accounts
   has_one :user_activity
-  has_many :friendships, :foreign_key => "user_id" do
-    def blogs
-      return @blogs || [] if @blogs || empty?
-      user = first.user
-      @blogs = friends.map { |friend| friend.blogs.readable_by(user) }.flatten
+  has_many :friendships, :foreign_key => "user_id"
+  has_many :friends, :through => :friendships, :order => "lower(last_name)" do
+    def blogs(user)
+      Blog.find(:all, :conditions => {:user_id => self.map(&:id)}, :order => 'created_at desc').select { |blog| user.can_read?(blog) }
     end
-    def friends
-      map(&:friend)
-    end
-  end
-  has_many :friends, :through => :friendships, :order => "lower(last_name)"
-  has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id" do
-    def not_mutual
-      return @not_mutual || [] if @not_mutual || empty?
-      user = first.friend
-      @not_mutual = reject { |considering_friendship| user.considers_friend?(considering_friendship.user) }
+    def mutual_friends_of(user)
+      self.select { |friend| friend.considers_friend?(user) }
     end
   end
+  has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :considering_friends, :through => :considering_friendships, :order => "lower(last_name)"
   has_many :blogs do
     def readable_by(user)
@@ -191,7 +183,7 @@ class User < ActiveRecord::Base
   end
   
   def can_read?(obj)
-    obj.recency_user_obj.is_friend_of?(self) && obj.is_a?(Comment) ? can_read?(obj.entity) : true
+    obj.recency_user_obj.considers_friend?(self) && (obj.is_a?(Comment) ? can_read?(obj.entity) : true)
   end
   
   def recents

@@ -47,9 +47,9 @@
     </div>
     
     <% if is_self?(@user) -%>
-      <%= link_to("friends' blogs", :controller => "blog", :action => "friends_blogs", :id => @user.id) %>
+      <%= link_to("friends' blogs", :controller => "blog", :action => "friends_blogs") %>
       <div style="padding-left: 10mm;">
-        <%= render :partial => 'blog_list', :locals => {:blogs => @user.friendships.blogs[0..4]} %>
+        <%= render :partial => 'blog_list', :locals => {:blogs => @user.friends.blogs(@user)[0..4]} %>
       </div>
     <% end -%>
   <% else -%>
@@ -83,6 +83,5 @@
   <% # friends of. -%>
   <% if is_self_or_logged_in_as_admin?(@user) -%>
     <%= link_to_considering_friends("people that consider you their friend: #{@user.considering_friends.size}", @user) %>
-    (<%= link_to_considering_friends("#{@user.considering_friendships.not_mutual.size} not mutual", @user, true) %>)
   <% end -%>
 </div>
