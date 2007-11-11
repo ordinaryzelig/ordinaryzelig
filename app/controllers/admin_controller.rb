@@ -193,6 +193,14 @@ class AdminController < ApplicationController
     @pages = Page.find(:all)
   end
   
+  def edit_page
+    @page = Page.find_by_id params[:id]
+    if request.post?
+      @page.attributes = params[:page]
+      flash[:success] = "page saved" and redirect_to(catch_all_url(@page.path)) if @page.save!
+    end
+  end
+  
   private
   
   # return the lowest number that isn't taken.

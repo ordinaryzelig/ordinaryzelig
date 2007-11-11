@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   
   # catch all.
-  map.connect '*path', :controller => 'catch_all', :action => 'show'
+  map.catch_all '*path', :controller => 'catch_all', :action => 'show'
+  # http://media.railscasts.com/ipod_videos/034_named_routes.m4v
   
 end

@@ -1,20 +1,23 @@
 <table style="background: none;">
   <tr>
-    <td>id</td>
     <td>path</td>
     <td>title</td>
     <td>source</td>
     <td>created at</td>
     <td>updated</td>
+    <td>action</td>
   </tr>
   <% @pages.each do |page| -%>
     <tr>
-      <td><%= link_to page.id, :controller => 'catch_all', :action => 'show', :path => page.path %></td>
       <td><%= page.path %></td>
       <td><%= page.title %></td>
       <td><%= truncate h(page.source) %></td>
       <td><%= clickable_time page.created_at %></td>
       <td><%= clickable_time page.last_updated_at if page.last_updated_at %></td>
+      <td>
+        <%= link_to 'show', :controller => 'catch_all', :action => 'show', :path => page.path %>
+        <%= link_to 'edit', :controller => 'admin', :action => 'edit_page', :id => page.id %>
+      </td>
     </tr>
   <% end -%>
 </table>
