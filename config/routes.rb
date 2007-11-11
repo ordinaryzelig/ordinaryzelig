@@ -27,4 +27,7 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id'
   
+  # catch all.
+  map.connect '*path', :controller => 'catch_all', :action => 'show'
+  
 end

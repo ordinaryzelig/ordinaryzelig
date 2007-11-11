@@ -99,7 +99,7 @@ class ApplicationController < ActionController::Base
   # try to go to last marked page.
   # otherwise, go to default.
   def redirect_to_last_marked_page_or_default(default = {:controller => "user", :action => "profile", :id => logged_in_user})
-    logged_in_user.is_admin? ? redirect_to(:controller => "admin") : redirect_to(default) unless redirect_to_last_marked_page
+    redirect_to(default) unless redirect_to_last_marked_page
   end
   
   def mark_requested_page

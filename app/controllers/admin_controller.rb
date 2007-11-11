@@ -189,6 +189,10 @@ class AdminController < ApplicationController
     flash[:success] = "user #{@user.id} created." and redirect_to(:controller => "admin", :action => "users") if request.post? && @user.save
   end
   
+  def pages
+    @pages = Page.find(:all)
+  end
+  
   private
   
   # return the lowest number that isn't taken.
