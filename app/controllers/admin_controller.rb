@@ -194,7 +194,7 @@ class AdminController < ApplicationController
   end
   
   def edit_page
-    @page = Page.find_by_id params[:id]
+    @page = Page.find_by_id(params[:id]) || Page.new
     if request.post?
       @page.attributes = params[:page]
       flash[:success] = "page saved" and redirect_to(catch_all_url(@page.path)) if @page.save!
