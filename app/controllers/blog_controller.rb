@@ -39,9 +39,7 @@ class BlogController < ApplicationController
     end
   end
   
-  def preview
-    render(:partial => "shared/preview", :locals => {:entity => Blog.new(params[:blog])}) if request.xhr?
-  end
+  preview_action_for
   
   def edit
     @blog = Blog.find_by_id(params[:id])

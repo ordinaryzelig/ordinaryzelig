@@ -49,9 +49,7 @@ class MovieController < ApplicationController
     end
   end
   
-  def preview
-    render(:partial => "shared/preview", :locals => {:entity => MovieRating.new(params[:movie_rating])}) if request.xhr?
-  end
+  preview_action_for :movie_ratings
   
   def show
     if request.get?

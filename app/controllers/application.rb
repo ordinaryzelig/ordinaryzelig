@@ -111,7 +111,7 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
     flash[:notice] = "logged in as #{logged_in_user.display_name}"
     set_last_authenticated_action_at
-    redirect_to_last_marked_page_or_default
+    redirect_to_last_marked_page_or_default(user.is_admin? ? {:controller => 'admin'} : {:controller => 'user', :action => 'profile', :id => user.id})
   end
   
   def is_self_or_logged_in_as_admin?(user)
@@ -158,6 +158,15 @@ class ApplicationController < ActionController::Base
   def render_layout_only(msg, flash_type = :failure)
     flash.now[flash_type] = msg if msg
     render :nothing => true, :layout => true
+  end
+  
+  def self.preview_action_for(table_name = controller_name, options = {})
+    options[:use_simp_san] = true if options[:use_simp_san].nil?
+    singular = Inflector.singularize(table_name.to_s)
+    model_class = Object.const_get singular.classify
+    define_method :preview do
+      render(:partial => "shared/preview", :locals => {:entity => model_class.new(params[singular.downcase]), :use_simp_san => options[:use_simp_san]}) if request.xhr?
+    end
   end
   
 end

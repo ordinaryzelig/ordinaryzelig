@@ -1,6 +1,6 @@
 <% if entity && entity.preview %>
   <div style="border: 1px solid black; background: white;">
     <div style="padding: 2mm; border-bottom: 1px solid black; margin-bottom: 3mm; background-color: yellow;">PREVIEW</div>
-    <div style="padding: 2mm;"><%= simp_san(entity.preview) %></div>
+    <div style="padding: 2mm;"><%= use_simp_san ? simp_san(entity.preview) : entity.preview %></div>
   </div>
 <% end %>

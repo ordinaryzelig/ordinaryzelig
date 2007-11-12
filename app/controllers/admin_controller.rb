@@ -201,6 +201,8 @@ class AdminController < ApplicationController
     end
   end
   
+  preview_action_for :pages, :use_simp_san => false
+  
   private
   
   # return the lowest number that isn't taken.
