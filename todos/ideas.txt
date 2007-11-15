@@ -55,3 +55,10 @@ conversations (as opposed to the myspace comments or facebook wall)
 invitations
 
 random crap: if no controller found, or use public controller.
+
+to check for session timeout, check user_activity instead of storing in session?
+
+when admin session expires, sidebar links are shown.  not good for security i suppose.
+
+clicking username brings up contextual menu
+   center link goes to profile (since it's easist to click)
