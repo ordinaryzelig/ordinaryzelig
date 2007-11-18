@@ -62,3 +62,5 @@ when admin session expires, sidebar links are shown.  not good for security i su
 
 clicking username brings up contextual menu
    center link goes to profile (since it's easist to click)
+
+personalized timezone
