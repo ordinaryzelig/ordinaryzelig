@@ -251,6 +251,13 @@ class User < ActiveRecord::Base
     errors.empty? && super
   end
   
+  def set_previous_login_at(time)
+    activity = user_activity
+    activity.previous_login_at = time
+    activity.save!
+    time
+  end
+  
   private
   
   def hash(str)

@@ -22,7 +22,6 @@ class Friendship < ActiveRecord::Base
   end
   
   def self.recents(user, *more_scopes)
-    return @recents if @recents
     all_scopes = [{:conditions => ["#{table_name}.friend_id = ?", user.id]},
                   {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]}] +
                   more_scopes

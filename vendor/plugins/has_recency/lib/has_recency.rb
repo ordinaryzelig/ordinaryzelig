@@ -22,7 +22,6 @@ module OrdinaryZelig
         include OrdinaryZelig::HasRecency::InstanceMethods
         @has_recency = true
         def self.recents(user, *more_scopes)
-          return @recents if @recents
           all_scopes = [{:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)]},
                        {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]}]
           @recents = find_all_with_scopes *(all_scopes + more_scopes)
