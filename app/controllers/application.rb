@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   after_filter :mark_requested_page
   
   SESSION_HOURS = 30
+  PAGE_DOES_NOT_EXIST = "the page you requested does not exist."
   
   helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_logged_in_as_admin?, :logged_in_as_admin?, :read_entities
   
@@ -45,7 +46,7 @@ class ApplicationController < ActionController::Base
         # validate more if admin action.
         if is_admin_action?
           unless logged_in_user.is_admin?
-            flash[:failure] = "you must be an administrator to do that."
+            flash[:failure] = PAGE_DOES_NOT_EXIST
             redirect_to_last_marked_page_or_default({:action => "index"})
           end
         end
@@ -139,7 +140,7 @@ class ApplicationController < ActionController::Base
   def rescue_action(ex)
     case ex
     when ::ActionController::UnknownAction
-      flash[:failure] = "the page you requested does not exist."
+      flash[:failure] = PAGE_DOES_NOT_EXIST
       redirect_to_last_marked_page_or_default
     else
       if ENV['RAILS_ENV'] == 'production'

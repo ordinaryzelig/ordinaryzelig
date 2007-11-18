@@ -1,5 +1,1 @@
-rss link doesn't work.  keeps rss controller.
-mark as read doesn't work
-   seems to work locally.
 timezone
-instead of 'you have to be an administrator to do that', send 'request page not found'

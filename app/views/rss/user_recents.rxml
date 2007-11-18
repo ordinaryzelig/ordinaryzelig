@@ -16,7 +16,7 @@ xml.rss 'version' => '2.0', 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/' do
         xml.link url_for(url_for_options)
         xml.description simp_san(obj.syndicate_description || '')
         xml.pubDate CGI.rfc1123_date(obj.syndicate_pubdate)
-        xml.guid "#{obj.class}_#{obj.id}"
+        xml.guid url_for(url_for_options)
         xml.author h(obj.syndicate_author.display_name)
       end
     end
