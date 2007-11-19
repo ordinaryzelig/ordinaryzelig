@@ -10,7 +10,7 @@ class Movie < ActiveRecord::Base
       rating, ratings = average_rating{|rating| rating.rating_type == rating_type}
       ratings_strs << "#{rating_type.name}: #{rating} out of 5 (#{pluralize(ratings, 'rating')})"
     end
-    [pluralize(ratings.size, 'rating'), ratings_strs.join("<br>")].join("<br>") << "<br>"
+    ratings_strs.join("<br>") << "<br>"
   end
   can_be_summarized_by :title => :title, :what => what_proc, :who => nil, :enable_html => true
   is_entity_type
