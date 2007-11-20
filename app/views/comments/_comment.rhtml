@@ -5,7 +5,7 @@
     
     <% if comment -%>
       <div id="comment_highlightable_<%= comment_id %>" style="border: 1px solid black;">
-        <div class=listingSection style="<%= recent_background_color(comment) %>">
+        <div id="entity_header_<%= comment_id %>" class=listingSection style="<%= recent_background_color(comment) %>">
           <%= mark_as_read_div comment if comment && comment.is_recent?(logged_in_user) %>
           <div class=listingInfo>
             <%= link_to_profile(comment.user) %> - <%= clickable_time(comment.created_at, nil, nil) %>
@@ -19,12 +19,12 @@
     <% # post actions. -%>
     
     <% if logged_in_user -%>
-    
+      
       <div>
         <div id="comment_spinner_<%= comment_id %>" style="display: none;"><%= image_tag("spinner.gif") %></div>
         <% form_tag do -%>
           <div id="comment_form_<%= comment_id %>" style="display: none;"></div>
-        
+          
           <% # ========================================================= %>
           <% # reply. %>
           <div id="comment_action_bar_reply_<%= comment_id %>">
@@ -42,7 +42,7 @@
                                   :id => "reply_button"}
             ) %>
           </div> <% # end reply. -%>
-        
+          
           <% # ========================================================= %>
           <% # post. %>
           <div id="comment_action_bar_post_<%= comment_id %>" style="display: none;">
