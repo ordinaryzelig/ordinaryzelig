@@ -1,2 +1,2 @@
-rating type scales
-   don't make popup.  ajaxify it.
+change color for read comments
+read items doesn't work

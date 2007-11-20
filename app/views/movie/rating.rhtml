@@ -8,6 +8,7 @@
       <% end -%>
       <span style="font-size: 12pt">
         <%= link_to(@page_title, :action => "show", :id => @rating.movie_id) %><br/>
+        <%= @rating.rating_type %> rating
         <%= @rating %><br/>
         <%= link_to_profile(@rating.user) %><br/>
         <%= clickable_time(@rating.created_at, true, nil) %><br/>

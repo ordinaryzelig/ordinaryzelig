@@ -64,3 +64,6 @@ clicking username brings up contextual menu
    center link goes to profile (since it's easist to click)
 
 personalized timezone
+
+rating type scales
+   don't make popup.  ajaxify it.???

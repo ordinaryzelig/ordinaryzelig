@@ -9,7 +9,7 @@ class MovieRating < ActiveRecord::Base
   validates_uniqueness_of :movie_id, :scope => [:movie_rating_type_id, :user_id], :message => " already rated for this rating type."
   nil_if_blank
   
-  can_be_summarized_by :title => proc { "#{rating_type.name}: #{self}" },
+  can_be_summarized_by :title => proc { "#{rating_type}: #{self}" },
                        :url => proc { {:controller => "movie", :action => "rating", :id => self.id} },
                        :what => proc { truncate(summary || explanation, summarize_max) },
                        :max => 100,
