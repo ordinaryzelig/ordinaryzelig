@@ -69,3 +69,6 @@ rating type scales
    don't make popup.  ajaxify it.???
 
 delete read items when user logs in
+
+change color for read comments
+   page. or javascript?

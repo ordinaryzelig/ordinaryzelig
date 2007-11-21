@@ -1,6 +1,7 @@
 class Blog < ActiveRecord::Base
   
   belongs_to :user
+  has_one :privacy_level, :as => :entity
   
   validates_presence_of :created_at, :title, :body, :user_id
   

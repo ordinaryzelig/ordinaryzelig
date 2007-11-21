@@ -1,2 +1,8 @@
-read items still doesn't work.
-   change color for comments
+privacy
+   tables
+      privacy_levels
+      privacy_level_types
+   models
+      default everything to friends only
+      privacy plugin
+   controller/views

@@ -1,2 +1,1 @@
-change color for read comments
-   page. or javascript?
+security migration

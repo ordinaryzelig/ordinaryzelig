@@ -10,8 +10,8 @@ security levels
    nobody (self)
    friends
    anybody
-user_security_items
+security_items
    entity_type
    entity_id
    security_level_id
-   (if entity is not found here, default to the user's profile security, which can be stored here.)
+   (if user does not set security level, use user's security level)
