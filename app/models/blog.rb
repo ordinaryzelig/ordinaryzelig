@@ -1,7 +1,6 @@
 class Blog < ActiveRecord::Base
   
   belongs_to :user
-  has_one :privacy_level, :as => :entity
   
   validates_presence_of :created_at, :title, :body, :user_id
   
@@ -14,6 +13,7 @@ class Blog < ActiveRecord::Base
   preview_using :body
   can_be_marked_as_read
   is_entity_type
+  has_privacy
   
   def before_validation_on_create
     self.created_at ||= Time.now.localtime
