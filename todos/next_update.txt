@@ -1,1 +1,2 @@
-migrate to 006
+migrate to 009
+create user entity: EntityType.new(:name => 'User').save
