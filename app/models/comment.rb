@@ -14,24 +14,6 @@ class Comment < ActiveRecord::Base
   attr_protected :user_id, :created_at
   attr_accessor :entity_type, :entity_id
   
-  def before_validation_on_create
-    # set created_at time to now.
-    self.created_at ||= Time.now.localtime
-  end
-  
-  def validate_on_create
-    # if this is a root comment, validates_presence_of :commentable.
-    unless parent_id
-      errors.add_on_blank(:entity_type)
-      errors.add_on_blank(:entity_id)
-    end
-  end
-  
-  def after_create
-    # raise exception if ROOT comment does not automatically create a CommentGroup.
-    raise "comment group not saved" unless parent_id || CommentGroup.new(:root_comment_id => self.id, :entity_type => @entity_type, :entity_id => @entity_id).save
-  end
-  
   def comment_group
     @comment_group ||= CommentGroup.find_by_root_comment_id(root.id)
   end
@@ -52,6 +34,35 @@ class Comment < ActiveRecord::Base
       end
       maxes_of_children.max{|a, b| a.created_at <=> b.created_at}
     end
+  end
+  
+  def self.recents(user, *more_scopes)
+    all_scopes = [scopes[:friends][user], scopes[:created_at_since_previous_login][user]]
+    recents = find_all_with_scopes *(all_scopes + more_scopes)
+    recents.select do |r|
+      user.can_read? r.entity
+    end
+    # recents.delete_if { |r| user.read_items.entities_since_previous_login.include?(r) }
+  end
+  
+  private
+  
+  def before_validation_on_create
+    # set created_at time to now.
+    self.created_at ||= Time.now.localtime
+  end
+  
+  def validate_on_create
+    # if this is a root comment, validates_presence_of :commentable.
+    unless parent_id
+      errors.add_on_blank(:entity_type)
+      errors.add_on_blank(:entity_id)
+    end
+  end
+  
+  def after_create
+    # raise exception if ROOT comment does not automatically create a CommentGroup.
+    raise "comment group not saved" unless parent_id || CommentGroup.new(:root_comment_id => self.id, :entity_type => @entity_type, :entity_id => @entity_id).save
   end
   
 end

@@ -8,24 +8,34 @@ module OrdinaryZelig
     
     module ClassMethods
       
-      def has_recency(options = {})
+      def has_recency(object_declarations = {})
         object_types = [:user_obj, :user_obj_name, :time_obj, :time_obj_name]
         defaults = {:user_obj => :user,
-                    :user_obj_name => "#{options[:user_obj] || :user}_id",
+                    :user_obj_name => "#{object_declarations[:user_obj] || :user}_id",
                     :time_obj => :created_at,
-                    :time_obj_name => options[:time_obj] || 'created_at'}
-        options.each do |key, value|
+                    :time_obj_name => object_declarations[:time_obj] || 'created_at'}
+        object_declarations.each do |key, value|
           raise "unrecognized recency object type '#{key}'." unless object_types.include?(key)
           def_meth key, value
         end
         defaults.each { |key, value| def_meth(key, value) unless method_defined?("recency_#{key}") }
         include OrdinaryZelig::HasRecency::InstanceMethods
         @has_recency = true
+        
+        scopes[:friends] = proc { |user| {:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)],
+                                                :include => {:user => :friendships}} }
+        scopes[:created_at_since_previous_login] = proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]} }
+        scopes[:privacy] = {:conditions => ["(#{PrivacyLevel.table_name}.privacy_level_type_id = 3 or " <<
+                                                    "(#{PrivacyLevel.table_name}.privacy_level_type_id = 2 and " <<
+                                                     "#{Friendship.table_name}.friend_id is not null))"],
+                                                    :include => [:privacy_level, {:user => :friendships}]}
+        # default method for finding methods.
+        # can overwrite.
         def self.recents(user, *more_scopes)
-          all_scopes = [{:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)]},
-                       {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]}]
-          @recents = find_all_with_scopes *(all_scopes + more_scopes)
-          @recents.delete_if { |r| user.read_items.entities_since_previous_login.include?(r) }
+          all_scopes = [scopes[:friends][user], scopes[:created_at_since_previous_login][user]]
+          all_scopes << scopes[:privacy] if has_privacy?
+          recents = find_all_with_scopes *(all_scopes + more_scopes)
+          recents.delete_if { |r| user.read_items.entities_since_previous_login.include?(r) }
         end
       end
       

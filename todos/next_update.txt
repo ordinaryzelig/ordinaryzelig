@@ -1,2 +1,4 @@
 migrate to 009
-create user entity: EntityType.new(:name => 'User').save
+load_fixtures
+EntityType.new(:name => 'User').save
+User.find(:all).each &:save

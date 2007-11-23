@@ -1,1 +1,2 @@
-security migration
+scoping with recents.  Blog::SCOPES[:friends][User.find(2)] returns friendship scope it seems.
+self.recents for comments: first query for recent comments, then another query for those entities' privacy levels.

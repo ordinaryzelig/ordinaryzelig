@@ -12,6 +12,11 @@ module OrdinaryZelig
         include OrdinaryZelig::HasPrivacy::InstanceMethods
         has_one :privacy_level, :as => :entity
         before_save :add_privacy_level
+        @has_privacy = true
+      end
+      
+      def has_privacy?
+        @has_privacy ||= false
       end
       
     end

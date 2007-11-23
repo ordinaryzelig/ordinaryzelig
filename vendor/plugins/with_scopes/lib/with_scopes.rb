@@ -1,5 +1,5 @@
 module OrdinaryZelig
-
+  
   module WithScopes
     
     # recursively apply scopes and then find.
@@ -13,11 +13,17 @@ module OrdinaryZelig
         end
       end
     end
-  
+    
     def find_with_scopes(*scopes)
       find_all_with_scopes(*scopes).first
     end
-  
+    
+    # return scopes.  define scopes if not already.
+    def scopes
+      self.const_set 'SCOPES', {} unless self.const_defined?('SCOPES')
+      self::SCOPES
+    end
+    
   end
   
 end
