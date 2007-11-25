@@ -19,11 +19,10 @@ class Friendship < ActiveRecord::Base
   is_entity_type
   
   def self.recents(user, *more_scopes)
-    all_scopes = [SCOPES[:considering_friends][user],
-                  SCOPES[:created_at_since_previous_login][user]] +
+    all_scopes = [scopes[:considering_friends][user],
+                  scopes[:created_at_since_previous_login][user]] +
                   more_scopes
-    @recents = find_all_with_scopes *all_scopes
-    @recents.delete_if { |r| user.read_items.entities_since_previous_login.include?(r) }
+    find_all_unread_by_user user, *all_scopes
   end
   
   private

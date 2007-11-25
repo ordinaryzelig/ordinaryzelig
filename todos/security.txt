@@ -15,3 +15,9 @@ security_items
    entity_id
    security_level_id
    (if user does not set security level, use user's security level)
+
+DISCLAIMER.
+DISCLAIMER.
+DISCLAIMER.
+DISCLAIMER.
+DISCLAIMER.

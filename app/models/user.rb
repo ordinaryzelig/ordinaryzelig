@@ -26,14 +26,14 @@ class User < ActiveRecord::Base
     def entities
       map(&:entity)
     end
-    def entities_since_previous_login
-      if empty?
-        []
-      else
-        user = first.entity.user
-        self.select { |ri| ri.read_at >= user.previous_login_at }.map(&:entity)
-      end
-    end
+    # def entities_since_previous_login
+    #   if empty?
+    #     []
+    #   else
+    #     user = first.entity.user
+    #     self.select { |ri| ri.read_at >= user.previous_login_at }.map(&:entity)
+    #   end
+    # end
   end
   
   validates_presence_of :first_name, :last_name, :display_name, :email, :secret_id
@@ -184,7 +184,15 @@ class User < ActiveRecord::Base
   end
   
   def can_read?(obj)
-    obj.recency_user_obj.considers_friend?(self) && (obj.is_a?(Comment) ? can_read?(obj.entity) : true)
+    obj_owner = obj.recency_user_obj
+    case obj_owner.privacy_level.privacy_level_type_id
+    when 1 # private.
+      false
+    when 2 # friends only.
+      obj_owner.considers_friend?(self)
+    when 3 # public
+      true
+    end
   end
   
   def recents

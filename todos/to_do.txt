@@ -3,6 +3,7 @@ privacy
       privacy_levels
       privacy_level_types
    models
-      default everything to friends only
-      privacy plugin
+      default all users and recent_entities to friends only
+   privacy plugin
+      define can_read?
    controller/views
