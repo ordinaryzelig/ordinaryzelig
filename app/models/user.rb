@@ -184,15 +184,7 @@ class User < ActiveRecord::Base
   end
   
   def can_read?(obj)
-    obj_owner = obj.recency_user_obj
-    case obj_owner.privacy_level.privacy_level_type_id
-    when 1 # private.
-      false
-    when 2 # friends only.
-      obj_owner.considers_friend?(self)
-    when 3 # public
-      true
-    end
+    !obj.class.find_with_scopes(obj.class.scopes[:privacy][self]).nil?
   end
   
   def recents

@@ -25,26 +25,22 @@ module OrdinaryZelig
         scopes[:friends] = proc { |user| {:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)],
                                           :include => {:user => :friendships}} }
         scopes[:created_at_since_previous_login] = proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]} }
-        scopes[:privacy] = {:conditions => ["(#{PrivacyLevel.table_name}.privacy_level_type_id = 3 or " <<
-                                            "(#{PrivacyLevel.table_name}.privacy_level_type_id = 2 and " <<
-                                             "#{Friendship.table_name}.friend_id is not null))"],
-                                            :include => [:privacy_level, {:user => :friendships}]}
+        scopes[:privacy] = proc { |*users| {:conditions => ["(#{PrivacyLevel.table_name}.privacy_level_type_id = 3 or " <<
+                                                          "(#{PrivacyLevel.table_name}.privacy_level_type_id = 2 and " <<
+                                                           "#{Friendship.table_name}.friend_id in (?)))", users.map(&:id)],
+                                                          :include => [:privacy_level, {:user => :friendships}]} }
         
         # default method for finding methods.
         # can overwrite.
         def self.recents(user, *more_scopes)
-          all_scopes = [scopes[:friends][user], scopes[:created_at_since_previous_login][user], scopes[:privacy]]
-          all_scopes << scopes[:privacy] if has_privacy?
+          all_scopes = [scopes[:friends][user], scopes[:created_at_since_previous_login][user]]
+          all_scopes << scopes[:privacy][user] if has_privacy?
           recents = find_all_unread_by_user user, *(all_scopes + more_scopes)
         end
       end
       
       def has_recency?
         @has_recency || false
-      end
-      
-      def is_recent_entity_type?
-        RecentEntityType.find(:all).map { |ret| ret.entity_type.entity_class }.include?(self)
       end
       
       private
