@@ -24,7 +24,7 @@ module OrdinaryZelig
         
         scopes[:friends] = proc { |user| {:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)],
                                           :include => {:user => :friendships}} }
-        scopes[:created_at_since_previous_login] = proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]} }
+        scopes[:since_previous_login] = proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]} }
         scopes[:privacy] = proc { |*users| {:conditions => ["(#{PrivacyLevel.table_name}.privacy_level_type_id = 3 or " <<
                                                             "(#{PrivacyLevel.table_name}.privacy_level_type_id = 2 and " <<
                                                             "#{Friendship.table_name}.friend_id in (?)))", users.map(&:id)],
@@ -33,7 +33,7 @@ module OrdinaryZelig
         # default method for finding methods.
         # can overwrite.
         def self.recents(user, *more_scopes)
-          all_scopes = [scopes[:friends][user], scopes[:created_at_since_previous_login][user]]
+          all_scopes = [scopes[:friends][user], scopes[:since_previous_login][user]]
           all_scopes << scopes[:privacy][user] if has_privacy?
           recents = find_all_unread_by_user user, *(all_scopes + more_scopes)
         end

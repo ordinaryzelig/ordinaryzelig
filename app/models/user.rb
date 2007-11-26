@@ -182,7 +182,13 @@ class User < ActiveRecord::Base
   end
   
   def can_read?(obj)
-    !obj.class.find_with_scopes(obj.class.scopes[:privacy][self]).nil?
+    entity = obj.class.is_polymorphic? ? obj.entity : obj
+    if obj.class.has_privacy?
+      entity_privacy_level = (obj.is_a?(Comment) ? obj.entity : obj).class.find_with_scopes(obj.class.scopes[:privacy][self])
+      !entity_privacy_level.nil?
+    else
+      true
+    end
   end
   
   def recents

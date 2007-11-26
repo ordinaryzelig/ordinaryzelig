@@ -61,7 +61,7 @@ class Comment < ActiveRecord::Base
   
   def after_create
     # raise exception if ROOT comment does not automatically create a CommentGroup.
-    raise "comment group not saved" unless parent_id || CommentGroup.new(:root_comment_id => self.id, :entity_type => @entity_type, :entity_id => @entity_id).save
+    CommentGroup.new(:root_comment_id => self.id, :entity_type => @entity_type, :entity_id => @entity_id).save! unless parent_id
   end
   
 end
