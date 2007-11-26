@@ -72,3 +72,6 @@ delete read items when user logs in
 
 change color for read comments
    page. or javascript?
+
+user options
+   default_security

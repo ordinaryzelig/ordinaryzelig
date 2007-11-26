@@ -37,7 +37,7 @@ class Comment < ActiveRecord::Base
   end
   
   def self.recents(user, *more_scopes)
-    all_scopes = [scopes[:friends][user], scopes[:created_at_since_previous_login][user]]
+    all_scopes = [scopes[:friends][user], scopes[:since_previous_login][user]]
     recents = find_all_unread_by_user user, *(all_scopes + more_scopes)
     entities = recents.map(&:entity).uniq
     entities = entities.select { |e| user.can_read? e }

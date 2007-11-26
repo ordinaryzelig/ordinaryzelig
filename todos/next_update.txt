@@ -1,4 +1,2 @@
 migrate to 009
 load_fixtures
-EntityType.new(:name => 'User').save
-User.find(:all).each &:save

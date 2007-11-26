@@ -1,7 +1,9 @@
 once established, handle whether a model can be recent if there is a comment to that model by someone who is not a friend.
+for now, set default security to friends only.  later, we can set a default.
+create way user can lockdown.
 
 things that have security levels
-   profile
+   profile (may not be necissary)
    searchable?
    default
    friends

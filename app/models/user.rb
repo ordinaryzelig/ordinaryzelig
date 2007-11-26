@@ -44,8 +44,6 @@ class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password, :is_admin
   attr_accessor :unhashed_password, :password
   
-  has_privacy
-  
   def self.new_registrant(attributes, confirmation_password)
     user = new attributes
     user.valid?

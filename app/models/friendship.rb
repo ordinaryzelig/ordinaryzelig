@@ -20,7 +20,7 @@ class Friendship < ActiveRecord::Base
   
   def self.recents(user, *more_scopes)
     all_scopes = [scopes[:considering_friends][user],
-                  scopes[:created_at_since_previous_login][user]] +
+                  scopes[:since_previous_login][user]] +
                   more_scopes
     find_all_unread_by_user user, *all_scopes
   end

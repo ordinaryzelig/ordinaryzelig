@@ -10,7 +10,7 @@ module OrdinaryZelig
       
       def has_privacy
         include OrdinaryZelig::HasPrivacy::InstanceMethods
-        has_one :privacy_level, :as => :entity
+        has_one :privacy_level, :as => :entity, :dependent => :destroy
         before_save :add_privacy_level
         @has_privacy = true
       end
@@ -40,7 +40,7 @@ module OrdinaryZelig
       # add privacy_level if not already added.
       # default level_type to user's privacy_level_type.
       # if this is a user, then set it to 2.
-      def add_privacy_level(privacy_level_type_id = self.class == User ? 2 : self.user.privacy_level.privacy_level_type_id)
+      def add_privacy_level(privacy_level_type_id = 2)
         self.privacy_level ||= PrivacyLevel.new(:privacy_level_type_id => privacy_level_type_id)
       end
       
