@@ -11,6 +11,10 @@
       <td><%= text_area(:blog, :body) %></td>
     </tr>
     <tr>
+      <th>privacy level</th>
+      <td><%= privacy_level_select(@blog.privacy_level) %> can read</td>
+    </tr>
+    <tr>
       <td></td>
       <td>
         <%= submit_tag :save %>

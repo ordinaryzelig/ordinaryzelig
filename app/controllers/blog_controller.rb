@@ -27,13 +27,18 @@ class BlogController < ApplicationController
   end
   
   def new
-    if request.get?
-      @blog = Blog.new
-    else
-      @blog = Blog.new(params[:blog])
+    redirect_to :action => 'edit'
+  end
+  
+  def edit
+    @blog = Blog.find_by_id(params[:id]) || Blog.new
+    @page_title = "#{controller_name} - #{@blog.new_record? ? 'new' : 'edit'}"
+    if request.post?
+      @blog.attributes = params[:blog]
       @blog.user ||= logged_in_user
       if @blog.save
-        flash[:success] = "blog created."
+        @blog.privacy_level.update_attributes(:privacy_level_type_id => params[:privacy_level_type_id])
+        flash[:success] = "blog saved."
         redirect_to(:action => "show", :id => @blog.id)
       end
     end
@@ -41,7 +46,7 @@ class BlogController < ApplicationController
   
   preview_action_for
   
-  def edit
+  def edit!
     @blog = Blog.find_by_id(params[:id])
     if request.get?
       if @blog

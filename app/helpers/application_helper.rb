@@ -132,6 +132,10 @@ module ApplicationHelper
     simple_format(sanitize(text))
   end
   
+  def privacy_level_select(privacy_level)
+    select_tag :privacy_level_type_id, options_for_select(PrivacyLevelType.container, privacy_level ? privacy_level.privacy_level_type_id : 2)
+  end
+  
   # ===========================================================
   # comment ajax methods.
   

@@ -1,2 +1,1 @@
-test recents
-in user.can_read?, use query instead of ruby code.
+entity security shared views

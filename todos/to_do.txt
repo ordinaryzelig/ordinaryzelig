@@ -7,3 +7,4 @@ privacy
    privacy plugin
       define can_read?
    controller/views
+   test deployment

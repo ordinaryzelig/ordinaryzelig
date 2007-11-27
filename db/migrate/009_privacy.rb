@@ -1,4 +1,4 @@
-class Security < ActiveRecord::Migration
+class Privacy < ActiveRecord::Migration
   def self.up
     create_table :privacy_level_types do |t|
       t.column :name, :string, {:null => false}
@@ -10,6 +10,7 @@ class Security < ActiveRecord::Migration
       t.column :privacy_level_type_id, :integer, {:null => false}
     end
     fkey :privacy_levels, :entity_type, :entity_types, :name
+    fkey :privacy_levels, :privacy_level_type_id
   end
 
   def self.down

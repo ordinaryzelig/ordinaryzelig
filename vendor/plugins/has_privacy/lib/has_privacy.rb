@@ -23,24 +23,9 @@ module OrdinaryZelig
     
     module InstanceMethods
       
-      def set_privacy_level_to(privacy_level_type_id)
-        # add if not already added.
-        add_privacy_level(privacy_level_type_id)
-        # set privacy
-        self.privacy_level.privacy_level_type_id = privacy_level_type_id
-      end
-      
-      def set_privacy_level_to!(privacy_level_type_id)
-        set_privacy_level_to privacy_level_type_id
-        self.privacy_level.save!
-      end
-      
-      private
-      
       # add privacy_level if not already added.
-      # default level_type to user's privacy_level_type.
-      # if this is a user, then set it to 2.
-      def add_privacy_level(privacy_level_type_id = 2)
+      # default privacy_level_type_id to 2 if not already set.
+      def add_privacy_level(privacy_level_type_id = @privacy_level_type_id || 2)
         self.privacy_level ||= PrivacyLevel.new(:privacy_level_type_id => privacy_level_type_id)
       end
       
