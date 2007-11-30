@@ -29,6 +29,7 @@ module OrdinaryZelig
                                                             "(#{PrivacyLevel.table_name}.privacy_level_type_id = 2 and " <<
                                                             "#{Friendship.table_name}.friend_id in (?)))", users.map(&:id)],
                                             :include => [:privacy_level, {:user => :friendships}]} }
+        scopes[:order_by_created_at] = {:order => "#{table_name}.created_at desc"}
         
         # default method for finding methods.
         # can overwrite.
