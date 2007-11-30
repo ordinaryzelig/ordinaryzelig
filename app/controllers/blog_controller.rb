@@ -22,7 +22,9 @@ class BlogController < ApplicationController
   end
   
   def edit
-    @blog = Blog.find_by_id(params[:id]) || Blog.new
+    @blog = Blog.find_by_id(params[:id], :include => :user) || Blog.new
+    render_layout_only 'blog not found.' and return if params[:id] && @blog.new_record?
+    render_layout_only 'you can\'t edit that blog.' and return unless is_self_or_logged_in_as_admin?(@blog.user)
     @page_title = "#{controller_name} - #{@blog.new_record? ? 'new' : 'edit'}"
     if request.post?
       @blog.attributes = params[:blog]

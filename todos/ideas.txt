@@ -48,13 +48,9 @@ profile url for display name.
 
 more centering
 
-after hiding flash, pulsate notifications.
-
 conversations (as opposed to the myspace comments or facebook wall)
 
 invitations
-
-random crap: if no controller found, or use public controller.
 
 to check for session timeout, check user_activity instead of storing in session?
 
