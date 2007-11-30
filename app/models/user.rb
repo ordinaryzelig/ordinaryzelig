@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
   has_many :friendships, :foreign_key => "user_id"
   has_many :friends, :through => :friendships, :order => "lower(last_name)" do
     def blogs_readable_by(user)
-      # Blog.find(:all, :conditions => {:user_id => self.map(&:id)}, :order => 'created_at desc').select { |blog| user.can_read?(blog) }
       Blog.find_all_with_scopes Blog.scopes[:friends][user], Blog.scopes[:privacy][user], Blog.scopes[:order_by_created_at]
     end
     def mutual_friends_of(user)
