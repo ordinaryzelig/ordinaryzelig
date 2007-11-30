@@ -62,7 +62,7 @@ module OrdinaryZelig
     module InstanceMethods
       
       def is_recent?(user)
-        user && self.class.recents(user).include?(self)
+        user && user.recents.include?(self)
       end
       
     end

@@ -1,34 +1,32 @@
-<% unless @reason_not_visible -%>
-  
-  <% # ======================================= -%>
-  <% # header. -%>
-  
-  <% content_for("banner") do -%>
-    <div style="border: .5mm solid black; background: white;">
-      
-      <div id="banner">
-        <span style="font-weight: bold;"><%= h(@blog.title) %></span><br/>
-        <div style="font-size: 50%;">
-          <%= link_to_profile(@blog.user) %><br/>
-          <%= clickable_time(@blog.created_at, true, nil) %><br/>
-          <%= mark_as_read_link @blog if @blog.is_recent?(logged_in_user) %>
-        </div>
+<% # ======================================= -%>
+<% # header. -%>
+
+<% content_for("banner") do -%>
+  <div style="border: .5mm solid black; background: white;">
+    
+    <div id="banner">
+      <span style="font-weight: bold;"><%= h(@blog.title) %></span><br/>
+      <div style="font-size: 50%;">
+        <%= link_to_profile(@blog.user) %><br/>
+        <%= clickable_time(@blog.created_at, true, nil) %><br/>
+        <%= mark_as_read_link @blog if @blog.is_recent?(logged_in_user) %>
       </div>
-      
-      <% # body. -%>
-      <div style="padding: 2mm; padding-bottom: 5mm;"><%= simp_san(@blog.body) %></div>
-      
-      <% # edit link. -%>
-      <% if is_self_or_logged_in_as_admin?(@blog.user) %>
-        <div style="padding: 2mm;"><%= link_to("edit", :action => "edit", :id => @blog.id) %></div>
-      <% end -%>
-      
     </div>
     
-  <% end -%>
+    <% # ======================================= -%>
+    <% # body. -%>
+    
+    <div style="padding: 2mm; padding-bottom: 5mm;"><%= simp_san(@blog.body) %></div>
+    
+    <% # edit link. -%>
+    <% if is_self_or_logged_in_as_admin?(@blog.user) %>
+      <div style="padding: 2mm;"><%= link_to("edit", :action => "edit", :id => @blog.id) %></div>
+    <% end -%>
+    
+  </div>
   
-  <% # ======================================= -%>
-  <% # comments. -%>
-  <%= render(:partial => 'comments/comments', :locals => {:entity => @blog}) %>
-
 <% end -%>
+
+<% # ======================================= -%>
+<% # comments. -%>
+<%= render(:partial => 'comments/comments', :locals => {:entity => @blog}) %>

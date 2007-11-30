@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :considering_friends, :through => :considering_friendships, :order => "lower(last_name)"
   has_many :blogs do
     def readable_by(user)
-      self.select { |blog| user.can_read?(blog) }
+      Blog.find_all_with_scopes *[scopes[:privacy][user], {:conditions => {:id => map(&:id)}}]
     end
   end
   has_many :movie_ratings, :include => :movie
@@ -182,6 +182,7 @@ class User < ActiveRecord::Base
   end
   
   def can_read?(obj)
+    return true if self == obj.recency_user_obj || self.is_admin?
     entity = obj.class.is_polymorphic? ? obj.entity : obj
     if obj.class.has_privacy?
       entity_privacy_level = (obj.is_a?(Comment) ? obj.entity : obj).class.find_with_scopes(obj.class.scopes[:privacy][self])
