@@ -57,7 +57,9 @@ class UserController < ApplicationController
   
   def friends
     @user = User.find_exclusive(params[:id])
-    render_layout_only 'user not found' and return unless @user && (is_self?(@user) || @user.considers_friend?(logged_in_user) || logged_in_as_admin?)
+    render_layout_only 'user not found' and return unless @user
+    render_layout_only 'this is private.' and return unless logged_in_user && @user.considers_friend?(logged_in_user)
+    @page_title = "#{@user.display_name}'s friends"
   end
   
   def friends_to

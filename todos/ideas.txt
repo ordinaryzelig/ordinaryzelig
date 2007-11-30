@@ -73,3 +73,8 @@ user options
    default_security
 
 created_at plugin
+
+use dry_scaffold?
+   blog controller is pretty restful.
+
+in profile, instead of showing last 5 movies with all ratings, get 5 latest ratings for uniq movies.
