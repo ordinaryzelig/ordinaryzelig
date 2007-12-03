@@ -4,7 +4,7 @@ nobody:
   name: nobody
 friends:
   id: 2
-  name: friends only
+  name: friends
 anybody:
   id: 3
   name: anybody

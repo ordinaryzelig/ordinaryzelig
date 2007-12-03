@@ -1,18 +1,18 @@
 <%= error_messages(@blog) %>
 
-<% form_tag do -%>
+<% form_for :blog do |form| -%>
   <table id="blogFormTable" style="background: none;">
     <tr>
       <th>title</th>
-      <td><%= text_field(:blog, :title, :id => "title") %></td>
+      <td><%= form.text_field :title, :id => "title" %></td>
     </tr>
     <tr>
       <th>body</th>
-      <td><%= text_area(:blog, :body) %></td>
+      <td><%= form.text_area :body %></td>
     </tr>
     <tr>
       <th>privacy level</th>
-      <td><%= privacy_level_select(@blog.privacy_level) %> can read</td>
+      <td><%= render :partial => 'shared/privacy_level', :object => @blog.privacy_level || @blog.build_privacy_level, :locals => {:entity => @blog} %> can read</td>
     </tr>
     <tr>
       <td></td>

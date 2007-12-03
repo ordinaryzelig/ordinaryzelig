@@ -1,0 +1,7 @@
+<% fields_for "#{entity.class.to_s.downcase}[privacy_level_attributes]", privacy_level do |form| -%>
+  <%= form.select :privacy_level_type_id, PrivacyLevelType.container %>
+  <% unless privacy_level.new_record? -%>
+    <%= form.hidden_field :entity_type %>
+    <%= form.hidden_field :entity_id %>
+  <% end -%>
+<% end -%>

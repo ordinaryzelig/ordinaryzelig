@@ -27,9 +27,7 @@ html{
 
 .errorMessages{
     color: red;
-    border: .5mm solid red;
     padding: 2mm;
-    background-color: lightgray;
     margin-bottom: 4mm;
 }
 
