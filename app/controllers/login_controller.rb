@@ -1,6 +1,7 @@
 class LoginController < ApplicationController
   
   skip_after_filter :mark_requested_page
+  filter_parameter_logging "password"
   
   def index
     flash.keep

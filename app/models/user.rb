@@ -26,14 +26,6 @@ class User < ActiveRecord::Base
     def entities
       map(&:entity)
     end
-    # def entities_since_previous_login
-    #   if empty?
-    #     []
-    #   else
-    #     user = first.entity.user
-    #     self.select { |ri| ri.read_at >= user.previous_login_at }.map(&:entity)
-    #   end
-    # end
   end
   
   validates_presence_of :first_name, :last_name, :display_name, :email, :secret_id
@@ -42,7 +34,7 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => %r{.+@.+\..*}
   
   attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password, :is_admin
-  attr_accessor :unhashed_password, :password
+  attr_accessor :unhashed_password
   
   def self.new_registrant(attributes, confirmation_password)
     user = new attributes

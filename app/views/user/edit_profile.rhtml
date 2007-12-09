@@ -10,7 +10,7 @@
       <td></td>
       <td>
         <% if logged_in_as_admin? -%>
-          <%= link_to 'set password', :controller => 'admin', :action => 'set_password' %>
+          <%= link_to 'set password', :controller => 'admin', :action => 'set_password', :id => @user.id %>
         <% else -%>
           <%= link_to("change password", :action => "change_password") %></td>
         <% end -%>

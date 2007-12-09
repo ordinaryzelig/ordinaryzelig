@@ -25,6 +25,11 @@ module OrdinaryZelig
     
     module InstanceMethods
       
+      def set_privacy_level!(privacy_level_type_id)
+        self.privacy_level.privacy_level_type_id = privacy_level_type_id
+        self.privacy_level.save
+      end
+      
       protected
       
       def privacy_level_attributes=(attributes)
