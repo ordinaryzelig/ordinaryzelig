@@ -13,6 +13,7 @@ module OrdinaryZelig
         include InstanceMethods
         has_one :privacy_level, :as => :entity, :dependent => :destroy
         after_update :save_privacy_level
+        after_create :add_default_privacy_level
         validates_associated :privacy_level
         attr_accessible :privacy_level_attributes
       end
@@ -30,8 +31,6 @@ module OrdinaryZelig
         self.privacy_level.save
       end
       
-      protected
-      
       def privacy_level_attributes=(attributes)
         if attributes[:id].blank?
           build_privacy_level(attributes)
@@ -40,8 +39,14 @@ module OrdinaryZelig
         end
       end
       
+      protected
+      
       def save_privacy_level
         self.privacy_level.save
+      end
+      
+      def add_default_privacy_level
+        self.privacy_level_attributes = {:privacy_level_type_id => 2} and save_privacy_level unless self.privacy_level
       end
       
     end
