@@ -20,11 +20,14 @@ module OrdinaryZelig
         @is_entity_type || false
       end
       
-      def is_polymorphic
+      def is_polymorphic(options = {})
         @is_polymorphic = true
+        options[:skip_validations] ||= false
         belongs_to :entity, :polymorphic => true
-        validates_presence_of :entity_type
-        validates_presence_of :entity_id
+        unless options[:skip_validations]
+          validates_presence_of :entity_type
+          validates_presence_of :entity_id
+        end
       end
       
       def is_polymorphic?

@@ -26,10 +26,10 @@ module OrdinaryZelig
     module InstanceMethods
       
       def privacy_level_attributes=(attributes)
-        if self.privacy_level && self.privacy_level.new_record?
-          self.privacy_level.attributes = attributes
-        else
+        if attributes[:id].blank?
           build_privacy_level(attributes)
+        else
+          self.privacy_level.attributes = attributes
         end
       end
       
