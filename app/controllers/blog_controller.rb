@@ -29,7 +29,6 @@ class BlogController < ApplicationController
     if request.post?
       @blog.attributes = params[:blog]
       @blog.user ||= logged_in_user
-      logger.info "message #{@blog.inspect}"
       if @blog.save
         flash[:success] = "blog saved."
         redirect_to(:action => "show", :id => @blog.id)
