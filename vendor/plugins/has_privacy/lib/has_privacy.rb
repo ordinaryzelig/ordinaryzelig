@@ -25,6 +25,8 @@ module OrdinaryZelig
     
     module InstanceMethods
       
+      protected
+      
       def privacy_level_attributes=(attributes)
         if attributes[:id].blank?
           build_privacy_level(attributes)

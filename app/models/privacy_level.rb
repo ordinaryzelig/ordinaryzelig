@@ -5,4 +5,8 @@ class PrivacyLevel < ActiveRecord::Base
   
   is_polymorphic :skip_validations => true
   
+  def to_s
+    self.privacy_level_type.to_s
+  end
+  
 end
