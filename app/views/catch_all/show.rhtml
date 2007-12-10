@@ -4,8 +4,8 @@
   <div style="margin-top: 5mm; color: gray;">
     <hr>
     <div style="text-align: center;">  <%= @page.created_at.strftime("%Y-%m-%d") %><br/>
-      <% if @page.last_updated_at -%>
-        (updated: <%= clickable_time(@page.last_updated_at) %>)
+      <% if @page.updated_at -%>
+        (updated: <%= clickable_time(@page.updated_at) %>)
       <% end -%>
     </div>
   </div>
