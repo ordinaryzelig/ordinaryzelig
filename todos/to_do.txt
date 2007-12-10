@@ -1,10 +1,13 @@
 privacy
-   tables
-      privacy_levels
-      privacy_level_types
-   models
-      default all users and recent_entities to friends only
-   privacy plugin
-      define can_read?
-   controller/views
-   test deployment
+  tables
+    privacy_levels
+    privacy_level_types
+  models
+    default all users and recent_entities to friends only
+  privacy plugin
+    define can_read?
+  controller/views
+  test deployment
+    migrate
+    fixtures
+    existing blogs

@@ -12,7 +12,7 @@
       </div>
     </div>
     
-    <div style="text-align: center;">
+    <div style="text-align: center; color: gray;">
       <%= "#{mark_as_read_link @blog}<br/>" if @blog.is_recent?(logged_in_user) %>
       <% if is_self_or_logged_in_as_admin?(@blog.user) -%>
         <%= content_tag :span, "#{@blog.privacy_level} can read this blog", :style => 'font-style: italic;' %><br/>

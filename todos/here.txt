@@ -1,1 +1,2 @@
-test recency
+existing blogs
+test privacy on recent comments
