@@ -9,7 +9,7 @@ class AdminController < ApplicationController
   
   def create_new_season
     if request.post?
-      @season = Season::new_season
+      @season = Season.new_season
       redirect_to(:action => :edit_season, :id => @season.id)
     end
   end
@@ -116,7 +116,7 @@ class AdminController < ApplicationController
   #   season_id
   def participation
     @season = Season.find_by_id(params[:season_id])
-    @season = Season::current unless @season
+    @season = Season.current unless @season
     if request.get?
       @users = User.find(:all, :include => {:pool_users => :pics}, :order => User.default_order_by_string)
       @users.reject! { |user| user.id == User::master_id || user.is_admin? }

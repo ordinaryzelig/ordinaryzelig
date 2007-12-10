@@ -1,5 +1,0 @@
-migrate to 009
-load_fixtures
-add privacy_levels to existing blogs.
-
-migrate page models

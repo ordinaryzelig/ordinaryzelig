@@ -5,7 +5,7 @@ require 'time_units'
 module ApplicationHelper
   
   def season_select_tag(season_id = nil)
-    select_tag(:season_id, options_for_select(Season::container, season_id))
+    select_tag(:season_id, options_for_select(Season.container, season_id))
   end
   
   def link_to_profile(user, str = user.display_name, highlight_text = nil)

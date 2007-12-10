@@ -14,5 +14,5 @@ locals
   <% end -%>
 </td>
 <% 1.upto(6) do |i| -%>
-  <td align=center class=<%= class_for_game_pic(i, pic, master_pool_user.pics, pool_user) %>><%= "<li></li>" if pic.bid && pic.furthest_round.number >= i %></td>
+  <td align=center class=<%= class_for_game_pic(i, pic, master_pool_user.pics, pool_user) %>><%= pic_bullet if pic.bid && pic.furthest_round.number >= i %></td>
 <% end -%>

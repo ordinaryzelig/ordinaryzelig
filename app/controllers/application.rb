@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_season
-    @current_season ||= Season::current
+    @current_season ||= Season.latest
   end
   
   def require_authentication
@@ -128,10 +128,6 @@ class ApplicationController < ActionController::Base
   
   def is_self?(user)
     user && user.id == session[:user_id]
-  end
-  
-  def is_admin?(user)
-    user && user.is_admin?
   end
   
   def is_admin_action?(action = action_name)

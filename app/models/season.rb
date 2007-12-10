@@ -8,18 +8,17 @@ class Season < ActiveRecord::Base
   has_many :games
   has_many :pool_users
   
-  # create new season.
-  def Season::new_season
-    season = Season.new
+  def self.new_season
+    season = self.new
     # add new regions.
-    season.regions = Region::new_season
-    season.save
+    self.regions = Region::new_season
+    self.save
     # new PoolUser.
     pool_user = PoolUser.new(:user_id => User::master, :season => season, :bracket_num => 1)
     # new bracket of games.
     Game::new_season(season)
     # create new pics for each game.
-    games = season.games
+    games = self.games
     games.each do |game|
       game.pics << Pic.new(:pool_user => pool_user)
       game.save
@@ -27,7 +26,7 @@ class Season < ActiveRecord::Base
     # new bids.
     bids = Bid::new_season
     # assign bids to games.
-    season.regions.reject{|region| 1 == region.order_num}.each_with_index do |region, i|
+    self.regions.reject{|region| 1 == region.order_num}.each_with_index do |region, i|
       region.games.reject{|game| 6 != game.round_id}.each_with_index do |game, j|
         2.times do |k|
           bid = bids[i][j * 2 + k]
@@ -39,16 +38,12 @@ class Season < ActiveRecord::Base
     season
   end
   
-  def Season::current
-    Season.find(:first, :conditions => ["is_current = ?", 1])
-  end
-  
-  def Season::container
-    Season.find(:all, :order => "tournament_year").collect{|season| [season.tournament_year, season.id]}
+  def self.container
+    find(:all, :order => :tournament_year).map { |season| [season.tournament_year, season.id] }
   end
   
   def self.latest
-    Season.find(:all, :order => :tournament_year).last
+    find(:first, :order => "tournament_year desc")
   end
   
 end

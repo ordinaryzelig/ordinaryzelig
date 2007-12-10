@@ -29,4 +29,8 @@ module PoolHelper
     select_tag(:scoring_system_id, options_for_select(ScoringSystems::container, scoring_system_id))
   end
   
+  def pic_bullet
+    content_tag :STRONG, '&bull;'
+  end
+  
 end

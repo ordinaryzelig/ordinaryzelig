@@ -7,7 +7,6 @@ class BlogController < ApplicationController
     @blogs = @user.blogs
     @blogs = @blogs.readable_by logged_in_user unless is_self_or_logged_in_as_admin?(@user)
     render_layout_only 'user not found' and return unless @user
-    @page_title = "#{@user.display_name}'s blogs"
   end
   
   def show

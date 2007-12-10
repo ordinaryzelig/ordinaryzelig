@@ -1,3 +1,9 @@
+<% content_for :banner do -%>
+  <div id="banner">
+    <%= link_to_profile @user %>'s blogs
+  </div>
+<% end -%>
+
 <% if is_self?(@user) -%>
   <div style="padding-bottom: 10mm;"><%= link_to("new", :controller => "blog", :action => "new") %></div>
 <% end -%>

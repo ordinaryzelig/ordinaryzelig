@@ -105,4 +105,8 @@ class UserController < ApplicationController
     end
   end
   
+  def blogs
+    redirect_to :controller => 'blog', :action => 'list', :id => params[:id]
+  end
+  
 end
