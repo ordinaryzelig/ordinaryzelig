@@ -92,15 +92,15 @@ class Game < ActiveRecord::Base
   
   def master_pic
     pics.detect do |pic|
-      pic.pool_user.user_id == User::master_id
+      pic.pool_user.user_id == User.master_id
     end
   end
   
   # return array of games that have not yet been decided.
-  def self.undecided(season_id)
-    games = find(:all, :conditions => ["#{table_name}.season_id = ?", season_id], :include => {:pics => [:pool_user, :bid]})
-    master_pool_user = PoolUser::master(season_id)
-    games.reject { |game| game.pic(master_pool_user.id).bid }
+  def self.undecided(season)
+    games = find(:all, :conditions => ["#{table_name}.season_id = ?", season.id], :include => {:pics => [:pool_user, :bid]})
+    master_pool_user = PoolUser.master(season)
+    games.reject { |game| master_pool_user.pics.for_game(game).bid }
   end
   
 end

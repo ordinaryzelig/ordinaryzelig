@@ -16,11 +16,11 @@ class PoolUser < ActiveRecord::Base
   attr_reader :num_correct_pics
   
   # return PoolUser object of master user for given season.
-  def PoolUser::master(season_id)
-    User::master.season_pool_users(season_id)[0]
+  def self.master(season)
+    User.master.pool_users.for_season(season).first
   end
   
-  def PoolUser::standings_sort_proc
+  def self.standings_sort_proc
     Proc.new do |a, b|
       if a.points == b.points
         if a.num_correct_pics == b.num_correct_pics
@@ -35,8 +35,7 @@ class PoolUser < ActiveRecord::Base
   end
   
   # calculate total points earned by this PoolUser.
-  def calculate_points(master_pics = nil, scoring_system = nil)
-    master_pics ||= master_pics
+  def calculate_points(master_pics, scoring_system = nil)
     @points = 0
     correct_pics(master_pics).each do |pic|
       @points += pic.point_worth(scoring_system)
@@ -61,7 +60,7 @@ class PoolUser < ActiveRecord::Base
   
   def pics_left(games_undecided = nil)
     pics_left = []
-    games_undecided ||= Game.undecided(season_id)
+    games_undecided ||= Game.undecided(season)
     games_undecided.each do |game|
       pic = game.pic(id)
       pics_left << pic if pic.still_alive?
@@ -71,7 +70,7 @@ class PoolUser < ActiveRecord::Base
   
   def points_left(games_undecided = nil, scoring_system = nil)
     points_left = 0
-    games_undecided ||= Game.undecided(season_id)
+    games_undecided ||= Game.undecided(season)
     pics_left(games_undecided).each do |pic|
       points_left += pic.point_worth(scoring_system)
     end
@@ -99,7 +98,7 @@ class PoolUser < ActiveRecord::Base
   end
   
   def unique_pics(other_pool_users)
-    games_undecided = Game.undecided(season_id)
+    games_undecided = Game.undecided(season)
     uniques = []
     games_undecided.each do |game|
       my_pic = game.pic(id)
@@ -125,10 +124,6 @@ class PoolUser < ActiveRecord::Base
         @num_correct_pics += 1
       end
     end
-  end
-  
-  def master_pics
-    PoolUser::master(season_id).pics
   end
   
 end

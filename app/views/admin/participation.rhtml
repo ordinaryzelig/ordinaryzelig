@@ -19,11 +19,11 @@
         <%= link_to_email(user.last_first_display, user) %>
       </td>
       <td>
-        <% user.season_pool_users(@season.id).each do |pool_user| -%>
+        <% user.pool_users.for_season(@season).each do |pool_user| -%>
           <span><%= link_to_bracket("#{pool_user.bracket_num}", pool_user, {:bracket_num => pool_user.bracket_num, :controller => "pool"}) %><%= "*" if !pool_user.bracket_complete? %></span>
         <% end -%>
       </td>
-      <td><%= link_to("enter pool", {:action => "enter_pool", :season_id => @season.id, :id => user.id}, :post => true) unless User::master_id == user.id %></td>
+      <td><%= link_to("enter pool", {:action => "enter_pool", :season_id => @season.id, :id => user.id}, :post => true) unless User.master_id == user.id %></td>
     </tr>
   <% end -%>
 </table>

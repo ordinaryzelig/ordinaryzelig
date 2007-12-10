@@ -2,7 +2,11 @@ require "digest/sha1"
 
 class User < ActiveRecord::Base
   
-  has_many :pool_users, :order => "season_id"
+  has_many :pool_users, :order => "season_id, bracket_num" do
+    def for_season(season)
+      self.select { |pu| season.id == pu.season_id }
+    end
+  end
   has_many :accounts
   has_one :user_activity
   has_many :friendships, :foreign_key => "user_id"
@@ -76,11 +80,11 @@ class User < ActiveRecord::Base
   end
   
   # return master user, who's pics are those that actually happened.
-  def User::master
-    User.find_by_id(User::master_id)
+  def self.master
+    User.find_by_id(User.master_id)
   end
   
-  def User::master_id
+  def self.master_id
     1
   end
   
@@ -89,7 +93,7 @@ class User < ActiveRecord::Base
   end
   
   def is_master?
-    User::master_id == id
+    User.master_id == id
   end
   
   # return seasons that user is not participating in.
@@ -124,10 +128,6 @@ class User < ActiveRecord::Base
       users = User.find(:all, :order => default_order_by_string)
     end
     users.reject{|user| 1 == user.is_admin}.map{|user| [user.display_name, user.id]}
-  end
-  
-  def season_pool_users(season_id)
-    pool_users.reject{|pool_user| season_id != pool_user.season_id}.sort{|a, b| a.bracket_num <=> b.bracket_num}
   end
   
   def toggle_authorization

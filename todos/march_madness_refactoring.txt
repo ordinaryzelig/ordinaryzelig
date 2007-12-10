@@ -3,4 +3,5 @@ allow anybody to have their own pool.
     move season columns
       max_num_brackets
       buy-in
+    we already have a pool_user model. use pools_users habtm?
 

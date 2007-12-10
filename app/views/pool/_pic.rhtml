@@ -9,7 +9,7 @@ locals
 =end -%>
 <%= render(:partial => "bid", :locals => {:bid => pic.bid, :game => pic.game, :is_editable => is_editable, :pool_user => pool_user, :still_alive => pic.still_alive?}) %>
 <%# real results. -%>
-<% master_pic = PoolUser::master(pool_user.season_id).pics.for_game(pic.game) -%>
+<% master_pic = PoolUser.master(pool_user.season).pics.for_game(pic.game) -%>
 <% if pic.bid && master_pic.bid -%>
   <% is_correct = pic.bid.id == master_pic.bid_id -%>
   <% if is_correct then is_correct = 1 else is_correct = 0 end -%>

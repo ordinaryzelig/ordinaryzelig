@@ -19,11 +19,11 @@
   <% @users.each do |user| -%>
     <% amount_paid = user.account(@season.id).amount_paid -%>
     <% pot += amount_paid -%>
-    <% brackets = user.season_pool_users(@season.id).size -%>
+    <% brackets = user.pool_users.for_season(@season).size -%>
     <% total_num_brackets += brackets -%>
     <tr>
       <td style="text-align: left;"><%= link_to_profile(user, "#{user.last_first_display} (#{user.id})") %></td>
-      <td><%= user.season_pool_users(@season.id).size %></td>
+      <td><%= user.pool_users.for_season(@season).size %></td>
       <td><%= amount_paid %></td>
       <% if @season.buy_in * brackets == amount_paid -%>
         <td>paid</td>

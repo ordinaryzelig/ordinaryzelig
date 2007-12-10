@@ -14,7 +14,7 @@ class Season < ActiveRecord::Base
     self.regions = Region::new_season
     self.save
     # new PoolUser.
-    pool_user = PoolUser.new(:user_id => User::master, :season => season, :bracket_num => 1)
+    pool_user = PoolUser.new(:user_id => User.master, :season => season, :bracket_num => 1)
     # new bracket of games.
     Game.new_season(season)
     # create new pics for each game.

@@ -67,7 +67,7 @@ class AdminController < ApplicationController
             bid.save
           end
         end
-        redirect_to(:controller => "pool", :action => "brackets", :season_id => params[:season_id], :id => User::master_id)
+        redirect_to(:controller => "pool", :action => "brackets", :season_id => params[:season_id], :id => User.master_id)
       else
         redirect_to(:action => "select_team_bids", :season_id => params[:season_id])
       end
@@ -96,7 +96,7 @@ class AdminController < ApplicationController
     @season = Season.latest unless @season
     if request.get?
       @users = User.find(:all, :include => {:pool_users => :pics}, :order => User.default_order_by_string)
-      @users.reject! { |user| user.id == User::master_id || user.is_admin? }
+      @users.reject! { |user| user.id == User.master_id || user.is_admin? }
     else
       redirect_to(:action => "participation", :season_id => params[:season_id])
     end
@@ -110,7 +110,7 @@ class AdminController < ApplicationController
       season = Season.find(params[:season_id])
       user = User.find_by_id(params[:id])
       if user
-        if user.season_pool_users(season.id).size < season.max_num_brackets
+        if user.pool_users.for_season(season).size < season.max_num_brackets
           pool_user = user.enter_pool(season.id, next_bracket_num(user.pool_users.reject{|pu| pu.season_id != season.id}))
           flash[:success] = "user #{user.id} entered in pool."
         else
@@ -129,7 +129,7 @@ class AdminController < ApplicationController
     if request.get?
       @season = Season.find_by_id(params[:season_id]) || current_season
       @users = User.find(:all, :conditions => ["#{PoolUser.table_name}.season_id = ?", @season.id], :include => :pool_users, :order => User.default_order_by_string)
-      @users.delete_if{|user| User::master == user }
+      @users.delete_if{|user| User.master == user }
     else
     # post.
       redirect_to(:action => "buy_ins", :season_id => params[:season_id])
