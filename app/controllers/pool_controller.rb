@@ -1,6 +1,6 @@
 class PoolController < ApplicationController
   
-  before_filter :check_authorization, :only => :make_pic
+  before_filter :require_authentication, :only => :make_pic
   
   def index
     flash.keep
@@ -78,11 +78,11 @@ class PoolController < ApplicationController
       pic = nil
       other_affected_pics = []
       if is_first_round_bid
-        other_affected_pics = game.declare_winner(bid, pool_user.id)
-        pic = game.pic(pool_user.id)
+        other_affected_pics = game.declare_winner(bid, pool_user)
+        pic = pool_user.pics.for_game game
       else
-        other_affected_pics = game.parent.declare_winner(bid, pool_user.id)
-        pic = game.parent.pic(pool_user.id)
+        other_affected_pics = game.parent.declare_winner(bid, pool_user)
+        pic = pool_user.pics.for_game(game.parent)
       end
       # need to update bracket completion?
       # have to load pool_user again to update the pics.

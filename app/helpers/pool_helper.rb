@@ -19,7 +19,7 @@ module PoolHelper
           html += "Incorrect"
         end
       else
-        html += "Dead" unless pool_user.pic_for_game(game_in_lineage.id).still_alive?
+        html += "Dead" unless pool_user.pics.for_game(game_in_lineage).still_alive?
       end
     end
     html

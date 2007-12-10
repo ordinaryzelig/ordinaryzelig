@@ -6,7 +6,11 @@ class PoolUser < ActiveRecord::Base
   
   belongs_to :season
   belongs_to :user
-  has_many :pics
+  has_many :pics do
+    def for_game(game)
+      detect { |pic| game == pic.game }
+    end
+  end
   
   attr_reader :points
   attr_reader :num_correct_pics
@@ -53,10 +57,6 @@ class PoolUser < ActiveRecord::Base
   
   def bracket_complete?
     !self.pics.empty? && self.pics.reject{|pic| pic.bid_id}.size == 0
-  end
-  
-  def pic_for_game(game_id)
-    pics.detect { |pic| game_id == pic.game_id }
   end
   
   def pics_left(games_undecided = nil)

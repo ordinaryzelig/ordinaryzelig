@@ -1,33 +1,29 @@
-=begin
-a game for a season.
-=end
-
 class Game < ActiveRecord::Base
   
   acts_as_tree
   belongs_to :round
   belongs_to :season
+  belongs_to :region
   has_many :first_round_bids, :class_name => "Bid", :foreign_key => "first_game_id", :order => "seed"
   has_many :pics
-  belongs_to :region
   
   # create new bracket for a season.
-  def Game::new_season(season)
+  def self.new_season(season)
     championshipGame = Game.new(:round_id => 1, :region => season.regions[0])
     championshipGame.season = season
     # create final four games and their children (regional championship games).
-    Game::new_tree(championshipGame, 2)
+    self.new_tree(championshipGame, 2)
     regional_championship_games = [championshipGame.top.top, championshipGame.top.bottom, championshipGame.bottom.top, championshipGame.bottom.bottom]
     # create region brackets.
     regional_championship_games.each_with_index do |game, i|
       game.region = season.regions[i + 1]
-      Game::new_tree(game, 3)
+      self.new_tree(game, 3)
     end
     championshipGame.save
   end
   
   # create a new tree with given number of rounds.
-  def Game::new_tree(parent, rounds)
+  def self.new_tree(parent, rounds)
     if 0 < rounds
       0.upto(1) do |i|
         # create child game.
@@ -35,37 +31,37 @@ class Game < ActiveRecord::Base
         parent.children[i].season = parent.season
         parent.children[i].region = parent.region
         # recurse.
-        Game::new_tree(parent.children[i], rounds - 1)
+        self.new_tree(parent.children[i], rounds - 1)
       end
     end
   end
   
-  def declare_winner(bid, pool_user_id)
-    pic = pic(pool_user_id)
+  def declare_winner(bid, pool_user)
+    pic = pool_user.pics.for_game self
     old_bid_id = pic.bid_id
     pic.bid_id = bid.id
     pic.save
-    other_pics_affected = parent.stop_progress_of_bid(old_bid_id, pool_user_id) if parent && old_bid_id && old_bid_id != bid.id
+    other_pics_affected = parent.stop_progress_of_bid(old_bid_id, pool_user) if parent && old_bid_id && old_bid_id != bid.id
     other_pics_affected || []
   end
   
   # bid_id should not be winner of this or any parent games.
-  def stop_progress_of_bid(old_bid_id, pool_user_id)
-    pic = pic(pool_user_id)
+  def stop_progress_of_bid(old_bid_id, pool_user)
+    pic = pool_user.pics.for_game self
     other_pics_affected = []
     if old_bid_id == pic.bid_id
       pic.bid_id = nil
       pic.save
       other_pics_affected << pic
       # recurse.
-      other_pics_affected += self.parent.stop_progress_of_bid(old_bid_id, pool_user_id) if self.parent      
+      other_pics_affected += self.parent.stop_progress_of_bid(old_bid_id, pool_user) if self.parent      
     end
     other_pics_affected
   end
   
-  def pic(pool_user_id)
-    pics.detect{|pic| pool_user_id == pic.pool_user_id}
-  end
+  # def pic(pool_user_id)
+  #   pics.detect{|pic| pool_user_id == pic.pool_user_id}
+  # end
   
   def child_with_pic(pic)
     children.detect{|game| game.pic(pic.pool_user.id).bid_id == pic.bid_id}

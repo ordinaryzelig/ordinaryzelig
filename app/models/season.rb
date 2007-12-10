@@ -16,7 +16,7 @@ class Season < ActiveRecord::Base
     # new PoolUser.
     pool_user = PoolUser.new(:user_id => User::master, :season => season, :bracket_num => 1)
     # new bracket of games.
-    Game::new_season(season)
+    Game.new_season(season)
     # create new pics for each game.
     games = self.games
     games.each do |game|

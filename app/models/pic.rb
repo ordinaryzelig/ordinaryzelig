@@ -25,7 +25,7 @@ class Pic < ActiveRecord::Base
   def still_alive?
     # if this pic even has a bid,
     if bid
-      master_pic = game.pic(PoolUser::master(game.season_id).id)
+      master_pic = PoolUser::master(game.season_id).pics.for_game game
       if master_pic.bid_id
         # if master_pic for same game has a bid,
         if master_pic.bid_id == bid_id
