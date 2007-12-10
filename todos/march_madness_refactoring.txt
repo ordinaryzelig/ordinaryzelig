@@ -1,0 +1,6 @@
+allow anybody to have their own pool.
+  add pool model
+    move season columns
+      max_num_brackets
+      buy-in
+

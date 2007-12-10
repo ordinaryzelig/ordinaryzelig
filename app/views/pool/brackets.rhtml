@@ -44,8 +44,8 @@
       </span>
     <% end -%>
     <% if is_self_or_logged_in_as_admin?(logged_in_user) -%>
-      <% is_editable = (Time.now < @season.tournament_starts_at && 1 == @season.is_current) || logged_in_as_admin? -%>
-      <% if !is_editable && 1 == @season.is_current -%>
+      <% is_editable = Time.now < @season.tournament_starts_at || logged_in_as_admin? -%>
+      <% if !is_editable -%>
         <div id="picsEditable">brackets closed.</div>
       <% elsif Time.now < @season.tournament_starts_at -%>
         <div id="picsEditable">

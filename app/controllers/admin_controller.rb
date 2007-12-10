@@ -74,29 +74,6 @@ class AdminController < ApplicationController
     end
   end
   
-  def seasons
-    @seasons = Season.find(:all, :order => "tournament_year")
-  end
-  
-  # params
-  #   id (season)
-  def mark_season_current
-    if request.post?
-      # get current season and mark as not current.
-      @seasons = Season.find(:all, :order => "tournament_year")
-      previous_current_season = @seasons.detect{|season| 1 == season.is_current}
-      if previous_current_season
-        previous_current_season.is_current = nil
-        previous_current_season.save
-      end
-      # mark params season as current.
-      new_current_season = @seasons.detect{|season| params[:id].to_i == season.id}
-      new_current_season.is_current = 1
-      new_current_season.save
-      redirect_to(:action => "seasons")
-    end
-  end
-  
   def users
     @users = User.find(:all).reject{|user| 1 == user.is_admin}.sort{|x, y| x.last_name.downcase <=> y.last_name.downcase}
   end
