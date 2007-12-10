@@ -1,16 +1,11 @@
 class Page < ActiveRecord::Base
   
-  validates_presence_of :source, :created_at, :title
-  before_validation :set_times
+  validates_presence_of :source, :title
+  
+  before_update do |page|
+    page.last_updated_at = Time.now.localtime
+  end
   
   preview_using :source
-  
-  def set_times
-    if new_record?
-      self.created_at ||= Time.now.localtime
-    else
-      self.last_updated_at = Time.now.localtime
-    end
-  end
   
 end

@@ -11,3 +11,8 @@ privacy
     migrate
     fixtures
     existing blogs
+
+created_at
+  update models
+  test models
+  update page.updated_at

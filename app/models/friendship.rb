@@ -6,8 +6,7 @@ class Friendship < ActiveRecord::Base
   belongs_to :friend, :class_name => "User", :foreign_key => "friend_id"
   belongs_to :considering_friend, :class_name => "User", :foreign_key => "user_id"
   
-  validates_presence_of :user_id, :friend_id, :created_at
-  before_validation_on_create :set_created_at
+  validates_presence_of :user_id, :friend_id
   
   can_be_marked_as_read
   has_recency
@@ -24,12 +23,6 @@ class Friendship < ActiveRecord::Base
                   scopes[:since_previous_login][user]] +
                   more_scopes
     find_all_unread_by_user user, *all_scopes
-  end
-  
-  private
-  
-  def set_created_at
-    self.created_at ||= Time.now.localtime
   end
   
 end

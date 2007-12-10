@@ -9,7 +9,7 @@ class Comment < ActiveRecord::Base
   is_entity_type
   
   belongs_to :user
-  validates_presence_of :comment, :user_id, :created_at
+  validates_presence_of :comment, :user_id
   
   attr_protected :user_id, :created_at
   attr_accessor :entity_type, :entity_id
@@ -45,11 +45,6 @@ class Comment < ActiveRecord::Base
   end
   
   private
-  
-  def before_validation_on_create
-    # set created_at time to now.
-    self.created_at ||= Time.now.localtime
-  end
   
   def validate_on_create
     # if this is a root comment, validates_presence_of :commentable.

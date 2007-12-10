@@ -16,15 +16,11 @@ class Message < ActiveRecord::Base
   
   belongs_to :user
   
-  validates_presence_of :user_id, :created_at
+  validates_presence_of :user_id
   validates_presence_of :subject
   validates_presence_of :body
   validates_length_of :subject, :maximum => 100
   
   attr_accessible :subject, :body
-  
-  def before_validation_on_create
-    self.created_at ||= Time.now.localtime
-  end
   
 end
