@@ -23,26 +23,23 @@ class Pic < ActiveRecord::Base
   
   # return whether this pic still has a chance to advance to the next round.
   def still_alive?
+    return false unless bid_id
     # if this pic even has a bid,
-    if bid
-      master_pic = PoolUser.master(game.season).pics.for_game game
-      if master_pic.bid_id
-        # if master_pic for same game has a bid,
-        if master_pic.bid_id == bid_id
-          true
-        else
-          false
-        end
+    master_pic = PoolUser.master(game.season).pics.for_game game
+    if master_pic.bid_id
+      # if master_pic for same game has a bid,
+      if master_pic.bid_id == bid_id
+        true
       else
-        child_game = game.child_with_pic(self)
-        if child_game
-          child_game.pic(pool_user.id).still_alive?
-        else
-          true
-        end
+        false
       end
     else
-      nil
+      child_game = game.child_with_pic(self)
+      if child_game
+        pool_user.pics.for_game(child_game).still_alive?
+      else
+        true
+      end
     end
   end
   

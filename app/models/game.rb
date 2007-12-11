@@ -59,12 +59,8 @@ class Game < ActiveRecord::Base
     other_pics_affected
   end
   
-  # def pic(pool_user_id)
-  #   pics.detect{|pic| pool_user_id == pic.pool_user_id}
-  # end
-  
   def child_with_pic(pic)
-    children.detect{|game| game.pic(pic.pool_user.id).bid_id == pic.bid_id}
+    children.detect { |game| pic.pool_user.pics.for_game(game).bid_id == pic.bid_id }
   end
   
   def game_in_lineage_with_pic(pic, round_number)

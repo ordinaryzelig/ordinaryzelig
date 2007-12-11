@@ -53,19 +53,24 @@ class PoolUser < ActiveRecord::Base
   end
   
   def pics_left(games_undecided = nil)
-    pics_left = []
+    return @pics_left if @pics_left
     games_undecided ||= Game.undecided(season)
-    games_undecided.each do |game|
-      pic = game.pic(id)
-      pics_left << pic if pic.still_alive?
+    @pics_left = pics.select do |pic|
+      pic.still_alive? && games_undecided.include?(pic.game)
     end
-    pics_left
+    
+    # pics_left = []
+    # games_undecided ||= Game.undecided(season)
+    # games_undecided.each do |game|
+    #   pic = game.pic(id)
+    #   pics_left << pic if pic.still_alive?
+    # end
+    # pics_left
   end
   
-  def points_left(games_undecided = nil, scoring_system = nil)
+  def points_left(games_undecided = Game.undecided(season), scoring_system = nil)
     points_left = 0
-    games_undecided ||= Game.undecided(season)
-    pics_left(games_undecided).each do |pic|
+    pics.left(games_undecided).each do |pic|
       points_left += pic.point_worth(scoring_system)
     end
     points_left
@@ -95,7 +100,7 @@ class PoolUser < ActiveRecord::Base
     games_undecided = Game.undecided(season)
     uniques = []
     games_undecided.each do |game|
-      my_pic = game.pic(id)
+      my_pic = pics.for_game game
       if my_pic.still_alive?
         unique = true
         # iterate through other_pool_users and undecided pics.
@@ -113,9 +118,8 @@ class PoolUser < ActiveRecord::Base
   
   def simulate(winning_pics, scoring_system = nil)
     winning_pics.each do |pic|
-      if pic_for_game(pic.game_id).bid_id == pic.bid_id
+      if pics.for_game(pic.game).bid_id == pic.bid_id
         @points += pic.point_worth(scoring_system)
-        @pics.correct.size += 1
       end
     end
   end
