@@ -5,3 +5,4 @@ allow anybody to have their own pool.
       buy-in
     we already have a pool_user model. use pools_users habtm?
 
+make scoring_system model

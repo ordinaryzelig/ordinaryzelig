@@ -16,6 +16,9 @@ class PoolUser < ActiveRecord::Base
         pic.bid_id && master_pics.detect { |p| pic.game_id == p.game_id }.bid_id == pic.bid_id
       end
     end
+    def incomplete
+      reject &:bid_id
+    end
   end
   
   attr_reader :points
@@ -40,7 +43,7 @@ class PoolUser < ActiveRecord::Base
   end
   
   # calculate total points earned by this PoolUser.
-  def calculate_points(master_pics, scoring_system = nil)
+  def calculate_points(master_pics, scoring_system = ScoringSystems.default)
     @points = 0
     pics.correct(master_pics).each do |pic|
       @points += pic.point_worth(scoring_system)
@@ -49,7 +52,7 @@ class PoolUser < ActiveRecord::Base
   end
   
   def bracket_complete?
-    !self.pics.empty? && self.pics.reject{|pic| pic.bid_id}.size == 0
+    !self.pics.empty? && self.pics.incomplete.empty?
   end
   
   def pics_left(games_undecided = nil)
@@ -58,17 +61,9 @@ class PoolUser < ActiveRecord::Base
     @pics_left = pics.select do |pic|
       pic.still_alive? && games_undecided.include?(pic.game)
     end
-    
-    # pics_left = []
-    # games_undecided ||= Game.undecided(season)
-    # games_undecided.each do |game|
-    #   pic = game.pic(id)
-    #   pics_left << pic if pic.still_alive?
-    # end
-    # pics_left
   end
   
-  def points_left(games_undecided = Game.undecided(season), scoring_system = nil)
+  def points_left(games_undecided = Game.undecided(season), scoring_system = ScoringSystems.default)
     points_left = 0
     pics.left(games_undecided).each do |pic|
       points_left += pic.point_worth(scoring_system)
@@ -76,20 +71,7 @@ class PoolUser < ActiveRecord::Base
     points_left
   end
   
-  def can_beat?(other_pool_users, unique_pics = nil)
-    unique_points = unique_points(other_pool_users, unique_pics)
-    can_beat = true
-    master_pics = self.master_pics
-    calculate_points(master_pics)
-    current_points = points
-    other_pool_users.each do |pool_user|
-      pool_user.calculate_points(master_pics)
-      can_beat = false if pool_user.points > unique_points + current_points
-    end
-    can_beat
-  end
-  
-  def unique_points(other_pool_users, unique_pics = nil, scoring_system = nil)
+  def unique_points(other_pool_users, unique_pics = nil, scoring_system = ScoringSystems.default)
     unique_points = 0
     unique_pics ||= unique_pics(other_pool_users)
     unique_pics.each { |pic| unique_points += pic.point_worth(scoring_system) }

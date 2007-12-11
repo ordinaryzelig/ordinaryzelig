@@ -27,10 +27,6 @@ module ScoringSystems
       "seed x round"
     end
     
-    # def self.key_value_pair
-    #   self.id => self
-    # end
-    
   end
   
   module Cbs
@@ -53,10 +49,6 @@ module ScoringSystems
     def self.to_s
       "cbs sportsline bracket challenge"
     end
-    
-    # def self.key_value_pair
-    #   self.id => self
-    # end
     
   end
   
@@ -90,10 +82,6 @@ module ScoringSystems
     def self.to_s
       "espn tournament challenge"
     end
-    
-    # def self.key_value_pair
-    #   self.id => self
-    # end
     
   end
   
@@ -131,10 +119,10 @@ module ScoringSystems
     
   end
   
-  SYSTEMS = {Jared::id => Jared,
-             Espn::id => Espn,
-             Cbs::id => Cbs,
-             SportsIllustrated::id => SportsIllustrated}
+  SYSTEMS = {Jared.id => Jared,
+             Espn.id => Espn,
+             Cbs.id => Cbs,
+             SportsIllustrated.id => SportsIllustrated}
   SYSTEMS.default = self.default
   SYSTEMS.freeze
   

@@ -9,9 +9,8 @@ class Pic < ActiveRecord::Base
   belongs_to :bid
   belongs_to :pool_user
   
-  def point_worth(scoring_system = nil)
-    scoring_system ||= ScoringSystems::default
-    scoring_system::point_worth(self)
+  def point_worth(scoring_system = ScoringSystems.default)
+    scoring_system.point_worth(self)
   end
   
   # return the furthest round that this team goes.
