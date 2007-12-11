@@ -16,7 +16,7 @@ locals:
 <% link_str << " (#{pool_user.bracket_num})" if 1 < pool_user.bracket_num -%>
 <td><%= link_to(link_str, {:action => :brackets, :id => pool_user.user_id, :season_id => pool_user.season_id, :bracket_num => pool_user.bracket_num}) %></td>
 <td align=center><%= pool_user.points %></td>
-<td align=center><%= pool_user.num_correct_pics %></td>
+<td align=center><%= pool_user.pics.correct.size %></td>
 <% if show_pvp_selectors -%>
   <% if is_master -%>
     <td></td>

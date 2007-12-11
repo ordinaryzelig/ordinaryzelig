@@ -10,10 +10,15 @@ class PoolUser < ActiveRecord::Base
     def for_game(game)
       detect { |pic| game == pic.game }
     end
+    # don't have to pass master_pics everytime because it gets cached.
+    def correct(master_pics = nil)
+      @correct_pics ||= self.select do |pic|
+        pic.bid_id && master_pics.detect { |p| pic.game_id == p.game_id }.bid_id == pic.bid_id
+      end
+    end
   end
   
   attr_reader :points
-  attr_reader :num_correct_pics
   
   # return PoolUser object of master user for given season.
   def self.master(season)
@@ -23,10 +28,10 @@ class PoolUser < ActiveRecord::Base
   def self.standings_sort_proc
     Proc.new do |a, b|
       if a.points == b.points
-        if a.num_correct_pics == b.num_correct_pics
+        if a.pics.correct.size == b.pics.correct.size
           a.user.display_name.downcase <=> b.user.display_name.downcase
         else
-          a.num_correct_pics <=> b.num_correct_pics
+          a.pics.correct.size <=> b.pics.correct.size
         end
       else
         b.points <=> a.points
@@ -37,21 +42,10 @@ class PoolUser < ActiveRecord::Base
   # calculate total points earned by this PoolUser.
   def calculate_points(master_pics, scoring_system = nil)
     @points = 0
-    correct_pics(master_pics).each do |pic|
+    pics.correct(master_pics).each do |pic|
       @points += pic.point_worth(scoring_system)
     end
     @points
-  end
-  
-  # pics that are the same as other master pics passed.
-  def correct_pics(master_pics = nil)
-    master_pics ||= self.master_pics
-    correct = []
-    self.pics.each do |pic|
-      correct << pic if pic.bid && master_pics.detect{|p| pic.game_id == p.game_id}.bid_id == pic.bid_id
-    end
-    @num_correct_pics = correct.size
-    correct
   end
   
   def bracket_complete?
@@ -121,7 +115,7 @@ class PoolUser < ActiveRecord::Base
     winning_pics.each do |pic|
       if pic_for_game(pic.game_id).bid_id == pic.bid_id
         @points += pic.point_worth(scoring_system)
-        @num_correct_pics += 1
+        @pics.correct.size += 1
       end
     end
   end

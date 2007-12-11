@@ -26,5 +26,5 @@
   <% all_pvp_players = @other_pool_users + [@pvp_subject] -%>
   <% pics_left = @pvp_subject.pics_left -%>
   <% all_pvp_players.each { |pu| pu.simulate(pics_left, @scoring_system) } -%>
-  <dd><%= render(:partial => "standings_rankings", :locals => {:pool_users => all_pvp_players.sort(&PoolUser::standings_sort_proc), :show_pvp_selectors => false, :subject_user => @pvp_subject.user, :scoring_system => @scoring_system}) %></dd>
+  <dd><%= render(:partial => "standings_rankings", :locals => {:pool_users => all_pvp_players.sort(&PoolUser.standings_sort_proc), :show_pvp_selectors => false, :subject_user => @pvp_subject.user, :scoring_system => @scoring_system}) %></dd>
 </dl>

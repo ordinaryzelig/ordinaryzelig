@@ -29,14 +29,14 @@ locals
     <% previous_pics = nil -%>
     <% on_or_after_subject = false -%>
     <% pool_users.each_with_index do |pool_user, i| %>
-      <% if previous_points == pool_user.points && previous_pics == pool_user.num_correct_pics
+      <% if previous_points == pool_user.points && previous_pics == pool_user.pics.correct.size
         ties += 1
       else
         ties = 0
       end -%>
       <% rank = i + 1 - ties -%>
       <% previous_points = pool_user.points -%>
-      <% previous_pics = pool_user.num_correct_pics -%>
+      <% previous_pics = pool_user.pics.correct.size -%>
       <% is_subject = subject_user && subject_user.id == pool_user.user_id %>
       <% on_or_after_subject ||= is_subject -%>
       <tr class=standing<%= "Self" if is_subject %>>
