@@ -46,4 +46,11 @@ class Season < ActiveRecord::Base
     find(:first, :order => "tournament_year desc")
   end
   
+  def root_game
+    return @root_game if @root_game
+    @root_game = Game.root_for_season self
+    @root_game.load_children
+    @root_game
+  end
+  
 end

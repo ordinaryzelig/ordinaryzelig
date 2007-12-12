@@ -6,3 +6,8 @@ allow anybody to have their own pool.
     we already have a pool_user model. use pools_users habtm?
 
 make scoring_system model
+
+cache games in CONSTANT?
+  caching seasons too.
+  make sure to refresh when creating new ones.
+  can do this for regions too.

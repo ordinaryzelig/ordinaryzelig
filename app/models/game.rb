@@ -99,4 +99,12 @@ class Game < ActiveRecord::Base
     games.reject { |game| master_pool_user.pics.for_game(game).bid }
   end
   
+  def load_children
+    children.each &:load_children
+  end
+  
+  def self.root_for_season(season)
+    Game.find(:first, :conditions => {:season_id => season.id, :parent_id => nil})
+  end
+  
 end

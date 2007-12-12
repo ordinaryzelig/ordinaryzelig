@@ -8,7 +8,7 @@ class PoolUser < ActiveRecord::Base
   belongs_to :user
   has_many :pics do
     def for_game(game)
-      detect { |pic| game == pic.game }
+      detect { |pic| game.id == pic.game_id }
     end
     # don't have to pass master_pics everytime because it gets cached.
     def correct(master_pics = nil)

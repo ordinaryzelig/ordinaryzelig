@@ -51,4 +51,3 @@ end
 # end
 
 # Include your application configuration below
-require 'recursive_tree'
