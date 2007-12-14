@@ -35,6 +35,8 @@ class Season < ActiveRecord::Base
         end
       end
     end
+    # update SEASONS cache.
+    SEASONS[season.tournament_year] = find(season.id).load_games
     season
   end
   
@@ -43,7 +45,7 @@ class Season < ActiveRecord::Base
   end
   
   def self.latest
-    find(:first, :order => "tournament_year desc")
+    SEASONS[find(:first, :order => "tournament_year desc").tournament_year]
   end
   
   def root_game
@@ -51,6 +53,11 @@ class Season < ActiveRecord::Base
     @root_game = Game.root_for_season self
     @root_game.load_children
     @root_game
+  end
+  
+  def load_games
+    root_game
+    self
   end
   
 end

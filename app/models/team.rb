@@ -8,7 +8,7 @@ class Team < ActiveRecord::Base
   validates_presence_of :name
   
   # return array for select input selectables.
-  def Team::select_options
+  def self.container
     Team.find(:all).collect { |team| [team.name, team.id] }.sort
   end
   

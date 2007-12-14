@@ -5,19 +5,17 @@ a user's participation in a season tournament.
 class PoolUser < ActiveRecord::Base
   
   belongs_to :season
-  belongs_to :user
+  belongs_to :user, :extend => User::AssociationMethods
   has_many :pics do
+    include Pic::AssociationMethods
     def for_game(game)
       detect { |pic| game.id == pic.game_id }
     end
-    # don't have to pass master_pics everytime because it gets cached.
+    # don't have to pass master_pics everytime because results get cached anyway.
     def correct(master_pics = nil)
       @correct_pics ||= self.select do |pic|
         pic.bid_id && master_pics.detect { |p| pic.game_id == p.game_id }.bid_id == pic.bid_id
       end
-    end
-    def incomplete
-      reject &:bid_id
     end
   end
   
@@ -25,7 +23,7 @@ class PoolUser < ActiveRecord::Base
   
   # return PoolUser object of master user for given season.
   def self.master(season)
-    User.master.pool_users.for_season(season).first
+    User.find_master(:first).pool_users.for_season(season).first
   end
   
   def self.standings_sort_proc
@@ -52,7 +50,7 @@ class PoolUser < ActiveRecord::Base
   end
   
   def bracket_complete?
-    !self.pics.empty? && self.pics.incomplete.empty?
+    !self.pics.empty? && self.pics.find_incomplete(:all).empty?
   end
   
   def pics_left(games_undecided = nil)

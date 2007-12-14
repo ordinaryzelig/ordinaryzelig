@@ -40,6 +40,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password, :is_admin
   attr_accessor :unhashed_password
   
+  scope_out :master, :conditions => {:display_name => 'master bracket'}
+  scope_out :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']]
+  
   def self.new_registrant(attributes, confirmation_password)
     user = new attributes
     user.valid?
@@ -79,9 +82,8 @@ class User < ActiveRecord::Base
     authenticated_user
   end
   
-  # return master user, who's pics are those that actually happened.
   def self.master
-    User.find_by_id(User.master_id)
+    find_master :first
   end
   
   def self.master_id
@@ -226,23 +228,12 @@ class User < ActiveRecord::Base
   end
   
   def self.search(search_text)
-    find_all_exclusive({:conditions => ["lower(display_name) like :search_text or " <<
-                                        "lower(first_name) like :search_text or " <<
-                                        "lower(last_name) like :search_text",
-                                        {:search_text => "%#{search_text.downcase}%"}],
-                        :order => "last_name, first_name, display_name"})
-  end
-  
-  def self.find_all_exclusive(options = {})
-    with_scope :find => options do
-      find :all, :conditions => ["#{table_name}.id not in (?)", [1, 29]]
-    end
-  end
-  
-  def self.find_exclusive(id, options = {})
-    with_scope :find => {:conditions => ["#{table_name}.id = ?", id]} do
-      find_all_exclusive(options).first
-    end
+    find_non_admin(:all,
+                   :conditions => ["lower(display_name) like :search_text or " <<
+                                   "lower(first_name) like :search_text or " <<
+                                   "lower(last_name) like :search_text",
+                                   {:search_text => "%#{search_text.downcase}%"}],
+                   :order => "last_name, first_name, display_name")
   end
   
   def valid?

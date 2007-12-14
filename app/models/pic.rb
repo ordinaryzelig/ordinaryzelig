@@ -9,6 +9,8 @@ class Pic < ActiveRecord::Base
   belongs_to :bid
   belongs_to :pool_user
   
+  scope_out :incomplete, :conditions => 'bid_id is null'
+  
   def point_worth(scoring_system = ScoringSystems.default)
     scoring_system.point_worth(self)
   end

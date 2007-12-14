@@ -16,7 +16,7 @@ for each region, render partial of first round games.
         break if bid
       end -%>
       <span><%= seed %></span>
-      <%= select("bids", bid.id, Team::select_options, {:selected => bid.team_id, :include_blank => true}) %><br/>
+      <%= select("bids", bid.id, Team.container, {:selected => bid.team_id, :include_blank => true}) %><br/>
     <% end %>
     <%= submit_tag("save all", :name => "save") %><br/><br/>
   <% end %>
