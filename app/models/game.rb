@@ -7,7 +7,6 @@ class Game < ActiveRecord::Base
   has_many :first_round_bids, :class_name => "Bid", :foreign_key => "first_game_id", :order => "seed"
   has_many :pics
   
-  # create new bracket for a season.
   def self.new_season(season)
     championshipGame = Game.new(:round_id => 1, :region => season.regions[0])
     championshipGame.season = season

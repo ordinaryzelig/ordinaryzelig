@@ -11,3 +11,5 @@ cache games in CONSTANT?
   caching seasons too.
   make sure to refresh when creating new ones.
   can do this for regions too.
+
+in url, season_id -> season/year

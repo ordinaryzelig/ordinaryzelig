@@ -1,7 +1,3 @@
-=begin
-university team.
-=end
-
 class Team < ActiveRecord::Base
   
   has_many :bids
