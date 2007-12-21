@@ -1,9 +1,10 @@
+uri: <%= @uri %>
+
 <% if @user -%>
 logged_in_user<br/>
 id: <%= @user.id %><br/>
 first: <%= @user.first_name %><br/>
 last: <%= @user.last_name %><br/>
-uri: <%= @uri %>
 <% end -%>
 
 <%= @exception.backtrace.join("\n") %>
