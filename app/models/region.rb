@@ -15,13 +15,17 @@ class Region < ActiveRecord::Base
   
   def championship_game(game = Season.cached[self.season.tournament_year].root_game)
     return game if id == game.region_id
-    game.children.detect { |g| championship_game g }
+    game.children.map { |g| championship_game g }.compact.first
   end
   
   def self.container(season_id)
     find(:all,
          :conditions => {:season_id => season_id},
          :order => :order_num).map { |region| [region.name, region.order_num] }
+  end
+  
+  def to_s
+    name
   end
   
 end

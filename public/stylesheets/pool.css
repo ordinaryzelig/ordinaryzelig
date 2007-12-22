@@ -39,6 +39,8 @@
 .pic, .firstRoundBid{
     width: 45mm;
     padding: 2mm;
+    padding-top: 4mm;
+    padding-bottom: 4mm;
 }
 
 .pic{
@@ -55,7 +57,7 @@
     color: red;
 }
 
-.gamePicInRoundIncorrect, .gamePicInRoundDead{
+.gamePicInRoundIncorrect, .gamePicInRoundDead, .legendIncorrectPic{
     background-color: red;
 }
 
@@ -63,8 +65,17 @@
     color: green;
 }
 
-.gamePicInRoundCorrect{
+.gamePicInRoundCorrect, .legendCorrectPic{
     background-color: green;
+}
+
+.legendCorrectPic, .legendIncorrectPic{
+    margin: 2mm;
+    width: 5mm;
+}
+
+.gamePicInRoundIncorrect, .gamePicInRoundDead, .gamePicInRoundCorrect{
+    width: 10ex;
 }
 
 .bid{
@@ -183,4 +194,8 @@
 
 #scoringSystemsInfo td{
     text-align: center;
+}
+
+#legend td{
+    padding: 0;
 }

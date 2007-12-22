@@ -23,7 +23,7 @@ locals
 <% end -%>
 <% if Time.now > pic.game.season.tournament_starts_at -%>
   <div class=gamePicsLink>
-    <%= link_to("see all pics", :action => "game_pics", :id => pic.game.id) %>
+    <%= link_to("show all pics", :action => "game_pics", :id => pic.game.id) %>
   </div>
 <% end -%>
 <% other_affected_pics = nil unless other_affected_pics -%>
