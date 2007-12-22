@@ -81,3 +81,5 @@ use dry_scaffold?
 in profile, instead of showing last 5 movies with all ratings, get 5 latest ratings for uniq movies.
 
 acts_as_tree -> acts_as_nested_set (http://api.rubyonrails.com/classes/ActiveRecord/Acts/NestedSet/ClassMethods.html)
+
+recent comments/latest recent items.

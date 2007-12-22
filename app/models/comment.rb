@@ -10,6 +10,8 @@ class Comment < ActiveRecord::Base
   
   belongs_to :user
   validates_presence_of :comment, :user_id
+  validate_on_create :validate_entity_or_parent
+  after_create :create_comment_group
   
   attr_protected :user_id, :created_at
   attr_accessor :entity_type, :entity_id
@@ -46,15 +48,14 @@ class Comment < ActiveRecord::Base
   
   private
   
-  def validate_on_create
-    # if this is a root comment, validates_presence_of :commentable.
+  def validate_entity_or_parent
     unless parent_id
       errors.add_on_blank(:entity_type)
       errors.add_on_blank(:entity_id)
     end
   end
   
-  def after_create
+  def create_comment_group
     # raise exception if ROOT comment does not automatically create a CommentGroup.
     CommentGroup.new(:root_comment_id => self.id, :entity_type => @entity_type, :entity_id => @entity_id).save! unless parent_id
   end
