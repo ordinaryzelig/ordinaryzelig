@@ -21,36 +21,33 @@ class PoolController < ApplicationController
     if request.get?
       @season = Season.find_by_id(params[:season_id]) || Season.latest
       @user = User.find_by_id(params[:id], :include => {:pool_users, {:pics => :bid}})
-      if @user
-        # allowed to view if user is self or admin.
-        # if tournament hasn't started and requested user is neither self nor admin, redirect to own bracket.
-        if Time.now < @season.tournament_starts_at && !is_self_or_logged_in_as_admin?(@user)
-          if logged_in_user
-            flash[:failure] = "you can't view others' brackets until the tournament starts."
-            redirect_to(:action => "index")
-          else
-            flash[:failure] = "#{@season.tournament_year} brackets are private until the tournament starts.<br/>login to make pics."
-            redirect_to(:action => "index")
-          end
+      render_layout_only 'user not found' and return unless @user
+      # allowed to view if user is self or admin.
+      # if tournament hasn't started and requested user is neither self nor admin, redirect to own bracket.
+      if Time.now < @season.tournament_starts_at && !is_self_or_logged_in_as_admin?(@user)
+        if logged_in_user
+          flash[:failure] = "you can't view others' brackets until the tournament starts."
+          redirect_to(:action => "index")
+        else
+          flash[:failure] = "#{@season.tournament_year} brackets are private until the tournament starts.<br/>login to make pics."
+          redirect_to(:action => "index")
         end
-        @is_self = is_self?(@user)
-        @bracket_num = params[:bracket_num].to_i if params[:bracket_num]
-        @pool_users = @user.pool_users.for_season(@season)
-        @pool_user = @pool_users.detect{|pool_user| pool_user.bracket_num == @bracket_num}
-        unless @pool_user
-          if 0 < @pool_users.size
-            @pool_user = @pool_users[0] unless @pool_user
-            @bracket_num = @pool_user.bracket_num
-            flash[:failure] = "could not find that bracket.  defaulting to bracket #{@pool_user.bracket_num}." if params[:bracket_num]
-          end
-        end
-        # region order.  default to 1.
-        @region_order = params[:region_order].to_i if params[:region_order]
-        @region_order = 1 unless @region_order
-        @region = Region.find(:first, :conditions => ["#{Region.table_name}.season_id = ? AND order_num = ?", *[@season.id, @region_order]])
-      else
-        flash.now[:failure] = "user not found." if params[:id]
       end
+      @is_self = is_self?(@user)
+      @bracket_num = params[:bracket_num].to_i if params[:bracket_num]
+      @pool_users = @user.pool_users.for_season(@season)
+      @pool_user = @pool_users.detect{|pool_user| pool_user.bracket_num == @bracket_num}
+      unless @pool_user
+        if 0 < @pool_users.size
+          @pool_user = @pool_users[0] unless @pool_user
+          @bracket_num = @pool_user.bracket_num
+          flash[:failure] = "could not find that bracket.  defaulting to bracket #{@pool_user.bracket_num}." if params[:bracket_num]
+        end
+      end
+      # region order.  default to 1.
+      @region_order = params[:region_order].to_i if params[:region_order]
+      @region_order = 1 unless @region_order
+      @region = Region.find(:first, :conditions => ["#{Region.table_name}.season_id = ? AND order_num = ?", *[@season.id, @region_order]])
     else
       if params[:go]
         redirect_to(:action => "brackets", :season_id => params[:season_id], :id => params[:user][:id], :region_order => params[:region_order], :bracket_num => params[:bracket_num])

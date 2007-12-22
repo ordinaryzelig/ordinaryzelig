@@ -1,7 +1,3 @@
-#seasonSelectBracket{
-    padding-bottom: 5mm;
-}
-
 .largeUserName{
     font-size: 150%;
 }
@@ -185,6 +181,10 @@
 .seasonSelect th{
     text-align: right;
     font-weight: normal;
+}
+
+.seasonSelect th, .seasonSelect td{
+    padding: 1mm;
 }
 
 .seasonSelect{

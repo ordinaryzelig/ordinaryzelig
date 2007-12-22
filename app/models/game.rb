@@ -34,7 +34,11 @@ class Game < ActiveRecord::Base
       end
     end
   end
+  private_class_method :new_tree
   
+  # pool_user chooses this bid to win.
+  # find and save the pic.
+  # return other pics that are affected.
   def declare_winner(bid, pool_user)
     pic = pool_user.pics.for_game self
     old_bid_id = pic.bid_id
@@ -75,12 +79,10 @@ class Game < ActiveRecord::Base
     end
   end
   
-  # return the top game.
   def top
     self.children[0]
   end
   
-  # return the bottom game.
   def bottom
     self.children[1]
   end
@@ -91,13 +93,13 @@ class Game < ActiveRecord::Base
     end
   end
   
-  # return array of games that have not yet been decided.
   def self.undecided(season)
     games = find(:all, :conditions => ["#{table_name}.season_id = ?", season.id], :include => {:pics => [:pool_user, :bid]})
     master_pool_user = PoolUser.master(season)
     games.reject { |game| master_pool_user.pics.for_game(game).bid }
   end
   
+  # for caching.
   def load_children
     children.each &:load_children
   end
