@@ -24,6 +24,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'login', :controller => "login", :action => "login"
   map.connect 'logout', :controller => "login", :action => "logout"
   
+  # pool -> march_madness.
+  map.connect 'march_madness/:action/:id', :controller => 'pool'
+  
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id'
   
