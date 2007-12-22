@@ -2,6 +2,7 @@ class Region < ActiveRecord::Base
   
   belongs_to :season
   has_many :games
+  validates_presence_of :name
   
   def self.new_season
     regions = []
@@ -12,8 +13,9 @@ class Region < ActiveRecord::Base
     regions
   end
   
-  def championship_game
-    Season.cached[self.season.tournament_year].root_game.children.flatten.detect { |game| id == game.region_id }
+  def championship_game(game = Season.cached[self.season.tournament_year].root_game)
+    return game if id == game.region_id
+    game.children.detect { |g| championship_game g }
   end
   
   def self.container(season_id)

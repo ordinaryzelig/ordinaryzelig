@@ -1,8 +1,8 @@
 class MoreMovieRatingTypes < ActiveRecord::Migration
   TYPES = [['quotability', ['that was a quote?', 'quotes sound vaguely familiar', 'major quotes are recognizable', 'even obscure quotes are recognizable', 'can be used in any conversation and situation.']],
-           ['music overall', ['greatful deaf', 'forgettable', 'average', 'very good', 'excellent']],
-           ['musical score', ['greatful deaf', 'forgettable', 'average', 'very good', 'excellent']],
-           ['soundtrack', ['greatful deaf', 'forgettable', 'average', 'very good', 'excellent']]]
+           ['music overall', ['wish i were deaf', 'forgettable', 'average', 'very good', 'excellent']],
+           ['musical score', ['wish i were deaf', 'forgettable', 'average', 'very good', 'excellent']],
+           ['soundtrack', ['wish i were deaf', 'forgettable', 'average', 'very good', 'excellent']]]
   def self.up
     TYPES.each do |type, descriptions|
       rating_type = MovieRatingType.new(:name => type)

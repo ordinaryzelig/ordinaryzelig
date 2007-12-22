@@ -6,7 +6,7 @@ locals
   game
 =end %>
 <td class=gamePicSelf<%= boolean_to_i(logged_in_user == pool_user.user) %>><%= link_to_bracket(pool_user.user.display_name, pool_user, {:region_order => game.region.order_num}) %></td>
-<% pic = pool_user.pic_for_game(game.id) -%>
+<% pic = pool_user.pics.for_game(game) -%>
 <% still_alive = pic.still_alive? %>
 <td class=gamePicCorrect<%= boolean_to_i(pic.is_correct?) %>>
   <% if pic.bid -%>
