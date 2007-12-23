@@ -1,15 +1,6 @@
-.largeUserName{
-    font-size: 150%;
-}
-
-#picsEditable{
-    padding-top: 5mm;
-    padding-bottom: 5mm;
-}
-
 .bracketComplete{
-    padding-bottom: 10mm;
-    width: 40mm;
+    text-align: center;
+    margin-bottom: 5mm;
 }
 
 .bracketComplete0{

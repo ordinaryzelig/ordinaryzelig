@@ -9,8 +9,6 @@ log request uris
 
 what is ordinary zelig?
 
-rename pool controller to march_madness
-
 user search: link to 'first', 'last', 'display name' that will submit form for that specific field.
 
 option to make friends with anybody who makes friends with you.  also, button to make friends with all unmutual friends.
@@ -83,3 +81,5 @@ in profile, instead of showing last 5 movies with all ratings, get 5 latest rati
 acts_as_tree -> acts_as_nested_set (http://api.rubyonrails.com/classes/ActiveRecord/Acts/NestedSet/ClassMethods.html)
 
 recent comments/latest recent items.
+
+march madness participation in profile.

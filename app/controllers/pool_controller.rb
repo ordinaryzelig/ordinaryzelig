@@ -37,6 +37,7 @@ class PoolController < ApplicationController
       @bracket_num = params[:bracket_num].to_i if params[:bracket_num]
       @pool_users = @user.pool_users.for_season(@season)
       @pool_user = @pool_users.detect{|pool_user| pool_user.bracket_num == @bracket_num}
+      flash.now[:failure] = "no bracket found" unless @pool_user
       unless @pool_user
         if 0 < @pool_users.size
           @pool_user = @pool_users[0] unless @pool_user
@@ -44,6 +45,8 @@ class PoolController < ApplicationController
           flash[:failure] = "could not find that bracket.  defaulting to bracket #{@pool_user.bracket_num}." if params[:bracket_num]
         end
       end
+      @is_editable = Time.now < @season.tournament_starts_at || logged_in_as_admin?
+      flash.now[:notice] = "brackets closed" unless @is_editable
       # region order.  default to 1.
       @region_order = params[:region_order].to_i if params[:region_order]
       @region_order = 1 unless @region_order

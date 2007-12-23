@@ -3,13 +3,16 @@ allow anybody to have their own pool.
     move season columns
       max_num_brackets
       buy-in
+      privacy
     we already have a pool_user model. use pools_users habtm?
+    managed_by_user
 
 make scoring_system model
 
-cache games in CONSTANT?
-  caching seasons too.
-  make sure to refresh when creating new ones.
-  can do this for regions too.
+cache regions like caching season/games?  is there a need?
 
-in url, season_id -> season/year
+in url, season_id -> season/year, etc.
+
+season.tournament_year column can go. just use tournament_starts_at.year.
+
+have a season select like a study select in hms.  then there wouldn't be a need to have season_id in url.
