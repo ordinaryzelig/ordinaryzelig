@@ -31,36 +31,19 @@ html{
     margin-bottom: 4mm;
 }
 
-.flash{
-    border-width: 1px;
-    border-style: solid;
-    padding: 2mm;
-    margin-bottom: 2mm;
-    margin-top: 2mm;
-    text-align: center;
-}
-
-#flashnotice{
+#flashNotice{
     color: white;
     background: blue;
 }
 
-#flashsuccess{
+#flashSuccess{
     color: white;
     background: green;
 }
 
-#flashfailure{
+#flashFailure{
     color: white;
     background: red;
-}
-
-#sidebar{
-    float: left;
-    background: lightgray;
-    width: 35mm;
-    padding: 3mm;
-	font-size: 80%;
 }
 
 #myBracket{

@@ -16,6 +16,27 @@
   <body>
     
     <% #=================================================== %>
+    <% # flash. -%>
+    
+    <div id="flash" style="display: none; text-align: center; border: 1px solid red; position: fixed; width: 100mm; margin-left: auto; margin-right: auto; left: 0; right: 0;">
+      <% [:notice, :success, :failure].each do |type| -%>
+        <%= content_tag :div, flash[type], :id => "flash#{type.to_s.titleize}" if flash[type] %>
+      <% end -%>
+    </div>
+    <% content_for :flash_script do -%>
+      function show_flash()
+      {
+        <%= visual_effect :appear, 'flash' %>
+      }
+      function hide_flash()
+      {
+        <%= visual_effect :fade, 'flash' %>
+      }
+      show_flash();
+      setTimeout("hide_flash()", 5000);
+    <% end -%>
+    
+    <% #=================================================== %>
     <% # sidebar. -%>
     
     <%= render(:partial => "shared/sidebar") unless @hide_sidebar %>
@@ -23,38 +44,11 @@
     <% #=================================================== %>
     <% # main. -%>
     
-    <div id="main" style="<%= "margin-left: 45mm;" unless @hide_sidebar %> padding: 5mm; background: beige;">
-    
-      <% #=================================================== %>
-      <% # flash. -%>
+    <div id="main" style="<%= "margin-left: 45mm; " unless @hide_sidebar %>float left; padding: 5mm; background: beige;">
       
-      <% if !flash.empty? -%>
-        <div id="flash" style="margin-bottom: 10mm; display: none;">
-          <% flash.each do |flash_type, msg| -%>
-            <div class=flash id="flash<%= flash_type %>">
-              <%= msg %>
-            </div>
-          <% end -%>
-        </div>
-        <div id="flash_link" style="text-align: right; font-size: 60%; display: none;"><%= link_to_remote("notifications", {:complete => visual_effect(:toggle_blind, 'flash')}) %></div>
-        <% content_for :flash_script do -%>
-          function show_flash()
-          {
-            <%= visual_effect :blind_down, 'flash' %>
-          }
-          function hide_flash()
-          {
-            <%= visual_effect :blind_up, 'flash', {:queue => 'end'} %>
-            <%= visual_effect :appear, 'flash_link', {:queue => 'end'} %>
-          }
-          show_flash();
-          setTimeout("hide_flash()", 5000);
-        <% end -%>
-      <% end -%>
-    
       <% #=================================================== %>
       <% # banner. -%>
-    
+      
       <% if yield :banner -%>
         <%= yield :banner %>
       <% else -%>
@@ -62,12 +56,12 @@
           <%= @page_title %>
         </div>
       <% end -%>
-  
+      
       <% #=================================================== %>
-      <% # layout. %>
-    
-      <div id="layout_content"><%= yield %></div>
-    
+      <% # main content. %>
+      
+      <div><%= yield %></div>
+      
     </div> <% # end main section. -%>
     
     <% if yield :flash_script -%>
