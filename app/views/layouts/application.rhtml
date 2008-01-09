@@ -16,27 +16,6 @@
   <body>
     
     <% #=================================================== %>
-    <% # flash. -%>
-    
-    <div id="flash" style="display: none; text-align: center; border: 1px solid red; position: fixed; width: 100mm; margin-left: auto; margin-right: auto; left: 0; right: 0;">
-      <% [:notice, :success, :failure].each do |type| -%>
-        <%= content_tag :div, flash[type], :id => "flash#{type.to_s.titleize}" if flash[type] %>
-      <% end -%>
-    </div>
-    <% content_for :flash_script do -%>
-      function show_flash()
-      {
-        <%= visual_effect :appear, 'flash' %>
-      }
-      function hide_flash()
-      {
-        <%= visual_effect :fade, 'flash' %>
-      }
-      show_flash();
-      setTimeout("hide_flash()", 5000);
-    <% end -%>
-    
-    <% #=================================================== %>
     <% # sidebar. -%>
     
     <%= render(:partial => "shared/sidebar") unless @hide_sidebar %>
@@ -45,6 +24,27 @@
     <% # main. -%>
     
     <div id="main" style="<%= "margin-left: 45mm; " unless @hide_sidebar %>float left; padding: 5mm; background: beige;">
+      
+      <% #=================================================== %>
+      <% # flash. -%>
+      
+      <div id="flash" style="display: none; text-align: center; border: 1px solid red; position: fixed; width: 100mm; margin-left: auto; margin-right: auto; left: 0; right: 0;">
+        <% [:notice, :success, :failure].each do |type| -%>
+          <%= content_tag :div, flash[type], :id => "flash#{type.to_s.titleize}" if flash[type] %>
+        <% end -%>
+      </div>
+      <% content_for :flash_script do -%>
+        function show_flash()
+        {
+          <%= visual_effect :appear, 'flash' %>
+        }
+        function hide_flash()
+        {
+          <%= visual_effect :fade, 'flash' %>
+        }
+        show_flash();
+        setTimeout("hide_flash()", 5000);
+      <% end -%>
       
       <% #=================================================== %>
       <% # banner. -%>

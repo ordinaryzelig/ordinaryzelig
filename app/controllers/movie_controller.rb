@@ -4,8 +4,9 @@ class MovieController < ApplicationController
   ADMIN_ACTIONS = ["edit"]
   
   def index
-    flash.keep
-    redirect_to(:action => "ratings")
+    # flash.keep
+    # redirect_to(:action => "ratings")
+    flash.now[:notice] = "Successfully created..."
   end
   
   def ratings
