@@ -38,3 +38,5 @@ Game.child_with_pic: maybe could use Game.first_round_bids to quicken this?
 pvp: 1-on-1 can calculate other pics.
 
 allow users to create their own tournaments.
+
+graph of progress

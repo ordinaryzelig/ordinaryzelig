@@ -1,1 +1,0 @@
-privacy 'anybody' isn't working if nobody logged in.
