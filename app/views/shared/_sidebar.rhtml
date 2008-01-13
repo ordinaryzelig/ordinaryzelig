@@ -63,9 +63,6 @@
   <%= mail_to("help@ordinaryzelig.org", "email for help", :encode => "javascript", :subject => "[write a help topic]") %>
   <hr>
   
-  <% # ==================================== -%>
-  <% # best viewed. %>
-  
-  <span style="font-size: 75%;">best viewed with <%= link_to("safari", "http://www.apple.com/safari/") %> or <a href="http://www.mozilla.com">firefox</a>.</span>
+  <span style="font-size: 75%;"><%= render :partial => 'shared/best_viewed_with' %></span>
   
 </div>

@@ -66,4 +66,8 @@ class Season < ActiveRecord::Base
     end
   end
   
+  def is_editable?
+    Time.now < tournament_starts_at
+  end
+  
 end

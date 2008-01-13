@@ -45,13 +45,13 @@ class Pic < ActiveRecord::Base
   end
   
   def master_pic
-    PoolUser.master(pool_user.season).pics.for_game(game)
+    @master_pic ||= PoolUser.master(pool_user.season).pics.for_game(game)
   end
   
   def is_correct?
-    mp = master_pic
-    if bid && mp.bid
-      bid_id == mp.bid_id
+    return @is_correct if @is_correct
+    if bid && master_pic.bid
+      @is_correct = bid_id == master_pic.bid_id
     end
   end
   

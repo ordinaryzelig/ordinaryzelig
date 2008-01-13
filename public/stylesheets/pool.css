@@ -35,12 +35,12 @@
     vertical-align: middle;
 }
 
-.picResult0, .picResult1, .gamePicsLink{
+.picResultfalse, .picResulttrue, .gamePicsLink{
     margin-left: 6mm;
     font-size: 75%;
 }
 
-.picResult0, .gamePicCorrect0{
+.picResultfalse, .gamePicCorrect0{
     color: red;
 }
 
@@ -48,7 +48,7 @@
     background-color: red;
 }
 
-.picResult1, .gamePicCorrect1{
+.picResulttrue, .gamePicCorrect1{
     color: green;
 }
 

@@ -5,7 +5,7 @@
   </div>
 <% end -%>
 
-<div style="padding-bottom: 5mm;">
+<div style="margin-bottom: 5mm;">
   <% form_tag(:bracket_num => @bracket_num) do -%>
     <table class=seasonSelect style="background: none; <%= css_centered %>">
       <tr>
@@ -29,42 +29,43 @@
   <% end -%>
 </div>
 
-<% if @pool_user -%>
-
-  <% if @season.max_num_brackets > 1 && 1 < @pool_users.size -%>
-    <span class=bracketNums>brackets:
-    <% @pool_users.each do |pu| -%>
-      <% if pu.bracket_num != @bracket_num -%>
-        <%= link_to_bracket("#{pu.bracket_num}", pu, {:region_order => @region_order, :bracket_num => pu.bracket_num}) %>
-      <% else -%>
-        <%= pu.bracket_num %>*
-      <% end -%>
-    <% end -%>
-    </span>
-  <% end -%>
-  <% if is_self_or_logged_in_as_admin?(logged_in_user) -%>
-    <% if @is_editable && Time.now < @season.tournament_starts_at -%>
-      <div id="picsEditable">
-        click on the team and your pic will be saved.<br/>
-        your pics must be made BEFORE the first game starts (<%= @season.tournament_starts_at.strftime("%A %B %d at %I:%M %p") %> central time).<br/>
-        DO NOT USE INTERNET EXPLORER.  use <%= link_to("firefox", "http://mozilla.com") %>.
-      </div>
+<% # multiple brackets. -%>
+<% if @season.max_num_brackets > 1 && 1 < @pool_users.size -%>
+  <span class=bracketNums>brackets:
+  <% @pool_users.each do |pu| -%>
+    <% if pu.bracket_num != @bracket_num -%>
+      <%= link_to_bracket("#{pu.bracket_num}", pu, {:region_order => @region_order, :bracket_num => pu.bracket_num}) %>
+    <% else -%>
+      <%= pu.bracket_num %>*
     <% end -%>
   <% end -%>
-  <div class=bracketComplete>
-    <div id="bracketComplete">
-      <%= render(:partial => "bracket_completion", :locals => {:is_complete => @pool_user.bracket_complete?}) %>
-    </div>
-  </div>
-  <div class=regionBracket id="regionBracket">
-    <%= region_bracket_partial(@region, @pool_user, @is_editable) %>
-  </div>
+  </span>
+<% end -%>
 
-  <% content_for("scripts") do -%>
-    function destroy_pic(pic_div_id)
-    {
-      new Effect.Shrink(pic_div_id);
-    }
-  <% end -%>
+<% # editable message. -%>
+<% if @season.is_editable? && is_self?(logged_in_user) -%>
+  <div style="margin-bottom: 5mm; text-align: center;">
+    your pics will be saved as soon as they appear.<br/>
+    brackets will close <%= clickable_time @season.tournament_starts_at %>.<br/>
+    DO NOT USE INTERNET EXPLORER.  <%= render :partial => 'shared/best_viewed_with' %>
+  </div>
+<% end -%>
 
+<% # bracket completion. -%>
+<div class=bracketComplete>
+  <div id="bracketComplete">
+    <%= render(:partial => "bracket_completion", :locals => {:is_complete => @pool_user.bracket_complete?}) %>
+  </div>
+</div>
+
+<% # region bracket. -%>
+<div class=regionBracket id="regionBracket">
+  <%= region_bracket_partial(@region, @pool_user, @season.is_editable? || logged_in_as_admin?) %>
+</div>
+
+<% content_for("scripts") do -%>
+  function destroy_pic(pic_div_id)
+  {
+    new Effect.Shrink(pic_div_id);
+  }
 <% end -%>

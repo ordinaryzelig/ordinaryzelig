@@ -7,26 +7,23 @@ locals
   other_affected_pics (optional)
   update_bracket_completion_to (optional)
 =end -%>
-<%= render(:partial => "bid", :locals => {:bid => pic.bid, :game => pic.game, :is_editable => is_editable, :pool_user => pool_user, :still_alive => pic.still_alive?}) %>
-<%# real results. -%>
-<% master_pic = PoolUser.master(pool_user.season).pics.for_game(pic.game) -%>
-<% if pic.bid && master_pic.bid -%>
-  <% is_correct = pic.bid.id == master_pic.bid_id -%>
-  <% if is_correct then is_correct = 1 else is_correct = 0 end -%>
-  <div class=picResult<%= is_correct %>>
-    <% if 1 == is_correct -%>
-      <%= master_pic.point_worth %> pts
-    <% else -%>
-      <%= master_pic.bid.team.name %>
-    <% end -%>
-  </div>
+<%= render(:partial => "bid", :locals => {:bid => pic.bid,
+                                          :game => pic.game,
+                                          :is_editable => is_editable,
+                                          :pool_user => pool_user,
+                                          :still_alive => pic.still_alive?}) %>
+<% # real results. -%>
+<% if pic.bid && pic.master_pic.bid -%>
+  <div class=picResult<%= pic.is_correct? %>><%= pic.is_correct? ? "#{pic.point_worth} pts" : pic.master_pic.bid.team.name -%></div>
 <% end -%>
+
+<% # show all pics link. -%>
 <% if Time.now > pic.game.season.tournament_starts_at -%>
-  <div class=gamePicsLink>
-    <%= link_to("show all pics", :action => "game_pics", :id => pic.game.id) %>
-  </div>
+  <div class=gamePicsLink><%= link_to("show all pics", :action => "game_pics", :id => pic.game.id) %></div>
 <% end -%>
-<% other_affected_pics = nil unless other_affected_pics -%>
+
+<% # other affectect pics. -%>
+<% other_affected_pics ||= nil -%>
 <% if other_affected_pics %>
   <script>
   <% other_affected_pics.each do |pic| -%>
@@ -34,8 +31,10 @@ locals
   <% end -%>
   </script>
 <% end -%>
-<% update_bracket_completion_to = nil unless !update_bracket_completion_to.nil? -%>
-<% if !update_bracket_completion_to.nil? %>
+
+<% # bracket completion. -%>
+<% update_bracket_completion_to ||= nil -%>
+<% if update_bracket_completion_to %>
   <script>
     <%= remote_function(:update => "bracketComplete", :url => {:action => "bracket_completion", :is_complete => update_bracket_completion_to}, :loading => "new Effect.Shrink('bracketComplete')") %>
   </script>
