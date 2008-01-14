@@ -184,4 +184,8 @@ module ApplicationHelper
     "margin-left: auto; margin-right: auto;"
   end
   
+  def spinner(id = nil)
+    image_tag("spinner.gif", :id => id, :style => "display: none;")
+  end
+  
 end

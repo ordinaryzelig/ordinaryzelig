@@ -18,8 +18,7 @@
         <%= link_to_page(page.number, page, entity_class) %>
       <% end -%>
     
-      <% # spinner. %>
-      <%= image_tag("spinner.gif", :id => "#{entity_class}PaginationSpinner", :style => "display: none;") %>
+      <%= spinner "#{entity_class}PaginationSpinner" %>
     
     </div>
   

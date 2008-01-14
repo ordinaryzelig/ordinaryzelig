@@ -69,13 +69,6 @@
     border-bottom: .5mm solid gray;
 }
 
-.seed{
-    width: 5mm;
-    text-align: right;
-    margin-right: 1mm;
-    float: left;
-}
-
 .teamfalse, .gamePicStillAlivefalse{
     text-decoration: line-through;
 }

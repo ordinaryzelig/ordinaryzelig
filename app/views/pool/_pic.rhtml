@@ -1,16 +1,8 @@
-<% 
-=begin
-locals
-  pic
-  is_editable
-  pool_user
-  other_affected_pics (optional)
-  update_bracket_completion_to (optional)
-=end -%>
 <%= render(:partial => "bid", :locals => {:bid => pic.bid,
                                           :game => pic.game,
                                           :is_editable => is_editable,
                                           :pool_user => pool_user,
+                                          :pic => pic,
                                           :still_alive => pic.still_alive?}) %>
 <% # real results. -%>
 <% if pic.bid && pic.master_pic.bid -%>
@@ -33,7 +25,7 @@ locals
 <% end -%>
 
 <% # bracket completion. -%>
-<% update_bracket_completion_to ||= nil -%>
+<% update_bracket_completion_to = nil if update_bracket_completion_to.nil? -%>
 <% if update_bracket_completion_to %>
   <script>
     <%= remote_function(:update => "bracketComplete", :url => {:action => "bracket_completion", :is_complete => update_bracket_completion_to}, :loading => "new Effect.Shrink('bracketComplete')") %>

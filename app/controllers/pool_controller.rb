@@ -56,11 +56,9 @@ class PoolController < ApplicationController
       game = Game.find(params[:game_id])
       pool_user = PoolUser.find(params[:pool_user_id], :include => :pics)
       is_first_round_bid = params[:is_first_round_bid]
-      is_editable = Time.now < game.season.tournament_starts_at || logged_in_user.is_admin?
       bracket_is_complete_before_pic = pool_user.bracket_complete?
+      
       # winner.
-      pic = nil
-      other_affected_pics = []
       if is_first_round_bid
         other_affected_pics = game.declare_winner(bid, pool_user)
         pic = pool_user.pics.for_game game
@@ -68,13 +66,16 @@ class PoolController < ApplicationController
         other_affected_pics = game.parent.declare_winner(bid, pool_user)
         pic = pool_user.pics.for_game(game.parent)
       end
-      # need to update bracket completion?
+      
       # have to load pool_user again to update the pics.
       pool_user = PoolUser.find(params[:pool_user_id], :include => :pics)
+      
+      # need to update bracket completion?
       bracket_is_complete_after_pic = pool_user.bracket_complete?
       update_bracket_completion_to = bracket_is_complete_after_pic if bracket_is_complete_after_pic != bracket_is_complete_before_pic
+      
       # render.
-      render(:partial => "pic", :locals => {:pic => pic, :is_editable => is_editable, :pool_user => pool_user, :other_affected_pics => other_affected_pics, :update_bracket_completion_to => update_bracket_completion_to})
+      render(:partial => "pic", :locals => {:pic => pic, :is_editable => game.season.is_editable? || logged_in_user.is_admin?, :pool_user => pool_user, :other_affected_pics => other_affected_pics, :update_bracket_completion_to => update_bracket_completion_to})
     end
   end
   

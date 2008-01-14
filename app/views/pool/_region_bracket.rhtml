@@ -1,5 +1,5 @@
 <% rounds_left = 4 -%>
-<% rounds_left = 3 if 1 == region.order_num -%>
+<% rounds_left = 2 if 1 == region.order_num -%>
 <div class=regionName><%= region.name %></div>
 <div class=regionBracket>
   <%= render(:partial => "game", :locals => {:game => region.championship_game,
