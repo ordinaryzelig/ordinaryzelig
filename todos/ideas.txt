@@ -83,3 +83,11 @@ recent comments/latest recent items.
 march madness participation in profile.
 
 flickr (http://media.rubyonrails.org/video/flickr-rails-ajax.mov)
+
+resolution
+   ask friend to monitor/at least for accountability?
+   daily/weekly/monthly/yearly reports
+   suggest other people's success
+   categories?
+
+flash: onclick hide.

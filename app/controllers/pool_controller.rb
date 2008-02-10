@@ -68,14 +68,18 @@ class PoolController < ApplicationController
       end
       
       # have to load pool_user again to update the pics.
-      pool_user = PoolUser.find(params[:pool_user_id], :include => :pics)
+      pool_user.reload(:include => :pics)
       
       # need to update bracket completion?
       bracket_is_complete_after_pic = pool_user.bracket_complete?
       update_bracket_completion_to = bracket_is_complete_after_pic if bracket_is_complete_after_pic != bracket_is_complete_before_pic
       
       # render.
-      render(:partial => "pic", :locals => {:pic => pic, :is_editable => game.season.is_editable? || logged_in_user.is_admin?, :pool_user => pool_user, :other_affected_pics => other_affected_pics, :update_bracket_completion_to => update_bracket_completion_to})
+      render(:partial => "pic", :locals => {:pic => pic,
+                                            :is_editable => game.season.is_editable? || logged_in_user.is_admin?,
+                                            :pool_user => pool_user,
+                                            :other_affected_pics => other_affected_pics,
+                                            :update_bracket_completion_to => update_bracket_completion_to})
     end
   end
   

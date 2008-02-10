@@ -3,8 +3,8 @@ who will like it
 smokin aces = traffic + ocean's 11
 
 new rating types
-   hype
-   user submitted
+  calculated
+  user submitted
 
 handle spoilers?
 
@@ -13,3 +13,4 @@ clickable stars or other type of GUI
 was this rating useful?
 
 movie rating best of
+  biggest disappointment = biggest hype/overall
