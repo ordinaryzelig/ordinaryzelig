@@ -1,0 +1,22 @@
+--- 
+2005: 
+  tournament_starts_at: 2005-03-17 05:00:00
+  buy_in: "10"
+  tournament_year: "2005"
+  max_num_brackets: "1"
+  is_current: 
+  id: "1"
+2006: 
+  tournament_starts_at: 2006-03-11 05:00:00
+  buy_in: "10"
+  tournament_year: "2006"
+  max_num_brackets: "2"
+  is_current: 
+  id: "2"
+2007: 
+  tournament_starts_at: 2007-03-15 06:20:00
+  buy_in: "10"
+  tournament_year: "2007"
+  max_num_brackets: "1"
+  is_current: "1"
+  id: "3"

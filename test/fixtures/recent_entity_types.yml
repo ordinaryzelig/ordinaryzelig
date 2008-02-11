@@ -1,0 +1,16 @@
+--- 
+blog: 
+  id: "1"
+  entity_type_id: "1"
+message: 
+  id: "2"
+  entity_type_id: "2"
+comment: 
+  id: "3"
+  entity_type_id: "3"
+friendship: 
+  id: "4"
+  entity_type_id: "4"
+movie_rating: 
+  id: "5"
+  entity_type_id: "5"

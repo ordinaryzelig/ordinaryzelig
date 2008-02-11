@@ -1,0 +1,988 @@
+--- 
+missouri_kansas_city: 
+  name: missouri kansas city
+  id: "615"
+georgia_tech: 
+  name: georgia tech
+  id: "312"
+bradley: 
+  name: bradley
+  id: "621"
+wichita_state: 
+  name: wichita state
+  id: "625"
+new_orleans: 
+  name: new orleans
+  id: "420"
+harvard: 
+  name: harvard
+  id: "475"
+georgia_state: 
+  name: georgia state
+  id: "454"
+wright_state: 
+  name: wright state
+  id: "611"
+pittsburgh: 
+  name: pittsburgh
+  id: "326"
+liberty: 
+  name: liberty
+  id: "446"
+appalachian_state: 
+  name: appalachian state
+  id: "530"
+idaho: 
+  name: idaho
+  id: "428"
+chattanooga: 
+  name: chattanooga
+  id: "531"
+oklahoma: 
+  name: oklahoma
+  id: "353"
+arkansas_pine_bluff: 
+  name: arkansas pine bluff
+  id: "556"
+kentucky: 
+  name: kentucky
+  id: "370"
+western_kentucky: 
+  name: western kentucky
+  id: "424"
+central_florida: 
+  name: central florida
+  id: "381"
+unc_charlotte: 
+  name: unc charlotte
+  id: "582"
+pennsylvania_state: 
+  name: pennsylvania state
+  id: "343"
+montana_st_bozeman: 
+  name: montana st bozeman
+  id: "437"
+uab: 
+  name: uab
+  id: "380"
+elon: 
+  name: elon
+  id: "535"
+washington: 
+  name: washington
+  id: "366"
+southern: 
+  name: southern
+  id: "561"
+oakland: 
+  name: oakland
+  id: "616"
+central_michigan: 
+  name: central michigan
+  id: "395"
+coppin_state: 
+  name: coppin state
+  id: "490"
+winthrop: 
+  name: winthrop
+  id: "450"
+fullerton: 
+  name: fullerton
+  id: "597"
+princeton: 
+  name: princeton
+  id: "476"
+unlv: 
+  name: unlv
+  id: "409"
+long_island-brooklyn: 
+  name: long island-brooklyn
+  id: "502"
+southern_illinois: 
+  name: southern illinois
+  id: "467"
+northridge: 
+  name: northridge
+  id: "598"
+grambling_state: 
+  name: grambling state
+  id: "557"
+sacred_heart: 
+  name: sacred heart
+  id: "507"
+hampton: 
+  name: hampton
+  id: "493"
+utah: 
+  name: utah
+  id: "410"
+villanova: 
+  name: villanova
+  id: "333"
+dayton: 
+  name: dayton
+  id: "583"
+massachusetts: 
+  name: massachusetts
+  id: "588"
+stephen_f_austin: 
+  name: stephen f austin
+  id: "548"
+boston: 
+  name: boston
+  id: "565"
+long_beach: 
+  name: long beach
+  id: "599"
+california: 
+  name: california
+  id: "360"
+utep: 
+  name: utep
+  id: "388"
+st_francis_college: 
+  name: st francis college
+  id: "508"
+east_tennessee_state: 
+  name: east tennessee state
+  id: "574"
+st_bonaventure: 
+  name: st bonaventure
+  id: "591"
+north_florida: 
+  name: north florida
+  id: "580"
+pacific: 
+  name: pacific
+  id: "600"
+louisiana_monroe: 
+  name: louisiana monroe
+  id: "418"
+washington_state: 
+  name: washington state
+  id: "367"
+rhode_island: 
+  name: rhode island
+  id: "589"
+irvine: 
+  name: irvine
+  id: "601"
+western_illinois: 
+  name: western illinois
+  id: "620"
+detroit_mercy: 
+  name: detroit mercy
+  id: "606"
+wyoming: 
+  name: wyoming
+  id: "411"
+coastal_carolina: 
+  name: coastal carolina
+  id: "444"
+alabama_state: 
+  name: alabama state
+  id: "554"
+eastern_michigan: 
+  name: eastern michigan
+  id: "396"
+st_francis_univ: 
+  name: st francis univ
+  id: "509"
+lamar: 
+  name: lamar
+  id: "542"
+saint_marys: 
+  name: saint marys
+  id: "630"
+arkansas: 
+  name: arkansas
+  id: "375"
+central_connecticut: 
+  name: central connecticut
+  id: "500"
+providence: 
+  name: providence
+  id: "327"
+colgate: 
+  name: colgate
+  id: "525"
+pennsylvania: 
+  name: pennsylvania
+  id: "477"
+richmond: 
+  name: richmond
+  id: "590"
+drake: 
+  name: drake
+  id: "623"
+southern_methodist: 
+  name: southern methodist
+  id: "386"
+niagara: 
+  name: niagara
+  id: "485"
+illinois_chicago: 
+  name: illinois chicago
+  id: "607"
+arkansas_little_rock: 
+  name: arkansas little rock
+  id: "412"
+texas_corpus_christi: 
+  name: texas corpus christi
+  id: "551"
+north_carolina_state: 
+  name: north carolina state
+  id: "634"
+wagner: 
+  name: wagner
+  id: "510"
+marquette: 
+  name: marquette
+  id: "324"
+north_dakota_state: 
+  name: north dakota state
+  id: "468"
+towson: 
+  name: towson
+  id: "459"
+drexel: 
+  name: drexel
+  id: "452"
+loyola_chicago: 
+  name: loyola chicago
+  id: "608"
+san_francisco: 
+  name: san francisco
+  id: "632"
+ucla: 
+  name: ucla
+  id: "364"
+virginia_tech: 
+  name: virginia tech
+  id: "317"
+missouri: 
+  name: missouri
+  id: "351"
+belmont: 
+  name: belmont
+  id: "572"
+howard: 
+  name: howard
+  id: "494"
+brigham_young: 
+  name: brigham young
+  id: "404"
+fresno_state: 
+  name: fresno state
+  id: "426"
+boston_college: 
+  name: boston college
+  id: "308"
+west_virginia: 
+  name: west virginia
+  id: "334"
+bowling_green: 
+  name: bowling green
+  id: "393"
+wake_forest: 
+  name: wake forest
+  id: "318"
+idaho_state: 
+  name: idaho state
+  id: "435"
+texas_arlington: 
+  name: texas arlington
+  id: "549"
+wofford: 
+  name: wofford
+  id: "540"
+florida: 
+  name: florida
+  id: "368"
+wisconsin_green_bay: 
+  name: wisconsin green bay
+  id: "609"
+oregon: 
+  name: oregon
+  id: "361"
+unc_asheville: 
+  name: unc asheville
+  id: "448"
+austin_peay_state: 
+  name: austin peay state
+  id: "511"
+virginia_comm: 
+  name: virginia comm
+  id: "461"
+loyola_marymount: 
+  name: loyola marymount
+  id: "627"
+hartford: 
+  name: hartford
+  id: "566"
+northwestern: 
+  name: northwestern
+  id: "341"
+clemson: 
+  name: clemson
+  id: "309"
+akron: 
+  name: akron
+  id: "391"
+dartmouth: 
+  name: dartmouth
+  id: "474"
+samford: 
+  name: samford
+  id: "517"
+texas: 
+  name: texas
+  id: "355"
+saint_josephs: 
+  name: saint josephs
+  id: "592"
+north_carolina: 
+  name: north carolina
+  id: "315"
+wisconsin_milwaukee: 
+  name: wisconsin milwaukee
+  id: "610"
+fairleigh_dickinson: 
+  name: fairleigh dickinson
+  id: "501"
+mcneese_state: 
+  name: mcneese state
+  id: "543"
+houston: 
+  name: houston
+  id: "383"
+iupui: 
+  name: iupui
+  id: "614"
+north_texas: 
+  name: north texas
+  id: "421"
+navy: 
+  name: navy
+  id: "529"
+evansville: 
+  name: evansville
+  id: "624"
+northern_colorado: 
+  name: northern colorado
+  id: "439"
+george_mason: 
+  name: george mason
+  id: "453"
+alcorn_state: 
+  name: alcorn state
+  id: "555"
+notre_dame: 
+  name: notre dame
+  id: "325"
+missouri_state: 
+  name: missouri state
+  id: "465"
+hawaii: 
+  name: hawaii
+  id: "427"
+stetson: 
+  name: stetson
+  id: "581"
+delaware_state: 
+  name: delaware state
+  id: "491"
+georgia: 
+  name: georgia
+  id: "369"
+tennessee_tech: 
+  name: tennessee tech
+  id: "520"
+ohio_state: 
+  name: ohio state
+  id: "342"
+sam_houston_state: 
+  name: sam houston state
+  id: "546"
+campbell: 
+  name: campbell
+  id: "573"
+ole_miss: 
+  name: ole miss
+  id: "378"
+new_mexico: 
+  name: new mexico
+  id: "406"
+pepperdine: 
+  name: pepperdine
+  id: "628"
+saint_peters: 
+  name: saint peters
+  id: "488"
+miami_ohio: 
+  name: miami ohio
+  id: "398"
+texas_a&m: 
+  name: texas a&m
+  id: "356"
+new_hampshire: 
+  name: new hampshire
+  id: "569"
+memphis: 
+  name: memphis
+  id: "384"
+xavier: 
+  name: xavier
+  id: "595"
+arizona: 
+  name: arizona
+  id: "358"
+canisius: 
+  name: canisius
+  id: "479"
+northeastern: 
+  name: northeastern
+  id: "457"
+portland_state: 
+  name: portland state
+  id: "440"
+san_diego_state: 
+  name: san diego state
+  id: "407"
+florida_intl: 
+  name: florida intl
+  id: "416"
+quinnipiac: 
+  name: quinnipiac
+  id: "505"
+vanderbilt: 
+  name: vanderbilt
+  id: "373"
+kennesaw_state: 
+  name: kennesaw state
+  id: "577"
+northern_iowa: 
+  name: northern iowa
+  id: "466"
+bethune-cookman: 
+  name: bethune-cookman
+  id: "489"
+weber_state: 
+  name: weber state
+  id: "442"
+prairie_view_a&m: 
+  name: prairie view a&m
+  id: "560"
+unc_greensboro: 
+  name: unc greensboro
+  id: "538"
+santa_barbara: 
+  name: santa barbara
+  id: "603"
+florida_a&m: 
+  name: florida a&m
+  id: "492"
+stony_brook: 
+  name: stony brook
+  id: "570"
+west_point: 
+  name: west point
+  id: "523"
+george_washington: 
+  name: george washington
+  id: "586"
+georgetown: 
+  name: georgetown
+  id: "322"
+binghamton: 
+  name: binghamton
+  id: "564"
+norfolk_state: 
+  name: norfolk state
+  id: "497"
+se_louisiana: 
+  name: se louisiana
+  id: "547"
+polytech: 
+  name: polytech
+  id: "596"
+syracuse: 
+  name: syracuse
+  id: "332"
+columbia: 
+  name: columbia
+  id: "472"
+northern_illinois: 
+  name: northern illinois
+  id: "399"
+kansas: 
+  name: kansas
+  id: "349"
+valparaiso: 
+  name: valparaiso
+  id: "619"
+tulsa: 
+  name: tulsa
+  id: "390"
+texas_christian: 
+  name: texas christian
+  id: "408"
+arizona_state: 
+  name: arizona state
+  id: "359"
+lafayette: 
+  name: lafayette
+  id: "527"
+fairfield: 
+  name: fairfield
+  id: "480"
+utah_state: 
+  name: utah state
+  id: "433"
+portland: 
+  name: portland
+  id: "629"
+alabama: 
+  name: alabama
+  id: "374"
+michigan_state: 
+  name: michigan state
+  id: "339"
+lipscomb: 
+  name: lipscomb
+  id: "578"
+louisiana_lafayette: 
+  name: louisiana lafayette
+  id: "417"
+alabama_a&m: 
+  name: alabama a&m
+  id: "553"
+robert_morris: 
+  name: robert morris
+  id: "506"
+morehead_state: 
+  name: morehead state
+  id: "515"
+texas_tech: 
+  name: texas tech
+  id: "357"
+marist: 
+  name: marist
+  id: "484"
+maryland: 
+  name: maryland
+  id: "313"
+butler: 
+  name: butler
+  id: "604"
+charleston_southern: 
+  name: charleston southern
+  id: "443"
+wisconsin: 
+  name: wisconsin
+  id: "345"
+la_salle: 
+  name: la salle
+  id: "587"
+central_arkansas: 
+  name: central arkansas
+  id: "541"
+illinois_state: 
+  name: illinois state
+  id: "463"
+rice: 
+  name: rice
+  id: "385"
+old_dominion: 
+  name: old dominion
+  id: "458"
+youngstown_state: 
+  name: youngstown state
+  id: "612"
+north_carolina_a&t: 
+  name: north carolina a&t
+  id: "498"
+bucknell: 
+  name: bucknell
+  id: "524"
+indiana: 
+  name: indiana
+  id: "336"
+ohio: 
+  name: ohio
+  id: "400"
+creighton: 
+  name: creighton
+  id: "622"
+se_missouri_st: 
+  name: se missouri st
+  id: "518"
+air_force: 
+  name: air force
+  id: "403"
+citadel: 
+  name: citadel
+  id: "532"
+mercer: 
+  name: mercer
+  id: "579"
+san_diego: 
+  name: san diego
+  id: "631"
+stanford: 
+  name: stanford
+  id: "363"
+louisville: 
+  name: louisville
+  id: "323"
+northwestern_state: 
+  name: northwestern state
+  id: "545"
+western_carolina: 
+  name: western carolina
+  id: "539"
+iona: 
+  name: iona
+  id: "481"
+delaware: 
+  name: delaware
+  id: "451"
+cleveland_state: 
+  name: cleveland state
+  id: "605"
+ball_state: 
+  name: ball state
+  id: "392"
+kansas_state: 
+  name: kansas state
+  id: "350"
+vermont: 
+  name: vermont
+  id: "571"
+hofstra: 
+  name: hofstra
+  id: "455"
+boise_state: 
+  name: boise state
+  id: "425"
+south_carolina_state: 
+  name: south carolina state
+  id: "499"
+radford: 
+  name: radford
+  id: "447"
+eastern_washington: 
+  name: eastern washington
+  id: "434"
+gonzaga: 
+  name: gonzaga
+  id: "626"
+louisiana_tech: 
+  name: louisiana tech
+  id: "429"
+minnesota: 
+  name: minnesota
+  id: "340"
+cornell: 
+  name: cornell
+  id: "473"
+murray_state: 
+  name: murray state
+  id: "516"
+oklahoma_state: 
+  name: oklahoma state
+  id: "354"
+toledo: 
+  name: toledo
+  id: "401"
+miami: 
+  name: miami
+  id: "314"
+lehigh: 
+  name: lehigh
+  id: "528"
+east_carolina: 
+  name: east carolina
+  id: "382"
+south_carolina: 
+  name: south carolina
+  id: "371"
+centenary: 
+  name: centenary
+  id: "613"
+northern_arizona: 
+  name: northern arizona
+  id: "438"
+purdue: 
+  name: purdue
+  id: "344"
+charleston: 
+  name: charleston
+  id: "533"
+indiana_state: 
+  name: indiana state
+  id: "464"
+furman: 
+  name: furman
+  id: "536"
+tennessee_state: 
+  name: tennessee state
+  id: "519"
+texas_southern: 
+  name: texas southern
+  id: "562"
+oral_roberts: 
+  name: oral roberts
+  id: "617"
+unc_wilmington: 
+  name: unc wilmington
+  id: "460"
+baylor: 
+  name: baylor
+  id: "346"
+rider: 
+  name: rider
+  id: "486"
+maine: 
+  name: maine
+  id: "567"
+monmouth: 
+  name: monmouth
+  id: "503"
+saint_louis: 
+  name: saint louis
+  id: "593"
+rutgers: 
+  name: rutgers
+  id: "328"
+jackson_state: 
+  name: jackson state
+  id: "558"
+loyola_maryland: 
+  name: loyola maryland
+  id: "482"
+auburn: 
+  name: auburn
+  id: "376"
+arkansas_state: 
+  name: arkansas state
+  id: "413"
+duquesne: 
+  name: duquesne
+  id: "584"
+james_madison: 
+  name: james madison
+  id: "456"
+colorado_state: 
+  name: colorado state
+  id: "405"
+st_johns: 
+  name: st johns
+  id: "329"
+albany: 
+  name: albany
+  id: "635"
+gardner-webb: 
+  name: gardner-webb
+  id: "575"
+nevada: 
+  name: nevada
+  id: "430"
+siena: 
+  name: siena
+  id: "487"
+denver: 
+  name: denver
+  id: "414"
+kent_state: 
+  name: kent state
+  id: "397"
+cincinnati: 
+  name: cincinnati
+  id: "319"
+maryland_eastern: 
+  name: maryland eastern
+  id: "495"
+western_michigan: 
+  name: western michigan
+  id: "402"
+maryland_baltimore: 
+  name: maryland baltimore
+  id: "568"
+tennessee_at_martin: 
+  name: tennessee at martin
+  id: "521"
+middle_tennessee_st: 
+  name: middle tennessee st
+  id: "419"
+yale: 
+  name: yale
+  id: "478"
+new_mexico_state: 
+  name: new mexico state
+  id: "431"
+south_dakota_state: 
+  name: south dakota state
+  id: "469"
+tennessee: 
+  name: tennessee
+  id: "372"
+southern_mississippi: 
+  name: southern mississippi
+  id: "387"
+temple: 
+  name: temple
+  id: "594"
+seton_hall: 
+  name: seton hall
+  id: "330"
+high_point: 
+  name: high point
+  id: "445"
+mount_st_marys: 
+  name: mount st marys
+  id: "504"
+eastern_illinois: 
+  name: eastern illinois
+  id: "512"
+georgia_southern: 
+  name: georgia southern
+  id: "537"
+duke: 
+  name: duke
+  id: "310"
+texas_san_antonio: 
+  name: texas san antonio
+  id: "550"
+florida_atlantic: 
+  name: florida atlantic
+  id: "415"
+brown: 
+  name: brown
+  id: "471"
+mississippi_valley: 
+  name: mississippi valley
+  id: "559"
+connecticut: 
+  name: connecticut
+  id: "320"
+university_at_albany: 
+  name: university at albany
+  id: "563"
+south_alabama: 
+  name: south alabama
+  id: "422"
+jacksonville: 
+  name: jacksonville
+  id: "576"
+cal_st_sacramento: 
+  name: cal st sacramento
+  id: "441"
+holy_cross: 
+  name: holy cross
+  id: "526"
+lsu: 
+  name: lsu
+  id: "377"
+fordham: 
+  name: fordham
+  id: "585"
+eastern_kentucky: 
+  name: eastern kentucky
+  id: "513"
+nebraska: 
+  name: nebraska
+  id: "352"
+southern_utah: 
+  name: southern utah
+  id: "618"
+iowa: 
+  name: iowa
+  id: "337"
+riverside: 
+  name: riverside
+  id: "602"
+texas_st_san_marcos: 
+  name: texas st san marcos
+  id: "552"
+southern_california: 
+  name: southern california
+  id: "365"
+play-in-winner: 
+  name: play-in-winner
+  id: "636"
+depaul: 
+  name: depaul
+  id: "321"
+mississippi_state: 
+  name: mississippi state
+  id: "379"
+american_university: 
+  name: american university
+  id: "522"
+colorado: 
+  name: colorado
+  id: "347"
+florida_state: 
+  name: florida state
+  id: "311"
+morgan_state: 
+  name: morgan state
+  id: "496"
+santa_clara: 
+  name: santa clara
+  id: "633"
+iowa_state: 
+  name: iowa state
+  id: "348"
+montana: 
+  name: montana
+  id: "436"
+south_florida: 
+  name: south florida
+  id: "331"
+manhattan: 
+  name: manhattan
+  id: "483"
+virginia: 
+  name: virginia
+  id: "316"
+troy: 
+  name: troy
+  id: "423"
+davis: 
+  name: davis
+  id: "470"
+buffalo: 
+  name: buffalo
+  id: "394"
+san_jose_state: 
+  name: san jose state
+  id: "432"
+william_and_mary: 
+  name: william and mary
+  id: "462"
+illinois: 
+  name: illinois
+  id: "335"
+davidson: 
+  name: davidson
+  id: "534"
+michigan: 
+  name: michigan
+  id: "338"
+tulane: 
+  name: tulane
+  id: "389"
+virginia_military: 
+  name: virginia military
+  id: "449"
+jacksonville_state: 
+  name: jacksonville state
+  id: "514"
+nicholls_state: 
+  name: nicholls state
+  id: "544"
+oregon_state: 
+  name: oregon state
+  id: "362"

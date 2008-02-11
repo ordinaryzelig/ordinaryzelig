@@ -1,0 +1,41 @@
+--- 
+townhouse_warming_party: 
+  updated_at: 2007-11-19 14:17:39.665984
+  title: townhouse warming party
+  id: "1"
+  source: "<div style=\"margin-bottom: 10mm; margin: auto; text-align: center;\">\r\n  <h1>townhouse warming party</h1>\r\n  <a href=\"http://www.flickr.com/photos/ordinaryzelig/2035339758/\" title=\"commons by zeliggusgus, on Flickr\"><img src=\"http://farm3.static.flickr.com/2252/2035339758_3a3b3c20a8_o.png\" width=\"385\" height=\"496\" alt=\"commons\" /></a>\r\n\
+    </div>\r\n\
+    \r\n\
+    <p>stephanie and i moved to a new place.  we were really happy to leave the old aberdeen.  and because the new place feels a lot like a house, we\xE2\x80\x99re going to have a pseudo house warming party.  no need to bring anything, although, this will be a great place to get rid of thanksgiving leftovers.  there has been talk of wine drinking (speaking of which, byob), but you are certainly welcome to bring kids if you want.  stephanie is a pre-k teacher and will provide child care.</p>\r\n\
+    \r\n\
+    <p>\r\n  <h2>when</h2>\r\n  saturday november 24 thanksgiving weekend during the ou/osu game (2:30), but please feel free to drop by any time.\r\n\
+    </p>\r\n\
+    \r\n\
+    <p>\r\n  <h2>where</h2>\r\n  <a href=\"http://ordinaryzelig.org/directions_to_townhouse\">directions</a>\r\n\
+    </p>"
+  path: townhouse_warming_party
+  created_at: 2007-11-12 03:00:56.16048
+
+directions_to_townhouse: 
+  updated_at: 2007-11-19 14:27:14.273924
+  title: directions to townhouse
+  id: "2"
+  source: |-
+    <h3>the commons at quail creek</h3>
+    <iframe width="425" height="475" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;hl=en&amp;q=2626+featherstone+rd&amp;sll=35.61054,-97.59681&amp;sspn=0.00949,0.014591&amp;ie=UTF8&amp;om=1&amp;s=AARTsJrsBO2zG24BYCzQ9LFbUE31iVn2Rg&amp;ll=35.605673,-97.561855&amp;spn=0.048849,0.072956&amp;z=13&amp;iwloc=addr&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;hl=en&amp;q=2626+featherstone+rd&amp;sll=35.61054,-97.59681&amp;sspn=0.00949,0.014591&amp;ie=UTF8&amp;om=1&amp;ll=35.605673,-97.561855&amp;spn=0.048849,0.072956&amp;z=13&amp;iwloc=addr&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+    
+    <h3>parking</h3>
+    
+    just east of our unit, there's an entrance with no street name.  it leads to the back where you can park.  once you enter, turn to the right.  there are parking spaces in the median.  our unit is directly across from the mailboxes.  just come through the garage.
+    
+    <h3>holiday traffic</h3>
+    
+    it will be a busy day for memorial rd.  there are ways to avoid driving along memorial to get to featherstone rd if you can just get south of memorial.  zoom in on the map (click the '+' sign) and you can see more detail like some of the smaller street names so you know what i'm talking about below.
+    
+    <p>from may:</br>
+    there is a stop light at featherstone right next to sonic.</p>
+    
+    <p>from penn:</br>
+    there is a stop light at highland park dr.  featherstone will be on the left.</p>
+  path: directions_to_townhouse
+  created_at: 2007-11-15 18:31:40.835003

@@ -1,0 +1,19 @@
+--- 
+blog: 
+  name: Blog
+  id: "1"
+message: 
+  name: Message
+  id: "2"
+comment: 
+  name: Comment
+  id: "3"
+friendship: 
+  name: Friendship
+  id: "4"
+movie_rating: 
+  name: MovieRating
+  id: "5"
+movie: 
+  name: Movie
+  id: "6"

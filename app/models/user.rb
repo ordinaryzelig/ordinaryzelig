@@ -37,7 +37,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :display_name, :message => "is already taken."
   validates_format_of :email, :with => %r{.+@.+\..*}
   
-  attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password, :is_admin
+  before_validation_on_create :generate_secret_id
+  before_validation_on_create { |user| user.set_password user.unhashed_password}
+  
+  attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password
   attr_accessor :unhashed_password
   
   scope_out :master, :conditions => {:display_name => 'master bracket'}
@@ -49,11 +52,6 @@ class User < ActiveRecord::Base
     user.errors.add nil, "password can't be blank" if user.unhashed_password.blank?
     user.errors.add nil, "passwords don't match" if user.errors.empty? && user.unhashed_password != confirmation_password
     user
-  end
-  
-  def before_validation_on_create
-    generate_secret_id
-    set_password unhashed_password
   end
   
   def after_create
@@ -92,16 +90,6 @@ class User < ActiveRecord::Base
   
   def is_admin?
     1 == is_admin
-  end
-  
-  def is_master?
-    User.master_id == id
-  end
-  
-  # return seasons that user is not participating in.
-  def other_seasons
-    all = Season.find(:all)
-    all - self.pool_users.collect{|pool_user| pool_user.season}
   end
   
   # enter user into pool for season.
@@ -212,7 +200,7 @@ class User < ActiveRecord::Base
   
   def set_password!(pword)
     set_password pword
-    save
+    save!
   end
   
   def change_password(old_pword, new_pword, confirmation_pword)

@@ -1,10 +1,10 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-nobody:
-  id: 1
-  name: nobody
-friends:
-  id: 2
+--- 
+friends: 
   name: only your friends
-anybody:
-  id: 3
+  id: "2"
+nobody: 
+  name: nobody
+  id: "1"
+anybody: 
   name: anybody
+  id: "3"

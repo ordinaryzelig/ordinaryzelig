@@ -1,0 +1,19 @@
+--- 
+soundtrack: 
+  name: soundtrack
+  id: "6"
+overall: 
+  name: overall
+  id: "1"
+rewatchability: 
+  name: rewatchability
+  id: "2"
+quotability: 
+  name: quotability
+  id: "3"
+music_overall: 
+  name: music overall
+  id: "4"
+musical_score: 
+  name: musical score
+  id: "5"

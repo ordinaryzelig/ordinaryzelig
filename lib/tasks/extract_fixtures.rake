@@ -2,7 +2,7 @@ desc 'Create YAML test fixtures from data in an existing database. Defaults to d
 
 task :extract_fixtures => :environment do
   sql = "SELECT * FROM %s"
-  skip_tables = ["schema_info"]
+  skip_tables = ["schema_info", 'sessions']
   ActiveRecord::Base.establish_connection
   (ActiveRecord::Base.connection.tables - skip_tables).each do |table_name|
     i = "000"
