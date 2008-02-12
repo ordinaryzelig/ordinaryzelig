@@ -15,7 +15,7 @@ class UserController < ApplicationController
   end
   
   def edit_profile
-    @user = User.find_non_admin :first, params[:id]
+    @user = User.find_non_admin params[:id]
     unless @user && is_self_or_logged_in_as_admin?(@user)
       flash[:failure] = "user #{params[:id]} not found."
       redirect_to_last_marked_page_or_default

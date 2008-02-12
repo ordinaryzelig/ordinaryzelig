@@ -209,9 +209,10 @@ class User < ActiveRecord::Base
     errors.add(nil, "confirmation password can't be blank") if confirmation_pword.blank?
     errors.add(nil, "new passwords don't match") unless new_pword == confirmation_pword
     if hash(old_pword) == password && errors.empty?
-      set_password! new_pword
+      set_password!(new_pword)
     else
       errors.add(nil, 'old password incorrect')
+      false
     end
   end
   
@@ -224,9 +225,9 @@ class User < ActiveRecord::Base
                    :order => "last_name, first_name, display_name")
   end
   
-  def valid?
-    errors.empty? && super
-  end
+  # def valid?
+  #   errors.empty? && super
+  # end
   
   def set_previous_login_at(time)
     activity = user_activity

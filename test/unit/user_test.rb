@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
+require "digest/sha1"
 
 class UserTest < Test::Unit::TestCase
   
@@ -71,16 +72,48 @@ class UserTest < Test::Unit::TestCase
   end
   
   def test_change_password
-    u = User.new(ATTRIBUTES)
-    u.valid?
-    old_hashed = u.password
+    # smooth.
     new_password = 'qwer'
-    u.change_password(ATTRIBUTES[:unhashed_password], new_password, new_password)
-    assert_not_equal old_hashed, u.password
-    assert_not authenticate(ATTRIBUTES[:email], ATTRIBUTES[:unhashed_password])
-    assert authenticate(ATTRIBUTES[:email], new_password)
+    assert change_password(ATTRIBUTES[:unhashed_password], new_password, new_password)
+    # bad password
+    assert_not change_password('1234', new_password, new_password)
+    # no old password
+    assert_not change_password('', new_password, new_password)
+    # no new password
+    assert_not change_password(ATTRIBUTES[:unhashed_password], '', new_password)
+    # no confirmation password
+    assert_not change_password(ATTRIBUTES[:unhashed_password], new_password, '')
+    # no unmatching passwords
+    assert_not change_password(ATTRIBUTES[:unhashed_password], new_password, '1234')
   end
   
+  def change_password(old_password, new_password, confirmation_password)
+    u = User.new(ATTRIBUTES)
+    assert u.save
+    old_hashed = u.password
+    u.change_password(old_password, new_password, confirmation_password)
+    resulting_password = u.password
+    u.destroy and return old_hashed != resulting_password
+  end
+  
+  def test_search
+    search_text = 'st'.downcase
+    found = User.search search_text
+    first_names = find 'first_name', search_text
+    last_names = find 'last_name', search_text
+    display_names = find 'display_name', search_text
+    assert_equal found.size, (first_names + last_names + display_names).uniq.size
+    
+    User.find_non_admin :all, :conditions => ['id not in (?)', [first_names + last_names + display_names].map(&:id)].select do |user|
+      assert_not user.first_name.downcase.include?(search_text)
+    end
+  end
+  
+  def find(by_field, search_text)
+    User.find_non_admin :all, :conditions => ["lower(#{by_field}) like ?", "%#{search_text.downcase}%"]
+  end
+  
+  # ==========================
   # helper methods.
   
   def authenticate(email, password)
