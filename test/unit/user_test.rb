@@ -102,10 +102,12 @@ class UserTest < Test::Unit::TestCase
     first_names = find 'first_name', search_text
     last_names = find 'last_name', search_text
     display_names = find 'display_name', search_text
-    assert_equal found.size, (first_names + last_names + display_names).uniq.size
-    
-    User.find_non_admin :all, :conditions => ['id not in (?)', [first_names + last_names + display_names].map(&:id)].select do |user|
+    found_ids = (first_names + last_names + display_names).map(&:id)
+    assert_equal found.size, found_ids.uniq.size
+    User.find_non_admin(:all, :conditions => ['id not in (?)', found_ids]).select do |user|
       assert_not user.first_name.downcase.include?(search_text)
+      assert_not user.last_name.downcase.include?(search_text)
+      assert_not user.display_name.downcase.include?(search_text)
     end
   end
   
