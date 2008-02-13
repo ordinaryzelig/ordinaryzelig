@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
   
   before_validation_on_create :generate_secret_id
   before_validation_on_create { |user| user.set_password user.unhashed_password}
+  after_create do |user|
+    user.build_user_activity
+    user.user_activity.log_login!
+  end
   
   attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password
   attr_accessor :unhashed_password
@@ -52,11 +56,6 @@ class User < ActiveRecord::Base
     user.errors.add nil, "password can't be blank" if user.unhashed_password.blank?
     user.errors.add nil, "passwords don't match" if user.errors.empty? && user.unhashed_password != confirmation_password
     user
-  end
-  
-  def after_create
-    self.user_activity = UserActivity.new
-    self.user_activity.log_login!
   end
   
   # return user with matching email and password.

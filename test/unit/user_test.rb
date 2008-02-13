@@ -28,18 +28,18 @@ class UserTest < Test::Unit::TestCase
       end
       filled_out_fields
     end
-    
-    # save and authenticate.
+    # save.
     assert u.save
+    # check user_activity.
+    assert_not u.user_activity.new_record?
+    assert u.previous_login_at > 10.seconds.ago
+    # authenticate.
     assert_equal authenticate(ATTRIBUTES[:email], ATTRIBUTES[:unhashed_password]), u
-    
     # secret_id.
     assert u.secret_id
-    
     # no duplicates.
     assert_not u.clone.valid?
-    
-    # destroy this user just for testing purposes
+    # destroy this user just for testing purposes.
     u.destroy
   end
   
@@ -109,6 +109,13 @@ class UserTest < Test::Unit::TestCase
       assert_not user.last_name.downcase.include?(search_text)
       assert_not user.display_name.downcase.include?(search_text)
     end
+  end
+  
+  def test_change_secret_id
+    u = users(:ten_cent)
+    old_secret_id = u.secret_id
+    u.generate_secret_id
+    assert_not_equal old_secret_id, u.secret_id
   end
   
   def find(by_field, search_text)
