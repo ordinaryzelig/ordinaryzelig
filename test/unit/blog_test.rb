@@ -18,13 +18,12 @@ class BlogTest < Test::Unit::TestCase
     assert ATTRIBUTES[:user_id]
     assert ATTRIBUTES[:created_at]
     b = Blog.new(ATTRIBUTES)
-    assert_nil b.user_id
-    assert_nil b.created_at
+    assert_nil_and_assign b, :user_id, ATTRIBUTES[:user_id]
     b.user_id = ATTRIBUTES[:user_id]
     assert b.save
-    assert b.user_id
-    assert b.created_at
   end
+  
+  test_created_at
   
   def test_summary
     b = new_with_default_attributes!
@@ -74,7 +73,7 @@ class BlogTest < Test::Unit::TestCase
   
   def new_with_default_attributes!
     b = new_with_default_attributes
-    b.save
+    assert b.save
     b
   end
   

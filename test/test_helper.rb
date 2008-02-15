@@ -30,4 +30,18 @@ class Test::Unit::TestCase
     assert !condition
   end
   
+  def assert_nil_and_assign(obj, attribute, val)
+    assert_nil obj.send(attribute)
+    obj.send "#{attribute}=", val
+  end
+  
+  def self.test_created_at
+    define_method 'test_created_at' do
+      obj = new_with_default_attributes
+      assert_nil obj.created_at
+      obj.save
+      assert obj.created_at
+    end
+  end
+  
 end
