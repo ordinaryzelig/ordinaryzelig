@@ -44,4 +44,41 @@ class Test::Unit::TestCase
     end
   end
   
+  def self.defaults_for(model_class, attributes, accessible = [])
+    atts = attributes.dup
+    define_method 'defaults' do
+      atts
+    end
+    define_method 'new_with_default_attributes' do
+      obj = model_class.new(defaults)
+      # for defaults that are not accessible, make sure they're nil at first, but then assign them.
+      (defaults.keys - accessible).each { |att| assert_nil_and_assign obj, att, defaults[att] }
+      obj
+    end
+    define_method 'test_new_with_default_attributes' do
+      obj = new_with_default_attributes
+      assert obj.save
+      obj
+    end
+  end
+  
+  def self.test_mark_as_read(model_class)
+    fixtures :users
+    define_method 'test_mark_as_read' do
+      b = test_new_with_default_attributes
+      user = users(:Surly_Stuka)
+      assert model_class.find_all_read_by_user(user).empty?
+      b.mark_as_read user
+      assert_not model_class.find_all_read_by_user(user).empty?
+    end
+  end
+  
+  def self.test_privacy_creation
+    fixtures :users
+    define_method 'test_privacy_creation' do
+      obj = test_new_with_default_attributes
+      assert_not_nil obj.privacy_level
+    end
+  end
+  
 end
