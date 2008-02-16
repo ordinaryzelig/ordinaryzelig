@@ -55,7 +55,7 @@ class UserTest < Test::Unit::TestCase
     assert_not u.is_admin?
   end
   
-  def test_recents_works
+  def test_recents
     assert users(:ten_cent).recents
   end
   

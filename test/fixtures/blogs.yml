@@ -1,1 +1,7 @@
 --- 
+public:
+  id: 1
+  title: i killed heath ledger
+  body: just watched brokeback mountain and dark knight looks badass.
+  user_id: 2
+  created_at: <%= Time.now %>
