@@ -12,7 +12,6 @@ class MovieRatingTest < Test::Unit::TestCase
                 :explanation => 'it was aight. i mean, she has a neat voice but she has a wierd look',
                 :user_id => 2},
                [:rating, :summary, :explanation]
-  
   test_created_at
   test_mark_as_read MovieRating
   

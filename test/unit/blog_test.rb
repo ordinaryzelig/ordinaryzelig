@@ -15,8 +15,8 @@ class BlogTest < Test::Unit::TestCase
   
   def test_summary
     b = test_new_with_default_attributes
-    assert defaults[:body].size > 50
-    assert_equal b.summarize_what, b.body[0..50]
+    assert defaults[:body].size > b.summarize_max
+    assert_equal b.summarize_what, b.body[0..b.summarize_max]
     assert_equal b.summarize_title, b.title
     assert_equal b.summarize_when, b.created_at
     assert_equal b.summarize_who, b.user

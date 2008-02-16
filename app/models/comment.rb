@@ -1,12 +1,6 @@
 class Comment < ActiveRecord::Base
   
   acts_as_tree :order => "created_at"
-  has_recency
-  can_be_summarized_by :who => :user, :what => :comment, :when => :created_at, :title => proc { "#{entity.class}: #{entity.summarize_title}" }, :url => proc { self.entity.summarize_url }
-  can_be_syndicated_by :title => proc { "comment for #{entity.class}: #{entity.summarize_title}" }, :link => proc { entity.syndicate_link }, :description => proc { comment }
-  preview_using :comment
-  can_be_marked_as_read
-  is_entity_type
   
   belongs_to :user
   validates_presence_of :comment, :user_id
@@ -15,6 +9,13 @@ class Comment < ActiveRecord::Base
   
   attr_protected :user_id, :created_at
   attr_accessor :entity_type, :entity_id
+  
+  has_recency
+  can_be_summarized_by :who => :user, :what => :comment, :when => :created_at, :title => proc { "#{entity.class}: #{entity.summarize_title}" }, :url => proc { self.entity.summarize_url }
+  can_be_syndicated_by :title => proc { "comment for #{entity.class}: #{entity.summarize_title}" }, :link => proc { entity.syndicate_link }, :description => proc { comment }
+  preview_using :comment
+  can_be_marked_as_read
+  is_entity_type
   
   def comment_group
     @comment_group ||= CommentGroup.find_by_root_comment_id(root.id)
