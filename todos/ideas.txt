@@ -78,7 +78,10 @@ use dry_scaffold?
 
 in profile, instead of showing last 5 movies with all ratings, get 5 latest ratings for uniq movies.
 
-recent comments/latest recent items.
+show last 5 recent items.
+  click on header and show log.
+  use same query, just don't limit to 5.
+  can still highlight recent since last login, or keep highlighting until marked read?
 
 march madness participation in profile.
 

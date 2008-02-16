@@ -13,6 +13,7 @@ class BlogTest < Test::Unit::TestCase
   test_created_at
   test_mark_as_read Blog
   test_privacy_creation
+  test_privacy_level
   
   def test_summary
     b = test_new_with_default_attributes
@@ -45,19 +46,7 @@ class BlogTest < Test::Unit::TestCase
     obj = new_with_default_attributes
     friend.blogs << obj
     assert_not obj.new_record?
-    
-    # not friends, so shouldn't be recent.
-    assert_equal obj.privacy_level.privacy_level_type_id, 2
-    assert_not Blog.recents(user).include?(obj)
-    
-    obj.set_privacy_level! 3
-    assert_equal obj.privacy_level.privacy_level_type_id, 3
-    assert Blog.recents(user).include?(obj)
-    
-    # user only, should not be recent.
-    obj.set_privacy_level! 1
-    assert_equal obj.privacy_level.privacy_level_type_id, 1
-    assert_not Blog.recents(user).include?(obj)
+    privacy_levels_recency_test obj, user
   end
   
 end

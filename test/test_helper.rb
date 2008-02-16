@@ -81,4 +81,32 @@ class Test::Unit::TestCase
     end
   end
   
+  def self.test_privacy_level
+    define_method 'test_privacy_level' do
+      obj = test_new_with_default_attributes
+      friend = obj.user.friends.first
+      non_friend = User.find(:first, :conditions => ['id not in (?)', obj.user.friends])
+      assert friend && non_friend
+      assert friend.can_read?(obj)
+      assert_not non_friend.can_read?(obj)
+    end
+  end
+  
+  def privacy_levels_recency_test(obj, user)
+    # not friends, so shouldn't be recent.
+    assert_not obj.user.friends.include?(user)
+    assert_equal obj.privacy_level.privacy_level_type_id, 2
+    assert_not obj.class.recents(user).include?(obj)
+    
+    # public, should be recent.
+    obj.set_privacy_level! 3
+    assert_equal obj.privacy_level.privacy_level_type_id, 3
+    assert obj.class.recents(user).include?(obj)
+    
+    # user only, should not be recent.
+    obj.set_privacy_level! 1
+    assert_equal obj.privacy_level.privacy_level_type_id, 1
+    assert_not obj.class.recents(user).include?(obj)
+  end
+  
 end
