@@ -11,10 +11,8 @@ class MovieRating < ActiveRecord::Base
   
   can_be_summarized_by :title => proc { "#{rating_type}: #{self}" },
                        :url => proc { {:controller => "movie", :action => "rating", :id => self.id} },
-                       :what => proc { truncate(summary || explanation, summarize_max) },
+                       :what => proc { summary || explanation },
                        :max => 100,
-                       :who => :user,
-                       :when => :created_at,
                        :name => proc { movie.title }
   can_be_syndicated_by :title => proc {"#{movie}: #{rating_type} rating" },
                        :link => proc { {:controller => 'movie', :action => 'rating', :id => id} },

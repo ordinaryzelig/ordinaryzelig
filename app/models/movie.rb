@@ -12,7 +12,7 @@ class Movie < ActiveRecord::Base
     end
     ratings_strs.join("<br>") << "<br>"
   end
-  can_be_summarized_by :title => :title, :what => what_proc, :who => nil, :enable_html => true
+  can_be_summarized_by :title => :title, :what => what_proc, :who => nil
   is_entity_type
   
   attr_accessible :title

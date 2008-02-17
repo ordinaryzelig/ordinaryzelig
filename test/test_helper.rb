@@ -26,10 +26,6 @@ class Test::Unit::TestCase
 
   # Add more helper methods to be used by all tests here...
   
-  def assert_not(condition)
-    assert !condition
-  end
-  
   def assert_nil_and_assign(obj, attribute, val)
     assert_nil obj.send(attribute)
     obj.send "#{attribute}=", val
@@ -107,6 +103,42 @@ class Test::Unit::TestCase
     obj.set_privacy_level! 1
     assert_equal obj.privacy_level.privacy_level_type_id, 1
     assert_not obj.class.recents(user).include?(obj)
+  end
+  
+  def self.test_recency
+    define_method 'test_recency'do
+      user = users(:ten_cent)
+      user.previous_login_at =  1.second.ago
+      friend = user.friends.first
+      obj = new_with_default_attributes
+      friend.send("#{obj.class.to_s.tableize}").concat obj
+      assert_not obj.new_record?
+      privacy_levels_recency_test obj, user if obj.class.has_privacy?
+    end
+  end
+  
+  def self.test_summaries(summaries)
+    define_method 'test_summaries' do
+      obj = test_new_with_default_attributes
+      OrdinaryZelig::CanBeSummarized::KEYS.each do |key|
+        method = "summarize_#{key}"
+        if obj.respond_to?(method)
+          assert_not_nil summaries[key], ":#{key} not in summaries"
+          assert_equal obj.send(method), summaries[key][obj], "error with 'summarize_#{key}'"
+        end
+      end
+    end
+  end
+  
+end
+
+module Test::Unit::Assertions
+  
+  def assert_not(condition, message=nil)
+    clean_backtrace do
+      full_message = build_message(message, '<false> expected but was <?>.\n', condition)
+      assert_block(full_message) { false == condition }
+    end
   end
   
 end

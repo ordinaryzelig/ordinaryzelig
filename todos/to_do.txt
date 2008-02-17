@@ -3,3 +3,4 @@ mark as read
    use rjs
    spinner
 Season.cached -> constant.
+movie/ratings/:id not working. and it's ugly.
