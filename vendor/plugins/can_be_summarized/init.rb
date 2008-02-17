@@ -1,2 +1,2 @@
 require 'can_be_summarized'
-ActiveRecord::Base.send 'include', OrdinaryZelig::CanBeSummarized
+ActiveRecord::Base.send 'include', OrdinaryZelig::CanBeSummarizedBy

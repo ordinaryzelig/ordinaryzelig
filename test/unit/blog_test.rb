@@ -21,16 +21,12 @@ class BlogTest < Test::Unit::TestCase
                  :who => proc { |obj| obj.user },
                  :max => proc { 50 },
                  :url => proc { |obj| {:controller => 'blog', :action => 'show', :id => obj.id} }
-  
-  def test_syndication
-    b = test_new_with_default_attributes
-    assert_equal b.syndicate_title, "Blog: #{b.title}"
-    assert_equal b.syndicate_link, {:controller => 'blog', :action => :show, :id => b.id}
-    assert_equal b.syndicate_description, b.body
-    assert_equal b.syndicate_pubdate, b.created_at
-    assert_equal b.syndicate_guid, "Blog_#{b.id}"
-    assert_equal b.syndicate_author, b.user
-  end
+  test_syndications :title => proc { |obj| "Blog: #{obj.title}"},
+                    :link => proc { |obj| {:controller => 'blog', :action => :show, :id => obj.id} },
+                    :description => proc { |obj| obj.body },
+                    :pubdate => proc { |obj| obj.created_at },
+                    :guid => proc { |obj| "Blog_#{obj.id}" },
+                    :author => proc { |obj| obj.user }
   
   def test_preview
     b = test_new_with_default_attributes

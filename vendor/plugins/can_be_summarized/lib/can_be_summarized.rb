@@ -1,9 +1,9 @@
 module OrdinaryZelig
   
-  module CanBeSummarized
+  module CanBeSummarizedBy
     
     def self.included(base)
-      base.extend OrdinaryZelig::CanBeSummarized::ClassMethods
+      base.extend OrdinaryZelig::CanBeSummarizedBy::ClassMethods
     end
     
     KEYS = [:max, :title, :url, :what, :when, :who, :name]
@@ -14,8 +14,8 @@ module OrdinaryZelig
     module ClassMethods
       
       def can_be_summarized_by(options)
-        DEFAULTS.each { |key, value| define_method "summarize_#{key}", CanBeSummarized.proc_for_option(key, value) }
-        options.each { |key, value| define_method "summarize_#{key}", CanBeSummarized.proc_for_option(key, value) }
+        DEFAULTS.each { |key, value| define_method "summarize_#{key}", CanBeSummarizedBy.proc_for_option(key, value) }
+        options.each { |key, value| define_method "summarize_#{key}", CanBeSummarizedBy.proc_for_option(key, value) }
       end
       
     end

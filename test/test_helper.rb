@@ -120,11 +120,24 @@ class Test::Unit::TestCase
   def self.test_summaries(summaries)
     define_method 'test_summaries' do
       obj = test_new_with_default_attributes
-      OrdinaryZelig::CanBeSummarized::KEYS.each do |key|
+      OrdinaryZelig::CanBeSummarizedBy::KEYS.each do |key|
         method = "summarize_#{key}"
         if obj.respond_to?(method)
           assert_not_nil summaries[key], ":#{key} not in summaries"
           assert_equal obj.send(method), summaries[key][obj], "error with 'summarize_#{key}'"
+        end
+      end
+    end
+  end
+  
+  def self.test_syndications(syndications)
+    define_method 'test_syndications' do
+      obj = test_new_with_default_attributes
+      OrdinaryZelig::CanBeSyndicatedBy::KEYS.each do |key|
+        method = "syndicate_#{key}"
+        if obj.respond_to?(method)
+          assert_not_nil syndications[key], ":#{key} not in syndications"
+          assert_equal obj.send(method), syndications[key][obj], "error with 'syndicate_#{key}'"
         end
       end
     end
@@ -136,7 +149,7 @@ module Test::Unit::Assertions
   
   def assert_not(condition, message=nil)
     clean_backtrace do
-      full_message = build_message(message, '<false> expected but was <?>.\n', condition)
+      full_message = build_message(message, "<false> expected but was <?>.\n", condition)
       assert_block(full_message) { false == condition }
     end
   end

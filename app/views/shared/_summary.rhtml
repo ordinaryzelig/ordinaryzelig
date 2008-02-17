@@ -20,7 +20,7 @@
     <% #========================================= -%>
     <% # who, when. %>
     
-    <% if show_who && entity.summarize_who || entity.summarize_when -%>
+    <% if show_who && entity.summarize_who || (entity.respond_to?(:summarize_when) && entity.summarize_when) -%>
       <div class=listingInfo>
         <% # who. -%>
         <% if entity.summarize_who -%>

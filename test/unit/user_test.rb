@@ -44,11 +44,11 @@ class UserTest < Test::Unit::TestCase
   end
   
   def test_bad_password_authentication
-    assert_not authenticate(ATTRIBUTES[:email], 'fdsa')
+    assert_nil authenticate(ATTRIBUTES[:email], 'fdsa')
   end
   
   def test_no_admin
-    att = ATTRIBUTES
+    att = ATTRIBUTES.dup
     att[:is_admin] = 1
     u = User.new(att)
     u.save
