@@ -3,7 +3,10 @@ class Message < ActiveRecord::Base
   acts_as_tree
   has_nested_comments
   has_recency
-  can_be_summarized_by :what => :body, :who => :user, :when => :created_at, :max => 100, :title => :subject, :url => proc { {:controller => "message_board", :action => "show", :id => self.id} }
+  can_be_summarized_by :what => :body,
+                       :max => 100,
+                       :title => :subject,
+                       :url => proc { {:controller => "message_board", :action => "show", :id => self.id} }
   can_be_syndicated_by :title => :subject,
                        :link => proc { {:controller => 'message_board', :action => 'show', :id => id} },
                        :description => :body,

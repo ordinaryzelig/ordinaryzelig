@@ -21,7 +21,7 @@ class BlogTest < Test::Unit::TestCase
                  :max => proc { 50 },
                  :url => proc { |obj| {:controller => 'blog', :action => 'show', :id => obj.id} }
   test_syndications :title => proc { |obj| "Blog: #{obj.title}"},
-                    :link => proc { |obj| {:controller => 'blog', :action => :show, :id => obj.id} },
+                    :link => proc { |obj| {:controller => 'blog', :action => 'show', :id => obj.id} },
                     :description => proc { |obj| obj.body },
                     :pubdate => proc { |obj| obj.created_at },
                     :guid => proc { |obj| "Blog_#{obj.id}" },
