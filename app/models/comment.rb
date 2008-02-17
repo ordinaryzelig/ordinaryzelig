@@ -11,8 +11,12 @@ class Comment < ActiveRecord::Base
   attr_accessor :entity_type, :entity_id
   
   has_recency
-  can_be_summarized_by :who => :user, :what => :comment, :when => :created_at, :title => proc { "#{entity.class}: #{entity.summarize_title}" }, :url => proc { self.entity.summarize_url }
-  can_be_syndicated_by :title => proc { "comment for #{entity.class}: #{entity.summarize_title}" }, :link => proc { entity.syndicate_link }, :description => proc { comment }
+  can_be_summarized_by :what => :comment,
+                       :title => proc { "#{entity.class}: #{entity.summarize_title}" },
+                       :url => proc { self.entity.summarize_url }
+  can_be_syndicated_by :title => proc { "comment for #{entity.class}: #{entity.summarize_title}" },
+                       :link => proc { entity.syndicate_link },
+                       :description => proc { comment }
   preview_using :comment
   can_be_marked_as_read
   is_entity_type
@@ -23,20 +27,6 @@ class Comment < ActiveRecord::Base
   
   def entity
     @entity ||= comment_group.entity
-  end
-  
-  # recursively find the lastest child message.
-  def latest_comment
-    if children.empty?
-      self
-    else
-      # can't just do Enumerable.max because it won't recurse if there is only one child.
-      maxes_of_children = []
-      children.each do |child|
-        maxes_of_children << child.latest_comment
-      end
-      maxes_of_children.max{|a, b| a.created_at <=> b.created_at}
-    end
   end
   
   def self.recents(user, *more_scopes)

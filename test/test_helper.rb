@@ -40,7 +40,7 @@ class Test::Unit::TestCase
     end
   end
   
-  def self.defaults_for(model_class, attributes, accessible = [])
+  def self.defaults(attributes, accessible = [])
     atts = attributes.dup
     define_method 'defaults' do
       atts
@@ -58,7 +58,7 @@ class Test::Unit::TestCase
     end
   end
   
-  def self.test_mark_as_read(model_class)
+  def self.test_mark_as_read
     fixtures :users
     define_method 'test_mark_as_read' do
       b = test_new_with_default_attributes
@@ -91,6 +91,7 @@ class Test::Unit::TestCase
   def privacy_levels_recency_test(obj, user)
     # not friends, so shouldn't be recent.
     assert_not obj.user.friends.include?(user)
+    obj.set_privacy_level! 2
     assert_equal obj.privacy_level.privacy_level_type_id, 2
     assert_not obj.class.recents(user).include?(obj)
     
@@ -111,9 +112,14 @@ class Test::Unit::TestCase
       user.previous_login_at =  1.second.ago
       friend = user.friends.first
       obj = new_with_default_attributes
-      friend.send("#{obj.class.to_s.tableize}").concat obj
-      assert_not obj.new_record?
-      privacy_levels_recency_test obj, user if obj.class.has_privacy?
+      obj.user = friend
+      assert obj.save
+      if obj.class.has_privacy?
+        assert_not obj.new_record?
+        privacy_levels_recency_test obj, user
+      else
+        assert obj.class.recents(user).include?(obj)
+      end
     end
   end
   
@@ -141,6 +147,10 @@ class Test::Unit::TestCase
         end
       end
     end
+  end
+  
+  def model_class
+    @model_class ||= self.class.to_s.gsub('Test', '').constantize
   end
   
 end

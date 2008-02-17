@@ -5,13 +5,12 @@ class BlogTest < Test::Unit::TestCase
   fixtures :blogs
   fixtures :users, :user_activities, :friendships
   
-  defaults_for Blog,
-               {:title => 'i killed heath ledger',
-                :body => 'just watched brokeback mountain and dark knight looks badass.',
-                :user_id => 2},
-               [:title, :body]
+  defaults({:title => 'i killed heath ledger',
+            :body => 'just watched brokeback mountain and dark knight looks badass.',
+            :user_id => 2},
+           [:title, :body])
   test_created_at
-  test_mark_as_read Blog
+  test_mark_as_read
   test_privacy_creation
   test_privacy_level
   test_recency
