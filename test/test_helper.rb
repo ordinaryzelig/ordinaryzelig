@@ -115,7 +115,6 @@ class Test::Unit::TestCase
       obj.user = friend
       assert obj.save
       if obj.class.has_privacy?
-        assert_not obj.new_record?
         privacy_levels_recency_test obj, user
       else
         assert obj.class.recents(user).include?(obj)

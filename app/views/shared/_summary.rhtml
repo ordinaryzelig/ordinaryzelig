@@ -14,7 +14,7 @@
     <% # title. -%>
     
     <% full_title_str = entity.summarize_title -%>
-    <% full_title_str = "#{entity.summarize_name}<br/>#{entity.summarize_title}" if show_name && entity.summarize_name -%>
+    <% full_title_str = "#{entity.summarize_name}<br/>#{entity.summarize_title}" if show_name && entity.respond_to?(:summarize_name) && entity.summarize_name -%>
     <%= link_to(full_title_str, entity.summarize_url) %>
     
     <% #========================================= -%>
@@ -38,6 +38,6 @@
   <%= content_tag :div,
                   entity.summarize_what << link_to('...', entity.summarize_url, :title => "read more"),
                   :class => "listingSection",
-                  :style => "background: white;" if entity.summarize_what if entity.summarize_what %>
+                  :style => "background: white;" if entity.respond_to?(:summarize_what) && entity.summarize_what %>
   
 </div>

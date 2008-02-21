@@ -8,6 +8,8 @@ class Friendship < ActiveRecord::Base
   
   validates_presence_of :user_id, :friend_id
   
+  attr_accessible :user_id, :friend_id
+  
   can_be_marked_as_read
   has_recency
   SCOPES[:considering_friends] = proc { |user| {:conditions => ["#{table_name}.friend_id = ?", user.id]} }
