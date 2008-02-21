@@ -14,7 +14,7 @@ module OrdinaryZelig
         extend OrdinaryZelig::CanBeSyndicatedBy::PrivateClassMethods
         defaults = {
           :title => proc { "new #{self.class}" },
-          :link => proc { {:controller => self.class.to_s.downcase, :action => :show, :id => self.id} },
+          :link => proc { {:controller => self.class.to_s.downcase, :action => 'show', :id => self.id} },
           :description => nil,
           :pubdate => :created_at,
           :guid => proc { "#{self.class}_#{self.id}" },
