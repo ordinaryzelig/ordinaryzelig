@@ -1,0 +1,82 @@
+================
+DESCRIPTION
+
+  designed to aid in easier migrations that are done in mysql and postgres (maybe more, who knows).
+
+    * add/drop foreign keys.
+    * create/drop views.
+    * two-sided migrations that execute automated self.down actions.
+
+
+
+================
+HOW TO USE
+  
+  ADDED SCHEMA STATEMENTS
+    fkey(table_name, field_name)
+    drop_fkey(table_name, field_name)
+    create_view(view_name, source_db_name)
+    drop_view(view_name)
+  
+  TWO-SIDED MIGRATIONS (TSMs)
+    a TSM will automate the rollback (self.down) of your migration.  for example, if you create a foreign key TSM, the rollback is already written for you.  you just have to call it in your migration.  the following code will create a foreign key if you're migrating up.  if you're migrating down, it will drop the foreign key.
+    
+      # in your migration file.
+      FOREIGN_KEY_MIGRATION = FKey.new(blogs, user_id)
+      def self.up
+        FOREIGN_KEY_MIGRATION.up
+      end
+      def self.down
+        FOREIGN_KEY_MIGRATION.down
+      end
+    
+    this seems trivial, but you probably have longer migrations that are a pain to migrate up and down.  you've no doubt done a Filter Through Command of sort -r.  but alas, sorting doesn't change 'add_index' to 'remove_index'.  enter TSMs.  The theory is that if the TSM defines down as the exact opposite of up, you should be able to just reverse the order of the TSMs and the migration will rollback to its previous state.  for example:
+    
+      # in your migration file.
+      TSMs = [TwoSidedMigration::RenameTable.new(:user_blogs, :blogs),
+              TwoSidedMigration::RenameColumn.new(:blogs, :owned_by_user_id, :user_id)]
+      def self.up
+        TSMs.each &:up
+      end
+      def self.down
+        TSMs.reverse.each &:down
+      end
+      
+    but we can do even better than that.  you can group together TSMs in a TSM called Group:
+    
+      # in your migration file.
+      actions = [TwoSidedMigration::RenameTable.new(:user_accounts, :accounts),
+                 TwoSidedMigration::RenameColumn.new(:users, :owned_by_user_id, :user_id),]
+      RemovePrefixes = TwoSidedMigration::Group.new *actions
+      
+      def self.up
+        RemovePrefixes.up
+      end
+      def self.down
+        RemovePrefixes.down
+      end
+    
+    this is equivalent to the previous example, but with some bonuses.  grouping will add an additional level of organization to TSMs.  and because Group is itself a TSM, you can recursively stack TSMs until you have just one TSM that will package all the actions into one TSM.  and this will give you more benefits than just clean up your code.  notice we didn't have to reverse the order of anything.  the Group TSM takes care of it for you.  and the best part is that if something goes wrong, the successful migrations will be rolled back so that you end up right where you started.
+    
+    there are some built-in TSMs.  they supply you with the much of the functionality found in ActiveRecord::ConnectionAdapters::SchemaStatements like create_table and add_index.  the classes follow a camelized convention.  so the TSM for create_table is TwoSidedMigration::CreateTable.  and of course, you can create your own TSMs.  just make it a subclass of TwoSidedMigration::Base and define up and down.  for TSMs that require inverses (e.g. add/remove column) there's a helper method that will help you DRYly define both.  for example, here's the code for add/remove index:
+    
+      module TwoSidedMigration
+        ...
+        class Index < TwoSidedMigration::Base
+          attr_reader :table_name, :column_name, :options
+          def initialize(table_name, column_name, options = {})
+            @table_name, @column_name, @options = table_name, column_name, options
+          end
+          protected
+          def add
+            add_index *compact_args(table_name, column_name, options.dup)
+          end
+          def remove
+            remove_index table_name, options.dup
+          end
+        end
+        subclasses_for Index, :add, :remove
+        ...
+      end
+      
+    the module class method subclasses_for() will take Index and make subclasses of it for add and remove.  the results are AddIndex and RemoveIndex subclasses.
