@@ -16,7 +16,8 @@ class Message < ActiveRecord::Base
   can_be_summarized_by :what => :body,
                        :max => 100,
                        :title => :subject,
-                       :url => proc { {:controller => "message_board", :action => "show", :id => self.id} }
+                       :url => proc { {:controller => "message_board", :action => "show", :id => self.id} },
+                       :when => :created_at
   can_be_syndicated_by :title => :subject,
                        :link => proc { {:controller => 'message_board', :action => 'show', :id => id} },
                        :description => :body,

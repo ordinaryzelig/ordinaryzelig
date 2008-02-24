@@ -14,7 +14,8 @@ class MessageTest < Test::Unit::TestCase
                  :title => proc { |obj| obj.subject },
                  :url => proc { |obj| {:controller => 'message_board', :action => 'show', :id => obj.id} },
                  :max => proc { 100 },
-                 :who => proc { |obj| obj.user }
+                 :who => proc { |obj| obj.user },
+                 :when => proc { |obj| obj.created_at }
   test_syndications :title => proc { |obj| obj.subject },
                     :link => proc { |obj| {:controller => 'message_board', :action => 'show', :id => obj.id} },
                     :description => proc { |obj| obj.body },
