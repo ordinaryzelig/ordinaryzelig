@@ -4,35 +4,19 @@
   
   <h2>seed x round (my pool)</h2>
   
+  for each correct pic you make, you get the number of points equal to the winning team's seed multiplied by that round number (seed * round).  for example: if you picked george mason (11 seed) to win in the 3rd round you get 33 points.  whoever has most points wins.  in the event of a tie, the player with the <strong>LEAST</strong> number of correct pics will win the tie breaker.
+  
   <table border=1>
     <tr>
       <th>round</th>
       <th>points</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>1 x seed</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>2 x seed</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>3 x seed</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>4 x seed</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>5 x seed</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>6 x seed</td>
-    </tr>
+    <% 1.upto(6) do |i| -%>
+      <tr>
+        <td><%= i %></td>
+        <td><%= i %> x seed</td>
+      </tr>
+    <% end -%>
   </table>
   
   <h2>cbs</h2>
@@ -42,30 +26,12 @@
       <th>round</th>
       <th>points</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>16</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>32</td>
-    </tr>
+    <% 1.upto(6) do |i| -%>
+      <tr>
+        <td><%= i %></td>
+        <td><%= 2 ** i %></td>
+      </tr>
+    <% end -%>
   </table>
   
   <h2>espn</h2>

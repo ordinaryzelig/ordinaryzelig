@@ -18,7 +18,7 @@ class AdminController < ApplicationController
   #   id (season)
   def edit_season
     if request.get?
-      @season = Season.find(:first, :conditions => ["#{Season.table_name}.id = ?", params[:id]], :include => :regions) || current_season
+      @season = Season.find(:first, :conditions => ["#{Season.table_name}.id = ?", params[:id]], :include => :regions) || latest_season
     else
       if params[:save]
         @season = Season.find(params[:season][:id])
@@ -51,7 +51,7 @@ class AdminController < ApplicationController
   #     season_id
   def select_team_bids
     if request.get?
-      @season = Season.find_by_id(params[:season_id]) || current_season
+      @season = Season.find_by_id(params[:season_id]) || latest_season
       @regions = Region.find(:all,
                               :conditions => ["order_num != 0 AND #{Region.table_name}.season_id = ?", @season.id],
                               :include => {:games => :bids})
@@ -127,7 +127,7 @@ class AdminController < ApplicationController
   #   season_id (optional)
   def buy_ins
     if request.get?
-      @season = Season.find_by_id(params[:season_id]) || current_season
+      @season = Season.find_by_id(params[:season_id]) || latest_season
       @users = User.find(:all, :conditions => ["#{PoolUser.table_name}.season_id = ?", @season.id], :include => :pool_users, :order => User.default_order_by_string)
       @users.delete_if{|user| User.master == user }
     else

@@ -7,4 +7,8 @@ class SeasonTest < Test::Unit::TestCase
             :buy_in => 10,
             :max_num_brackets => 1})
   
+  def test_new_season_structure
+    # assert_not Season.new_season.new_record?
+  end
+  
 end

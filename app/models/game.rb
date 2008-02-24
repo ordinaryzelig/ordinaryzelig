@@ -11,12 +11,12 @@ class Game < ActiveRecord::Base
     championshipGame = Game.new(:round_id => 1, :region => season.regions[0])
     championshipGame.season = season
     # create final four games and their children (regional championship games).
-    self.new_tree(championshipGame, 2)
+    new_tree(championshipGame, 2)
     regional_championship_games = [championshipGame.top.top, championshipGame.top.bottom, championshipGame.bottom.top, championshipGame.bottom.bottom]
     # create region brackets.
     regional_championship_games.each_with_index do |game, i|
       game.region = season.regions[i + 1]
-      self.new_tree(game, 3)
+      new_tree(game, 3)
     end
     championshipGame.save
   end
@@ -30,7 +30,7 @@ class Game < ActiveRecord::Base
         parent.children[i].season = parent.season
         parent.children[i].region = parent.region
         # recurse.
-        self.new_tree(parent.children[i], rounds - 1)
+        new_tree(parent.children[i], rounds - 1)
       end
     end
   end

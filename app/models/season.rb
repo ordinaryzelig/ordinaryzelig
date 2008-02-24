@@ -3,16 +3,19 @@ class Season < ActiveRecord::Base
   has_many :regions, :order => "order_num"
   has_many :games
   has_many :pool_users
+  after_create do |season|
+    # add regions.
+    1.upto(5) { |i| season.regions << Region.new(:order_num => i) }
+    season.regions.first.update_attribute 'name', 'final four'
+    
+    # add master pool user.
+    pool_user = PoolUser.new(:user_id => User.master, :season_id => season.id)
+    
+    # create bracket of games.
+    Game.new_season(season)
+  end
   
   def self.new_season
-    season = self.new
-    # add new regions.
-    season.regions = Region.new_season
-    season.save
-    # new PoolUser.
-    pool_user = PoolUser.new(:user_id => User.master, :season => season, :bracket_num => 1)
-    # new bracket of games.
-    Game.new_season(season)
     # create new pics for each game.
     games = season.games
     games.each do |game|
@@ -69,7 +72,7 @@ class Season < ActiveRecord::Base
   end
   
   def year
-    tournament_starts_at.year
+    self.tournament_starts_at.year
   end
   
 end

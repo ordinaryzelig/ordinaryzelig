@@ -40,3 +40,8 @@ pvp: 1-on-1 can calculate other pics.
 allow users to create their own tournaments.
 
 graph of progress
+
+tournament info
+	pay structure
+	scoring system
+	buy-in

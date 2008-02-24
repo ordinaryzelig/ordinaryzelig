@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   SESSION_HOURS = 30
   PAGE_DOES_NOT_EXIST = "the page you requested does not exist."
   
-  helper_method :logged_in_user, :current_season, :is_self?, :is_self_or_logged_in_as_admin?, :logged_in_as_admin?, :read_entities
+  helper_method :logged_in_user, :latest_season, :is_self?, :is_self_or_logged_in_as_admin?, :logged_in_as_admin?, :read_entities
   
   def mark_entity_as_read
     if request.xhr?
@@ -30,8 +30,8 @@ class ApplicationController < ActionController::Base
     @logged_in_user ||= User.find_by_id(session[:user_id])
   end
   
-  def current_season
-    @current_season ||= Season.latest
+  def latest_season
+    @latest_season ||= Season.latest
   end
   
   def require_authentication

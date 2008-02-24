@@ -99,7 +99,7 @@ class PoolController < ApplicationController
   def standings
     if request.get?
       @season = Season.find_by_id(params[:season_id])
-      @season = current_season unless @season
+      @season = latest_season unless @season
       @pool_users = PoolUser.find(:all,
                                   :conditions => ["#{PoolUser.table_name}.season_id = ?", @season.id],
                                   :include => [{:pics => [:bid, {:game => :round}]}, :user])
@@ -159,14 +159,6 @@ class PoolController < ApplicationController
         @other_pool_users.each { |pu| pu.calculate_points(master_pics, @scoring_system) }
       end
     end
-  end
-  
-  def tournament_info
-    
-  end
-  
-  def scoring_systems_info
-    
   end
   
 end
