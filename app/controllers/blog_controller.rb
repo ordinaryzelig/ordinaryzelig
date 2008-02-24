@@ -5,6 +5,7 @@ class BlogController < ApplicationController
   def list
     @user = User.find_by_id(params[:id], :include => {:blogs => :user}, :order => "created_at desc")
     @blogs = @user.blogs
+    # narrow to blogs readable by logged_in_user if this is not self or admin.
     @blogs = @blogs.readable_by logged_in_user unless is_self_or_logged_in_as_admin?(@user)
     render_layout_only 'user not found' and return unless @user
   end

@@ -104,6 +104,12 @@ class Test::Unit::TestCase
     obj.set_privacy_level! 1
     assert_equal obj.privacy_level.privacy_level_type_id, 1
     assert_not obj.class.recents(user).include?(obj)
+    
+    # make friends, should be recent.
+    obj.user.friends << user
+    obj.set_privacy_level! 2
+    assert_equal obj.privacy_level.privacy_level_type_id, 2
+    assert obj.class.recents(user).include?(obj)
   end
   
   def self.test_recency

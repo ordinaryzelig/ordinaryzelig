@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :considering_friends, :through => :considering_friendships, :order => "lower(last_name)"
   has_many :blogs do
     def readable_by(user)
-      Blog.find_all_with_scopes *[scopes[:privacy][user], {:conditions => {:id => map(&:id)}}]
+      Blog.find_all_with_scopes scopes[:privacy][user], {:conditions => {:id => map(&:id)}}
     end
   end
   has_many :movie_ratings, :include => :movie

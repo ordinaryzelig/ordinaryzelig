@@ -13,14 +13,11 @@ class UserTest < Test::Unit::TestCase
            [:first_name, :last_name, :display_name, :email, :unhashed_password])
   
   def test_user_activity
-    # check user_activity.
-    user = test_new_with_default_attributes
-    assert_not user.user_activity.new_record?
+    assert_not test_new_with_default_attributes.user_activity.new_record?
   end
   
   def test_secret_id
-    user = test_new_with_default_attributes
-    assert user.secret_id
+    assert test_new_with_default_attributes.secret_id
   end
   
   def test_no_duplicates
@@ -39,7 +36,7 @@ class UserTest < Test::Unit::TestCase
     assert_not u.is_admin?
   end
   
-  def test_recents
+  def test_recents_at_least_gets_called_without_exceptions
     assert users(:ten_cent).recents
   end
   
@@ -72,13 +69,6 @@ class UserTest < Test::Unit::TestCase
     assert_not change_password(u,defaults[:unhashed_password], new_password, '1234')
   end
   
-  def change_password(user, old_password, new_password, confirmation_password)
-    old_hashed = user.password
-    user.change_password(old_password, new_password, confirmation_password)
-    resulting_password = user.password
-    old_hashed != resulting_password
-  end
-  
   def test_search
     search_text = 'st'.downcase
     found = User.search search_text
@@ -103,8 +93,28 @@ class UserTest < Test::Unit::TestCase
     assert_not_equal old_secret_id, u.secret_id
   end
   
+  def test_friends_blogs
+    user = test_new_with_default_attributes
+    blogs = user.friends.blogs_readable_by(user)
+    blogs.each { |b| assert user.can_read?(b) }
+  end
+  
+  def test_blogs_readable_by
+    user = users(:ten_cent)
+    friend = user.friends.first
+    blogs_readable_by_friend = user.blogs.select { |b| friend.can_read?(b) }
+    assert_equal blogs_readable_by_friend.size, user.blogs.readable_by(friend).size
+  end
+  
   # ==========================
   # helper methods.
+  
+  def change_password(user, old_password, new_password, confirmation_password)
+    old_hashed = user.password
+    user.change_password(old_password, new_password, confirmation_password)
+    resulting_password = user.password
+    old_hashed != resulting_password
+  end
   
   def authenticate(email, password)
     User.new(:email => email, :unhashed_password => password).authenticate
