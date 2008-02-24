@@ -18,7 +18,7 @@ module OrdinaryZelig
           ReadItem.find_all_by_entity_type_and_user_id(self.to_s, user.id).map(&:entity)
         end
         def self.find_all_unread_by_user(user, *scopes)
-          all = find_all_with_scopes *scopes
+          all = with_scopes(*scopes) { find :all }
           all - find_all_read_by_user(user)
         end
       end

@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :friendships, :foreign_key => "user_id"
   has_many :friends, :through => :friendships, :order => "lower(last_name)" do
     def blogs_readable_by(user)
-      Blog.find_all_with_scopes Blog.scopes[:friends][user], Blog.scopes[:privacy][user], Blog.scopes[:order_by_created_at]
+      Blog.with_scopes(Blog.scopes[:friends][user], Blog.scopes[:privacy][user], Blog.scopes[:order_by_created_at]) { Blog.find :all }
     end
     def mutual_friends_of(user)
       self.select { |friend| friend.considers_friend?(user) }
@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :considering_friends, :through => :considering_friendships, :order => "lower(last_name)"
   has_many :blogs do
     def readable_by(user)
-      Blog.find_all_with_scopes scopes[:privacy][user], {:conditions => {:id => map(&:id)}}
+      Blog.with_scopes(scopes[:privacy][user], {:conditions => {:id => map(&:id)}}) { Blog.find :all }
     end
   end
   has_many :movie_ratings, :include => :movie
@@ -166,7 +166,8 @@ class User < ActiveRecord::Base
     return true if self == obj.recency_user_obj || self.is_admin?
     entity = obj.class.is_polymorphic? ? obj.entity : obj
     if obj.class.has_privacy?
-      entity_privacy_level = (obj.is_a?(Comment) ? obj.entity : obj).class.find_with_scopes(obj.class.scopes[:privacy][self])
+      model_class = (obj.is_a?(Comment) ? obj.entity : obj).class
+      entity_privacy_level = model_class.with_scopes(obj.class.scopes[:privacy][self]) { model_class.find :first }
       !entity_privacy_level.nil?
     else
       true
@@ -223,10 +224,6 @@ class User < ActiveRecord::Base
                                    {:search_text => "%#{search_text.downcase}%"}],
                    :order => "last_name, first_name, display_name")
   end
-  
-  # def valid?
-  #   errors.empty? && super
-  # end
   
   def previous_login_at=(time)
     activity = user_activity
