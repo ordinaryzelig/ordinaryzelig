@@ -25,7 +25,7 @@ class PoolController < ApplicationController
       # allowed to view if user is self or admin.
       # if tournament hasn't started and requested user is neither self nor admin, redirect to own bracket.
       unless @season.is_editable? || is_self_or_logged_in_as_admin?(@user)
-        msg = "#{@season.tournament_year} brackets are private until the tournament starts."
+        msg = "#{@season.year} brackets are private until the tournament starts."
         msg += "<br/>login to make pics." unless logged_in_user
         render_layout_only msg and return
       end

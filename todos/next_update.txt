@@ -6,3 +6,5 @@ m = MovieRatingType.create :name => 'hype'
  "camping out for the midnight screening"].each_with_index do |desc, i|
    m.rating_options << MovieRatingOption.new(:description => desc, :value => i + 1)
 end
+
+migrate

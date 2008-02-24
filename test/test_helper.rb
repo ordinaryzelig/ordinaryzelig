@@ -48,7 +48,7 @@ class Test::Unit::TestCase
     define_method 'new_with_default_attributes' do
       obj = model_class.new(defaults)
       # for defaults that are not accessible, make sure they're nil at first, but then assign them.
-      (defaults.keys - accessible).each { |att| assert_nil_and_assign obj, att, defaults[att] }
+      (defaults.keys - accessible).each { |att| assert_nil_and_assign obj, att, defaults[att] } unless accessible.empty?
       obj
     end
     define_method 'test_new_with_default_attributes' do

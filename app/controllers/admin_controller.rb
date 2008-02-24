@@ -23,7 +23,7 @@ class AdminController < ApplicationController
       if params[:save]
         @season = Season.find(params[:season][:id])
         @season.update_attributes(params[:season])
-        @season.tournament_year = @season.tournament_starts_at.year
+        @season.year = @season.tournament_starts_at.year
         @season.save
         # assign region names.
         params.each do |key, val|

@@ -13,7 +13,7 @@ class Region < ActiveRecord::Base
     regions
   end
   
-  def championship_game(game = Season.cached[self.season.tournament_year].root_game)
+  def championship_game(game = Season.cached[self.season.year].root_game)
     return game if id == game.region_id
     game.children.map { |g| championship_game g }.compact.first
   end

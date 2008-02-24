@@ -14,8 +14,6 @@ cache regions like caching season/games?  is there a need?
 in url, season_id -> season/year, etc.
 or have a season select like a study select in hms.  then there wouldn't be a need to have season_id in url.
 
-season.tournament_year column can go. just use tournament_starts_at.year.
-
 make pic rendering with rjs
   show spinner instead of pulsating
   just update, no grow effect

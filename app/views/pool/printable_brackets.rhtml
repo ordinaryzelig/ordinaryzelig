@@ -1,12 +1,12 @@
 <html>
   <head>
     <%= stylesheet_link_tag "pool" %>
-    <title>ordinaryzelig.org - printable bracket - <%= @pool_user.user.display_name %> (<%= @season.tournament_year %>)</title>
+    <title>ordinaryzelig.org - printable bracket - <%= @pool_user.user.display_name %> (<%= @season.year %>)</title>
   </head>
   <body>
     <div id="printableBracket">
       <div id="printableHeader">
-        <span>march madness <%= @season.tournament_year %></span><br/>
+        <span>march madness <%= @season.year %></span><br/>
         <span><%= @pool_user.user.display_name %></span>
       </div>
       <% championship_game = @season.regions[0].championship_game -%>

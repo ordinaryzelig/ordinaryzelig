@@ -4,8 +4,6 @@ class Season < ActiveRecord::Base
   has_many :games
   has_many :pool_users
   
-  validates_presence_of :tournament_year
-  
   def self.new_season
     season = self.new
     # add new regions.
@@ -34,16 +32,16 @@ class Season < ActiveRecord::Base
       end
     end
     # update SEASONS cache.
-    cached[season.tournament_year] = find(season.id).load_games
+    cached[season.year] = find(season.id).load_games
     season
   end
   
   def self.container
-    find(:all, :order => :tournament_year).map { |season| [season.tournament_year, season.id] }
+    find(:all, :order => :tournament_starts_at).map { |season| [season.year, season.id] }
   end
   
   def self.latest
-    cached[find(:first, :order => "tournament_year desc").tournament_year]
+    cached[find(:first, :order => "tournament_starts_at desc").year]
   end
   
   def root_game
@@ -61,13 +59,17 @@ class Season < ActiveRecord::Base
   def self.cached
     return @cached_season if @cached_season && RAILS_ENV['ENV'] == 'production'
     @cached_season = Season.find(:all).inject({}) do |hash, season|
-      hash[season.tournament_year] = season.load_games
+      hash[season.year] = season.load_games
       hash
     end
   end
   
   def is_editable?
     Time.now < tournament_starts_at
+  end
+  
+  def year
+    tournament_starts_at.year
   end
   
 end
