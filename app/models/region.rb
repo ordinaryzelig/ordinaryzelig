@@ -1,10 +1,14 @@
 class Region < ActiveRecord::Base
   
   belongs_to :season
-  has_many :games
+  has_many :games do
+    def in_first_round
+      self.select { |game| 6 == game.round_id }
+    end
+  end
   validates_presence_of :name
   
-  def championship_game(game = Season.cached[self.season.year].root_game)
+  def championship_game(game = Season::CACHED[self.season.year].root_game)
     return game if id == game.region_id
     game.children.map { |g| championship_game g }.compact.first
   end

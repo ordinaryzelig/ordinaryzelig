@@ -8,30 +8,29 @@ class Game < ActiveRecord::Base
   has_many :pics
   
   def self.new_season(season)
-    championshipGame = Game.new(:round_id => 1, :region => season.regions[0])
-    championshipGame.season = season
+    championship_game = new :round_id => 1, :region => season.regions[0]
+    championship_game.season = season
     # create final four games and their children (regional championship games).
-    new_tree(championshipGame, 2)
-    regional_championship_games = [championshipGame.top.top, championshipGame.top.bottom, championshipGame.bottom.top, championshipGame.bottom.bottom]
+    new_tree(championship_game, 2)
+    regional_championship_games = [championship_game.top.top, championship_game.top.bottom, championship_game.bottom.top, championship_game.bottom.bottom]
     # create region brackets.
     regional_championship_games.each_with_index do |game, i|
       game.region = season.regions[i + 1]
       new_tree(game, 3)
     end
-    championshipGame.save
+    championship_game.save!
   end
   
   # create a new tree with given number of rounds.
   def self.new_tree(parent, rounds)
-    if 0 < rounds
-      0.upto(1) do |i|
-        # create child game.
-        parent.children.create(:round_id => parent.round_id + 1)
-        parent.children[i].season = parent.season
-        parent.children[i].region = parent.region
-        # recurse.
-        new_tree(parent.children[i], rounds - 1)
-      end
+    return unless 0 < rounds
+    2.times do
+      child = new :round_id => parent.round_id + 1,
+                  :season_id => parent.season_id,
+                  :region_id => parent.region_id
+      parent.children << child
+      # recurse.
+      new_tree(child, rounds - 1)
     end
   end
   private_class_method :new_tree

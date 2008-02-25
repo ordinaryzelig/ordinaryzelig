@@ -1,6 +1,10 @@
 class Season < ActiveRecord::Base
   
-  has_many :regions, :order => "order_num"
+  has_many :regions, :order => "order_num" do
+    def non_final_four
+      reject { |region| 1 == region.order_num }
+    end
+  end
   has_many :games
   has_many :pool_users
   after_create do |season|
@@ -13,30 +17,33 @@ class Season < ActiveRecord::Base
     
     # create bracket of games.
     Game.new_season(season)
-  end
-  
-  def self.new_season
-    # create new pics for each game.
+    
+    # add master pics.
     games = season.games
     games.each do |game|
       game.pics << Pic.new(:pool_user => pool_user)
       game.save
     end
+    
     # new bids.
     bids = Bid.new_season
+    
     # assign bids to games.
-    season.regions.reject { |region| 1 == region.order_num }.each_with_index do |region, i|
-      region.games.reject { |game| 6 != game.round_id }.each_with_index do |game, j|
+    season.regions.non_final_four.each_with_index do |region, region_index|
+      region.games.in_first_round.each_with_index do |game, game_index|
         2.times do |k|
-          bid = bids[i][j * 2 + k]
+          bid = bids[region_index][j * 2 + game_index]
           bid.first_game_id = game.id
           bid.save
         end
       end
     end
+    
     # update SEASONS cache.
-    cached[season.year] = find(season.id).load_games
-    season
+    CACHED[season.year] = find(season.id).load_games
+  end
+  after_destroy do |season|
+    CACHED.delete season.year
   end
   
   def self.container
@@ -44,7 +51,7 @@ class Season < ActiveRecord::Base
   end
   
   def self.latest
-    cached[find(:first, :order => "tournament_starts_at desc").year]
+    CACHED[find(:first, :order => "tournament_starts_at desc").year]
   end
   
   def root_game
@@ -59,20 +66,17 @@ class Season < ActiveRecord::Base
     self
   end
   
-  def self.cached
-    return @cached_season if @cached_season && RAILS_ENV['ENV'] == 'production'
-    @cached_season = Season.find(:all).inject({}) do |hash, season|
-      hash[season.year] = season.load_games
-      hash
-    end
-  end
-  
   def is_editable?
     Time.now < tournament_starts_at
   end
   
   def year
     self.tournament_starts_at.year
+  end
+  
+  CACHED = Season.find(:all).inject({}) do |hash, season|
+    hash[season.tournament_starts_at.year] = season.load_games
+    hash
   end
   
 end
