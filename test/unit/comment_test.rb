@@ -14,7 +14,8 @@ class CommentTest < Test::Unit::TestCase
                  :title => proc { |obj| "#{obj.entity.class}: #{obj.entity.summarize_title}" },
                  :url => proc { |obj| obj.entity.summarize_url },
                  :max => proc { 50 },
-                 :who => proc { |obj| obj.user }
+                 :who => proc { |obj| obj.user },
+                 :when => proc { |obj| obj.created_at }
   test_syndications :title => proc { |obj| "comment for #{obj.entity.class}: #{obj.entity.summarize_title}" },
                     :link => proc { |obj| obj.entity.syndicate_link },
                     :description => proc { |obj| obj.comment },

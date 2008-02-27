@@ -46,6 +46,8 @@ class Season < ActiveRecord::Base
     CACHED.delete season.year
   end
   
+  validates_presence_of :tournament_starts_at, :max_num_brackets, :buy_in
+  
   def self.container
     find(:all, :order => :tournament_starts_at).map { |season| [season.year, season.id] }
   end
@@ -66,8 +68,8 @@ class Season < ActiveRecord::Base
     self
   end
   
-  def is_editable?
-    Time.now < tournament_starts_at
+  def tournament_has_started?
+    tournament_starts_at < Time.now
   end
   
   def year

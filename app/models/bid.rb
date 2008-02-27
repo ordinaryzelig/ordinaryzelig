@@ -16,7 +16,6 @@ class Bid < ActiveRecord::Base
     bids
   end
   
-  # simple string method to print seed and team name.
   def to_s
     "#{seed} #{self.team.name}"
   end

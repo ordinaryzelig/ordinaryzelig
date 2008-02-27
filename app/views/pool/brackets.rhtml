@@ -1,7 +1,7 @@
 <% content_for :banner do -%>
   <div id="banner">
-    <%= content_tag :span, link_to_profile(@user) %><br/>
-    <%= content_tag :span, "#{@season.year} brackets", :style => 'font-size: 75%' %>
+    <%= content_tag :span, "#{@season.year} brackets" %><br/>
+    <%= content_tag :span, link_to_profile(@user), :style => 'font-size: 75%' %>
   </div>
 <% end -%>
 
@@ -43,7 +43,7 @@
 <% end -%>
 
 <% # editable message. -%>
-<% if @season.is_editable? && is_self?(logged_in_user) -%>
+<% if is_latest_season?(@season) && !@season.tournament_has_started? && is_self?(logged_in_user) -%>
   <div style="margin-bottom: 5mm; text-align: center;">
     your pics will be saved as soon as they appear.<br/>
     brackets will close <%= clickable_time @season.tournament_starts_at %>.<br/>
@@ -60,7 +60,7 @@
 
 <% # region bracket. -%>
 <div class=regionBracket id="regionBracket">
-  <%= region_bracket_partial(@region, @pool_user, @season.is_editable? || logged_in_as_admin?) %>
+  <%= region_bracket_partial(@region, @pool_user, is_latest_season?(@season) && !@season.tournament_has_started? || logged_in_as_admin?) %>
 </div>
 
 <% content_for("scripts") do -%>

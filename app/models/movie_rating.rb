@@ -13,7 +13,8 @@ class MovieRating < ActiveRecord::Base
                        :url => proc { {:controller => "movie", :action => "rating", :id => self.id} },
                        :what => proc { summary || explanation },
                        :max => 100,
-                       :name => proc { movie.title }
+                       :name => proc { movie.title },
+                       :when => :created_at
   can_be_syndicated_by :title => proc {"#{movie}: #{rating_type} rating" },
                        :link => proc { {:controller => 'movie', :action => 'rating', :id => id} },
                        :description => proc { [summary, explanation].compact.inject(content_tag(:p, to_s)) { |str, element| "#{str}\n#{content_tag(:p, element)}" } }

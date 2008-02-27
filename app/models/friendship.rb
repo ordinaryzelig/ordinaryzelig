@@ -15,7 +15,8 @@ class Friendship < ActiveRecord::Base
   SCOPES[:considering_friends] = proc { |user| {:conditions => ["#{table_name}.friend_id = ?", user.id]} }
   can_be_summarized_by :title => proc { "#{user.first_last_display} added you as a friend." },
                        :url => proc { {:controller => "user", :action => "profile", :id => user.id} },
-                       :who => nil
+                       :who => nil,
+                       :when => :created_at
   can_be_syndicated_by :title => proc { "#{user.first_last} added you as a friend." },
                        :link => proc { {:controller => 'user', :action => 'profile', :id => user.id} }
   is_entity_type

@@ -13,7 +13,8 @@ class Comment < ActiveRecord::Base
   has_recency
   can_be_summarized_by :what => :comment,
                        :title => proc { "#{entity.class}: #{entity.summarize_title}" },
-                       :url => proc { self.entity.summarize_url }
+                       :url => proc { self.entity.summarize_url },
+                       :when => :created_at
   can_be_syndicated_by :title => proc { "comment for #{entity.class}: #{entity.summarize_title}" },
                        :link => proc { entity.syndicate_link },
                        :description => proc { comment }

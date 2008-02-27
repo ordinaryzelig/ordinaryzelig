@@ -24,7 +24,7 @@ class PoolController < ApplicationController
       render_layout_only 'user not found' and return unless @user
       # allowed to view if user is self or admin.
       # if tournament hasn't started and requested user is neither self nor admin, redirect to own bracket.
-      unless @season.is_editable? || is_self_or_logged_in_as_admin?(@user)
+      if is_latest_season?(@season) && !@season.tournament_has_started? && !is_self_or_logged_in_as_admin?(@user)
         msg = "#{@season.year} brackets are private until the tournament starts."
         msg += "<br/>login to make pics." unless logged_in_user
         render_layout_only msg and return
@@ -76,7 +76,7 @@ class PoolController < ApplicationController
       
       # render.
       render(:partial => "pic", :locals => {:pic => pic,
-                                            :is_editable => game.season.is_editable? || logged_in_user.is_admin?,
+                                            :is_editable => is_latest_season?(game.season) && !game.season.tournament_has_started? || logged_in_user.is_admin?,
                                             :pool_user => pool_user,
                                             :other_affected_pics => other_affected_pics,
                                             :update_bracket_completion_to => update_bracket_completion_to})
@@ -160,5 +160,13 @@ class PoolController < ApplicationController
       end
     end
   end
+  
+  private
+  
+  def is_latest_season?(season)
+    season == latest_season
+  end
+  
+  helper_method :is_latest_season?
   
 end

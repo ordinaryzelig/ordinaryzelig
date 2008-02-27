@@ -8,8 +8,11 @@ class Blog < ActiveRecord::Base
   
   has_nested_comments
   has_recency
-  can_be_summarized_by :what => :body, :title => :title, :when => :created_at
-  can_be_syndicated_by :title => proc { "Blog: #{title}" }, :description => :body
+  can_be_summarized_by :what => :body,
+                       :title => :title,
+                       :when => :created_at
+  can_be_syndicated_by :title => proc { "Blog: #{title}" },
+                       :description => :body
   preview_using :body
   can_be_marked_as_read
   is_entity_type
