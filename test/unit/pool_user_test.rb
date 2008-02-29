@@ -26,16 +26,37 @@ class PoolUserTest < Test::Unit::TestCase
   def test_bracket_complete
     pool_user = pool_users(:cece_winner)
     assert pool_user.bracket_complete?
+    # test when one pic is blank.
     pic = pool_user.pics.for_game(pool_user.season.root_game)
     bid_id = pic.bid_id
     pic.bid_id = nil
     pic.save
     assert_not pool_user.bracket_complete?
+    # put it back and test again.
     pic.bid_id = bid_id
     pic.save
     assert pool_user.bracket_complete?
   end
   
-  # here.
+  def test_pics_left
+    pool_user = pool_users(:john_2007)
+    assert_equal 0, pool_user.pics_left.size
+    # test when championship game has not yet been decided.
+    master_pool_user = pool_user.class.master(pool_user.season)
+    master_pic = master_pool_user.pics.for_game(pool_user.season.root_game)
+    bid_id = master_pic.bid_id
+    master_pic.bid_id = nil
+    master_pic.save
+    assert_not master_pool_user.bracket_complete?
+    assert_equal 1, pool_user.pics_left.size
+  end
+  
+  def test_points_left
+    # same as test_pics_left, but with points.
+  end
+  
+  def test_unique_points
+    
+  end
   
 end

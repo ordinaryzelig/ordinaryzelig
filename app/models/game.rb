@@ -107,9 +107,4 @@ class Game < ActiveRecord::Base
     Game.find(:first, :conditions => {:season_id => season.id, :parent_id => nil})
   end
   
-  # winners of child games.
-  def master_bids
-    children.map { |game| game.master_pic.bid }
-  end
-  
 end
