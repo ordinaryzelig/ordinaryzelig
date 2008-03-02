@@ -8,14 +8,14 @@ class UserController < ApplicationController
   end
   
   def profile
-    @user = User.find_non_admin params[:id]
+    @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
     render_layout_only 'user not found' and return unless @user
     @page_title =  "profile - #{@user.display_name}"
     @recents = @user.recents if is_self_or_logged_in_as_admin?(@user)
   end
   
   def edit_profile
-    @user = User.find_non_admin params[:id]
+    @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
     unless @user && is_self_or_logged_in_as_admin?(@user)
       flash[:failure] = "user #{params[:id]} not found."
       redirect_to_last_marked_page_or_default
@@ -51,9 +51,9 @@ class UserController < ApplicationController
   end
   
   def friends
-    @user = User.find_non_admin :first, params[:id]
+    @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
     render_layout_only 'user not found' and return unless @user
-    render_layout_only 'this is private.' and return unless logged_in_user && @user.considers_friend?(logged_in_user)
+    render_layout_only 'this is private.' and return unless logged_in_user && @user.considers_friend?(logged_in_user) || is_self?(@user)
     @page_title = "#{@user.display_name}'s friends"
   end
   
@@ -74,7 +74,7 @@ class UserController < ApplicationController
   
   def remove_friend
     if request.xhr?
-      if User.find_non_admin :first, params[:id]
+      if User.find_non_admin :first, :conditions => {:id => params[:id]}
         friendship = Friendship.find_by_user_id_and_friend_id(logged_in_user.id, params[:id])
         friendship.destroy if friendship
         render(:partial => "add_remove_friend", :locals => {:friend => friendship.friend})
@@ -94,7 +94,7 @@ class UserController < ApplicationController
   
   def generate_secret_id
     if request.post?
-      @user = User.find_non_admin :first, params[:id]
+      @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
       @user.generate_secret_id
       flash[:success] = "your rss url has been changed. please update your bookmarks." and redirect_to :back if @user.save
     end
