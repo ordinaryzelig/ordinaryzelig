@@ -34,7 +34,7 @@ module OrdinaryZelig
         if attributes[:id].blank?
           build_privacy_level(attributes)
         else
-          self.privacy_level.attributes = attributes
+          self.privacy_level.attributes = attributes if self.privacy_level
         end
       end
       
