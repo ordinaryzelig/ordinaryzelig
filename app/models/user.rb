@@ -32,13 +32,14 @@ class User < ActiveRecord::Base
     end
   end
   
+  before_validation_on_create :generate_secret_id
+  before_validation_on_create { |user| user.set_password user.unhashed_password}
+  
   validates_presence_of :first_name, :last_name, :display_name, :email, :secret_id
   validates_uniqueness_of :email, :message => "is already registered."
   validates_uniqueness_of :display_name, :message => "is already taken."
   validates_format_of :email, :with => %r{.+@.+\..*}
   
-  before_validation_on_create :generate_secret_id
-  before_validation_on_create { |user| user.set_password user.unhashed_password}
   after_create do |user|
     user.build_user_activity
     user.user_activity.log_login!
@@ -47,7 +48,6 @@ class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password
   attr_accessor :unhashed_password
   
-  scope_out :master, :conditions => {:display_name => 'master bracket'}
   scope_out :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']]
   
   def self.new_registrant(attributes, confirmation_password)
@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   end
   
   def self.master
-    find_master :first
+    find master_id
   end
   
   def self.master_id

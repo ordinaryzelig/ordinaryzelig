@@ -2,7 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SeasonTest < Test::Unit::TestCase
   
-  fixtures :seasons
+  march_madness_fixtures
+  
   defaults({:tournament_starts_at => 1.year.from_now,
             :buy_in => 10,
             :max_num_brackets => 1})
@@ -18,7 +19,7 @@ class SeasonTest < Test::Unit::TestCase
   
   def test_pics_assigned
     season = test_new_with_default_attributes
-    season.games.each { |game| assert_not_nil game.master_pic }
+    season.games.each { |game| assert_not_nil game.pics.master }
   end
   
   def test_game_structure
@@ -43,6 +44,15 @@ class SeasonTest < Test::Unit::TestCase
     else
       has_x_descendants(game.children.first, descendants_left - 1) && has_x_descendants(game.children.last, descendants_left - 1)
     end
+  end
+  
+  def test_undecided
+    season = Season.find(:first)
+    assert season.games.undecided.empty?
+    pic = season.games.first.pics.master
+    pic.bid_id = nil
+    pic.save!
+    assert_not season.games.undecided.empty?
   end
   
 end

@@ -158,6 +158,10 @@ class Test::Unit::TestCase
     @model_class ||= self.class.to_s.gsub('Test', '').constantize
   end
   
+  def self.march_madness_fixtures
+    fixtures :seasons, :games, :pool_users, :users, :pics, :bids, :teams, :accounts, :regions, :rounds
+  end
+  
 end
 
 module Test::Unit::Assertions
@@ -166,6 +170,13 @@ module Test::Unit::Assertions
     clean_backtrace do
       full_message = build_message(message, "<false> expected but was <?>.\n", condition)
       assert_block(full_message) { false == condition }
+    end
+  end
+  
+  def assert_save(obj, message=nil)
+    clean_backtrace do
+      full_message = build_message(message, "save failed. errors: ?\n", obj.errors.full_messages)
+      assert_block(full_message) { obj.save }
     end
   end
   

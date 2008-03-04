@@ -60,7 +60,7 @@ class Pic < ActiveRecord::Base
       if game.children.empty?
         opponent_bid = game.first_round_bids.detect { |b| b.id != bid_id }
       else
-        opponent_bid = game.children.detect { |child| child.master_pic.bid_id != bid_id }.master_pic.bid
+        opponent_bid = game.children.detect { |child| child.pics.master.bid_id != bid_id }.pics.master.bid
       end
       opponent_bid.seed < bid.seed
     end

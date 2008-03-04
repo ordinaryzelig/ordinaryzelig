@@ -5,7 +5,11 @@ class Game < ActiveRecord::Base
   belongs_to :season
   belongs_to :region
   has_many :first_round_bids, :class_name => "Bid", :foreign_key => "first_game_id", :order => "seed"
-  has_many :pics
+  has_many :pics do
+    def master
+      detect { |pic| pic.pool_user.user_id == User.master_id }
+    end
+  end
   
   def self.new_season(season)
     championship_game = new :round_id => 1, :region => season.regions[0]
@@ -42,7 +46,7 @@ class Game < ActiveRecord::Base
     pic = pool_user.pics.for_game self
     old_bid_id = pic.bid_id
     pic.bid_id = bid.id
-    pic.save
+    pic.save!
     other_pics_affected = parent.stop_progress_of_bid(old_bid_id, pool_user) if parent && old_bid_id && old_bid_id != bid.id
     other_pics_affected || []
   end
@@ -61,6 +65,7 @@ class Game < ActiveRecord::Base
     other_pics_affected
   end
   
+  # return the game where this pic had to win to get here.
   def child_with_pic(pic)
     children.detect { |game| pic.pool_user.pics.for_game(game).bid_id == pic.bid_id }
   end
@@ -84,18 +89,6 @@ class Game < ActiveRecord::Base
   
   def bottom
     self.children[1]
-  end
-  
-  def master_pic
-    pics.detect do |pic|
-      pic.pool_user.user_id == User.master_id
-    end
-  end
-  
-  def self.undecided(season)
-    games = find(:all, :conditions => ["#{table_name}.season_id = ?", season.id], :include => {:pics => [:pool_user, :bid]})
-    master_pool_user = PoolUser.master(season)
-    games.reject { |game| master_pool_user.pics.for_game(game).bid }
   end
   
   # for caching.

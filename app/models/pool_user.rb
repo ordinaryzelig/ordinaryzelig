@@ -1,7 +1,3 @@
-=begin
-a user's participation in a season tournament.
-=end
-
 class PoolUser < ActiveRecord::Base
   
   belongs_to :season
@@ -23,7 +19,7 @@ class PoolUser < ActiveRecord::Base
   
   # return PoolUser object of master user for given season.
   def self.master(season)
-    User.find_master(:first).pool_users.for_season(season).first
+    User.master.pool_users.for_season(season).first
   end
   
   def self.standings_sort_proc
@@ -54,14 +50,13 @@ class PoolUser < ActiveRecord::Base
   end
   
   def pics_left(games_undecided = nil)
-    return @pics_left if @pics_left
-    games_undecided ||= Game.undecided(season)
+    games_undecided ||= season.games.undecided
     @pics_left = pics.select do |pic|
       pic.still_alive? && games_undecided.include?(pic.game)
     end
   end
   
-  def points_left(games_undecided = Game.undecided(season), scoring_system = ScoringSystems.default)
+  def points_left(games_undecided = season.games.undecided, scoring_system = ScoringSystems.default)
     points_left = 0
     pics.left(games_undecided).each do |pic|
       points_left += pic.point_worth(scoring_system)
@@ -77,7 +72,7 @@ class PoolUser < ActiveRecord::Base
   end
   
   def unique_pics(other_pool_users)
-    games_undecided = Game.undecided(season)
+    games_undecided = season.games.undecided
     uniques = []
     games_undecided.each do |game|
       my_pic = pics.for_game game

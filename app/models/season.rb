@@ -5,7 +5,15 @@ class Season < ActiveRecord::Base
       reject { |region| 1 == region.order_num }
     end
   end
-  has_many :games
+  has_many :games do
+    def undecided
+      find(:all,
+           :conditions => ["pool_user_id = ? and " <<
+                           "#{Bid.table_name}.id is null",
+                           PoolUser.master(first.season)],
+           :include => {:pics => [:pool_user, :bid]})
+    end
+  end
   has_many :pool_users
   after_create do |season|
     # add regions.

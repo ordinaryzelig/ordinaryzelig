@@ -46,7 +46,7 @@ class PoolUserTest < Test::Unit::TestCase
     master_pic = master_pool_user.pics.for_game(pool_user.season.root_game)
     bid_id = master_pic.bid_id
     master_pic.bid_id = nil
-    master_pic.save
+    assert_save master_pic
     assert_not master_pool_user.bracket_complete?
     assert_equal 1, pool_user.pics_left.size
   end
