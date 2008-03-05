@@ -42,4 +42,30 @@ class GameTest < Test::Unit::TestCase
     end
   end
   
+  def test_declare_winner
+    # test for championship game.
+    season = Season.find(:first)
+    game = season.root_game
+    pool_user = PoolUser.master(season)
+    pic = pool_user.pics.for_game(game)
+    bid = pic.bid
+    # erase bid for pic.
+    pic.bid_id = nil
+    assert_save! pic
+    assert_not pool_user.bracket_complete?
+    # declare winner for championship_game for master pool_user.
+    game.declare_winner(bid, pool_user)
+    assert pool_user.bracket_complete?
+    assert_equal pool_user.pics.for_game(game).bid_id, bid.id
+    
+    # take champion, find their first game and declare the other winner.
+    # then test that all all subsequent pics are changed.
+    first_game = bid.first_game
+    other_pics_affected = first_game.declare_winner first_game.first_round_bids.detect { |b| b != bid }, pool_user
+    assert_equal first_game.ancestors.size, other_pics_affected.size
+    other_pics_affected.each do |pic|
+      assert_nil pic.bid_id
+    end
+  end
+  
 end

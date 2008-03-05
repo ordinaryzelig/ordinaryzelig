@@ -180,4 +180,13 @@ module Test::Unit::Assertions
     end
   end
   
+  def assert_save!(obj, message=nil)
+    clean_backtrace do
+      full_message = build_message(message, "save failed. errors: ?\n", obj.errors.full_messages)
+      assert_block(full_message) { obj.save! }
+    end
+  rescue Exception => ex
+    flunk "save! failed: #{ex.message}"
+  end
+  
 end
