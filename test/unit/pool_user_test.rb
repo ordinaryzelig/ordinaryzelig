@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PoolUserTest < Test::Unit::TestCase
   
-  fixtures :pool_users
+  march_madness_fixtures
   
   defaults({:season_id => 1,
             :user_id => 3})
@@ -16,7 +16,7 @@ class PoolUserTest < Test::Unit::TestCase
     pool_user = pool_users(:cece_winner)
     master_pics = pool_user.class.master(pool_user.season).pics
     {ScoringSystems::Jared => 235,
-     ScoringSystems::Cbs => 63,
+     ScoringSystems::Cbs => 126,
      ScoringSystems::Espn => 630,
      ScoringSystems::SportsIllustrated => 70}.each do |system, points|
        assert_equal pool_user.calculate_points(master_pics, system), points

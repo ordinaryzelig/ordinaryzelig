@@ -159,7 +159,22 @@ class Test::Unit::TestCase
   end
   
   def self.march_madness_fixtures
-    fixtures :seasons, :games, :pool_users, :users, :pics, :bids, :teams, :accounts, :regions, :rounds
+    [:seasons,
+    :regions,
+    :rounds,
+    :games,
+    :users,
+    :pool_users,
+    :teams,
+    :bids,
+    :pics,
+    :accounts].each { |fixture| fixtures fixture }
+    def setup; end unless method_defined?(:setup)
+    def setup_with_seasons_fixture
+      setup_without_seasons_fixture
+      Season.populate_cache
+    end
+    alias_method_chain :setup, :seasons_fixture
   end
   
 end

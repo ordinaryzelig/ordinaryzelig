@@ -84,9 +84,15 @@ class Season < ActiveRecord::Base
     self.tournament_starts_at.year
   end
   
-  CACHED = Season.find(:all).inject({}) do |hash, season|
-    hash[season.tournament_starts_at.year] = season.load_games
-    hash
+  CACHED = {}
+  
+  # add seasons not already defined in CACHED,
+  def self.populate_cache
+    Season.find(:all).each do |season|
+      CACHED[season.tournament_starts_at.year] = season.load_games
+    end
   end
+  
+  populate_cache
   
 end

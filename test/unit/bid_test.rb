@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BidTest < Test::Unit::TestCase
   
-  fixtures :bids
+  march_madness_fixtures
   
   defaults({:team_id => 1,
             :seed => 1,

@@ -1,4 +1,39 @@
 --- 
+cece_george_mason_field_of_64: 
+  bid_id: "106"
+  pool_user_id: "29"
+  id: "1808"
+  game_id: "107"
+cece_george_mason_field_of_32: 
+  bid_id: "106"
+  pool_user_id: "29"
+  id: "1807"
+  game_id: "106"
+cece_george_mason_sweet_16: 
+  bid_id: "106"
+  pool_user_id: "29"
+  id: "1806"
+  game_id: "105"
+cece_george_mason_elite_8: 
+  bid_id: "106"
+  pool_user_id: "29"
+  id: "1798"
+  game_id: "97"
+cece_george_mason_final_4: 
+  bid_id: "106"
+  pool_user_id: "29"
+  id: "1797"
+  game_id: "96"
+cece_george_mason_championship: 
+  bid_id: "106"
+  pool_user_id: "29"
+  id: "1765"
+  game_id: "64"
+pics_2333: 
+  bid_id: "106"
+  pool_user_id: "36"
+  id: "2249"
+  game_id: "107"
 pics_2372: 
   bid_id: "115"
   pool_user_id: "42"
@@ -344,11 +379,6 @@ pics_2461:
   pool_user_id: "45"
   id: "2799"
   game_id: "153"
-pics_2687: 
-  bid_id: "106"
-  pool_user_id: "29"
-  id: "1765"
-  game_id: "64"
 pics_2575: 
   bid_id: "17"
   pool_user_id: "2"
@@ -639,11 +669,6 @@ pics_2996:
   pool_user_id: "27"
   id: "1666"
   game_id: "91"
-pics_2883: 
-  bid_id: "106"
-  pool_user_id: "29"
-  id: "1806"
-  game_id: "105"
 pics_2137: 
   bid_id: "103"
   pool_user_id: "41"
@@ -919,11 +944,6 @@ pics_2446:
   pool_user_id: "53"
   id: "3286"
   game_id: "136"
-pics_2333: 
-  bid_id: "106"
-  pool_user_id: "36"
-  id: "2249"
-  game_id: "107"
 pics_2559: 
   bid_id: "55"
   pool_user_id: "3"
@@ -3164,11 +3184,6 @@ pics_1795:
   pool_user_id: "51"
   id: "3153"
   game_id: "129"
-pics_1049: 
-  bid_id: "106"
-  pool_user_id: "29"
-  id: "1807"
-  game_id: "106"
 pics_595: 
   bid_id: "35"
   pool_user_id: "12"
@@ -4464,11 +4479,6 @@ pics_020:
   pool_user_id: "34"
   id: "2084"
   game_id: "68"
-pics_992: 
-  bid_id: "106"
-  pool_user_id: "29"
-  id: "1808"
-  game_id: "107"
 pics_246: 
   bid_id: "127"
   pool_user_id: "39"
@@ -10464,11 +10474,6 @@ pics_2034:
   pool_user_id: "41"
   id: "2576"
   game_id: "119"
-pics_2893: 
-  bid_id: "106"
-  pool_user_id: "29"
-  id: "1798"
-  game_id: "97"
 pics_2147: 
   bid_id: "65"
   pool_user_id: "37"
@@ -17474,11 +17479,6 @@ pics_3242:
   pool_user_id: "62"
   id: "3901"
   game_id: "186"
-pics_830: 
-  bid_id: "106"
-  pool_user_id: "29"
-  id: "1797"
-  game_id: "96"
 pics_1509: 
   bid_id: "65"
   pool_user_id: "43"

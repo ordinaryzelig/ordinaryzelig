@@ -55,4 +55,10 @@ class SeasonTest < Test::Unit::TestCase
     assert_not season.games.undecided.empty?
   end
   
+  def test_populate_cache
+    Season.find(:all).each do |season|
+      assert Season::CACHED.keys.include?(season.year)
+    end
+  end
+  
 end

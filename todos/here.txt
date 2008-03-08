@@ -1,2 +1,4 @@
+test point_worth.  cbs system doesn't match, so check with cbs website.
+
 make pics rjs
   clean make_pic()

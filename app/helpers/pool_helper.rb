@@ -8,8 +8,8 @@ module PoolHelper
   # return a html class for this pic for given_round_number.
   def class_for_game_pic(given_round, given_pic, master_pics, pool_user)
     html = "gamePicInRound"
-    pic_furthest_round = given_pic.furthest_round
-    if pic_furthest_round && pic_furthest_round.number >= given_round
+    pic_furthest_round_won_number = given_pic.furthest_round_won_number
+    if pic_furthest_round_won_number && pic_furthest_round_won_number >= given_round
       game_in_lineage = given_pic.game.game_in_lineage_with_pic(given_pic, given_round)
       master_pic = master_pics.detect { |p| p.game_id == game_in_lineage.id }
       if master_pic.bid

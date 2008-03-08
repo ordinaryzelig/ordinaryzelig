@@ -34,9 +34,7 @@ module ScoringSystems
     # (round - 1) ^ 2
     def self.point_worth(pic)
       if pic.bid
-        worth = 1
-        (pic.game.round.number - 1).times { worth *= 2 }
-        worth
+        2 ** (pic.game.round.number)
       else
         0
       end

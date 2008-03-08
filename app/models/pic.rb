@@ -16,10 +16,13 @@ class Pic < ActiveRecord::Base
   end
   
   # return the furthest round that this team goes.
-  def furthest_round
-    all_pics_with_same_bid = Pic.find(:all, :conditions => ["season_id = ? and bid_id = ? and pool_user_id = ?", *[game.season_id, bid_id, pool_user_id]], :include => {:game => :round})
-    max_pic = all_pics_with_same_bid.max { |a, b| a.game.round.number <=> b.game.round.number }
-    max_pic.game.round if max_pic
+  def furthest_round_won_number
+    Pic.calculate(:max, "number",
+                  :conditions => ["season_id = ? and " <<
+                                  "bid_id = ? and " <<
+                                  "pool_user_id = ?",
+                                  game.season_id, bid_id, pool_user_id],
+                  :include => {:game => :round}).to_i
   end
   
   # return whether this pic still has a chance to advance to the next round.
