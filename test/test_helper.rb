@@ -26,6 +26,14 @@ class Test::Unit::TestCase
 
   # Add more helper methods to be used by all tests here...
   
+  fixtures :users
+  
+  # set session[:user_id] and session[:last_authenticated_action_at]
+  def login(user_fixture)
+    @request.session[:user_id] = users(user_fixture).id
+    @request.session[:last_authenticated_action_at] = Time.now
+  end
+  
   def assert_nil_and_assign(obj, attribute, val)
     assert_nil obj.send(attribute)
     obj.send "#{attribute}=", val

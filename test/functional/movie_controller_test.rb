@@ -7,7 +7,7 @@ class MovieController; def rescue_action(e) raise e end; end
 class MovieControllerTest < Test::Unit::TestCase
   def setup
     @controller = MovieController.new
-    request    = ActionController::TestRequest.new
+    @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
 

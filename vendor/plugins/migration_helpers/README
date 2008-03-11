@@ -56,7 +56,14 @@ HOW TO USE
         RemovePrefixes.down
       end
     
-    this is equivalent to the previous example, but with some bonuses.  grouping will add an additional level of organization to TSMs.  and because Group is itself a TSM, you can recursively stack TSMs until you have just one TSM that will package all the actions into one TSM.  and this will give you more benefits than just clean up your code.  notice we didn't have to reverse the order of anything.  the Group TSM takes care of it for you.  and the best part is that if something goes wrong, the successful migrations will be rolled back so that you end up right where you started.
+    this is equivalent to the previous example, but with some bonuses.  grouping will add an additional level of organization to TSMs.  and because Group is itself a TSM, you can recursively stack TSMs until you have just one TSM that will package all the actions into one TSM.  and this will give you more benefits than just cleaning up your code.  notice we didn't have to reverse the order of anything.  the Group TSM takes care of it for you.  and the best part is that if something goes wrong, the successful migrations will be rolled back so that you end up right where you started.
+    
+    for even more cleanup, don't even bother defining self.up/down.  TSM can take care of it for you.  just call use_two_sided_migration and pass it a block that returns the TSM that will run the whole migration.  for example, the above example can be shortened to:
+      
+      # in your migration file.
+      actions = [TwoSidedMigration::RenameTable.new(:user_accounts, :accounts),
+                 TwoSidedMigration::RenameColumn.new(:users, :owned_by_user_id, :user_id),]
+      use_two_sided_migration { TwoSidedMigration::Group.new *actions }
     
     there are some built-in TSMs.  they supply you with the much of the functionality found in ActiveRecord::ConnectionAdapters::SchemaStatements like create_table and add_index.  the classes follow a camelized convention.  so the TSM for create_table is TwoSidedMigration::CreateTable.  and of course, you can create your own TSMs.  just make it a subclass of TwoSidedMigration::Base and define up and down.  for TSMs that require inverses (e.g. add/remove column) there's a helper method that will help you DRYly define both.  for example, here's the code for add/remove index:
     

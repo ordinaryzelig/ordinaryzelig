@@ -5,14 +5,17 @@ require 'admin_controller'
 class AdminController; def rescue_action(e) raise e end; end
 
 class AdminControllerTest < Test::Unit::TestCase
+  
   def setup
     @controller = AdminController.new
-    request    = ActionController::TestRequest.new
+    @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
-
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  
+  def test_create_new_season
+    login(:admin)
+    post :create_new_season
+    assert_redirected_to :action => :edit_season
   end
+  
 end

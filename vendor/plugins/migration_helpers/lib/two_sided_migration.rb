@@ -204,4 +204,23 @@ module TwoSidedMigration
   end
   subclasses_for Table, :create, :drop
   
+  # ==================================================================================
+  # use_two_sided_migration class method.
+  # will define self.up and self.down.
+  
+  def self.included(base)
+    base.module_eval do
+      def self.use_two_sided_migration
+        class << self
+          define_method 'up' do
+            yield.up
+          end
+          define_method 'down' do
+            yield.down
+          end
+        end
+      end
+    end
+  end
+  
 end # TwoSidedMigration

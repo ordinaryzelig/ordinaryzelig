@@ -61,4 +61,9 @@ class SeasonTest < Test::Unit::TestCase
     end
   end
   
+  def test_creates_regions
+    season = test_new_with_default_attributes
+    assert_equal 5, season.regions.size
+  end
+  
 end

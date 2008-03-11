@@ -9,7 +9,7 @@ class MockController
   def initialize(body = "")
     @body = body
     @performed_render = true
-    @params = {:controller => 'test', :action => 'example'}
+    params = {:controller => 'test', :action => 'example'}
     @session = {}
     @cookies = {}
     template
@@ -32,7 +32,7 @@ class MockController
   end
   
   def action_name
-    @params[:action]
+    params[:action]
   end
 end
 

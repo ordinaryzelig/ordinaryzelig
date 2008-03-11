@@ -7,7 +7,7 @@ class MessageBoardController; def rescue_action(e) raise e end; end
 class MessageBoardControllerTest < Test::Unit::TestCase
   def setup
     @controller = MessageBoardController.new
-    request    = ActionController::TestRequest.new
+    @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
 

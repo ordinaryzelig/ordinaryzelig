@@ -7,7 +7,7 @@ class HomeController; def rescue_action(e) raise e end; end
 class HomeControllerTest < Test::Unit::TestCase
   def setup
     @controller = HomeController.new
-    request    = ActionController::TestRequest.new
+    @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
 

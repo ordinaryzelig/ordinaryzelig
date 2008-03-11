@@ -7,7 +7,7 @@ class LoginController; def rescue_action(e) raise e end; end
 class LoginControllerTest < Test::Unit::TestCase
   def setup
     @controller = LoginController.new
-    request    = ActionController::TestRequest.new
+    @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
 

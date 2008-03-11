@@ -7,7 +7,7 @@ class CommentsController; def rescue_action(e) raise e end; end
 class CommentsControllerTest < Test::Unit::TestCase
   def setup
     @controller = CommentsController.new
-    request    = ActionController::TestRequest.new
+    @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
 

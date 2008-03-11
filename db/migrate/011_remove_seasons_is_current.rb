@@ -1,9 +1,5 @@
 class RemoveSeasonsIsCurrent < ActiveRecord::Migration
-  def self.up
-    remove_column :seasons, :is_current
-  end
-
-  def self.down
-    add_column :seasons, :is_current, :integer
-  end
+  
+  use_two_sided_migration { RemoveColumn.new(:seasons, :is_current) }
+  
 end

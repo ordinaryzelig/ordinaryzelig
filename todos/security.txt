@@ -4,6 +4,8 @@ create way user can lockdown.
 mass actions
 if not logged in and trying to access private entity, ask to login or just say this is private?
 
+chmod rails app.
+
 things that have security levels
    profile (may not be necissary)
    searchable?

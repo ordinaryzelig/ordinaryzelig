@@ -27,8 +27,8 @@ class PicTest < Test::Unit::TestCase
   end
   
   def test_master_pic
-    
-    # assert_equal cece_george_mason_field_of_64.bid_id, cece_george_mason_field_of_64.master_pic.bid_id
+    pic = cece_george_mason_pic(:field_of_64)
+    assert_equal pic.bid_id, pic.master_pic.bid_id
   end
   
   def test_fixtures
@@ -42,6 +42,16 @@ class PicTest < Test::Unit::TestCase
       assert_equal teams(:george_mason), pic.bid.team
       assert_equal rounds(round_fixture), pic.game.round
     end
+  end
+  
+  def test_is_correct
+    assert cece_george_mason_pic(:elite_8).is_correct?
+    assert_not cece_george_mason_pic(:final_4).is_correct?
+  end
+  
+  def test_still_alive
+    assert cece_george_mason_pic(:elite_8).still_alive?
+    assert_not cece_george_mason_pic(:final_4).still_alive?
   end
   
   def cece_george_mason_pic(round_fixture)

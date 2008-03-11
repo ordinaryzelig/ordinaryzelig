@@ -7,7 +7,7 @@ class RssController; def rescue_action(e) raise e end; end
 class RssControllerTest < Test::Unit::TestCase
   def setup
     @controller = RssController.new
-    request    = ActionController::TestRequest.new
+    @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
 

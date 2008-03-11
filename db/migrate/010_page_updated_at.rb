@@ -1,9 +1,5 @@
 class PageUpdatedAt < ActiveRecord::Migration
-  def self.up
-    rename_column :pages, :last_updated_at, :updated_at
-  end
-
-  def self.down
-    rename_column :pages, :updated_at, :last_updated_at
-  end
+  
+  use_two_sided_migration { RenameColumn.new(:pages, :last_updated_at, :updated_at) }
+  
 end
