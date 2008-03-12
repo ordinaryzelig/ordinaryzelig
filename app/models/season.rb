@@ -1,7 +1,7 @@
 class Season < ActiveRecord::Base
   
   has_many :regions, :order => "order_num" do
-    def non_final_four
+    def non_final_4
       reject { |region| 1 == region.order_num }
     end
   end
@@ -37,7 +37,7 @@ class Season < ActiveRecord::Base
     bids = Bid.new_season
     
     # assign bids to games.
-    season.regions.non_final_four.each_with_index do |region, region_index|
+    season.regions.non_final_4.each_with_index do |region, region_index|
       region.games.in_first_round.each_with_index do |game, game_index|
         2.times do |k|
           bid = bids[region_index][j * 2 + game_index]

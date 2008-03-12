@@ -34,35 +34,12 @@ class Test::Unit::TestCase
     @request.session[:last_authenticated_action_at] = Time.now
   end
   
-  def assert_nil_and_assign(obj, attribute, val)
-    assert_nil obj.send(attribute)
-    obj.send "#{attribute}=", val
-  end
-  
   def self.test_created_at
     define_method 'test_created_at' do
       obj = new_with_default_attributes
       assert_nil obj.created_at
       obj.save
       assert obj.created_at
-    end
-  end
-  
-  def self.defaults(attributes, accessible = [])
-    atts = attributes.dup
-    define_method 'defaults' do
-      atts
-    end
-    define_method 'new_with_default_attributes' do
-      obj = model_class.new(defaults)
-      # for defaults that are not accessible, make sure they're nil at first, but then assign them.
-      (defaults.keys - accessible).each { |att| assert_nil_and_assign obj, att, defaults[att] } unless accessible.empty?
-      obj
-    end
-    define_method 'test_new_with_default_attributes' do
-      obj = new_with_default_attributes
-      assert obj.save
-      obj
     end
   end
   
@@ -162,10 +139,6 @@ class Test::Unit::TestCase
     end
   end
   
-  def model_class
-    @model_class ||= self.class.to_s.gsub('Test', '').constantize
-  end
-  
   def self.march_madness_fixtures
     [:seasons,
     :regions,
@@ -183,33 +156,6 @@ class Test::Unit::TestCase
       Season.populate_cache
     end
     alias_method_chain :setup, :seasons_fixture
-  end
-  
-end
-
-module Test::Unit::Assertions
-  
-  def assert_not(condition, message=nil)
-    clean_backtrace do
-      full_message = build_message(message, "<false> expected but was <?>.\n", condition)
-      assert_block(full_message) { false == condition }
-    end
-  end
-  
-  def assert_save(obj, message=nil)
-    clean_backtrace do
-      full_message = build_message(message, "save failed. errors: ?\n", obj.errors.full_messages)
-      assert_block(full_message) { obj.save }
-    end
-  end
-  
-  def assert_save!(obj, message=nil)
-    clean_backtrace do
-      full_message = build_message(message, "save failed. errors: ?\n", obj.errors.full_messages)
-      assert_block(full_message) { obj.save! }
-    end
-  rescue Exception => ex
-    flunk "save! failed: #{ex.message}"
   end
   
 end

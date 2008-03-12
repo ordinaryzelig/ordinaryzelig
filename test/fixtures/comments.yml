@@ -1,1 +1,228 @@
---- 
+--- !omap
+- comments_1: 
+    id: "1"
+    user_id: "2"
+    comment: so far so good.   whooooooo, look at that ajax action.
+    parent_id: 
+    created_at: 2007-05-25 21:05:53
+- comments_2: 
+    id: "2"
+    user_id: "3"
+    comment: Whats the difference between this add comment and reply? Are comments front page items? And replies to front specific blogs?
+    parent_id: 
+    created_at: 2007-05-26 02:20:03
+- comments_3: 
+    id: "3"
+    user_id: "3"
+    comment: So this is a reply, but what is what? I am slightly confused. Also you need some RSS
+    parent_id: "1"
+    created_at: 2007-05-26 02:20:44
+- comments_4: 
+    id: "4"
+    user_id: "2"
+    comment: i meant them to mean "brand new root comment" and "reply to this specific comment."  is a simple "reply" for both situations is less confusing?
+    parent_id: "2"
+    created_at: 2007-05-26 06:51:29
+- comments_5: 
+    id: "5"
+    user_id: "2"
+    comment: i read up on rss.  it sounded a lot more difficult than i had thought.  you know a good tutorial?  i was eventually going to add a "what's new with my friends" thing where it lists things you subscribe to and highlights new stuff.  if i did rss, you and i would be the only ones to use it.
+    parent_id: "3"
+    created_at: 2007-05-26 06:54:09
+- comments_6: 
+    id: "6"
+    user_id: "3"
+    comment: Maybe the top as "reply to blog" and the others are "reply to this comment" or some other such, or perhaps if they weren't done as buttons but rather as link text and more inline with in the thing it might be more indicative to me
+    parent_id: "4"
+    created_at: 2007-05-26 18:22:52
+- comments_7: 
+    id: "7"
+    user_id: "3"
+    comment: Ohh, like there is anyone else using anything anyway, there are I believe some fairly easy RSSing of the rails woohaaa, but a view/controller/page that one could load that showed all ones friends recent changes and recent comments and recent replies to comments could be handy
+    parent_id: "5"
+    created_at: 2007-05-26 18:24:24
+- comments_8: 
+    id: "8"
+    user_id: "3"
+    comment: Yeah, so does it need such a short login session timeout?
+    parent_id: 
+    created_at: 2007-05-28 06:06:10
+- comments_9: 
+    id: "9"
+    user_id: "2"
+    comment: i set it to 2 hours.  you think that's too short?
+    parent_id: "8"
+    created_at: 2007-05-29 08:51:53
+- comments_10: 
+    id: "10"
+    user_id: "2"
+    comment: couldn't resist could you?  i can't believe you spent money on something that didn't go towards the resale value of your house.  you're just throwing your money away.  it's amazing how you have any money at all with your self-control issues.  is this a reward for painting your house or something?
+    parent_id: 
+    created_at: 2007-05-29 08:59:21
+- comments_11: 
+    id: "11"
+    user_id: "3"
+    comment: "Oh we bitched and moaned for ever over it and more, decided to wait a bit on doing some other resale value increasing improvements and instead treat ourselves\n\
+      <br/>\n\
+      The final straw was my non technical, non gaming sister complaining that wiiing on the 27 was somewhat less than satisfying "
+    parent_id: "10"
+    created_at: 2007-05-29 10:13:55
+- comments_12: 
+    id: "12"
+    user_id: "3"
+    comment: Yes, 12 hours at least, I only check in twice a day and it hurts to login every time then I load the page, especially when the sidebar says I am logged in Surly Stuka, yet loading the friends page to load the blog page says I am not
+    parent_id: "9"
+    created_at: 2007-05-29 10:15:18
+- comments_13: 
+    id: "13"
+    user_id: "25"
+    comment: "This is the most boring blog I think I have ever read.  "
+    parent_id: "12"
+    created_at: 2007-05-30 15:01:44
+- comments_14: 
+    id: "14"
+    user_id: "3"
+    comment: Then you  haven't been on the internets long, cause that is how all of them are
+    parent_id: "13"
+    created_at: 2007-05-31 01:13:41
+- comments_15: 
+    id: "15"
+    user_id: "2"
+    comment: in a few days you can sell feniks.  that ought to stretch out the wii habit for a while.
+    parent_id: 
+    created_at: 2007-06-07 19:26:24
+- comments_16: 
+    id: "16"
+    user_id: "3"
+    comment: Doubtful, that shiz aint never gunna be ordrd, and evun if I do getz it, and da sale, that poop gots to bye me up sum odda jaz
+    parent_id: "15"
+    created_at: 2007-06-08 08:16:28
+- comments_17: 
+    id: "17"
+    user_id: "2"
+    comment: i'm going through rails withdrawal.  no, that doesn't mean i want to work on klappr.
+    parent_id: "16"
+    created_at: 2007-06-08 09:28:39
+- comments_18: 
+    id: "18"
+    user_id: "3"
+    comment: |-
+      Well according to my lack of sources, it doesn't look like that new one is anywhere in the system, so that gives monday at the best before purchasing does something, which then gives a week for A to kit and ship, which then means best case maybe the 21st before new rails ready boxen, unless you want to just get it over with and put it on there
+    
+      I would suggest darwinports, then port install ruby, then port install gems and gem install rails or something worked fairly well for me
+    parent_id: "17"
+    created_at: 2007-06-08 16:37:22
+- comments_19: 
+    id: "19"
+    user_id: "2"
+    comment: $18 for a t-shirt with a few words on it?
+    parent_id: 
+    created_at: 2007-06-12 08:28:22
+- comments_20: 
+    id: "20"
+    user_id: "3"
+    comment: Yes, but they are key words
+    parent_id: "19"
+    created_at: 2007-06-12 14:44:10
+- comments_21: 
+    id: "21"
+    user_id: "2"
+    comment: that's my homeboy.
+    parent_id: 
+    created_at: 2007-06-12 16:22:55
+- comments_22: 
+    id: "22"
+    user_id: "3"
+    comment: That sounds dorky
+    parent_id: 
+    created_at: 2007-06-20 13:24:36
+- comments_23: 
+    id: "23"
+    user_id: "2"
+    comment: why does it say paper jam?<br><br>i've spent hours and hours getting this site to where it is.  while it might not look like much now, it was a lot of work, and i couldn't have done it without jeff and stuart.  so thanks guys.
+    parent_id: 
+    created_at: 2007-02-27 23:08:56
+- comments_24: 
+    id: "24"
+    user_id: "2"
+    comment: sugar momma<br><br>i thought YOU were STUART'S sugar momma???
+    parent_id: 
+    created_at: 2007-03-12 17:38:50
+- comments_25: 
+    id: "25"
+    user_id: "3"
+    comment: |-
+      sugar momma<br><br>Not blood likely
+      <br/>
+      <a href="http://www.flickr.com/photos/surlystuka/415809022/" title="Rice Bowl"><img src="http://farm1.static.flickr.com/158/415809022_61c06b6c04_t.jpg" width="100" height="72" alt="Drawings" /></a>
+    parent_id: "24"
+    created_at: 2007-03-12 19:44:58
+- comments_26: 
+    id: "26"
+    user_id: "2"
+    comment: cox<br><br>did stuart tell you that he reminded me of dr cox, or did you come up with that on your own?
+    parent_id: 
+    created_at: 2007-03-12 20:15:27
+- comments_27: 
+    id: "27"
+    user_id: "3"
+    comment: |
+      cox<br><br>I may have mentioned it and then she might have agreed or something
+  
+    parent_id: "26"
+    created_at: 2007-03-12 21:30:09
+- comments_28: 
+    id: "28"
+    user_id: "2"
+    comment: aloooo....zeerrrrr<br><br>you bet your pooper shoot it was for real, ghandi.
+    parent_id: 
+    created_at: 2007-03-12 17:42:54
+- comments_29: 
+    id: "29"
+    user_id: "2"
+    comment: Password<br><br>i think he's incompetent too.
+    parent_id: 
+    created_at: 2007-03-14 23:43:29
+- comments_30: 
+    id: "30"
+    user_id: "3"
+    comment: But but<br><br>what about my butter and chips, where are the winnings....
+    parent_id: 
+    created_at: 2007-03-15 11:26:43
+- comments_31: 
+    id: "31"
+    user_id: "3"
+    comment: hey, ken, are you playing?<br><br>I am not playing, but I am beating this ten cent foolio, take that madnesses of march
+    parent_id: 
+    created_at: 2007-03-15 16:45:51
+- comments_32: 
+    id: "32"
+    user_id: "3"
+    comment: 2007 march madness pay structure<br><br>What of those pair in last, that didn't seem to pick anything? Do they count as last?
+    parent_id: 
+    created_at: 2007-03-16 14:16:43
+- comments_33: 
+    id: "33"
+    user_id: "5"
+    comment: "Hoyas<br><br>Georgetown has a tough road to overcome! Their inexperience will show down the road.  Georgetown has the same chances of winning as Jared's chances of winning this pool - Not so good.  "
+    parent_id: 
+    created_at: 2007-03-16 08:55:20
+- comments_34: 
+    id: "34"
+    user_id: "2"
+    comment: don't you remember?<br><br>i seem to recall the last time you thought things were "not looking so good for jared" i came back and won it all.
+    parent_id: "33"
+    created_at: 2007-03-16 13:28:30
+- comments_35: 
+    id: "35"
+    user_id: "3"
+    comment: This scares me more<br><br><a href="http://www.flickr.com/photos/surlystuka/422480895/" title="Mister Salty"><img src="http://farm1.static.flickr.com/164/422480895_fb05ae2f61_m.jpg" width="240" height="180" alt="Mister salty" /></a>
+    parent_id: 
+    created_at: 2007-03-16 10:15:35
+- comments_36: 
+    id: "36"
+    user_id: "3"
+    comment: "This scares me more<br><br>And by that I mean, the threat of clogged arteries from all that salt and cheese after sitting and watching the games all day \n\n\
+      oh wait, I wont do that "
+    parent_id: "35"
+    created_at: 2007-03-16 10:22:45

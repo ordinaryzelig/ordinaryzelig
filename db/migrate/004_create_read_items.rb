@@ -6,8 +6,8 @@ class CreateReadItems < ActiveRecord::Migration
     t.column :user_id, :integer, :null => false
     t.column :read_at, :datetime, :null => false
   end
-  use_two_sided_migration { Group.new(CreateReadItems,
+  use_two_sided_migration { Group.new CreateReadItems,
                                       AddIndex.new(:read_items, [:entity_type, :entity_id, :user_id], :unique => true),
-                                      AddFKey.new(:read_items, :entity_type, :entity_types, :name),
-                                      AddFKey.new(:read_items, :user_id)) }
+                                      AddFKey.new(:read_items, :entity_type, {:reference_table => :entity_types, :reference_column => :name}),
+                                      AddFKey.new(:read_items, :user_id) }
 end
