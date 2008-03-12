@@ -3,7 +3,7 @@ require "digest/sha1"
 
 class UserTest < Test::Unit::TestCase
   
-  fixtures :users
+  fixtures :users, :friendships
   
   defaults({:first_name => 'john',
            :last_name => 'doe',
@@ -102,6 +102,7 @@ class UserTest < Test::Unit::TestCase
   def test_blogs_readable_by
     user = users(:ten_cent)
     friend = user.friends.first
+    assert_not_nil friend
     blogs_readable_by_friend = user.blogs.select { |b| friend.can_read?(b) }
     assert_equal blogs_readable_by_friend.size, user.blogs.readable_by(friend).size
   end

@@ -23,7 +23,7 @@ class InitialMigrationDump < ActiveRecord::Migration
                           AddFKey.new(:friendships, :user_id),
                           AddFKey.new(:friendships, :friend_id, {:reference_table => :users})
   
-  CreateUserActivities = CreateTable.new :user_activities do |t|
+  CreateUserActivities = CreateTable.new :user_activities, :id => false do |t|
     t.column :user_id,           :integer,  :null => false
     t.column :last_login_at,     :datetime
     t.column :previous_login_at, :datetime
