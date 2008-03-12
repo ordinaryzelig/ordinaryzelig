@@ -28,6 +28,10 @@ class AdminController < ApplicationController
           bid.save
         end
       end
+      params[:region_names].each do |region_id, name|
+        Region.find(region_id).update_attribute(:name, name)
+      end
+      flash[:success] = "bids and regions saved."
       redirect_to(:controller => "pool", :action => "brackets", :season_id => params[:season_id], :id => User.master_id)
     end
   end

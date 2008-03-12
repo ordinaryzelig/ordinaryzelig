@@ -10,7 +10,7 @@
 <% end -%>
 
 <% # show all pics link. -%>
-<% if Time.now > pic.game.season.tournament_starts_at -%>
+<% if pic.game.season.tournament_has_started? -%>
   <div class=gamePicsLink><%= link_to("show all pics", :action => "game_pics", :id => pic.game.id) %></div>
 <% end -%>
 

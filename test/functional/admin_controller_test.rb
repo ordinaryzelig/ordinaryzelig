@@ -12,10 +12,13 @@ class AdminControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
   
-  def test_create_new_season
-    login(:admin)
-    post :create_new_season
-    assert_redirected_to :action => :edit_season
-  end
+  # def test_create_new_season
+  #   login(:admin)
+  #   now = Time.now
+  #   post :edit_season, :params => {:tournament_starts_at => now, :buy_in => 10, :max_num_brackets => 1}
+  #   season = Season.find_by_tournament_starts_at(now)
+  #   assert_not_nil season
+  #   assert_redirected_to :action => :select_team_bids, :id => season.id
+  # end
   
 end

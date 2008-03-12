@@ -1,6 +1,6 @@
 <% form_tag do -%>
   <% @season.regions.non_final_4.each do |region| %>
-    <%= region.name %><br/>
+    <%= text_field_tag "region_names[#{region.id}]", region.name %><br/>
     <% region.games.in_first_round.each do |game| -%>
       <% game.first_round_bids.each do |bid| -%>
         <%= bid.seed %>
