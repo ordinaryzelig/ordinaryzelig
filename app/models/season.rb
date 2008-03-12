@@ -13,15 +13,19 @@ class Season < ActiveRecord::Base
                            PoolUser.master(first.season)],
            :include => {:pics => [:pool_user, :bid]})
     end
+    def bids
+      Bid.find :all, :conditions => ['first_game_id in (?)', map(&:id)]
+    end
   end
   has_many :pool_users
+  
   after_create do |season|
     # add regions.
-    1.upto(5) { |i| season.regions << Region.new(:order_num => i) }
+    1.upto(5) { |i| season.regions.create(:order_num => i) }
     season.regions.first.update_attribute 'name', 'final four'
     
     # add master pool user.
-    pool_user = PoolUser.new(:user_id => User.master, :season_id => season.id)
+    pool_user = PoolUser.create!(:user_id => User.master, :season_id => season.id)
     
     # create bracket of games.
     Game.new_season(season)
@@ -37,13 +41,10 @@ class Season < ActiveRecord::Base
     bids = Bid.new_season
     
     # assign bids to games.
-    season.regions.non_final_4.each_with_index do |region, region_index|
-      region.games.in_first_round.each_with_index do |game, game_index|
-        2.times do |k|
-          bid = bids[region_index][j * 2 + game_index]
-          bid.first_game_id = game.id
-          bid.save
-        end
+    season.regions.non_final_4.each do |region|
+      seeds = Bid::SEEDS.dup
+      region.games.in_first_round.each do |game|
+        2.times { |j| Bid.create! :first_game_id => game.id, :seed => seeds.shift }
       end
     end
     

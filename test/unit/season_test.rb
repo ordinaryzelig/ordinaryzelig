@@ -46,7 +46,7 @@ class SeasonTest < Test::Unit::TestCase
     end
   end
   
-  def test_undecided
+  def test_games_undecided
     season = Season.find(:first)
     assert season.games.undecided.empty?
     pic = season.games.first.pics.master
@@ -64,6 +64,14 @@ class SeasonTest < Test::Unit::TestCase
   def test_creates_regions
     season = test_new_with_default_attributes
     assert_equal 5, season.regions.size
+    assert_equal 4, season.regions.non_final_4.size
+  end
+  
+  def test_bids
+    season = test_new_with_default_attributes
+    bids = season.games.bids
+    assert_equal 64, bids.size
+    bids.each { |bid| assert_not_nil bid }
   end
   
 end

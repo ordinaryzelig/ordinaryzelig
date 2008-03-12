@@ -7,70 +7,28 @@ class AdminController < ApplicationController
     redirect_to(:action => "users")
   end
   
-  def create_new_season
-    if request.post?
-      @season = Season.new_season
-      redirect_to(:action => :edit_season, :id => @season.id)
-    end
-  end
-  
-  # params
-  #   id (season)
   def edit_season
-    if request.get?
-      @season = Season.find(:first, :conditions => ["#{Season.table_name}.id = ?", params[:id]], :include => :regions) || latest_season
-    else
-      if params[:save]
-        @season = Season.find(params[:season][:id])
-        @season.update_attributes(params[:season])
-        @season.year = @season.tournament_starts_at.year
-        @season.save
-        # assign region names.
-        params.each do |key, val|
-          if "region_" == key[0..6]
-            region = Region.find(key.gsub("region_", ""))
-            region.name = val
-            region.save
-          end
-        end
-      else
-        redirect_to(:action => "edit_season", :id => params[:season_id])
-      end
+    @season = Season.find_by_id(params[:id]) || Season.new
+    if request.post?
+      @season.attributes = params[:season]
+      redirect_to :action => 'select_team_bids', :id => @season.id if @season.save
     end
   end
   
-  # select bids for a season.
-  # get:
-  #   get all regions in given season.
-  #   params:
-  #     season_id
-  # post:
-  #   find bid, assign team_id, and save.
-  #   params:
-  #     "bid_#{bid.id}"[:team_id]
-  #     season_id
   def select_team_bids
-    if request.get?
-      @season = Season.find_by_id(params[:season_id]) || latest_season
-      @regions = Region.find(:all,
-                              :conditions => ["order_num != 0 AND #{Region.table_name}.season_id = ?", @season.id],
-                              :include => {:games => :bids})
-    else
-      if params[:save]
-        params[:bids].each do |bid_array|
-          Bid.find(bid_array[0]).update_attributes(:team_id => bid_array[1])
-        end
-        params.each do |key, val|
-          if "bid_" == key[0..3]
-            bid = Bid.find(key.gsub("bid_", ""))
-            bid.team_id = val[:team_id]
-            bid.save
-          end
-        end
-        redirect_to(:controller => "pool", :action => "brackets", :season_id => params[:season_id], :id => User.master_id)
-      else
-        redirect_to(:action => "select_team_bids", :season_id => params[:season_id])
+    @season = Season.find(params[:id])
+    if request.post?
+      params[:bids].each do |bid_array|
+        Bid.find(bid_array[0]).update_attributes(:team_id => bid_array[1])
       end
+      params.each do |key, val|
+        if "bid_" == key[0..3]
+          bid = Bid.find(key.gsub("bid_", ""))
+          bid.team_id = val[:team_id]
+          bid.save
+        end
+      end
+      redirect_to(:controller => "pool", :action => "brackets", :season_id => params[:season_id], :id => User.master_id)
     end
   end
   

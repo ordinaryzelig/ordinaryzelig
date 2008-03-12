@@ -1,35 +1,21 @@
-<% form_tag do -%>
-  <%= season_select_tag(@season.id) %> <%= submit_tag("go", :name => "go") %>
-<% end -%>
-<% form_tag do -%>
-  <table>
+<% form_for :season do |f| -%>
+  <table style="background: none;">
     <tr>
       <td align=right>tournament starts at</td>
-      <td><%= datetime_select(:season, :tournament_starts_at, :value => Time.now) %></td>
+      <td><%= f.datetime_select(:tournament_starts_at) %></td>
     </tr>
-    <% @season.regions.each_with_index do |region, i| -%>
-      <% if 0 == i -%>
-        <tr rowspan=4>
-          <td align=right>regions</td>
-      <% else -%>
-        <tr>
-          <td></td>
-      <% end -%>
-        <td><%= text_field_tag("region_#{region.id}", region.name) %></td>
-      </tr>
-    <% end -%>
     <tr>
       <td align=right>buy-in</td>
-      <td><%= text_field(:season, :buy_in) %>
+      <td><%= f.text_field(:buy_in) %>
     </tr>
     <tr>
       <td align=right>max brackets allowed</td>
-      <td><%= text_field(:season, :max_num_brackets) %>
+      <td><%= f.text_field(:max_num_brackets) %>
     </tr>
     <tr>
       <td></td>
       <td><%= submit_tag("save", :name => "save") %></td>
     </tr>
   </table>
-  <%= hidden_field(:season, :id) %>
+  <%= hidden_field_tag(:id, @season.id) if @season.id %>
 <% end -%>

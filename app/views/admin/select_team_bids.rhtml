@@ -1,17 +1,12 @@
 <% form_tag do -%>
   <% @season.regions.non_final_4.each do |region| %>
     <%= region.name %><br/>
-    <% games = region.games.reject{|game| game.round.number != 1} -%>
-    <% Bid::SEEDS.each do |seed| -%>
-      <% bid = nil -%>
-      <% games.each do |game|
-        bid = game.first_round_bids.detect{|b| seed == b.seed}
-        break if bid
-      end -%>
-      <span><%= seed %></span>
-      <%= select("bids", bid.id, Team.container, {:selected => bid.team_id, :include_blank => true}) %><br/>
+    <% region.games.in_first_round.each do |game| -%>
+      <% game.first_round_bids.each do |bid| -%>
+        <%= bid.seed %>
+        <%= select "bids", bid.id, Team.container, {:selected => bid.team_id, :include_blank => true} %><br/>
+      <% end -%>
     <% end %>
-    <%= submit_tag("save all", :name => "save") %><br/><br/>
+    <%= submit_tag("save") %><br/><br/>
   <% end %>
-  <%= hidden_field_tag(:season_id, @season.regions[0].season_id) %>
 <% end -%>

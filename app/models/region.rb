@@ -6,7 +6,10 @@ class Region < ActiveRecord::Base
       self.select { |game| 6 == game.round_id }
     end
   end
-  validates_presence_of :name
+  
+  validates_presence_of :name, :if => proc { |region| !region.new_record? }
+  
+  scope_out :non_final_4, :conditions => 'order_num != 1'
   
   def championship_game(game = Season::CACHED[self.season.year].root_game)
     return game if id == game.region_id
