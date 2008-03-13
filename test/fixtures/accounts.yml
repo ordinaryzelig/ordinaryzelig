@@ -69,7 +69,7 @@ accounts_023:
   id: "16"
   amount_paid: "0"
   user_id: "16"
-accounts_012: 
+ten_cent_2005: 
   season_id: "1"
   id: "1"
   amount_paid: "0"
@@ -174,7 +174,7 @@ accounts_016:
   id: "47"
   amount_paid: "10"
   user_id: "19"
-accounts_005: 
+ten_cent_2007: 
   season_id: "3"
   id: "45"
   amount_paid: "10"
@@ -214,7 +214,7 @@ accounts_040:
   id: "44"
   amount_paid: "10"
   user_id: "25"
-accounts_029: 
+ten_cent_2006: 
   season_id: "2"
   id: "29"
   amount_paid: "0"

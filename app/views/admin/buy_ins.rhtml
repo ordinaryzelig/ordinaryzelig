@@ -15,7 +15,7 @@
       <th>user</th>
       <th>brackets</th>
       <th>amount paid</td>
-      <th>status</th>    
+      <th></th>    
   <% @users.each do |user| -%>
     <% amount_paid = user.accounts.for_season(@season).amount_paid -%>
     <% pot += amount_paid -%>
@@ -29,7 +29,7 @@
         <td>paid</td>
       <% else -%>
         <% total_unpaid += 1 %>
-        <td>unpaid (<%= link_to("pay", {:action => "pay", :user => user.id, :season => @season.id}, :post => true) %>)</td>
+        <td><%= link_to("pay", {:action => "pay", :id => user.id, :season_id => @season.id}, :post => true) %></td>
       <% end -%>
     </tr>
   <% end -%>

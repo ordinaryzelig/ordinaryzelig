@@ -75,19 +75,11 @@ class AdminController < ApplicationController
     end
   end
   
-  # params
-  #   user
-  #   season
   def pay
-    if request.get?
-      get_for_post
+    if request.post?
+      User.find(params[:id]).accounts.for_season(Season.find(params[:season_id])).pay
       redirect_to(:action => "buy_ins")
-    else
-    # post.
-      user = User.find_non_admin(:first, :conditions => ["#{User.table_name}.id = ? AND #{Account.table_name}.season_id = ?", *[params[:user], params[:season]]], :include => {:accounts => :season})
-      user.accounts.for_season(Season.find(params[:season])).pay
     end
-    redirect_to(:action => "buy_ins")
   end
   
   def set_password

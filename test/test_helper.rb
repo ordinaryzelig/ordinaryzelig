@@ -141,15 +141,15 @@ class Test::Unit::TestCase
   
   def self.march_madness_fixtures
     [:seasons,
-    :regions,
-    :rounds,
-    :games,
-    :users,
-    :pool_users,
-    :teams,
-    :bids,
-    :pics,
-    :accounts].each { |fixture| fixtures fixture }
+     :regions,
+     :rounds,
+     :games,
+     :users,
+     :pool_users,
+     :teams,
+     :bids,
+     :pics,
+     :accounts].each { |fixture| fixtures fixture }
     def setup; end unless method_defined?(:setup)
     def setup_with_seasons_fixture
       setup_without_seasons_fixture
