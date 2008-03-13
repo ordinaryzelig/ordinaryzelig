@@ -9,7 +9,6 @@
     <th>display</th>
     <th>email</th>
     <th>last login</th>
-    <th>authorization</th>
   </tr>
   <% @users.each do |user| -%>
     <tr>
@@ -19,9 +18,6 @@
       <td><%= user.display_name %></td>
       <td><%= link_to_email(user.email, user) %></td>
       <td><%= user.last_login_at.strftime("%m-%d %H:%M") if user.user_activity && user.last_login_at %></td>
-      <td align=center>
-        <%= render(:partial => "user_authorization", :locals => {:user => user}) %>
-      </td>
     </tr>
   <% end -%>
 </table>

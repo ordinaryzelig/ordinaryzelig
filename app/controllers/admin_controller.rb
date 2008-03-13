@@ -41,17 +41,6 @@ class AdminController < ApplicationController
   end
   
   # params
-  #   id
-  def toggle_authorization
-    if request.post?
-      user = User.find_by_id(params[:id])
-      user.toggle_authorization
-      user.save
-      render(:partial => "user_authorization", :locals => {:user => user})
-    end
-  end
-  
-  # params
   #   season_id
   def participation
     @season = Season.find_by_id(params[:season_id])
@@ -64,23 +53,11 @@ class AdminController < ApplicationController
     end
   end
   
-  # params
-  #   id (user)
-  #   season_id
   def enter_pool
     if request.post?
       season = Season.find(params[:season_id])
-      user = User.find_by_id(params[:id])
-      if user
-        if user.pool_users.for_season(season).size < season.max_num_brackets
-          pool_user = user.enter_pool(season.id, next_bracket_num(user.pool_users.reject{|pu| pu.season_id != season.id}))
-          flash[:success] = "user #{user.id} entered in pool."
-        else
-          flash[:failure] = "#{last_first_display(user)} has the max number of brackets (#{season.max_num_brackets}) for that season."
-        end
-      else
-        flash[:failure] = "user #{params[:user]} not found."
-      end
+      pool_user = PoolUser.create!(:season_id => params[:season_id], :user_id => params[:id])
+      flash[:success] = "#{pool_user.user.last_first_display} entered pool"
       redirect_to(:action => "participation", :season_id => season.id)
     end
   end
@@ -107,8 +84,8 @@ class AdminController < ApplicationController
       redirect_to(:action => "buy_ins")
     else
     # post.
-      user = User.find(:first, :conditions => ["#{User.table_name}.id = ? AND #{Account.table_name}.season_id = ?", *[params[:user], params[:season]]], :include => {:accounts => :season})
-      user.account(params[:season].to_i).pay
+      user = User.find_non_admin(:first, :conditions => ["#{User.table_name}.id = ? AND #{Account.table_name}.season_id = ?", *[params[:user], params[:season]]], :include => {:accounts => :season})
+      user.accounts.for_season(Season.find(params[:season])).pay
     end
     redirect_to(:action => "buy_ins")
   end

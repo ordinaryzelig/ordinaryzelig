@@ -96,4 +96,8 @@ class Season < ActiveRecord::Base
   
   populate_cache
   
+  def in_cache
+    CACHED[year]
+  end
+  
 end

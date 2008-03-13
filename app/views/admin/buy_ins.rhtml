@@ -17,7 +17,7 @@
       <th>amount paid</td>
       <th>status</th>    
   <% @users.each do |user| -%>
-    <% amount_paid = user.account(@season.id).amount_paid -%>
+    <% amount_paid = user.accounts.for_season(@season).amount_paid -%>
     <% pot += amount_paid -%>
     <% brackets = user.pool_users.for_season(@season).size -%>
     <% total_num_brackets += brackets -%>

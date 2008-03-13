@@ -7,7 +7,11 @@ class User < ActiveRecord::Base
       self.select { |pu| season.id == pu.season_id }
     end
   end
-  has_many :accounts
+  has_many :accounts do
+    def for_season(season)
+      detect { |account| season.id == account.season_id }
+    end
+  end
   has_one :user_activity
   has_many :friendships, :foreign_key => "user_id"
   has_many :friends, :through => :friendships, :order => "lower(last_name)" do
@@ -89,25 +93,6 @@ class User < ActiveRecord::Base
   
   def is_admin?
     1 == is_admin
-  end
-  
-  # enter user into pool for season.
-  # return resulting PoolUser.
-  def enter_pool(season_id, bracket_num)
-    # create new pool user.
-    pool_user = PoolUser.new(:user_id => self.id, :season_id => season_id, :bracket_num => bracket_num)
-    # create pics.
-    games = Game.find(:all, :conditions => ["season_id = ?", season_id])
-    games.each do |game|
-      Pic.new(:pool_user => pool_user, :game => game).save
-    end
-    # create account if needed.
-    Account.new(:user_id => self.id, :season_id => season_id).save unless account(season_id)
-    pool_user
-  end
-  
-  def account(season_id)
-    self.accounts.detect{|account| season_id == account.season_id}
   end
   
   def User::container(season_id = nil)

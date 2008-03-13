@@ -35,6 +35,7 @@ class SeasonTest < Test::Unit::TestCase
     assert Season::CACHED[defaults[:tournament_starts_at].year].nil?, 'season was found in CACHED.'
     season = test_new_with_default_attributes
     assert Season::CACHED[season.year], 'season was not found in CACHED.'
+    assert_equal Season::CACHED[season.year].id, season.in_cache.id
   end
   
   # recursively check to see if there are the expected number of descendants for passed game.

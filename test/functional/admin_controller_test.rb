@@ -21,4 +21,9 @@ class AdminControllerTest < Test::Unit::TestCase
   #   assert_redirected_to :action => :select_team_bids, :id => season.id
   # end
   
+  def test_enter_pool
+    post :enter_pool, {:season_id => 3, :user_id => 2}
+    assert_not_nil PoolUser.find_by_user_id_and_season_id(2, 3)
+  end
+  
 end

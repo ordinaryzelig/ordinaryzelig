@@ -5,7 +5,8 @@ class PoolUserTest < Test::Unit::TestCase
   march_madness_fixtures
   
   defaults({:season_id => 1,
-            :user_id => 3})
+            :user_id => 3,
+            :bracket_num => 1})
   
   def test_master
     master_pool_user = PoolUser.find(:first, :conditions => 'season_id = 1 and user_id = 1')
@@ -57,6 +58,18 @@ class PoolUserTest < Test::Unit::TestCase
   
   def test_unique_points
     
+  end
+  
+  def test_makes_pics
+    pool_user = test_new_with_default_attributes
+    assert_equal 63, pool_user.pics.size
+  end
+  
+  def test_user_account
+    pool_user = test_new_with_default_attributes
+    accounts = pool_user.user.accounts
+    assert_not accounts.empty?
+    assert_not_nil accounts.for_season(pool_user.season)
   end
   
 end

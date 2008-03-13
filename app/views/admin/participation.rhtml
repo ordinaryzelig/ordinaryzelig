@@ -11,7 +11,7 @@
   <tr>
     <th>user</th>
     <th>brackets</th>
-    <th>enter pool</th>
+    <th></th>
   </tr>
   <% @users.each do |user| %>
     <tr>
@@ -20,10 +20,11 @@
       </td>
       <td>
         <% user.pool_users.for_season(@season).each do |pool_user| -%>
-          <span><%= link_to_bracket("#{pool_user.bracket_num}", pool_user, {:bracket_num => pool_user.bracket_num, :controller => "pool"}) %><%= "*" if !pool_user.bracket_complete? %></span>
+          <%= link_to_bracket("#{pool_user.bracket_num}", pool_user, {:bracket_num => pool_user.bracket_num, :controller => "pool"}) %>
+          <%= "*" if !pool_user.bracket_complete? %>
         <% end -%>
       </td>
-      <td><%= link_to("enter pool", {:action => "enter_pool", :season_id => @season.id, :id => user.id}, :post => true) unless User.master_id == user.id %></td>
+      <td><%= link_to("enter pool", {:action => "enter_pool", :season_id => @season.id, :id => user.id}, :post => true) if user.pool_users.for_season(@season).size < @season.max_num_brackets %></td>
     </tr>
   <% end -%>
 </table>

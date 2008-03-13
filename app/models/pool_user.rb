@@ -15,6 +15,17 @@ class PoolUser < ActiveRecord::Base
     end
   end
   
+  before_validation { |pool_user| pool_user.bracket_num ||= 1 }
+  validates_presence_of :bracket_num
+  validates_uniqueness_of :bracket_num, :scope => [:user_id, :season_id]
+  after_create do |pool_user|
+    # create pics.
+    games = Game.find(:all, :conditions => ["season_id = ?", pool_user.season_id])
+    games.each { |game| Pic.new(:pool_user_id => pool_user.id, :game => game).save }
+    # create account if needed.
+    pool_user.user.accounts.create(:season_id => pool_user.season_id) unless pool_user.user.accounts.for_season(pool_user.season)
+  end
+  
   attr_reader :points
   
   # return PoolUser object of master user for given season.

@@ -10,14 +10,13 @@
     <% end -%>
     
     <% if is_editable && game.parent && pic -%>
-      <% id_to_pulsate = "pic_#{pool_user.pics.for_game(game).id}" -%>
-      <% id_to_pulsate = "bid_#{bid.id}" if is_first_round_bid -%>
       <%= link_to_remote(content, :update => id_to_update, :url => {:action => "make_pic", :bid_id => bid.id,
                                                                     :game_id => game.id,
                                                                     :pool_user_id => pool_user.id,
                                                                     :is_first_round_bid => is_first_round_bid},
                                                            :before => "Element.show('spinner_#{pic.id}')",
-                                                           :complete => "new Effect.Grow('#{id_to_update}')") -%>
+                                                           :complete => stack("new Effect.Grow('#{id_to_update}');",
+                                                                              "Element.hide('spinner_#{pic.id}');")) -%>
       <%= spinner("spinner_#{pic.id}") %>
     <% else -%>
       <%= content %>
