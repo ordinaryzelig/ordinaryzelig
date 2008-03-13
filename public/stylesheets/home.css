@@ -6,3 +6,7 @@
     margin-right: 3mm;
     margin-left: 3mm;
 }
+
+#welcomeLinks span a{
+    color: white;
+}

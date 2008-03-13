@@ -11,7 +11,7 @@ class BlogController < ApplicationController
   end
   
   def show
-    @blog = Blog.find_by_id(params[:id], :include => :user)
+    @blog = Blog.find_by_id(params[:id].to_i, :include => :user)
     render_layout_only 'blog not found' and return unless @blog
     render_layout_only 'this is private.' and return unless 'anybody' == @blog.privacy_level.to_s || logged_in_user && logged_in_user.can_read?(@blog)
     @page_title = "blog - #{@blog.title}"
