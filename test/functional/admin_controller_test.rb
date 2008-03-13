@@ -37,4 +37,12 @@ class AdminControllerTest < Test::Unit::TestCase
     assert_equal 10, account.reload.amount_paid
   end
   
+  def test_non_admin
+    login :ten_cent
+    AdminController.action_methods.each do |action|
+      put action
+      assert_equal ApplicationController::PAGE_DOES_NOT_EXIST, @response.flash[:failure]
+    end
+  end
+  
 end
