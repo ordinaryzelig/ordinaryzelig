@@ -5,7 +5,13 @@ class ApplicationController < ActionController::Base
   SESSION_HOURS = 30
   PAGE_DOES_NOT_EXIST = "the page you requested does not exist."
   
-  helper_method :logged_in_user, :latest_season, :is_self?, :is_self_or_logged_in_as_admin?, :logged_in_as_admin?, :read_entities
+  helper_method :logged_in_user,
+                :latest_season,
+                :is_self?,
+                :is_self_or_logged_in_as_admin?,
+                :logged_in_as_admin?,
+                :read_entities,
+                :page_title
   
   def mark_entity_as_read
     if request.xhr?
@@ -167,6 +173,26 @@ class ApplicationController < ActionController::Base
     define_method :preview do
       render(:partial => "shared/preview", :locals => {:entity => model_class.new(params[singular.downcase]), :use_simp_san => options[:use_simp_san]}) if request.xhr?
     end
+  end
+  
+  def default_page_title
+    "#{controller_name_for_page_title.gsub('_',' ')} - #{action_name.gsub('_', ' ')}"
+  end
+  
+  def page_title
+    @page_title ||= default_page_title
+  end
+  
+  def controller_name_for_page_title
+    controller_name
+  end
+  
+  def title(t)
+    @page_title = t
+  end
+  
+  def user_title(user)
+    title "#{default_page_title} - #{user.display_name}"
   end
   
 end

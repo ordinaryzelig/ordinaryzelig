@@ -10,7 +10,7 @@ class UserController < ApplicationController
   def profile
     @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
     render_layout_only 'user not found' and return unless @user
-    @page_title =  "profile - #{@user.display_name}"
+    title  "profile - #{@user.display_name}"
     @recents = @user.recents if is_self_or_logged_in_as_admin?(@user)
   end
   
@@ -54,12 +54,12 @@ class UserController < ApplicationController
     @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
     render_layout_only 'user not found' and return unless @user
     render_layout_only 'this is private.' and return unless logged_in_user && @user.considers_friend?(logged_in_user) || is_self?(@user)
-    @page_title = "#{@user.display_name}'s friends"
+    title "#{@user.display_name}'s friends"
   end
   
   def friends_to
     @hide_mutual_friends = 'true' == params[:hide_mutual_friends]
-    @page_title = "people who consider you their friend"
+    title "people who consider you their friend"
   end
   
   def add_friend
@@ -86,7 +86,7 @@ class UserController < ApplicationController
     if request.get?
       @search_text = params[:id]
       @users = User.search(@search_text) if @search_text
-      @page_title = "user search"
+      title "user search"
     else
       redirect_to(:action => "search", :id => params[:search_text])
     end

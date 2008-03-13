@@ -1,4 +1,0 @@
-name regions at select_team_bids.
-
-make pics rjs
-  clean make_pic()

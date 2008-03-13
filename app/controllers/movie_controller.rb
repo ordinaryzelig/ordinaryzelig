@@ -11,7 +11,7 @@ class MovieController < ApplicationController
   def ratings
     @movies = Movie.by_latest_ratings
     @movies.reject! { |movie| movie.ratings.map { |rating| rating.user_id }.include?(params[:id].to_i) } if params[:id]
-    @page_title = 'movie ratings'
+    title 'movie ratings'
   end
   
   def rating
@@ -21,7 +21,7 @@ class MovieController < ApplicationController
       redirect_to(:action => "ratings")
       return
     end
-    @page_title = @rating.movie.title
+    title @rating.movie.title
   end
   
   # first try to find id when redirected here.
@@ -39,7 +39,7 @@ class MovieController < ApplicationController
       @movie_rating.movie_rating_type_id = @rating_type.id
       @movie_rating.user_id = logged_in_user.id
     end
-    @page_title = "#{@movie.title} - #{@rating_type.name} rating"
+    title "#{@movie.title} - #{@rating_type.name} rating"
     if request.post?
       @movie_rating.attributes = params[:movie_rating]
       if @movie_rating.save
@@ -59,7 +59,7 @@ class MovieController < ApplicationController
         redirect_to(:action => "index")
         return
       end
-      @page_title = "movie - #{@movie.title}"
+      title "movie - #{@movie.title}"
       @ratings = @movie.ratings
       @filtered_ratings = @ratings.dup
       # filter_who.
@@ -107,11 +107,11 @@ class MovieController < ApplicationController
   
   def user_ratings
     @user = User.find_by_id(params[:id], :include => :movie_ratings)
-    @page_title = "movie ratings - #{@user.display_name}"
+    title "movie ratings - #{@user.display_name}"
   end
   
   def scales
-    @page_title = 'movie rating scales'
+    title 'movie rating scales'
     @hide_sidebar = true
     @window_size = {:width => 500, :height => 500}
   end

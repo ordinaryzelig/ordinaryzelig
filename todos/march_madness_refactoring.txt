@@ -9,13 +9,10 @@ allow anybody to have their own pool.
 
 make scoring_system model
 
-cache regions like caching season/games?  is there a need?
-
 in url, season_id -> season/year, etc.
 or have a season select like a study select in hms.  then there wouldn't be a need to have season_id in url.
 
 make pic rendering with rjs
-  show spinner instead of pulsating
   just update, no grow effect
   other pics affected
     switch off instead of shrink

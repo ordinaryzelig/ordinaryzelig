@@ -100,3 +100,5 @@ read_item.read_at -> created_at
 combine can_be_syndicated and can_be_summarized (maybe more plugins too)
 
 some plugins can add dynamic methods to Test::Unit::TestCase.
+
+login errors blind down goes too far.

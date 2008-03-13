@@ -4,9 +4,7 @@
     <%= stylesheet_link_tag "application", "comments", controller.controller_name, :media => "all" %>
     <%= javascript_include_tag :defaults %>
     <%= auto_discovery_link_tag :rss, url_for(:host => 'development' == RAILS_ENV ? 'lgs056.local:3000' : nil, :only_path => false, :controller => :rss, :action => :user_recents, :id => logged_in_user.secret_id) if logged_in_user %>
-    <% default_title = "#{controller.controller_name.gsub("_", " ")} - #{controller.action_name.gsub("_", " ")}" -%>
-    <% @page_title ||= default_title %>
-    <title>ordinary zelig - <%= @page_title %></title>
+    <title>ordinary zelig - <%= page_title %></title>
     <script type="text/javascript"><%= yield :scripts %></script>
     <% if @window_size -%>
       <script type="text/javascript">self.resizeTo(<%= @window_size[:width] %>, <%= @window_size[:height] %>);</script>
@@ -53,7 +51,7 @@
         <%= yield :banner %>
       <% else -%>
         <div id="banner">
-          <%= @page_title %>
+          <%= page_title %>
         </div>
       <% end -%>
       

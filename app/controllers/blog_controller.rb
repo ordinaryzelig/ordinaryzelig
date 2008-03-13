@@ -4,17 +4,18 @@ class BlogController < ApplicationController
   
   def list
     @user = User.find_by_id(params[:id], :include => {:blogs => :user}, :order => "created_at desc")
+    render_layout_only 'user not found' and return unless @user
+    user_title @user
     @blogs = @user.blogs
     # narrow to blogs readable by logged_in_user if this is not self or admin.
     @blogs = @blogs.readable_by logged_in_user unless is_self_or_logged_in_as_admin?(@user)
-    render_layout_only 'user not found' and return unless @user
   end
   
   def show
     @blog = Blog.find_by_id(params[:id].to_i, :include => :user)
     render_layout_only 'blog not found' and return unless @blog
     render_layout_only 'this is private.' and return unless 'anybody' == @blog.privacy_level.to_s || logged_in_user && logged_in_user.can_read?(@blog)
-    @page_title = "blog - #{@blog.title}"
+    title "blog - #{@blog.title}"
   end
   
   def new

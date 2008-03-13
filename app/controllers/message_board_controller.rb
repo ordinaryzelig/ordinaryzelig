@@ -6,7 +6,7 @@ class MessageBoardController < ApplicationController
   
   def index
     @messages_pages, @messages = paginate(:messages, :order => "created_at desc")
-    @page_title = "message board"
+    title "message board"
     render(:layout => false) if request.xhr?
   end
   

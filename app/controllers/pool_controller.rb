@@ -161,6 +161,12 @@ class PoolController < ApplicationController
     end
   end
   
+  protected
+  
+  def controller_name_for_page_title
+    'march madness'
+  end
+  
   private
   
   def is_latest_season?(season)

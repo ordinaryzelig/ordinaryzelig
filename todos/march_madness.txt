@@ -17,31 +17,15 @@ records
       average points
       average rank
 
-catch all errors redirect to...
-	agile: system notifier email system.
-
-sidebars annoyingly different, and there's repetition in layouts.
-
 show brackets without requiring season
    season_select updates users and regions
 
 bracket num select should be drop down.
 
-login errors blind down goes too far.
-
 game_pics:  sort by points earned?
-
-next season: STORE, DON'T CALCULATE.
 
 Game.child_with_pic: maybe could use Game.first_round_bids to quicken this?
 
 pvp: 1-on-1 can calculate other pics.
 
 allow users to create their own tournaments.
-
-graph of progress
-
-tournament info
-	pay structure
-	scoring system
-	buy-in
