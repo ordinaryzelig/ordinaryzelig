@@ -1,11 +1,11 @@
 <% content_for :banner do -%>
   <div id="banner">
     <%= content_tag :span, "#{@season.year} brackets" %><br/>
-    <%= content_tag :span, link_to_profile(@user), :style => 'font-size: 75%' %>
+    <%= content_tag :span, link_to_profile(@pool_user.user), :style => 'font-size: 75%' %>
   </div>
 <% end -%>
 
-<div style="margin-bottom: 5mm;">
+<div style="margin-bottom: 5mm; text-align: center;">
   <% form_tag(:bracket_num => @bracket_num) do -%>
     <table class=seasonSelect style="background: none; <%= css_centered %>">
       <tr>
@@ -27,6 +27,7 @@
     </table>
     <%= hidden_field_tag(:season_id, @season.id) %>
   <% end -%>
+  <%= link_to 'printable', :action => 'printable_bracket', :id => @user.id, :season_id => @season.id %>
 </div>
 
 <% # multiple brackets. -%>

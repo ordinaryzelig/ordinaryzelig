@@ -7,32 +7,9 @@ class PoolController < ApplicationController
     redirect_to(:action => "standings")
   end
   
-  # show bracket for user for a season.
-  # get:
-  #   show bracket.
-  #   params:
-  #     id (user)
-  #     season_id
-  #     region_order (optional)
-  #     bracket_num (optional)
-  # post:
-  #   redirect to brackets with new season, user, and/or region.
   def brackets
     if request.get?
-      @season = Season.find_by_id(params[:season_id]) || Season.latest
-      @user = User.find_by_id(params[:id], :include => {:pool_users, {:pics => :bid}})
-      render_layout_only 'user not found' and return unless @user
-      # allowed to view if user is self or admin.
-      # if tournament hasn't started and requested user is neither self nor admin, redirect to own bracket.
-      if is_latest_season?(@season) && !@season.tournament_has_started? && !is_self_or_logged_in_as_admin?(@user)
-        msg = "#{@season.year} brackets are private until the tournament starts."
-        msg += "<br/>login to make pics." unless logged_in_user
-        render_layout_only msg and return
-      end
-      @bracket_num = params[:bracket_num] ? params[:bracket_num].to_i : 1
-      @pool_users = @user.pool_users.for_season(@season)
-      @pool_user = @pool_users.detect{|pool_user| pool_user.bracket_num == @bracket_num} || @pool_users.first
-      render_layout_only "no bracket found" and return unless @pool_user
+      get_bracket_info
       @region_order = params[:region_order] ? params[:region_order].to_i : 1
       @region = Region.find(:first, :conditions => ["#{Region.table_name}.season_id = ? AND order_num = ?", *[@season.id, @region_order]])
     else
@@ -45,11 +22,6 @@ class PoolController < ApplicationController
     end
   end
   
-  # params:
-  #   bid_id
-  #   game_id
-  #   pool_user_id
-  #   is_first_round_bid
   def make_pic
     if request.xhr?
       bid = Bid.find(params[:bid_id])
@@ -83,8 +55,6 @@ class PoolController < ApplicationController
     end
   end
   
-  # params
-  #   is_complete
   def bracket_completion
     if request.xhr?
       is_complete = true if "true" == params[:is_complete]
@@ -92,10 +62,6 @@ class PoolController < ApplicationController
     end
   end
   
-  # show point standings.
-  # params:
-  #   season_id
-  #   scoring_system_id
   def standings
     if request.get?
       @season = Season.find_by_id(params[:season_id])
@@ -115,8 +81,6 @@ class PoolController < ApplicationController
     end
   end
   
-  # params
-  #   id (game)
   def game_pics
     #@game_id = Game.find(:first, :conditions => ["#{Game.table_name}.id = ?", params[:id]], :include => [:region, {:pics => [{:pool_user => [:pics, :user]}, {:bid => :team}]}])
     @game = Game.find_by_id(params[:id])
@@ -135,13 +99,6 @@ class PoolController < ApplicationController
     end
   end
   
-  # get
-  #   season_id
-  # post
-  #   params
-  #     pvp_subject
-  #     other_pool_user_ids
-  #     scoring_system_id
   def pvp
     if request.get?
       redirect_to(:action => "standings", :scoring_system_id => params[:scoring_system_id])
@@ -161,6 +118,12 @@ class PoolController < ApplicationController
     end
   end
   
+  def printable_bracket
+    render_layout_only 'under construction' and return
+    get_bracket_info
+    render :layout => false
+  end
+  
   protected
   
   def controller_name_for_page_title
@@ -174,5 +137,20 @@ class PoolController < ApplicationController
   end
   
   helper_method :is_latest_season?
+  
+  def get_bracket_info
+    @season = Season.find_by_id(params[:season_id]) || Season.latest
+    @user = User.find_by_id(params[:id])
+    @pool_users = @user.pool_users.for_season(@season)
+    render_layout_only 'bracket not found' and return if @pool_users.empty?
+    # allowed to view if user is self or admin.
+    # if tournament hasn't started and requested user is neither self nor admin.
+    if is_latest_season?(@season) && !@season.tournament_has_started? && !is_self_or_logged_in_as_admin?(@user)
+      msg = "#{@season.year} brackets are private until the tournament starts."
+      msg += "<br/>login to make pics." unless logged_in_user
+      render_layout_only msg and return
+    end
+    @pool_user = @user.pool_users.for_season_and_bracket_num(@season, params[:bracket_num])
+  end
   
 end

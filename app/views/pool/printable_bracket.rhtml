@@ -3,18 +3,18 @@
     <%= stylesheet_link_tag "pool" %>
     <title>ordinaryzelig.org - printable bracket - <%= @pool_user.user.display_name %> (<%= @season.year %>)</title>
   </head>
-  <body>
-    <div id="printableBracket">
-      <div id="printableHeader">
+  <body style="overflow: hidden;">
+    <div style="max-height: 8in; max-width: 10.5in;">
+      <div style="text-align: center; font-weight: bold; font-size: 15pt">
         <span>march madness <%= @season.year %></span><br/>
         <span><%= @pool_user.user.display_name %></span>
       </div>
-      <% championship_game = @season.regions[0].championship_game -%>
+      <% championship_game = @season.root_game -%>
       <div id="printableBracketLeft">
         <%= render(:partial => "printable_game", :locals => {:game => championship_game.top, :direction => "left"}) %>
       </div>
       <div id="championshipGame">
-        <% pic = championship_game.pic(@pool_user.id) -%>
+        <% pic = @pool_user.pics.for_game championship_game -%>
         <%= render(:partial => "printable_bid", :locals => {:bid => pic.bid, :direction => nil, :round_number => championship_game.round.number}) %>
       </div>
       <div id="printableBracketRight">

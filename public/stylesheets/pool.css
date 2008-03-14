@@ -89,19 +89,6 @@
     background-color: lightblue;
 }
 
-#printableBracket{
-    height: 8in;
-    width: 10.5in;
-    border: 1px solid #999;
-    margin: .25in;
-}
-
-#printableHeader{
-    text-align: center;
-    font-weight: bold;
-    font-size: 150%;
-}
-
 #printableBracketLeft{
     float: left;
 }
@@ -121,13 +108,13 @@
 }
 
 #championshipGame .printableBid{
-    font-size: 100%;
+/*    font-size: 100%;*/
     text-align: center;
 }
 
 .printableBidleft, .printableBidright, .printableBid{
     width: 20mm;
-    font-size: 50%;
+/*    font-size: 50%;*/
     white-space: nowrap;
     border-bottom: 1px solid #999;
 }

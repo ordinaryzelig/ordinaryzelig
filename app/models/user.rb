@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
     def for_season(season)
       self.select { |pu| season.id == pu.season_id }
     end
+    def for_season_and_bracket_num(season, bracket_num)
+      pool_users = for_season(season)
+      pool_users.detect { |pool_user| bracket_num == pool_user.bracket_num } || pool_users.first
+    end
   end
   has_many :accounts do
     def for_season(season)

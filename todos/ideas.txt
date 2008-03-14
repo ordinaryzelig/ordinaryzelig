@@ -102,3 +102,5 @@ combine can_be_syndicated and can_be_summarized (maybe more plugins too)
 some plugins can add dynamic methods to Test::Unit::TestCase.
 
 login errors blind down goes too far.
+
+season cache has memory issues.  e.g. calling Season::CACHED[2007].root_game.pics will also cache pics.

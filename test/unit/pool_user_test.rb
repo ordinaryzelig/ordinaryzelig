@@ -72,4 +72,25 @@ class PoolUserTest < Test::Unit::TestCase
     assert_not_nil accounts.for_season(pool_user.season)
   end
   
+  def test_user_pool_users_for_season
+    user = users :ten_cent
+    season = seasons :_2007
+    user_pool_users = user.pool_users.for_season(season)
+    user_pool_users.each do |pool_user|
+      assert_equal season, pool_user.season
+      assert_equal user, pool_user.user
+    end
+    PoolUser.find_all_by_season_id_and_user_id(season.id, user.id).each do |pool_user|
+      assert user_pool_users.include?(pool_user)
+    end
+    user_pool_users
+  end
+  
+  def test_user_pool_users_for_season_and_bracket_num
+    user = users :ten_cent
+    season = seasons :_2007
+    bracket_num = 1
+    assert_equal PoolUser.find_by_season_id_and_user_id_and_bracket_num(season.id, user.id, bracket_num).id, user.pool_users.for_season_and_bracket_num(season, bracket_num).id
+  end
+  
 end
