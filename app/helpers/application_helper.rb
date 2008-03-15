@@ -62,7 +62,7 @@ module ApplicationHelper
   
   def link_to_my_bracket
     link_to("(yours)", {:controller => "pool",
-                        :action => "brackets",
+                        :action => 'bracket',
                         :id => logged_in_user.id,
                         :season_id => latest_season.id},
                         :style => "font-size: 75%;")

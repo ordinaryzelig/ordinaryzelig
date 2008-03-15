@@ -21,7 +21,7 @@
       <%= link_to("buy-ins", :controller => "admin", :action => "buy_ins") %><br/>
       <%= link_to("new season", :controller => "admin", :action => "edit_season") %><br/>
       <%= link_to("bid select", :controller => "admin", :action => "select_team_bids") %><br/>
-      <%= link_to("master bracket", :controller => "pool", :action => "brackets", :id => User.master_id, :season_id => latest_season.id) %><br/>
+      <%= link_to("master bracket", :controller => "pool", :action => 'bracket', :id => User.master_id, :season_id => latest_season.id) %><br/>
       <%= link_to('pages', :controller => 'admin', :action => 'pages') %>
       <hr>
     <% end -%>
@@ -44,12 +44,13 @@
   <%= link_to_unless('pool' == controller.controller_name, "march madness", :controller => "pool") %>
   <% if 'pool' == controller.controller_name -%>
     <%= link_to("standings", :controller => "pool", :action => "standings") %><br/>
-    <%= link_to("brackets", :controller => "pool", :action => 'brackets') %>
+    <%= link_to("brackets", :controller => "pool", :action => 'bracket') %>
     <% if logged_in_user -%>
       <%= link_to_my_bracket %>
     <% end -%><br/>
     <%= link_to("tourney info", :controller => "pool", :action => "tournament_info") %><br/>
     <%= link_to("message board", :controller => "message_board") %><br/>
+    <%= link_to 'blank bracket', 'http://www.sportsline.com/collegebasketball/mayhem/brackets/printable_men' %>
   <% end -%>
   <hr>
   

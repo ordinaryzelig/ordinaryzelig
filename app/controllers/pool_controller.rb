@@ -7,17 +7,17 @@ class PoolController < ApplicationController
     redirect_to(:action => "standings")
   end
   
-  def brackets
+  def bracket
     if request.get?
       get_bracket_info
       @region_order = params[:region_order] ? params[:region_order].to_i : 1
       @region = Region.find(:first, :conditions => ["#{Region.table_name}.season_id = ? AND order_num = ?", *[@season.id, @region_order]])
     else
       if params[:go]
-        redirect_to(:action => "brackets", :season_id => params[:season_id], :id => params[:user][:id], :region_order => params[:region_order], :bracket_num => params[:bracket_num])
+        redirect_to(:action => 'bracket', :season_id => params[:season_id], :id => params[:user][:id], :region_order => params[:region_order], :bracket_num => params[:bracket_num])
       else
         # change seasons.
-        redirect_to(:action => "brackets", :season_id => params[:season_id], :id => nil)
+        redirect_to(:action => 'bracket', :season_id => params[:season_id], :id => nil)
       end
     end
   end

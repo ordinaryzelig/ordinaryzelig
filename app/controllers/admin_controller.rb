@@ -32,7 +32,7 @@ class AdminController < ApplicationController
         Region.find(region_id).update_attribute(:name, name)
       end
       flash[:success] = "bids and regions saved."
-      redirect_to(:controller => "pool", :action => "brackets", :season_id => params[:season_id], :id => User.master_id)
+      redirect_to(:controller => "pool", :action => 'bracket', :season_id => params[:season_id], :id => User.master_id)
     end
   end
   
