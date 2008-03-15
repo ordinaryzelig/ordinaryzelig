@@ -36,8 +36,8 @@ class UserTest < Test::Unit::TestCase
     assert_not u.is_admin?
   end
   
-  def test_recents_at_least_gets_called_without_exceptions
-    assert users(:ten_cent).recents
+  def test_recents_at_least_gets_called_without_exceptions(user = nil)
+    assert (user || users(:ten_cent)).recents
   end
   
   def test_generate_secret_id
@@ -107,6 +107,17 @@ class UserTest < Test::Unit::TestCase
     assert_equal blogs_readable_by_friend.size, user.blogs.readable_by(friend).size
   end
   
+  def test_login_without_user_activity
+    user = old_user
+    user.log_login
+    assert user.user_activity
+  end
+  
+  def test_recency_with_no_friends
+    user = old_user
+    test_recents_at_least_gets_called_without_exceptions
+  end
+  
   # ==========================
   # helper methods.
   
@@ -123,6 +134,14 @@ class UserTest < Test::Unit::TestCase
   
   def find(by_field, search_text)
     User.find_non_admin :all, :conditions => ["lower(#{by_field}) like ?", "%#{search_text.downcase}%"]
+  end
+  
+  # no friends, no user_activity.
+  def old_user
+    user = User.find(:first, :conditions => "id != #{users(:ten_cent).id}")
+    assert_nil user.user_activity
+    assert user.friends.empty?
+    user
   end
   
 end

@@ -98,7 +98,7 @@ class Test::Unit::TestCase
   end
   
   def self.test_recency
-    define_method 'test_recency'do
+    define_method 'test_recency' do
       user = users(:ten_cent)
       user.previous_login_at =  1.second.ago
       friend = user.friends.first

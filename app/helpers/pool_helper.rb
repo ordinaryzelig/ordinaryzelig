@@ -33,4 +33,43 @@ module PoolHelper
     content_tag :STRONG, '&bull;'
   end
   
+  def game_partial(game, bracket_side, top_or_bottom = nil, ancestors_to_include = 0)
+    render :partial => 'printable_game', :locals => {:game => game,
+                                                     :top_or_bottom => top_or_bottom,
+                                                     :ancestors_to_include => ancestors_to_include,
+                                                     :bracket_side => bracket_side}
+  end
+  
+  def game_cell(game, pool_user, seed_on_left_or_right)
+    bid_cells = game.participating_bids(pool_user).map { |bid| bid_cell(bid, seed_on_left_or_right) }
+    bids_table_styles = "width: 100%; " <<
+                        "white-space: nowrap; " <<
+                        # "border-#{:right == seed_on_left_or_right ? :left : :right}: 1 solid black;" <<
+                        "font-size: 10pt;"
+    bids_table = content_tag(:table,
+                             bid_cells,
+                             :style => bids_table_styles)
+    content_tag(:td, bids_table, :rowspan => 2 ** (game.round.number - 1), :align => seed_on_left_or_right)
+  end
+  
+  def bid_cell(bid, seed_on_left_or_right)
+    seed = content_tag :td, bid.seed, :width => 5, :align => seed_on_left_or_right
+    team = content_tag :td, bid.team.name, :align => seed_on_left_or_right
+    cell = [seed, team]
+    cell.reverse! if :right == seed_on_left_or_right
+    content_tag :tr, cell
+  end
+  
+  def region_bracket(region)
+    first_game = region.championship_game
+    direction = (first_game.parent.top == first_game) ? :left : :right
+    content_tag :div, :style => "width: 12cm; float: #{direction};" do
+      region.name
+      content_tag(:table,
+                  game_partial(first_game, direction),
+                  :style => "border-collapse: collapse; width: 100%; table-layout: fixed;",
+                  :cellpadding => 15)
+    end
+  end
+  
 end

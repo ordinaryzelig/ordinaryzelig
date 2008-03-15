@@ -1,25 +1,18 @@
 <html>
   <head>
-    <%= stylesheet_link_tag "pool" %>
     <title>ordinaryzelig.org - printable bracket - <%= @pool_user.user.display_name %> (<%= @season.year %>)</title>
   </head>
-  <body style="overflow: hidden;">
-    <div style="max-height: 8in; max-width: 10.5in;">
-      <div style="text-align: center; font-weight: bold; font-size: 15pt">
-        <span>march madness <%= @season.year %></span><br/>
-        <span><%= @pool_user.user.display_name %></span>
-      </div>
-      <% championship_game = @season.root_game -%>
-      <div id="printableBracketLeft">
-        <%= render(:partial => "printable_game", :locals => {:game => championship_game.top, :direction => "left"}) %>
-      </div>
-      <div id="championshipGame">
-        <% pic = @pool_user.pics.for_game championship_game -%>
-        <%= render(:partial => "printable_bid", :locals => {:bid => pic.bid, :direction => nil, :round_number => championship_game.round.number}) %>
-      </div>
-      <div id="printableBracketRight">
-        <%= render(:partial => "printable_game", :locals => {:game => championship_game.bottom, :direction => "right"}) %>
-      </div>
+  <body>
+    <div style="width: 11in; height: 8.5in; text-align: center;">
+      <% @season.root_game.children.each_with_index do |game, i| -%>
+        <% direction = game.parent.top == game ? :left : :right -%>
+        <% content_tag :div, :style => "width: 12cm; float: #{direction};" do -%>
+          <%= content_tag(:table,
+                          game_partial(game, direction),
+                          :style => "border-collapse: collapse; width: 100%; table-layout: fixed;",
+                          :cellpadding => 15) %>
+        <% end -%>
+      <% end -%>
     </div>
   </body>
 </html>

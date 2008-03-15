@@ -69,22 +69,22 @@ class User < ActiveRecord::Base
   # return user with matching email and password.
   def authenticate
     authenticated_user = nil
-    if @unhashed_password.blank?
-      errors.add(nil, "password can't be blank.")
-    end
-    if @email.nil? || @email.empty?
-      errors.add_on_blank(:email)
-    end
+    errors.add(nil, "password can't be blank.") if @unhashed_password.blank?
+    errors.add_on_blank(:email) if @email.nil? || @email.empty?
     if errors.empty?
       authenticated_user = User.find(:first, :conditions => ["email = ? AND password = ?", *[self.email.downcase, hash(@unhashed_password)]])
       if authenticated_user
-        authenticated_user.user_activity ||= UserActivity.new
-        authenticated_user.user_activity.log_login!
+        authenticated_user.log_login
       else
         errors.add(nil, "authentication failed.")
       end
     end
     authenticated_user
+  end
+  
+  def log_login
+    self.user_activity ||= UserActivity.new
+    self.user_activity.log_login!
   end
   
   def self.master

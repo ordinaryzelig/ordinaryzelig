@@ -68,4 +68,19 @@ class GameTest < Test::Unit::TestCase
     end
   end
   
+  def test_participating_bids
+    game = games:george_mason_first_game
+    pool_user = users(:master_bracket).pool_users.for_season(game.season).first
+    assert game.children.empty?
+    assert_participating_bids game.participating_bids(pool_user), ['george mason', 'michigan state']
+    assert_participating_bids game.season.root_game.participating_bids(pool_user), ['florida', 'ucla']
+  end
+  
+  def assert_participating_bids(bids, team_names)
+    assert_equal 2, bids.size
+    bids.each do |bid|
+      assert team_names.include?(bid.team.name)
+    end
+  end
+  
 end

@@ -100,4 +100,12 @@ class Game < ActiveRecord::Base
     Game.find(:first, :conditions => {:season_id => season.id, :parent_id => nil})
   end
   
+  def participating_bids(pool_user)
+    if children.empty?
+      first_round_bids
+    else
+      children.map { |game| pool_user.pics.for_game(game).bid }
+    end
+  end
+  
 end

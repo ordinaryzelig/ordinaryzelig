@@ -119,9 +119,9 @@ class PoolController < ApplicationController
   end
   
   def printable_bracket
-    render_layout_only 'under construction' and return
+    # render_layout_only 'under construction' and return
     get_bracket_info
-    render :layout => false
+    render :layout => false, :footnotes => false
   end
   
   protected
