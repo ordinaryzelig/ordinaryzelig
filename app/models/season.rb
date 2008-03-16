@@ -17,7 +17,18 @@ class Season < ActiveRecord::Base
       Bid.find :all, :conditions => ['first_game_id in (?)', map(&:id)]
     end
   end
-  has_many :pool_users
+  has_many :pool_users do
+    include PoolUser::AssociationMethods
+    def sorted_by_points(master_pics, scoring_system = ScoringSystems.default)
+      return @pool_users if @pool_users
+      @pool_users = find_non_admin(:all, :include => [{:pics => [:bid, {:game => :round}]}, :user])
+      @pool_users.each { |pool_user| pool_user.calculate_points(master_pics, scoring_system) }
+      @pool_users.sort &PoolUser.standings_sort_proc
+    end
+    def master
+      detect { |pool_user| User.master_id == pool_user.user_id }
+    end
+  end
   
   after_create do |season|
     # add regions.

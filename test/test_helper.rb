@@ -30,8 +30,10 @@ class Test::Unit::TestCase
   
   # set session[:user_id] and session[:last_authenticated_action_at]
   def login(user_fixture)
-    @request.session[:user_id] = users(user_fixture).id
+    user = users(user_fixture)
+    @request.session[:user_id] = user.id
     @request.session[:last_authenticated_action_at] = Time.now
+    user
   end
   
   def self.test_created_at

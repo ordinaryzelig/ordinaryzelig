@@ -93,4 +93,14 @@ class PoolUserTest < Test::Unit::TestCase
     assert_equal PoolUser.find_by_season_id_and_user_id_and_bracket_num(season.id, user.id, bracket_num).id, user.pool_users.for_season_and_bracket_num(season, bracket_num).id
   end
   
+  def test_sorting
+    season = Season.find(:first)
+    master = season.pool_users.master
+    pool_users = season.pool_users.sorted_by_points(master.pics)
+    assert pool_users.size > 0
+    pool_users.in_groups_of(2) do |a, b|
+      assert a.points >= b.points if a && b
+    end
+  end
+  
 end

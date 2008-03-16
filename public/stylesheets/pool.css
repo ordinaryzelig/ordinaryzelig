@@ -77,10 +77,6 @@
     font-size: 75%;
 }
 
-#seasonSelectStandings{
-    padding-bottom: 5mm;
-}
-
 .standingHeader, .standingMaster, .gamePicsHeader, .gamePicMaster th{
     background-color: lightgray;
 }

@@ -75,4 +75,18 @@ class SeasonTest < Test::Unit::TestCase
     bids.each { |bid| assert_not_nil bid }
   end
   
+  def test_pool_users_sorted_by_points
+    season = seasons :_2007
+    master = season.pool_users.master
+    assert_equal 63, master.pics.size
+    pool_users = season.pool_users.sorted_by_points master.pics
+    assert pool_users.size > 0
+    assert_equal pool_users.size, season.pool_users.size - 1
+  end
+  
+  def test_pool_user_master
+    season = seasons :_2007
+    assert_equal PoolUser.find_by_user_id_and_season_id(User.master, season.id).id, season.pool_users.master.id
+  end
+  
 end

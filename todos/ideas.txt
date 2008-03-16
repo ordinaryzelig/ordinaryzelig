@@ -103,4 +103,7 @@ some plugins can add dynamic methods to Test::Unit::TestCase.
 
 login errors blind down goes too far.
 
-season cache has memory issues.  e.g. calling Season::CACHED[2007].root_game.pics will also cache pics.
+rescue_friendly
+	raise string, but be careful of RuntimeError.
+	log friendly errors somehow so we can track suspicious activity
+	read up on controller rescue methods. (rescue_in_public, rescue_from, ...)

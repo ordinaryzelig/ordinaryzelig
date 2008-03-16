@@ -84,4 +84,9 @@ module Test::Unit::Assertions
     flunk "save! failed: #{ex.message}"
   end
   
+  def assert_response_true_success
+    assert_response :success
+    assert flash[:failure].blank?
+  end
+  
 end

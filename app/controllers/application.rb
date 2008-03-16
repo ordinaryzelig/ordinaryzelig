@@ -147,6 +147,13 @@ class ApplicationController < ActionController::Base
     when ::ActionController::UnknownAction
       flash[:failure] = PAGE_DOES_NOT_EXIST
       redirect_to_last_marked_page_or_default
+    when FriendlyError
+      # just render the layout and flash[:failure] msg.
+      if ENV['RAILS_ENV'] == 'production'
+        render_layout_only ex.msg
+      else
+        super
+      end
     else
       if ENV['RAILS_ENV'] == 'production'
         render(:file => "#{RAILS_ROOT}/public/500.html", :status => "500 Error")
@@ -195,4 +202,34 @@ class ApplicationController < ActionController::Base
     title "#{default_page_title} - #{user.display_name}"
   end
   
+  # rescue exceptions and raise FriendlyError instead.
+  # rescue_action will handle FriendlyError.
+  def rescue_friendly(default_msg = 'there was an error', force_default_msg = false)
+    yield
+  rescue Exception => ex
+    friendly_msg = force_default_msg ? default_msg : case ex
+    when FriendlyError
+      ex.msg
+    else
+      default_msg
+    end
+    raise FriendlyError.new(friendly_msg, ex)
+  end
+  
+end
+
+class FriendlyError < StandardError
+  attr_reader :msg, :original_exception
+  def initialize(msg, original_exception = nil)
+    @msg = msg
+    @original_exception = original_exception.is_a?(FriendlyError) ? original_exception.original_exception : original_exception
+  end
+  def to_s
+    str = "#{self.class}: #{msg}"
+    str += " (#{original_exception.message})" if original_exception && !original_exception.message.blank?
+    str
+  end
+  def backtrace
+    original_exception.backtrace
+  end
 end

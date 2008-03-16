@@ -1,14 +1,5 @@
-<% 
-=begin
-locals
-  master_pool_user (optional)
-  pool_users
-  show_pvp_selectors
-  subject_user
-  scoring_system
-=end %>
 <% form_tag(:action => "pvp", :scoring_system_id => scoring_system::id) do -%>
-  <table border=1>
+  <table border=1 style="<%= css_centered %>">
     <tr class=standingHeader>
       <th>rank</th>
       <th>player</th>

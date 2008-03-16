@@ -1,10 +1,6 @@
-<% 
-=begin
-show table of PoolPlayers and tdeir standing.
-=end -%>
-<div id="seasonSelectStandings">
+<div style="padding-bottom: 5mm; text-align: center;">
   <% form_tag do -%>
-    <table class=seasonSelect>
+    <table class=seasonSelect style="<%= css_centered %>">
       <tr>
         <th>season</th>
         <td><%= season_select_tag(@season.id) %></td>
@@ -20,4 +16,8 @@ show table of PoolPlayers and tdeir standing.
     </table>
   <% end -%>
 </div>
-<%= render(:partial => 'standings_rankings', :locals => {:pool_users => @pool_users, :show_pvp_selectors => true, :master_pool_user => @master_pool_user, :subject_user => logged_in_user, :scoring_system => @scoring_system}) %>
+<%= render(:partial => 'standings_rankings', :locals => {:pool_users => @pool_users,
+                                                         :show_pvp_selectors => @season.tournament_has_started?,
+                                                         :master_pool_user => @master_pool_user,
+                                                         :subject_user => logged_in_user,
+                                                         :scoring_system => @scoring_system}) %>

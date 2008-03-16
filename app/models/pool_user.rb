@@ -28,21 +28,23 @@ class PoolUser < ActiveRecord::Base
   
   attr_reader :points
   
+  scope_out :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']], :include => :user
+  
   # return PoolUser object of master user for given season.
   def self.master(season)
     User.master.pool_users.for_season(season).first
   end
   
   def self.standings_sort_proc
-    Proc.new do |a, b|
-      if a.points == b.points
-        if a.pics.correct.size == b.pics.correct.size
-          a.user.display_name.downcase <=> b.user.display_name.downcase
-        else
-          a.pics.correct.size <=> b.pics.correct.size
-        end
-      else
+    proc do |a, b|
+      unless a.points == b.points
         b.points <=> a.points
+      else
+        unless a.pics.correct.size == b.pics.correct.size
+          a.pics.correct.size <=> b.pics.correct.size
+        else
+          a.user.display_name.downcase <=> b.user.display_name.downcase
+        end
       end
     end
   end

@@ -31,3 +31,7 @@ pvp: 1-on-1 can calculate other pics.
 allow users to create their own tournaments.
 
 lock/unlock bracket editing?
+
+season cache has memory issues.  e.g. calling Season::CACHED[2007].root_game.pics will also cache pics.
+
+cache master pics

@@ -11,14 +11,12 @@ class PoolController < ApplicationController
     if request.get?
       get_bracket_info
       @region_order = params[:region_order] ? params[:region_order].to_i : 1
-      @region = Region.find(:first, :conditions => ["#{Region.table_name}.season_id = ? AND order_num = ?", *[@season.id, @region_order]])
-    else
-      if params[:go]
-        redirect_to(:action => 'bracket', :season_id => params[:season_id], :id => params[:user][:id], :region_order => params[:region_order], :bracket_num => params[:bracket_num])
-      else
-        # change seasons.
-        redirect_to(:action => 'bracket', :season_id => params[:season_id], :id => nil)
+      rescue_friendly 'could not find bracket' do
+        @region = Region.find(:first, :conditions => ["#{Region.table_name}.season_id = ? AND order_num = ?", *[@season.id, @region_order]])
+        raise unless @region
       end
+    else
+      redirect_to(:action => 'bracket', :season_id => params[:season_id], :id => params[:user][:id], :region_order => params[:region_order], :bracket_num => params[:bracket_num])
     end
   end
   
@@ -64,19 +62,14 @@ class PoolController < ApplicationController
   
   def standings
     if request.get?
-      @season = Season.find_by_id(params[:season_id])
-      @season = latest_season unless @season
-      @pool_users = PoolUser.find(:all,
-                                  :conditions => ["#{PoolUser.table_name}.season_id = ?", @season.id],
-                                  :include => [{:pics => [:bid, {:game => :round}]}, :user])
-      @scoring_system = ScoringSystems::SYSTEMS[params[:scoring_system_id].to_i]
-      @master_pool_user = @pool_users.detect{|pool_users| User.master_id == pool_users.user_id}
-      @pool_users.delete(@master_pool_user)
-      @master_pool_user.calculate_points(@master_pool_user.pics, @scoring_system)
-      @pool_users.each {|pool_user| pool_user.calculate_points(@master_pool_user.pics, @scoring_system)}
-      @pool_users.sort!(&PoolUser.standings_sort_proc)
+      get_season_from_params
+      rescue_friendly do
+        @scoring_system = ScoringSystems::SYSTEMS[params[:scoring_system_id].to_i]
+        @master_pool_user = @season.pool_users.master.reload(:include => [{:pics => [:bid, {:game => :round}]}, :user])
+        @master_pool_user.calculate_points(@master_pool_user.pics, @scoring_system)
+        @pool_users = @season.pool_users.sorted_by_points(@master_pool_user.pics, @scoring_system)
+      end
     else
-    # post
       redirect_to :action => "standings", :season_id => params[:season_id], :scoring_system_id => params[:scoring_system_id]
     end
   end
@@ -139,18 +132,28 @@ class PoolController < ApplicationController
   helper_method :is_latest_season?
   
   def get_bracket_info
-    @season = Season.find_by_id(params[:season_id]) || Season.latest
-    @user = User.find_by_id(params[:id])
-    @pool_users = @user.pool_users.for_season(@season)
-    render_layout_only 'bracket not found' and return if @pool_users.empty?
-    # allowed to view if user is self or admin.
-    # if tournament hasn't started and requested user is neither self nor admin.
-    if is_latest_season?(@season) && !@season.tournament_has_started? && !is_self_or_logged_in_as_admin?(@user)
-      msg = "#{@season.year} brackets are private until the tournament starts."
-      msg += "<br/>login to make pics." unless logged_in_user
-      render_layout_only msg and return
+    get_season_from_params
+    rescue_friendly 'bracket not found' do
+      # allowed to view if user is self or admin.
+      # if tournament hasn't started and requested user is neither self nor admin.
+      get_user_from_params
+      if is_latest_season?(@season) && !@season.tournament_has_started? && !is_self_or_logged_in_as_admin?(@user)
+        msg = "#{@season.year} brackets are private until the tournament starts."
+        msg += "<br/>login to make pics." unless logged_in_user
+        raise FriendlyError.new(msg)
+      end
+      @pool_users = @user.pool_users.for_season(@season)
+      raise 'user not participating in this season' if @pool_users.empty?
     end
     @pool_user = @user.pool_users.for_season_and_bracket_num(@season, params[:bracket_num])
+  end
+  
+  def get_season_from_params
+    rescue_friendly('could not find season') { @season = Season.find_by_id(params[:season_id]) || latest_season }
+  end
+  
+  def get_user_from_params
+    rescue_friendly('could not find user') { @user = User.find_by_id(params[:id]) }
   end
   
 end
