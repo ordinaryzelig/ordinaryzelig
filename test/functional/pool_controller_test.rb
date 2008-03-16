@@ -43,4 +43,14 @@ class PoolControllerTest < Test::Unit::TestCase
     end
   end
   
+  def test_game_pics
+    get :game_pics, {:id => games(:george_mason_first_game).id}
+  end
+  
+  # def test_pvp
+  #   pvp_subject = users(:ten_cent)
+  #   
+  #   get :pvp, {:pvp_subject => pvp_subject.id, :other_pool_user_ids => }
+  # end
+  
 end

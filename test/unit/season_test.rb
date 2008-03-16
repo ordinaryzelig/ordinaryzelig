@@ -75,13 +75,17 @@ class SeasonTest < Test::Unit::TestCase
     bids.each { |bid| assert_not_nil bid }
   end
   
-  def test_pool_users_sorted_by_points
+  def test_pool_users_by_rank
     season = seasons :_2007
     master = season.pool_users.master
     assert_equal 63, master.pics.size
-    pool_users = season.pool_users.sorted_by_points master.pics
-    assert pool_users.size > 0
-    assert_equal pool_users.size, season.pool_users.size - 1
+    pool_users_with_ranks = season.pool_users.by_rank master.pics
+    assert pool_users_with_ranks.size > 0
+    assert_equal pool_users_with_ranks.size, season.pool_users.size - 1
+    pool_users_with_ranks.each do |pool_user, rank|
+      assert pool_user.points <= @previous_points && rank >= @previous_rank if @previous_points
+      @previous_points, @previous_rank = pool_user.points, rank
+    end
   end
   
   def test_pool_user_master

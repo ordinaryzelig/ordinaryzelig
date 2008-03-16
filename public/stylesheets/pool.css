@@ -129,12 +129,6 @@
     text-align: right;
 }
 
-#pvpHeader{
-    display: table;
-    padding-bottom: 5mm;
-    text-align: center;
-}
-        
 #pvpSubject, #pvpVs, #pvpOthers{
     padding: 3mm;
     display: table-cell;

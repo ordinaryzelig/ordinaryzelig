@@ -16,8 +16,41 @@
     </table>
   <% end -%>
 </div>
-<%= render(:partial => 'standings_rankings', :locals => {:pool_users => @pool_users,
-                                                         :show_pvp_selectors => @season.tournament_has_started?,
-                                                         :master_pool_user => @master_pool_user,
-                                                         :subject_user => logged_in_user,
-                                                         :scoring_system => @scoring_system}) %>
+
+<% form_tag(:action => "pvp", :scoring_system_id => @scoring_system.id) do -%>
+  <table border=1 style="<%= css_centered %>">
+    
+    <tr class=standingHeader>
+      <th>rank</th>
+      <th>player</th>
+      <th>points</th>
+      <th>correct pics</th>
+      <%= content_tag :th, submit_tag("pvp*"), :colspan => 2 if @show_pvp_selectors %>
+    </tr>
+    
+    <% @pool_users_with_rank.each do |pool_user, rank| %>
+      <tr class=standing<%= if logged_in_user && logged_in_user.id == pool_user.user_id then 'Self' elsif pool_user.is_master? then 'Master' else nil end %> align=center>
+        <% @reached_logged_in_user_yet ||= logged_in_user && logged_in_user.id == pool_user.user_id -%>
+        <%= content_tag :td, rank %>
+        <% link_str = "#{pool_user.user.display_name}" -%>
+        <% link_str << " (#{pool_user.bracket_num})" if 1 < pool_user.bracket_num -%>
+        <%= content_tag :td, link_to_bracket(link_str, pool_user) %>
+        <%= content_tag :td, pool_user.points %>
+        <%= content_tag :td, pool_user.pics.correct.size %>
+        <% if @show_pvp_selectors -%>
+          <% if pool_user.is_master? -%>
+            <% 2.times { concat content_tag(:td), binding } %>
+          <% else -%>
+            <%= content_tag :td, radio_button_tag(:pool_user_id, pool_user.id, logged_in_user && pool_user.user_id == logged_in_user.id) %>
+            <%= content_tag :td, check_box_tag("other_pool_user_ids[]", pool_user.id, !@reached_logged_in_user_yet) %>
+          <% end -%>
+        <% end -%>
+      </tr>
+    <% end -%>
+    
+  </table>
+<% end -%>
+
+<% if @show_pvp_selectors -%>
+  *pvp (player vs player): choose player in left column to compare to players checked in right column. press the pvp button.
+<% end -%>

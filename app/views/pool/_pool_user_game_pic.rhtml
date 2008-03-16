@@ -1,11 +1,4 @@
-<% 
-=begin
-locals
-  pool_user
-  master_pool_user
-  game
-=end %>
-<tr>
+<tr class=gamePicMaster>
   <td class=gamePicSelf<%= boolean_to_i(logged_in_user == pool_user.user) %>><%= link_to_bracket(pool_user.user.display_name, pool_user, {:region_order => game.region.order_num}) %></td>
   <% pic = pool_user.pics.for_game(game) -%>
   <% still_alive = pic.still_alive? %>

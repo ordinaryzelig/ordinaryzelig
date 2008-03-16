@@ -19,10 +19,7 @@ module ApplicationHelper
   end
   
   def link_to_bracket(str, pool_user, options = {})
-    options.store(:action, "brackets")
-    options.store(:id, pool_user.user_id)
-    options.store(:season_id, pool_user.season_id)
-    link_to(str, options)
+    link_to str, options.merge({:action => 'bracket', :id => pool_user.user_id, :season_id => pool_user.season_id, :bracket_num => pool_user.bracket_num})
   end
   
   def link_to_email(str, user)

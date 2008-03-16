@@ -103,4 +103,9 @@ class PoolUserTest < Test::Unit::TestCase
     end
   end
   
+  def test_is_master?
+    assert users(:master_bracket).pool_users.first.is_master?
+    assert_not users(:ten_cent).pool_users.first.is_master?
+  end
+  
 end

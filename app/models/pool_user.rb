@@ -112,4 +112,8 @@ class PoolUser < ActiveRecord::Base
     end
   end
   
+  def is_master?
+    User.master_id == user_id
+  end
+  
 end

@@ -19,11 +19,26 @@ class Season < ActiveRecord::Base
   end
   has_many :pool_users do
     include PoolUser::AssociationMethods
-    def sorted_by_points(master_pics, scoring_system = ScoringSystems.default)
-      return @pool_users if @pool_users
-      @pool_users = find_non_admin(:all, :include => [{:pics => [:bid, {:game => :round}]}, :user])
-      @pool_users.each { |pool_user| pool_user.calculate_points(master_pics, scoring_system) }
-      @pool_users.sort &PoolUser.standings_sort_proc
+    def by_rank(master_pics, scoring_system = ScoringSystems.default)
+      return @pool_users_with_ranks if @pool_users_with_ranks
+      pool_users = find_non_admin :all, :include => [{:pics => [:bid, {:game => :round}]}, :user]
+      pool_users.each { |pool_user| pool_user.calculate_points(master_pics, scoring_system) }
+      pool_users.sort! &PoolUser.standings_sort_proc
+      ties = 0
+      previous_points = nil
+      previous_pics = nil
+      rank = 0
+      @pool_users_with_ranks = pool_users.map do |pool_user|
+        if previous_points == pool_user.points && previous_pics == pool_user.pics.correct.size
+          ties += 1
+        else
+          ties = 0
+        end
+        rank += 1 - ties
+        previous_points = pool_user.points
+        previous_pics = pool_user.pics.correct.size
+        [pool_user, rank]
+      end
     end
     def master
       detect { |pool_user| User.master_id == pool_user.user_id }

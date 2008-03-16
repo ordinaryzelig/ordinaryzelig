@@ -3,11 +3,6 @@ class LoginController < ApplicationController
   skip_after_filter :mark_requested_page
   filter_parameter_logging "password"
   
-  def index
-    flash.keep
-    redirect_to(:action => "login")
-  end
-  
   def login
     if request.get?
       @user = User.new
@@ -24,7 +19,7 @@ class LoginController < ApplicationController
   def logout
     flash[:notice] = "logged out." if logged_in_user
     reset_session
-    redirect_to :action => "index"
+    redirect_to :action => 'login'
   end
   
 end

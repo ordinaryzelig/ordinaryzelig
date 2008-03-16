@@ -65,9 +65,10 @@ class PoolController < ApplicationController
       get_season_from_params
       rescue_friendly do
         @scoring_system = ScoringSystems::SYSTEMS[params[:scoring_system_id].to_i]
-        @master_pool_user = @season.pool_users.master.reload(:include => [{:pics => [:bid, {:game => :round}]}, :user])
-        @master_pool_user.calculate_points(@master_pool_user.pics, @scoring_system)
-        @pool_users = @season.pool_users.sorted_by_points(@master_pool_user.pics, @scoring_system)
+        master_pool_user = @season.pool_users.master.reload(:include => [{:pics => [:bid, {:game => :round}]}, :user])
+        master_pool_user.calculate_points(master_pool_user.pics, @scoring_system)
+        @pool_users_with_rank = [[master_pool_user, nil]] + @season.pool_users.by_rank(master_pool_user.pics, @scoring_system)
+        @show_pvp_selectors = @season.tournament_has_started? && !master_pool_user.bracket_complete?
       end
     else
       redirect_to :action => "standings", :season_id => params[:season_id], :scoring_system_id => params[:scoring_system_id]
@@ -75,39 +76,31 @@ class PoolController < ApplicationController
   end
   
   def game_pics
-    #@game_id = Game.find(:first, :conditions => ["#{Game.table_name}.id = ?", params[:id]], :include => [:region, {:pics => [{:pool_user => [:pics, :user]}, {:bid => :team}]}])
-    @game = Game.find_by_id(params[:id])
-    if @game
-      if Time.now < @game.season.tournament_starts_at
-        @game = nil
-        flash.now[:failure] = "you cannot see other players' pics before the tournament."
-      else
-        @pool_users = PoolUser.find(:all, :conditions => ["#{PoolUser.table_name}.season_id = ?", *[@game.season_id]], :include => [{:pics => [{:bid => :team}, :game]}, :user])
-        @master_pool_user = @pool_users.detect { |pu| pu.user_id == User.master_id }
-        @pool_users.delete(@master_pool_user)
-        @pool_users.sort! { |a, b| a.user.display_name.downcase <=> b.user.display_name.downcase }
-      end
-    else
-      flash[:failure] = "game #{params[:id]} not found."
+    get_season_from_params
+    rescue_friendly do
+      @game = Game.find_by_id params[:id], :include => [:region, {:pics => [{:pool_user => [:pics, :user]}, {:bid => :team}]}]
+      raise FriendlyError.new("you cannot see other players' pics before the tournament.") unless @season.tournament_has_started?
+      @pool_users = PoolUser.find :all,
+                                  :conditions => ["#{PoolUser.table_name}.season_id = ?",
+                                                  *[@game.season_id]],
+                                  :include => [{:pics => [{:bid => :team}, :game]}, :user],
+                                  :order => :display_name
+      @master_pool_user = @pool_users.detect { |pu| pu.user_id == User.master_id }
     end
   end
   
   def pvp
-    if request.get?
+    @pvp_subject = PoolUser.find(:first, :conditions => ["#{PoolUser.table_name}.id = ?", params[:pool_user_id]], :include => [{:pics => :game}, :user])
+    if @pvp_subject.nil?
+      flash[:failure] = "select a player in the left column to compare."
       redirect_to(:action => "standings", :scoring_system_id => params[:scoring_system_id])
     else
-      @pvp_subject = PoolUser.find(:first, :conditions => ["#{PoolUser.table_name}.id = ?", params[:pvp_subject]], :include => [{:pics => :game}, :user])
-      if @pvp_subject.nil?
-        flash[:failure] = "select a player in the left column to compare."
-        redirect_to(:action => "standings", :scoring_system_id => params[:scoring_system_id])
-      else
-        other_ids = params[:other_pool_user_ids].reject { |id, checked| "1" != checked || id.to_i == @pvp_subject.id }
-        @other_pool_users = PoolUser.find(:all, :conditions => ["#{PoolUser.table_name}.id in (?)", other_ids.map { |id, checked| id.to_i }], :include => [{:pics => :game}, :user])
-        master_pics = PoolUser.master(@pvp_subject.season).pics
-        @scoring_system = ScoringSystems::SYSTEMS[params[:scoring_system_id].to_i]
-        @pvp_subject.calculate_points(master_pics, @scoring_system)
-        @other_pool_users.each { |pu| pu.calculate_points(master_pics, @scoring_system) }
-      end
+      # other_ids = params[:other_pool_user_ids].reject { |id, checked| "1" != checked || id.to_i == @pvp_subject.id }
+      @other_pool_users = PoolUser.find(:all, :conditions => ["#{PoolUser.table_name}.id in (?)", params[:other_pool_user_ids]], :include => [{:pics => :game}, :user])
+      master_pics = PoolUser.master(@pvp_subject.season).pics
+      @scoring_system = ScoringSystems::SYSTEMS[params[:scoring_system_id].to_i]
+      @pvp_subject.calculate_points(master_pics, @scoring_system)
+      @other_pool_users.each { |pu| pu.calculate_points(master_pics, @scoring_system) }
     end
   end
   
