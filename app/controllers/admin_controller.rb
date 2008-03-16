@@ -16,7 +16,7 @@ class AdminController < ApplicationController
   end
   
   def select_team_bids
-    @season = Season.find(params[:id])
+    @season = Season.find_by_id(params[:id]) || latest_season
     if request.post?
       params[:bids].each do |bid_array|
         Bid.find(bid_array[0]).update_attributes(:team_id => bid_array[1])
