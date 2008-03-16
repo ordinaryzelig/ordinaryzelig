@@ -152,12 +152,6 @@ class Test::Unit::TestCase
      :bids,
      :pics,
      :accounts].each { |fixture| fixtures fixture }
-    def setup; end unless method_defined?(:setup)
-    def setup_with_seasons_fixture
-      setup_without_seasons_fixture
-      Season.populate_cache
-    end
-    alias_method_chain :setup, :seasons_fixture
   end
   
 end

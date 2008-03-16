@@ -4,12 +4,17 @@
   </head>
   <body>
     <div style="width: 11in; height: 8.5in; text-align: center;">
-      <% @season.root_game.children.each_with_index do |game, i| -%>
-        <% direction = game.parent.top == game ? :left : :right -%>
-        <% content_tag :div, :style => "width: 12cm; float: #{direction};" do -%>
+      <%= @season.year %>
+      <% @season.regions.non_final_4.each_with_index do |region, i| -%>
+        <% left_or_right = region.championship_game.left_or_right -%>
+        <% styles = "font-size: 125%; width: 12cm;" -%>
+        <% styles << " float: #{left_or_right};" if left_or_right -%>
+        <% content_tag :div, :style => styles do -%>
+          <%= i %> - <%= region.order_num %> - <%= region %>
           <%= content_tag(:table,
-                          game_partial(game, direction),
+                          game_partial(region.championship_game, left_or_right),
                           :style => "border-collapse: collapse; width: 100%; table-layout: fixed;",
+                          :border => 1,
                           :cellpadding => 15) %>
         <% end -%>
       <% end -%>

@@ -5,7 +5,7 @@ class Season < ActiveRecord::Base
       reject { |region| 1 == region.order_num }
     end
   end
-  has_many :games do
+  has_many :games, :order => "#{Game.table_name}.id" do
     def undecided
       find(:all,
            :conditions => ["pool_user_id = ? and " <<
@@ -73,12 +73,6 @@ class Season < ActiveRecord::Base
         2.times { |j| Bid.create! :first_game_id => game.id, :seed => seeds.shift }
       end
     end
-    
-    # update SEASONS cache.
-    CACHED[season.year] = find(season.id).load_games
-  end
-  after_destroy do |season|
-    CACHED.delete season.year
   end
   
   validates_presence_of :tournament_starts_at, :max_num_brackets, :buy_in
@@ -88,7 +82,7 @@ class Season < ActiveRecord::Base
   end
   
   def self.latest
-    CACHED[find(:first, :order => "tournament_starts_at desc").year]
+    find(:first, :order => "tournament_starts_at desc")
   end
   
   def root_game
@@ -111,19 +105,8 @@ class Season < ActiveRecord::Base
     self.tournament_starts_at.year
   end
   
-  CACHED = {}
-  
-  # add seasons not already defined in CACHED,
-  def self.populate_cache
-    Season.find(:all).each do |season|
-      CACHED[season.tournament_starts_at.year] = season.load_games
-    end
-  end
-  
-  populate_cache
-  
-  def in_cache
-    CACHED[year]
+  def self.find_by_year(year)
+    
   end
   
 end

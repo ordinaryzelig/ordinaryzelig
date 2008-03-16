@@ -12,7 +12,7 @@ class RegionTest < Test::Unit::TestCase
         assert_not_equal championship_game.region, championship_game.parent.region
         championship_game.children.each { |game| assert_equal championship_game.region, game.region }
       else
-        assert_equal championship_game, Season::CACHED[region.season.year].root_game
+        assert_equal championship_game, championship_game.season.root_game
       end
     end
   end

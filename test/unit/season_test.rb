@@ -29,15 +29,6 @@ class SeasonTest < Test::Unit::TestCase
     assert has_x_descendants(season.regions.first.championship_game, 5)
   end
   
-  def test_cached
-    season = test_new_with_default_attributes
-    season.destroy
-    assert Season::CACHED[defaults[:tournament_starts_at].year].nil?, 'season was found in CACHED.'
-    season = test_new_with_default_attributes
-    assert Season::CACHED[season.year], 'season was not found in CACHED.'
-    assert_equal Season::CACHED[season.year].id, season.in_cache.id
-  end
-  
   # recursively check to see if there are the expected number of descendants for passed game.
   def has_x_descendants(game, descendants_left)
     if 0 == descendants_left
@@ -54,12 +45,6 @@ class SeasonTest < Test::Unit::TestCase
     pic.bid_id = nil
     pic.save!
     assert_not season.games.undecided.empty?
-  end
-  
-  def test_populate_cache
-    Season.find(:all).each do |season|
-      assert Season::CACHED.keys.include?(season.year)
-    end
   end
   
   def test_creates_regions

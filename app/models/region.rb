@@ -11,7 +11,7 @@ class Region < ActiveRecord::Base
   
   scope_out :non_final_4, :conditions => 'order_num != 1'
   
-  def championship_game(game = Season::CACHED[self.season.year].root_game)
+  def championship_game(game = self.season.root_game)
     return game if id == game.region_id
     game.children.map { |g| championship_game g }.compact.first
   end

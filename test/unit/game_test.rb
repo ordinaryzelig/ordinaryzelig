@@ -16,13 +16,13 @@ class GameTest < Test::Unit::TestCase
   end
   
   def test_child_with_pic
-    game = Season::CACHED[2007].root_game
+    game = seasons(:_2007).root_game
     pic = game.top.pics.first
     assert_equal game.child_with_pic(pic), game.top
   end
   
   def test_game_in_lineage_with_pic
-    game = Season::CACHED[2007].root_game
+    game = seasons(:_2007).root_game
     pic = game.top.pics.first
     assert_game_in_lineage_with_pic game, pic
   end
@@ -69,7 +69,7 @@ class GameTest < Test::Unit::TestCase
   end
   
   def test_participating_bids
-    game = games:george_mason_first_game
+    game = games :george_mason_first_game
     pool_user = users(:master_bracket).pool_users.for_season(game.season).first
     assert game.children.empty?
     assert_participating_bids game.participating_bids(pool_user), ['george mason', 'michigan state']
@@ -81,6 +81,26 @@ class GameTest < Test::Unit::TestCase
     bids.each do |bid|
       assert team_names.include?(bid.team.name)
     end
+  end
+  
+  def test_top_bottom
+    parent = games(:george_mason_first_game).parent
+    assert_equal 2, parent.children.size
+    parent.children.each { |game| is_top_or_bottom? parent, game }
+  end
+  
+  def is_top_or_bottom?(parent, child)
+    direction = child.top? ? :top : :bottom
+    assert_equal child.id, parent.send(direction).id
+  end
+  
+  def test_left_or_right
+    parent = games(:george_mason_first_game).root
+    assert_equal 2, parent.children.size
+    assert_equal 0, parent.ancestors.size
+    assert_equal :left, parent.top.left_or_right
+    assert_equal :right, parent.bottom.left_or_right
+    assert_equal nil, parent.left_or_right
   end
   
 end
