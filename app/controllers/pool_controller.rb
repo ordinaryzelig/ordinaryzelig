@@ -97,6 +97,7 @@ class PoolController < ApplicationController
     else
       # other_ids = params[:other_pool_user_ids].reject { |id, checked| "1" != checked || id.to_i == @pvp_subject.id }
       @other_pool_users = PoolUser.find(:all, :conditions => ["#{PoolUser.table_name}.id in (?)", params[:other_pool_user_ids]], :include => [{:pics => :game}, :user])
+      @other_pool_users.delete @pvp_subject
       master_pics = PoolUser.master(@pvp_subject.season).pics
       get_scoring_system_from_params
       @pvp_subject.calculate_points(master_pics, @scoring_system)

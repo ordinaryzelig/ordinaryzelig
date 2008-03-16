@@ -53,4 +53,10 @@ class PoolControllerTest < Test::Unit::TestCase
     assert_response_true_success
   end
   
+  def test_printable_bracket
+    user = login :ten_cent
+    season = seasons :_2007
+    get :printable_bracket, {:id => user.id, :season_id => season.id}
+  end
+  
 end

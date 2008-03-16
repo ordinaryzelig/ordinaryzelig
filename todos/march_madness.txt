@@ -1,5 +1,5 @@
 print bracket
-	make image of un-filled bracket.  upload, link to it.
+  make image of un-filled bracket.  upload, link to it.
 
 when making pic, go ahead and shrink pic of parent to get rid of Effect bug.
 
@@ -39,5 +39,10 @@ cache master pics
 game_pics action is slow.  too many queries.
 
 pvp
-	uses partial for rankings. should share with standings.
-	allow switch scoring system here?
+  uses partial for rankings. should share with standings.
+  allow switch scoring system here?
+
+fake bracket.
+  scope out real, fake.
+  choose bracket(s) to use for real.
+  at standings, show real/fake, show just my fakes.
