@@ -214,7 +214,7 @@ class User < ActiveRecord::Base
                    :order => "last_name, first_name, display_name")
   end
   
-  def previous_login_at=(time)
+  def set_previous_login_at!(time)
     activity = user_activity
     activity.previous_login_at = time
     activity.save!

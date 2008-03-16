@@ -908,8 +908,8 @@ texas_st_san_marcos:
 southern_california: 
   name: southern california
   id: "365"
-play-in-winner: 
-  name: play-in-winner
+opening_round_winner 
+  name: opening round winner
   id: "636"
 depaul: 
   name: depaul
