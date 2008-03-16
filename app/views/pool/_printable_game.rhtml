@@ -2,7 +2,7 @@
   <% content_tag :tr do -%>
     <% if :top == top_or_bottom -%>
       <% games = ([game] + game.ancestors[0..ancestors_to_include-1]) -%>
-      <% games.reverse! if :right == bracket_side -%>
+      <% games.reverse! if 'right' == bracket_side -%>
       <%= games.map { |g| game_cell(g, @pool_user, bracket_side) } %>
     <% else -%>
       <%= game_cell game, @pool_user, bracket_side %>

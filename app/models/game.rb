@@ -1,6 +1,6 @@
 class Game < ActiveRecord::Base
   
-  acts_as_tree
+  acts_as_tree :order => :id
   belongs_to :round
   belongs_to :season
   belongs_to :region
@@ -91,6 +91,27 @@ class Game < ActiveRecord::Base
     self.children[1]
   end
   
+  def top?
+    return unless parent
+    parent.top == self
+  end
+  
+  def bottom?
+    return unless parent
+    parent.bottom? == self
+  end
+  
+  def left_or_right
+    case top?
+    when true
+      'left'
+    when false
+      'right'
+    else
+      nil
+    end
+  end
+  
   # for caching.
   def load_children
     children.each &:load_children
@@ -106,6 +127,10 @@ class Game < ActiveRecord::Base
     else
       children.map { |game| pool_user.pics.for_game(game).bid }
     end
+  end
+  
+  def is_championship_game?
+    parent.nil? || region.order_num != parent.region.order_num
   end
   
 end

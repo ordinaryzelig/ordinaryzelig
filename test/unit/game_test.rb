@@ -98,9 +98,19 @@ class GameTest < Test::Unit::TestCase
     parent = games(:george_mason_first_game).root
     assert_equal 2, parent.children.size
     assert_equal 0, parent.ancestors.size
-    assert_equal :left, parent.top.left_or_right
-    assert_equal :right, parent.bottom.left_or_right
+    assert_equal 'left', parent.top.left_or_right
+    assert_equal 'right', parent.bottom.left_or_right
     assert_equal nil, parent.left_or_right
+  end
+  
+  def test_is_championship_game?
+    season = seasons(:_2007)
+    assert_equal 5, season.games.map { |game| game.is_championship_game? || nil }.compact.size
+    season.regions.each do |region|
+      game = region.championship_game
+      assert game.is_championship_game?
+      assert_equal game.parent ? 2 : 0, game.ancestors.size
+    end
   end
   
 end

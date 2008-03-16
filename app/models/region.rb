@@ -1,7 +1,7 @@
 class Region < ActiveRecord::Base
   
   belongs_to :season
-  has_many :games do
+  has_many :games, :order => :id do
     def in_first_round
       self.select { |game| 6 == game.round_id }
     end

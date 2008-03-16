@@ -40,36 +40,25 @@ module PoolHelper
                                                      :bracket_side => bracket_side}
   end
   
-  def game_cell(game, pool_user, seed_on_left_or_right)
-    bid_cells = game.participating_bids(pool_user).map { |bid| bid_cell(bid, seed_on_left_or_right) }
-    bids_table_styles = "width: 100%; " <<
-                        "white-space: nowrap; " <<
-                        # "border-#{:right == seed_on_left_or_right ? :left : :right}: 1 solid black;" <<
-                        "font-size: 10pt;"
-    bids_table = content_tag(:table,
-                             bid_cells,
-                             :style => bids_table_styles)
-    content_tag(:td, bids_table, :rowspan => 2 ** (game.round.number - 1), :align => seed_on_left_or_right)
+  def game_cell(game, pool_user, left_or_right)
+    top_row_content, bottom_row_content = game.participating_bids(pool_user).map { |bid| bid_cells(bid, left_or_right) }
+    top_row_content += bid_cells(pool_user.pics.for_game(game).bid, 2) if game.is_championship_game?
+    rows = [top_row_content, bottom_row_content].map { |bid_cells| content_tag :tr, bid_cells }
+    rows.reverse! if 'right' == left_or_right
+    bids_table = content_tag(:table, rows, :style => "width: 100%; white-space: nowrap; font-size: 10pt; border-collapse: collapse;")
+    content_tag(:td, bids_table, :rowspan => 2 ** (game.round.number - 1), :align => left_or_right)
   end
   
-  def bid_cell(bid, seed_on_left_or_right)
-    seed = content_tag :td, bid.seed, :width => 5, :align => seed_on_left_or_right
-    team = content_tag :td, bid.team.name, :align => seed_on_left_or_right
-    cell = [seed, team]
-    cell.reverse! if :right == seed_on_left_or_right
-    content_tag :tr, cell
-  end
-  
-  def region_bracket(region)
-    first_game = region.championship_game
-    direction = (first_game.parent.top == first_game) ? :left : :right
-    content_tag :div, :style => "width: 12cm; float: #{direction};" do
-      region.name
-      content_tag(:table,
-                  game_partial(first_game, direction),
-                  :style => "border-collapse: collapse; width: 100%; table-layout: fixed;",
-                  :cellpadding => 15)
-    end
+  def bid_cells(bid, left_or_right, rowspan = nil)
+    shared_styles = 'border-bottom: 1px solid black'
+    style = shared_styles
+    options = {:align => left_or_right, :style => style}
+    options[:rowspan] = rowspan if rowspan
+    seed = content_tag :td, bid.seed, options
+    team = content_tag :td, bid.team.name, options
+    cells = [seed, team]
+    cells.reverse! if 'right' == left_or_right
+    cells
   end
   
 end

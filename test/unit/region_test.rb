@@ -8,6 +8,7 @@ class RegionTest < Test::Unit::TestCase
     Region.find(:all).each do |region|
       championship_game = region.championship_game
       assert championship_game
+      championship_game.is_championship_game?
       if championship_game.parent
         assert_not_equal championship_game.region, championship_game.parent.region
         championship_game.children.each { |game| assert_equal championship_game.region, game.region }

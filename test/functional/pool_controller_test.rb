@@ -15,7 +15,7 @@ class PoolControllerTest < Test::Unit::TestCase
   march_madness_fixtures
   
   def test_bracket
-    user = login :ten_cent
+    user = users :ten_cent
     season = seasons :_2007
     [nil, {:region_order => 1}].inject({:id => user.id, :season_id => season.id}) do |parameters, param|
       parameters.update param if param
@@ -54,7 +54,7 @@ class PoolControllerTest < Test::Unit::TestCase
   end
   
   def test_printable_bracket
-    user = login :ten_cent
+    user = users :ten_cent
     season = seasons :_2007
     get :printable_bracket, {:id => user.id, :season_id => season.id}
   end

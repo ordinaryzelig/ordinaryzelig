@@ -44,10 +44,9 @@
   <%= link_to_unless('pool' == controller.controller_name, "march madness", :controller => "pool") %>
   <% if 'pool' == controller.controller_name -%>
     <%= link_to("standings", :controller => "pool", :action => "standings") %><br/>
-    <%= link_to("brackets", :controller => "pool", :action => 'bracket') %>
     <% if logged_in_user -%>
-      <%= link_to_my_bracket %>
-    <% end -%><br/>
+      <%= link_to_my_bracket %><br/>
+    <% end -%>
     <%= link_to("tourney info", :controller => "pool", :action => "tournament_info") %><br/>
     <%= link_to("message board", :controller => "message_board") %><br/>
     <%= link_to 'blank bracket', 'http://www.sportsline.com/collegebasketball/mayhem/brackets/printable_men' %>

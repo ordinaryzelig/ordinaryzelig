@@ -3,21 +3,37 @@
     <title>ordinaryzelig.org - printable bracket - <%= @pool_user.user.display_name %> (<%= @season.year %>)</title>
   </head>
   <body>
+    <% # page. -%>
     <div style="width: 11in; height: 8.5in; text-align: center;">
+      
+      <% # header. -%>
       <%= @season.year %>
-      <% @season.regions.non_final_4.each_with_index do |region, i| -%>
-        <% left_or_right = region.championship_game.left_or_right -%>
-        <% styles = "font-size: 125%; width: 12cm;" -%>
-        <% styles << " float: #{left_or_right};" if left_or_right -%>
-        <% content_tag :div, :style => styles do -%>
-          <%= i %> - <%= region.order_num %> - <%= region %>
-          <%= content_tag(:table,
-                          game_partial(region.championship_game, left_or_right),
-                          :style => "border-collapse: collapse; width: 100%; table-layout: fixed;",
-                          :border => 1,
-                          :cellpadding => 15) %>
+      
+      <% # each side. -%>
+      <% @season.regions.non_final_4.in_groups_of(2) do |regions| -%>
+        <% left_or_right = cycle 'left', 'right' -%>
+        <% style = "float: #{left_or_right};" -%>
+        <% content_tag :div, :style => style, :id => 'asdf' do -%>
+          <% content_tag :table do -%>
+          
+            <% # each row. -%>
+            <% regions.each do |region| -%>
+              <% content_tag :tr do -%>
+                <% content_tag :td do %>
+                  <%= content_tag :div, region.to_s, :style => "font-size: 125%; text-align: #{left_or_right};" %>
+                  <%= content_tag(:table,
+                                  game_partial(region.championship_game, left_or_right),
+                                  :style => "border-collapse: collapse; width: 100%; table-layout: fixed; width: 12cm;",
+                                  :cellpadding => 15) %>
+                <% end -%>
+              <% end -%>
+            <% end # row. -%>
+          
+          <% end -%>
         <% end -%>
-      <% end -%>
+        
+      <% end # side. -%>
+      
     </div>
   </body>
 </html>

@@ -58,11 +58,10 @@ module ApplicationHelper
   end
   
   def link_to_my_bracket
-    link_to("(yours)", {:controller => "pool",
-                        :action => 'bracket',
-                        :id => logged_in_user.id,
-                        :season_id => latest_season.id},
-                        :style => "font-size: 75%;")
+    link_to('your bracket', {:controller => "pool",
+                             :action => 'bracket',
+                             :id => logged_in_user.id,
+                             :season_id => latest_season.id})
   end
   
   # return 1 or 0 for true or false.
