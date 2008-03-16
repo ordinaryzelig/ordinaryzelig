@@ -93,4 +93,9 @@ class SeasonTest < Test::Unit::TestCase
     assert_equal PoolUser.find_by_user_id_and_season_id(User.master, season.id).id, season.pool_users.master.id
   end
   
+  def test_pool_users_non_admin
+    season = Season.find :first
+    assert_equal season.pool_users.non_admin.size, season.pool_users.size - 1
+  end
+  
 end

@@ -129,14 +129,8 @@
     text-align: right;
 }
 
-#pvpSubject, #pvpVs, #pvpOthers{
-    padding: 3mm;
-    display: table-cell;
-    vertical-align: middle;
-}
-
-#pvpSubject{
-    font-size: 150%;
+#pvpTable table{
+    background: inherit;
 }
 
 .seasonSelect th{

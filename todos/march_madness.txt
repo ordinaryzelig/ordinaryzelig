@@ -37,3 +37,7 @@ season cache has memory issues.  e.g. calling Season::CACHED[2007].root_game.pic
 cache master pics
 
 game_pics action is slow.  too many queries.
+
+pvp
+	uses partial for rankings. should share with standings.
+	allow switch scoring system here?

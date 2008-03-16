@@ -64,11 +64,11 @@ class PoolController < ApplicationController
     if request.get?
       get_season_from_params
       rescue_friendly do
-        @scoring_system = ScoringSystems::SYSTEMS[params[:scoring_system_id].to_i]
+        get_scoring_system_from_params
         master_pool_user = @season.pool_users.master.reload(:include => [{:pics => [:bid, {:game => :round}]}, :user])
         master_pool_user.calculate_points(master_pool_user.pics, @scoring_system)
         @pool_users_with_rank = [[master_pool_user, nil]] + @season.pool_users.by_rank(master_pool_user.pics, @scoring_system)
-        @show_pvp_selectors = @season.tournament_has_started? && !master_pool_user.bracket_complete?
+        @show_pvp_selectors = true#@season.tournament_has_started? && !master_pool_user.bracket_complete?
       end
     else
       redirect_to :action => "standings", :season_id => params[:season_id], :scoring_system_id => params[:scoring_system_id]
@@ -98,7 +98,7 @@ class PoolController < ApplicationController
       # other_ids = params[:other_pool_user_ids].reject { |id, checked| "1" != checked || id.to_i == @pvp_subject.id }
       @other_pool_users = PoolUser.find(:all, :conditions => ["#{PoolUser.table_name}.id in (?)", params[:other_pool_user_ids]], :include => [{:pics => :game}, :user])
       master_pics = PoolUser.master(@pvp_subject.season).pics
-      @scoring_system = ScoringSystems::SYSTEMS[params[:scoring_system_id].to_i]
+      get_scoring_system_from_params
       @pvp_subject.calculate_points(master_pics, @scoring_system)
       @other_pool_users.each { |pu| pu.calculate_points(master_pics, @scoring_system) }
     end
@@ -147,6 +147,14 @@ class PoolController < ApplicationController
   
   def get_user_from_params
     rescue_friendly('could not find user') { @user = User.find_by_id(params[:id]) }
+  end
+  
+  def get_scoring_system_from_params
+    rescue_friendly 'could not find scoring system' do
+      id = params[:scoring_system_id]
+      id = id.to_i if id
+      @scoring_system = ScoringSystems::SYSTEMS[id]
+    end
   end
   
 end

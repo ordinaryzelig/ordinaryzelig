@@ -1,14 +1,20 @@
-<div style="display: table; padding-bottom: 5mm; text-align: center;">
-  <div id="pvpSubject">
-    <%= @pvp_subject.user.display_name %>
-  </div>
-  <div id="pvpVs">vs</div>
-  <table id="pvpOthers">
-    <% @other_pool_users.each do |pu| -%>
-      <tr><td><%= pu.user.display_name %></td></tr>
-    <% end %>
-  </table>
-</div>
+<table id="pvpTable" style="padding-bottom: 5mm; background: beige; <%= css_centered %>">
+  <tr>
+    <td>
+      <table>
+        <tr><td style="font-size: 150%"><%= @pvp_subject.user.display_name %></td></tr>
+      </table>
+    </td>
+    <td>vs</td>
+    <td>
+      <table>
+        <% @other_pool_users.each do |pu| -%>
+          <tr><td><%= pu.user.display_name %></td></tr>
+        <% end %>
+      </table>
+    </td>
+</table>
+
 <% unique_pics = @pvp_subject.unique_pics(@other_pool_users) -%>
 <% unique_points = @pvp_subject.unique_points(@other_pool_users, unique_pics) -%>
 <dl>
