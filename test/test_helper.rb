@@ -102,7 +102,7 @@ class Test::Unit::TestCase
   def self.test_recency
     define_method 'test_recency' do
       user = users(:ten_cent)
-      user.previous_login_at =  1.second.ago
+      user.set_previous_login_at! 1.second.ago
       friend = user.friends.first
       obj = new_with_default_attributes
       obj.user = friend

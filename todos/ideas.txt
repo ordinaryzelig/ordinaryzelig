@@ -93,8 +93,6 @@ resolution
    suggest other people's success
    categories?
 
-flash: onclick hide.
-
 read_item.read_at -> created_at
 
 combine can_be_syndicated and can_be_summarized (maybe more plugins too)
@@ -107,3 +105,5 @@ rescue_friendly
 	raise string, but be careful of RuntimeError.
 	log friendly errors somehow so we can track suspicious activity
 	read up on controller rescue methods. (rescue_in_public, rescue_from, ...)
+
+season.pool_users.ranks can use inject?

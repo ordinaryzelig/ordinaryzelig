@@ -230,6 +230,6 @@ class FriendlyError < StandardError
     str
   end
   def backtrace
-    original_exception.backtrace
+    original_exception ? original_exception.backtrace : super
   end
 end

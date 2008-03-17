@@ -64,13 +64,7 @@ class SeasonTest < Test::Unit::TestCase
     season = seasons :_2007
     master = season.pool_users.master
     assert_equal 63, master.pics.size
-    pool_users_with_ranks = season.pool_users.by_rank master.pics
-    assert pool_users_with_ranks.size > 0
-    assert_equal pool_users_with_ranks.size, season.pool_users.size - 1
-    pool_users_with_ranks.each do |pool_user, rank|
-      assert pool_user.points <= @previous_points && rank >= @previous_rank if @previous_points
-      @previous_points, @previous_rank = pool_user.points, rank
-    end
+    compare_ranks season.pool_users.by_rank(master.pics), season
   end
   
   def test_pool_user_master
@@ -81,6 +75,34 @@ class SeasonTest < Test::Unit::TestCase
   def test_pool_users_non_admin
     season = Season.find :first
     assert_equal season.pool_users.non_admin.size, season.pool_users.size - 1
+  end
+  
+  # should help make sure ranking works with ties.
+  def test_pre_season_ranks
+    season = seasons :_2007
+    master = season.pool_users.master
+    pool_users = season.pool_users
+    pool_users.each do |pool_user|
+      pool_user.pics.each do |pic|
+        pic.update_attribute(:bid_id, nil)
+      end
+    end
+    pool_users.map(&:reload).each do |pool_user|
+      assert_not pool_user.bracket_complete?
+    end
+    season.pool_users.by_rank(master.pics).each { |pool_user, rank| assert_equal 1, rank }
+  end
+  
+  def compare_ranks(pool_users_with_ranks, season)
+    assert pool_users_with_ranks.size > 0
+    assert_equal pool_users_with_ranks.size, season.pool_users.size - 1
+    pool_users_with_ranks.each do |pool_user, rank|
+      if @previous_points
+        assert pool_user.points <= @previous_points
+        assert rank >= @previous_rank
+      end
+      @previous_points, @previous_rank = pool_user.points, rank
+    end
   end
   
 end

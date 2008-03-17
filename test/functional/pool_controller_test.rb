@@ -59,4 +59,10 @@ class PoolControllerTest < Test::Unit::TestCase
     get :printable_bracket, {:id => user.id, :season_id => season.id}
   end
   
+  def test_user_not_participating
+    season = seasons :_2007
+    user = users(:Surly_Stuka)
+    assert_raise(FriendlyError) { get :bracket, {:id => user.id} }
+  end
+  
 end

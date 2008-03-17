@@ -28,13 +28,15 @@ class Season < ActiveRecord::Base
       previous_points = nil
       previous_pics = nil
       rank = 0
+      counter = 0
       @pool_users_with_ranks = pool_users.map do |pool_user|
         if previous_points == pool_user.points && previous_pics == pool_user.pics.correct.size
           ties += 1
         else
           ties = 0
         end
-        rank += 1 - ties
+        counter += 1
+        rank = counter - ties
         previous_points = pool_user.points
         previous_pics = pool_user.pics.correct.size
         [pool_user, rank]

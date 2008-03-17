@@ -76,10 +76,9 @@ class PoolController < ApplicationController
   end
   
   def game_pics
-    get_season_from_params
     rescue_friendly do
       @game = Game.find_by_id params[:id], :include => [:region, {:pics => [{:pool_user => [:pics, :user]}, {:bid => :team}]}]
-      raise FriendlyError.new("you cannot see other players' pics before the tournament.") unless @season.tournament_has_started?
+      raise FriendlyError.new("you cannot see other players' pics before the tournament.") unless @game.season.tournament_has_started?
       @pool_users = PoolUser.find :all,
                                   :conditions => ["#{PoolUser.table_name}.season_id = ?",
                                                   *[@game.season_id]],
@@ -127,6 +126,7 @@ class PoolController < ApplicationController
   
   def get_bracket_info
     get_season_from_params
+    get_user_from_params
     rescue_friendly 'bracket not found' do
       # allowed to view if user is self or admin.
       # if tournament hasn't started and requested user is neither self nor admin.
@@ -137,7 +137,7 @@ class PoolController < ApplicationController
         raise FriendlyError.new(msg)
       end
       @pool_users = @user.pool_users.for_season(@season)
-      raise 'user not participating in this season' if @pool_users.empty?
+      raise FriendlyError.new('user not participating in this season') if @pool_users.empty?
     end
     @pool_user = @user.pool_users.for_season_and_bracket_num(@season, params[:bracket_num])
   end
