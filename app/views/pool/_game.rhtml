@@ -14,8 +14,7 @@ render children games and then the pic.
       <div>
         <%= render :partial => "game", :locals => {:pool_user => pool_user,
                                                    :game => child,
-                                                   :rounds_left => rounds_left - 1,
-                                                   :is_editable => is_editable} if rounds_left > 0 %>
+                                                   :rounds_left => rounds_left - 1} if rounds_left > 0 %>
       </div>
     <% end -%>
     
@@ -26,7 +25,6 @@ render children games and then the pic.
           <%= render :partial => "bid", :locals => {:bid => bid,
                                                     :game => game,
                                                     :is_first_round_bid => true,
-                                                    :is_editable => is_editable,
                                                     :pic => pic,
                                                     :pool_user => pool_user} %>
         </div>
@@ -37,7 +35,7 @@ render children games and then the pic.
   
   <% # pic. -%>
   <div class=pic id="pic_<%= pic.id %>">
-    <%= render(:partial => "pic", :locals => {:pic => pic, :is_editable => is_editable, :pool_user => pool_user}) %>
+    <%= render(:partial => "pic", :locals => {:pic => pic, :pool_user => pool_user}) %>
   </div>
   
 </div>

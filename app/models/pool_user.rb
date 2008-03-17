@@ -116,4 +116,10 @@ class PoolUser < ActiveRecord::Base
     User.master_id == user_id
   end
   
+  def is_editable_by?(user_trying_to_edit)
+    return false unless user_trying_to_edit
+    return true if user_trying_to_edit.is_admin?
+    !season.tournament_has_started? && user == user_trying_to_edit
+  end
+  
 end

@@ -1,8 +1,8 @@
 module PoolHelper
   
   # put this here for ajax if needed.
-  def region_bracket_partial(region, pool_user, is_editable)
-    render(:partial => "region_bracket", :locals => {:region => region, :pool_user => pool_user, :is_editable => is_editable})
+  def region_bracket_partial(region, pool_user)
+    render(:partial => "region_bracket", :locals => {:region => region, :pool_user => pool_user})
   end
   
   # return a html class for this pic for given_round_number.

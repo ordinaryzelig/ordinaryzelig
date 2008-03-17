@@ -65,4 +65,30 @@ class PoolControllerTest < Test::Unit::TestCase
     assert_raise(FriendlyError) { get :bracket, {:id => user.id} }
   end
   
+  def test_master_bracket_always_open
+    season = seasons :_2007
+    season.update_attribute(:tournament_starts_at, 1.day.from_now)
+    assert_not season.tournament_has_started?
+    assert_get_bracket User.master_id, season.id, true
+    season
+  end
+  
+  def test_selection_sunday_open_to_self_and_master_bracket_only
+    season = test_master_bracket_always_open
+    user_fixture = :ten_cent
+    user = users user_fixture
+    assert_get_bracket user.id, season.id, false
+    login user_fixture
+    assert_get_bracket user.id, season.id, true
+  end
+  
+  def assert_get_bracket(user_id, season_id, success_expected)
+    begin
+      get :bracket, {:id => user_id, :season_id => season_id}
+      success_expected ? assert_response_true_success : flunk
+    rescue FriendlyError => fe
+      assert fe.msg =~ /brackets are private until the tournament starts/
+    end
+  end
+  
 end

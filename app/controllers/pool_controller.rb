@@ -46,7 +46,6 @@ class PoolController < ApplicationController
       
       # render.
       render(:partial => "pic", :locals => {:pic => pic,
-                                            :is_editable => is_latest_season?(game.season) && !game.season.tournament_has_started? || logged_in_user.is_admin?,
                                             :pool_user => pool_user,
                                             :other_affected_pics => other_affected_pics,
                                             :update_bracket_completion_to => update_bracket_completion_to})
@@ -131,7 +130,7 @@ class PoolController < ApplicationController
       # allowed to view if user is self or admin.
       # if tournament hasn't started and requested user is neither self nor admin.
       get_user_from_params
-      if is_latest_season?(@season) && !@season.tournament_has_started? && !is_self_or_logged_in_as_admin?(@user)
+      if !@season.tournament_has_started? && !is_self_or_logged_in_as_admin?(@user) && @user.id != User.master_id
         msg = "#{@season.year} brackets are private until the tournament starts."
         msg += "<br/>login to make pics." unless logged_in_user
         raise FriendlyError.new(msg)

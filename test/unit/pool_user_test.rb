@@ -98,4 +98,25 @@ class PoolUserTest < Test::Unit::TestCase
     assert_not users(:ten_cent).pool_users.first.is_master?
   end
   
+  def test_is_editable_by?
+    pool_user = pool_users :cece_winner
+    # season has already started by now.
+    assert_pool_user_editable_by? pool_user, nil, false
+    assert_pool_user_editable_by? pool_user, :ten_cent, false
+    assert_pool_user_editable_by? pool_user, :cecelia, false
+    assert_pool_user_editable_by? pool_user, :admin, true
+    # now try when tournament has started.
+    pool_user.season.update_attribute(:tournament_starts_at, 1.day.from_now)
+    assert_not pool_user.season.tournament_has_started?
+    assert_pool_user_editable_by? pool_user, :ten_cent, false
+    assert_pool_user_editable_by? pool_user, :cecelia, true
+    assert_pool_user_editable_by? pool_user, :admin, true
+  end
+  
+  def assert_pool_user_editable_by?(pool_user, user_fixture, expected_to_be_editale)
+    user = user_fixture ? users(user_fixture) : nil
+    result = pool_user.is_editable_by? user
+    expected_to_be_editale ? assert(result) : assert_not(result)
+  end
+  
 end

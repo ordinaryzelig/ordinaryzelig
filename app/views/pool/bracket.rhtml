@@ -61,7 +61,7 @@
 
 <% # region bracket. -%>
 <div class=regionBracket id="regionBracket">
-  <%= region_bracket_partial(@region, @pool_user, is_latest_season?(@season) && !@season.tournament_has_started? || logged_in_as_admin?) %>
+  <%= region_bracket_partial(@region, @pool_user) %>
 </div>
 
 <% content_for("scripts") do -%>
