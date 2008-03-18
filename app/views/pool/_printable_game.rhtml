@@ -9,6 +9,6 @@
     <% end -%>
   <% end -%>
 <% else -%>
-  <%= game_partial game.top, bracket_side, :top, ancestors_to_include + 1 %>
-  <%= game_partial game.bottom, bracket_side, :bottom %>
+  <%= printable_game_partial game.top, bracket_side, :top, ancestors_to_include + 1 %>
+  <%= printable_game_partial game.bottom, bracket_side, :bottom %>
 <% end -%>

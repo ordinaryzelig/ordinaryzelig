@@ -25,6 +25,7 @@ class PoolController < ApplicationController
       bid = Bid.find(params[:bid_id])
       game = Game.find(params[:game_id])
       pool_user = PoolUser.find(params[:pool_user_id], :include => :pics)
+      raise "#{logged_in_user.first_last} trying to edit #{pool_user.user.first_last} pics" unless pool_user.is_editable_by?(logged_in_user)
       is_first_round_bid = params[:is_first_round_bid]
       bracket_is_complete_before_pic = pool_user.bracket_complete?
       
@@ -104,7 +105,7 @@ class PoolController < ApplicationController
   end
   
   def printable_bracket
-    render_layout_only 'under construction' and return
+    # render_layout_only 'under construction' and return
     get_bracket_info
     render :layout => false, :footnotes => false
   end

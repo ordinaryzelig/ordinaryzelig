@@ -36,6 +36,15 @@ class Test::Unit::TestCase
     user
   end
   
+  def logout
+    @request.session[:user_id] = nil
+    assert_nil @request.session[:user_id]
+  end
+  
+  def reset_controller
+    @controller = @controller.class.new
+  end
+  
   def self.test_created_at
     define_method 'test_created_at' do
       obj = new_with_default_attributes

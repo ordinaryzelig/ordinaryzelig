@@ -1,10 +1,10 @@
 class Notifier < ActionMailer::Base
   
-  def exception(ex, user, uri)
+  def exception(ex, user, request)
     recipients 'theoz@ordinaryzelig.org'
     from 'rails@ordinaryzelig.org'
     subject "#{ex.class}: #{ex}"
-    body :exception => ex, :user => user, :uri => uri
+    body :exception => ex, :user => user, :uri => request.uri, :method => request.method
   end
   
   def warning(msg)

@@ -158,7 +158,7 @@ class ApplicationController < ActionController::Base
       if ENV['RAILS_ENV'] == 'production'
         render(:file => "#{RAILS_ROOT}/public/500.html", :status => "500 Error")
         begin
-          email = Notifier.deliver_exception(ex, logged_in_user, request.request_uri)
+          email = Notifier.deliver_exception(ex, logged_in_user, request)
         rescue Exception => e
           logger.error "error sending mail #{Time.now.localtime}\n#{e}\n#{e.backtrace.join("\n")}"
         end

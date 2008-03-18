@@ -22,9 +22,9 @@
                 <% content_tag :td do %>
                   <%= content_tag :div, region.to_s, :style => "font-size: 125%; text-align: #{left_or_right};" %>
                   <%= content_tag(:table,
-                                  game_partial(region.championship_game, left_or_right),
+                                  printable_game_partial(region.championship_game, left_or_right),
                                   :style => "border-collapse: collapse; width: 100%; table-layout: fixed; width: 12cm;",
-                                  :cellpadding => 15) %>
+                                  :cellpadding => 20) %>
                 <% end -%>
               <% end -%>
             <% end # row. -%>
