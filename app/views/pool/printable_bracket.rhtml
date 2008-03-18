@@ -7,7 +7,17 @@
     <div style="width: 11in; height: 8.5in; text-align: center;">
       
       <% # header. -%>
-      <%= @season.year %>
+      <%= content_tag :div, "ordinary zelig<br/>march madness<br/>#{@season.year}", :style => 'font-size: 150%; font-weight: bold;' %>
+      
+      <% # final 4. -%>
+      <% final_4_region = @season.regions.final_4 -%>
+      <table id="final4Region" style="<%= css_centered %> table-layout: fixed; border-collapse: collapse;" width=400>
+        <tr>
+          <%= game_cell(final_4_region.championship_game.top, @pool_user, 'left', true) %>
+          <%= content_tag :td, 'champ', :id => 'championshipGame', :align => 'center', :style => 'font-size: 125%;' %>
+          <%= game_cell(final_4_region.championship_game.bottom, @pool_user, 'right', true) %>
+        </tr>
+      </table>
       
       <% # each side. -%>
       <% @season.regions.non_final_4.in_groups_of(2) do |regions| -%>
@@ -15,12 +25,12 @@
         <% style = "float: #{left_or_right};" -%>
         <% content_tag :div, :style => style, :id => 'asdf' do -%>
           <% content_tag :table do -%>
-          
-            <% # each row. -%>
+            
+            <% # each row of the table that makes each side of the bracket. -%>
             <% regions.each do |region| -%>
               <% content_tag :tr do -%>
                 <% content_tag :td do %>
-                  <%= content_tag :div, region.to_s, :style => "font-size: 125%; text-align: #{left_or_right};" %>
+                  <%= content_tag :div, region.to_s, :style => "font-size: 125%; text-align: #{left_or_right}; font-weight: bold;" %>
                   <%= content_tag(:table,
                                   printable_game_partial(region.championship_game, left_or_right),
                                   :style => "border-collapse: collapse; width: 100%; table-layout: fixed; width: 12cm;",

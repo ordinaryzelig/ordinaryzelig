@@ -181,7 +181,7 @@ module ApplicationHelper
   end
   
   def css_centered
-    "margin-left: auto; margin-right: auto;"
+    'margin-left: auto; margin-right: auto;'
   end
   
   def spinner(id = nil)

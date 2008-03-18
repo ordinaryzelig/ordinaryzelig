@@ -24,4 +24,11 @@ class RegionTest < Test::Unit::TestCase
     assert_equal 8, games.size
   end
   
+  def test_is_final_4?
+    Region.find(:all, :conditions => {:order_num => 1}).each do |region|
+      assert region.is_final_4?
+      assert_nil region.championship_game.parent
+    end
+  end
+  
 end

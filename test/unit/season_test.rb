@@ -105,4 +105,9 @@ class SeasonTest < Test::Unit::TestCase
     end
   end
   
+  def test_regions_final_4
+    season = Season.find(:first)
+    assert_nil season.regions.final_4.championship_game.parent
+  end
+  
 end

@@ -33,6 +33,7 @@ module PoolHelper
     content_tag :STRONG, '&bull;'
   end
   
+  # render recursive partial for a game.
   def printable_game_partial(game, bracket_side, top_or_bottom = nil, ancestors_to_include = 0)
     render :partial => 'printable_game', :locals => {:game => game,
                                                      :top_or_bottom => top_or_bottom,
@@ -40,31 +41,39 @@ module PoolHelper
                                                      :bracket_side => bracket_side}
   end
   
-  def game_cell(game, pool_user, left_or_right)
-    # bids for top and bottom.
-    top_row_participants, bottom_row_content = game.participating_bids(pool_user).map { |bid| bid_cells(bid, left_or_right) }
-    top_row_content = [top_row_participants]
-    # add championship_game_pic if this is a championship game.
-    top_row_content << bid_cells(pool_user.pics.for_game(game).bid, left_or_right, 2) if game.is_championship_game?
-    # reverse order if this is right side.
-    top_row_content.reverse! if 'right' == left_or_right
-    # form into rows.
-    rows = [top_row_content.flatten, bottom_row_content].map { |bid_cells| content_tag :tr, bid_cells }
-    # put into table.
-    bids_table = content_tag(:table, rows, :style => "width: 100%; white-space: nowrap; font-size: 10pt; border-collapse: collapse;")
-    # put it all in a single table cell.
-    content_tag(:td, bids_table, :rowspan => 2 ** (game.round.number - 1), :align => left_or_right)
+  # <table> of top and bottom bids wrapped in a <td> tag.
+  def game_cell(game, pool_user, left_or_right, wrap_bids_table_in_opposite_floated_div = false)
+    top_bottom_bid_cells = game.participating_bids(pool_user).map { |bid| bid_cells(bid, left_or_right) }
+    rows = top_bottom_bid_cells.map { |bid_cells| content_tag :tr, bid_cells }
+    bids_table = content_tag(:table, rows, :style => "white-space: nowrap; font-size: 10pt; border-collapse: collapse;")
+    bids_table = content_tag :div, bids_table, :style => "float: #{neg(left_or_right)}" if wrap_bids_table_in_opposite_floated_div
+    # put it all in a single table cell for outer table.
+    content_tag(:td, bids_table, :rowspan => (2 ** (game.round.number - 1)), :align => left_or_right)
   end
   
-  def bid_cells(bid, left_or_right, rowspan = nil)
-    style = 'border: 1px solid black'
-    options = {:align => left_or_right, :style => style}
-    options[:rowspan] = rowspan if rowspan
-    seed = content_tag :td, bid.seed, options
+  # seed and a team each wrapped in a <td> tag.
+  # put seed on left_or_right side.
+  def bid_cells(bid, left_or_right)
+    options = {:align => left_or_right, :style => "border-bottom: 1px solid black; padding-#{left_or_right}: 2mm;"}
+    seed = content_tag :td, "(#{bid.seed})", options
     team = content_tag :td, bid.team.name, options
     cells = [seed, team]
     cells.reverse! if 'right' == left_or_right
     cells
+  end
+  
+  # turn this into a string or symbol subclass.
+  def neg(direction)
+    case direction.to_s
+    when 'right'
+      'left'
+    when 'left'
+      'right'
+    when 'top'
+      'bottom'
+    when 'bottom'
+      'top'
+    end
   end
   
 end

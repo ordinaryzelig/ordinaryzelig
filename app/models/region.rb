@@ -26,4 +26,8 @@ class Region < ActiveRecord::Base
     name
   end
   
+  def is_final_4?
+    self == season.regions.final_4
+  end
+  
 end

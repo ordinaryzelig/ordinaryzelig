@@ -1,8 +1,9 @@
 class Season < ActiveRecord::Base
   
   has_many :regions, :order => "order_num" do
-    def non_final_4
-      reject { |region| 1 == region.order_num }
+    include Region::AssociationMethods
+    def final_4
+      (self - non_final_4).first
     end
   end
   has_many :games, :order => "#{Game.table_name}.id" do
