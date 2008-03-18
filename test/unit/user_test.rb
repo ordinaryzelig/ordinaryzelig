@@ -118,11 +118,18 @@ class UserTest < Test::Unit::TestCase
     test_recents_at_least_gets_called_without_exceptions
   end
   
+  def test_set_password!
+    user = users :ten_cent
+    old_pword = user.password.dup
+    user.set_password!('poiu')
+    assert_not_equal old_pword, user.password
+  end
+  
   # ==========================
   # helper methods.
   
   def change_password(user, old_password, new_password, confirmation_password)
-    old_hashed = user.password
+    old_hashed = user.password.dup
     user.change_password(old_password, new_password, confirmation_password)
     resulting_password = user.password
     old_hashed != resulting_password

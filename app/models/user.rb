@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
     errors.add(nil, "password can't be blank.") if @unhashed_password.blank?
     errors.add_on_blank(:email) if @email.nil? || @email.empty?
     if errors.empty?
-      authenticated_user = User.find(:first, :conditions => ["email = ? AND password = ?", *[self.email.downcase, hash(@unhashed_password)]])
+      authenticated_user = User.find(:first, :conditions => ["lower(email) = ? AND password = ?", *[self.email.downcase, hash(@unhashed_password)]])
       if authenticated_user
         authenticated_user.log_login
       else
