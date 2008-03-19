@@ -48,7 +48,7 @@
   <div style="margin-bottom: 5mm; text-align: center;">
     your pics will be saved as soon as they appear.<br/>
     brackets will close <%= clickable_time TimeZone["Central Time (US & Canada)"].adjust(@season.tournament_starts_at) %>.<br/>
-    do not use internet explorer.  <%= render :partial => 'shared/best_viewed_with' %>
+    <span style="font-size: 120%; color: red; font-weight: bold;">do not use internet explorer</span>.  <%= render :partial => 'shared/best_viewed_with' %>
   </div>
 <% end -%>
 

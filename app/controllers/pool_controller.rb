@@ -44,7 +44,7 @@ class PoolController < ApplicationController
       # need to update bracket completion?
       bracket_is_complete_after_pic = pool_user.bracket_complete?
       update_bracket_completion_to = bracket_is_complete_after_pic if bracket_is_complete_after_pic != bracket_is_complete_before_pic
-      redirect_to :back
+      redirect_to :action => 'bracket', :season_id => game.season_id, :id => pool_user.user_id, :region_order => game.region.order_num, :bracket_num => pool_user.bracket_num
     end
   end
   

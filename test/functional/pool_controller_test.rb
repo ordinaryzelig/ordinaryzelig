@@ -118,8 +118,8 @@ class PoolControllerTest < Test::Unit::TestCase
     user = login(user_fixture) if user_fixture
     logged_in = !user.nil?
     begin
-      xhr :post, :make_pic, {:pool_user_id => pool_user.id, :game_id => game.id, :bid_id => bid.id}
-      assert_template '_pic'
+      post :make_pic, {:pool_user_id => pool_user.id, :game_id => game.id, :bid_id => bid.id}
+      assert_redirected_to :action => 'bracket', :season_id => game.season_id, :id => pool_user.user_id, :region_order => game.region.order_num, :bracket_num => pool_user.bracket_num
     rescue Exception => e
       unless logged_in
         assert_template nil
