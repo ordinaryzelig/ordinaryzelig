@@ -58,7 +58,10 @@ clicking username brings up contextual menu
    center link goes to profile (since it's easist to click)
 
 personalized timezone
-  times for created_at are not stored as utc right now.
+  times for created_at are not stored as utc right now. (or are they?)
+  need to majorly refactor times.
+  rails recipe book.
+  be careful about calculating time_til.  don't adjust one with adjusting the other.
 
 rating type scales
    don't make popup.  ajaxify it.???

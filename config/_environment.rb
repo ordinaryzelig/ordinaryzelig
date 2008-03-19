@@ -51,3 +51,28 @@ end
 # end
 
 # Include your application configuration below
+
+ENV['FIXTURES'] = ['users',
+                   'friendships',
+                   'user_activities',
+                   'seasons',
+                   'regions',
+                   'rounds',
+                   'teams',
+                   'games',
+                   'pool_users',
+                   'bids',
+                   'pics',
+                   'accounts',
+                   'messages',
+                   'blogs',
+                   'entity_types',
+                   'comments',
+                   'comment_groups',
+                   'movies',
+                   'movie_rating_types',
+                   'movie_rating_options',
+                   'movie_ratings',
+                   'recent_entity_types'].join(',')
+
+ENV['TZ'] = 'UTC'

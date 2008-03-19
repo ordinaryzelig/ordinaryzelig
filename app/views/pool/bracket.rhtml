@@ -47,7 +47,7 @@
 <% if is_latest_season?(@season) && !@season.tournament_has_started? && is_self?(@pool_user.user) -%>
   <div style="margin-bottom: 5mm; text-align: center;">
     your pics will be saved as soon as they appear.<br/>
-    brackets will close <%= clickable_time @season.tournament_starts_at %>.<br/>
+    brackets will close <%= clickable_time TimeZone["Central Time (US & Canada)"].adjust(@season.tournament_starts_at) %>.<br/>
     do not use internet explorer.  <%= render :partial => 'shared/best_viewed_with' %>
   </div>
 <% end -%>

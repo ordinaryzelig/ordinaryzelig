@@ -21,7 +21,7 @@ class PoolController < ApplicationController
   end
   
   def make_pic
-    if request.xhr?
+    if request.post?
       bid = Bid.find(params[:bid_id])
       game = Game.find(params[:game_id])
       pool_user = PoolUser.find(params[:pool_user_id], :include => :pics)
@@ -44,12 +44,7 @@ class PoolController < ApplicationController
       # need to update bracket completion?
       bracket_is_complete_after_pic = pool_user.bracket_complete?
       update_bracket_completion_to = bracket_is_complete_after_pic if bracket_is_complete_after_pic != bracket_is_complete_before_pic
-      
-      # render.
-      render(:partial => "pic", :locals => {:pic => pic,
-                                            :pool_user => pool_user,
-                                            :other_affected_pics => other_affected_pics,
-                                            :update_bracket_completion_to => update_bracket_completion_to})
+      redirect_to :back
     end
   end
   
