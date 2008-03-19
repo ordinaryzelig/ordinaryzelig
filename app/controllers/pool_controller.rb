@@ -44,7 +44,7 @@ class PoolController < ApplicationController
       # need to update bracket completion?
       bracket_is_complete_after_pic = pool_user.bracket_complete?
       update_bracket_completion_to = bracket_is_complete_after_pic if bracket_is_complete_after_pic != bracket_is_complete_before_pic
-      redirect_to :action => 'bracket', :season_id => game.season_id, :id => pool_user.user_id, :region_order => game.region.order_num, :bracket_num => pool_user.bracket_num
+      redirect_to :action => 'bracket', :season_id => game.season_id, :id => pool_user.user_id, :region_order => (game.parent ? game.parent.region.order_num : game.region.order_num), :bracket_num => pool_user.bracket_num
     end
   end
   
@@ -63,7 +63,7 @@ class PoolController < ApplicationController
         master_pool_user = @season.pool_users.master.reload(:include => [{:pics => [:bid, {:game => :round}]}, :user])
         master_pool_user.calculate_points(master_pool_user.pics, @scoring_system)
         @pool_users_with_rank = [[master_pool_user, nil]] + @season.pool_users.by_rank(master_pool_user.pics, @scoring_system)
-        @show_pvp_selectors = true#@season.tournament_has_started? && !master_pool_user.bracket_complete?
+        @show_pvp_selectors = @season.tournament_has_started? && !master_pool_user.bracket_complete?
       end
     else
       redirect_to :action => "standings", :season_id => params[:season_id], :scoring_system_id => params[:scoring_system_id]
