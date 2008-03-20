@@ -4,7 +4,7 @@ class Notifier < ActionMailer::Base
     recipients 'theoz@ordinaryzelig.org'
     from 'rails@ordinaryzelig.org'
     subject "#{ex.class}: #{ex}"
-    body :exception => ex, :user => user, :uri => request.uri, :method => request.method
+    body :exception => ex, :user => user, :uri => request.request_uri, :method => request.method
   end
   
   def warning(msg)
