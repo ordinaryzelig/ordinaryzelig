@@ -4,7 +4,10 @@ class BlogController < ApplicationController
   
   def list
     @user = User.find_by_id(params[:id], :include => {:blogs => :user}, :order => "created_at desc")
-    render_layout_only 'user not found' and return unless @user
+    unless @user
+      render_layout_only 'user not found'
+      return 
+    end
     user_title @user
     @blogs = @user.blogs
     # narrow to blogs readable by logged_in_user if this is not self or admin.
@@ -13,8 +16,14 @@ class BlogController < ApplicationController
   
   def show
     @blog = Blog.find_by_id(params[:id].to_i, :include => :user)
-    render_layout_only 'blog not found' and return unless @blog
-    render_layout_only 'this is private.' and return unless 'anybody' == @blog.privacy_level.to_s || logged_in_user && logged_in_user.can_read?(@blog)
+    unless @blog
+      render_layout_only 'blog not found'
+      return
+    end
+    unless 'anybody' == @blog.privacy_level.to_s || logged_in_user && logged_in_user.can_read?(@blog)
+      render_layout_only 'this is private.'
+      return
+    end
     title "blog - #{@blog.title}"
   end
   
@@ -24,8 +33,14 @@ class BlogController < ApplicationController
   
   def edit
     @blog = Blog.find_by_id(params[:id], :include => [:user, :privacy_level]) || Blog.new
-    render_layout_only 'blog not found.' and return if params[:id] && @blog.new_record?
-    render_layout_only 'you can\'t edit that blog.' and return if !@blog.new_record? && !is_self_or_logged_in_as_admin?(@blog.user)
+    if params[:id] && @blog.new_record?
+      render_layout_only 'blog not found.'
+      return
+    end
+    if !@blog.new_record? && !is_self_or_logged_in_as_admin?(@blog.user)
+      render_layout_only 'you can\'t edit that blog.'
+      return
+    end
     @page_title = "#{controller_name} - #{@blog.new_record? ? 'new' : 'edit'}"
     if request.post?
       @blog.attributes = params[:blog]

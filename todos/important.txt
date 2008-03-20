@@ -1,1 +1,1 @@
-render_layout_only and return should not work because code still gets executed after the return.
+freeze on myrtle

@@ -11,7 +11,7 @@
       
       <% # final 4. -%>
       <% final_4_region = @season.regions.final_4 -%>
-      <table id="final4Region" style="<%= css_centered %> table-layout: fixed; border-collapse: collapse;" width=400>
+      <table border=1 id="final4Region" style="<%= css_centered %> table-layout: fixed; border-collapse: collapse;" width=400>
         <tr>
           <%= game_cell(final_4_region.championship_game.top, @pool_user, 'left', true) %>
           <%= content_tag :td, 'champ', :id => 'championshipGame', :align => 'center', :style => 'font-size: 125%;' %>

@@ -9,7 +9,10 @@ class UserController < ApplicationController
   
   def profile
     @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
-    render_layout_only 'user not found' and return unless @user
+    unless @user
+      render_layout_only 'user not found'
+      return
+    end
     title  "profile - #{@user.display_name}"
     @recents = @user.recents if is_self_or_logged_in_as_admin?(@user)
   end
@@ -52,8 +55,14 @@ class UserController < ApplicationController
   
   def friends
     @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
-    render_layout_only 'user not found' and return unless @user
-    render_layout_only 'this is private.' and return unless logged_in_user && @user.considers_friend?(logged_in_user) || is_self?(@user)
+    unless @user
+      render_layout_only 'user not found'
+      return
+    end
+    unless logged_in_user && @user.considers_friend?(logged_in_user) || is_self?(@user)
+      render_layout_only 'this is private.'
+      return
+    end
     title "#{@user.display_name}'s friends"
   end
   

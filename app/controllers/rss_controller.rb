@@ -5,7 +5,10 @@ class RssController < ApplicationController
   
   def user_recents
     @user = User.find_by_secret_id(params[:id])
-    render(:nothing => true) and return unless @user
+    unless @user
+      render(:nothing => true)
+      return
+    end
     @recents = @user.recents
     headers['Content-Type'] = 'application/rss+xml'
   end

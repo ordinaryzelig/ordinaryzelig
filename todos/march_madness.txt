@@ -44,3 +44,5 @@ fake bracket.
   scope out real, fake.
   choose bracket(s) to use for real.
   at standings, show real/fake, show just my fakes.
+
+team.rename!
