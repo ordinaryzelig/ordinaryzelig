@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class BlogTest < Test::Unit::TestCase
   
   fixtures :blogs
-  fixtures :users, :user_activities, :friendships
+  fixtures :friendships, :privacy_levels
   
   defaults({:title => 'i killed heath ledger',
             :body => 'just watched brokeback mountain and dark knight looks badass.',

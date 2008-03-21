@@ -26,7 +26,7 @@ class Test::Unit::TestCase
 
   # Add more helper methods to be used by all tests here...
   
-  fixtures :users
+  fixtures :users, :user_activities
   
   # set session[:user_id] and session[:last_authenticated_action_at]
   def login(user_fixture)

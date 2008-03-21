@@ -46,3 +46,17 @@ fake bracket.
   at standings, show real/fake, show just my fakes.
 
 team.rename!
+
+add all users as friends.
+
+don't show 'your bracket' in sidebar if user not participating.
+
+edit mode for making pics.
+
+turn messages into march madness messages, not just plain messages.
+
+center pvp message.  don't show pvp until later in tourney.
+
+printable bracket
+  center title and final 4
+  test it

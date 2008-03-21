@@ -80,6 +80,7 @@ class PoolController < ApplicationController
                                   :include => [{:pics => [{:bid => :team}, :game]}, :user],
                                   :order => :display_name
       @master_pool_user = @pool_users.detect { |pu| pu.user_id == User.master_id }
+      @pool_users.delete @master_pool_user
     end
   end
   

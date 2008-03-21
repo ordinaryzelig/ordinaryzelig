@@ -3,7 +3,7 @@ require "digest/sha1"
 
 class UserTest < Test::Unit::TestCase
   
-  fixtures :users, :friendships
+  fixtures :friendships, :blogs, :privacy_levels
   
   defaults({:first_name => 'john',
            :last_name => 'doe',
@@ -96,7 +96,10 @@ class UserTest < Test::Unit::TestCase
   def test_friends_blogs
     user = test_new_with_default_attributes
     blogs = user.friends.blogs_readable_by(user)
-    blogs.each { |b| assert user.can_read?(b) }
+    blogs.each do |b|
+      assert user.considers_friend?(b.user)
+      assert user.can_read?(b)
+    end
   end
   
   def test_blogs_readable_by

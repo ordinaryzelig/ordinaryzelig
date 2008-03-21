@@ -1,5 +1,9 @@
 class PrivacyLevelType < ActiveRecord::Base
   
+  TYPES = {:nobody => 1,
+           :friends => 2,
+           :anybody => 3}
+  
   validates_presence_of :name
   
   def self.container

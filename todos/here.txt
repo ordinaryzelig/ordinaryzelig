@@ -1,5 +1,3 @@
-printable bracket
-  center final 4
-  page spans 2 pages
-  test it
-  uncomment link to it
+refactor privacy
+  separate privacy and recency
+  use more scope_outs if possible

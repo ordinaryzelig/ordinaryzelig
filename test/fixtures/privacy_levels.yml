@@ -1,1 +1,15 @@
 --- 
+public: 
+  entity_type: Blog
+  entity_id: 1
+  privacy_level_type_id: 3
+
+private: 
+  entity_type: Blog
+  entity_id: 2
+  privacy_level_type_id: 1
+
+friends: 
+  entity_type: Blog
+  entity_id: 3
+  privacy_level_type_id: 2

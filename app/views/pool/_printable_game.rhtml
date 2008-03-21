@@ -1,14 +1,20 @@
 <% if game.children.empty? -%>
   <% content_tag :tr do -%>
-    <% if :top == top_or_bottom -%>
+    <% if game.top? -%>
       <% games = ([game] + game.ancestors[0..ancestors_to_include-1]) -%>
-      <% games.reverse! if 'right' == bracket_side -%>
-      <%= games.map { |g| game_cell(g, @pool_user, bracket_side) } %>
+      <% games.reverse! if 'right' == left_or_right -%>
+      <% games.each do |game| -%>
+        <% game_td game, left_or_right do -%>
+          <%= bids_table game.participating_bids(@pool_user), left_or_right %>
+        <% end -%>
+      <% end -%>
     <% else -%>
-      <%= game_cell game, @pool_user, bracket_side %>
+      <% game_td game, left_or_right do -%>
+        <%= bids_table game.participating_bids(@pool_user), left_or_right %>
+      <% end -%>
     <% end -%>
   <% end -%>
 <% else -%>
-  <%= printable_game_partial game.top, bracket_side, :top, ancestors_to_include + 1 %>
-  <%= printable_game_partial game.bottom, bracket_side, :bottom %>
+  <%= printable_game_partial game.top, left_or_right, ancestors_to_include + 1 %>
+  <%= printable_game_partial game.bottom, left_or_right, 0 %>
 <% end -%>
