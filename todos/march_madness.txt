@@ -60,3 +60,16 @@ center pvp message.  don't show pvp until later in tourney.
 printable bracket
   center title and final 4
   test it
+
+game_pics: highlight players ahead
+
+message board
+  expand march madness sidebar
+    turn elipsis into rest of message and show comments.
+  there's no sign that there are comments
+
+tie breaker goes to higher num pics.
+
+team page
+  who has this team and how far?
+  not much different than game_pics, but show progression of team instead of game

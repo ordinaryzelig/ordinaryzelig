@@ -12,8 +12,9 @@ class BlogTest < Test::Unit::TestCase
   test_created_at
   test_mark_as_read
   test_privacy_creation
+  test_set_privacy_level!
   test_privacy_level
-  test_recency
+  # test_recency
   test_summaries :what => proc { |obj| obj.body[0..obj.summarize_max] },
                  :title => proc { |obj| obj.title },
                  :when => proc { |obj| obj.created_at },

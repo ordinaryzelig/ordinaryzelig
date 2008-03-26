@@ -38,6 +38,13 @@ module OrdinaryZelig
         end
       end
       
+      # define anybody_can_read? for each privacy level type.
+      PrivacyLevelType::TYPES.each do |type, type_id|
+        define_method "#{type}_can_read?" do
+          type_id == privacy_level.privacy_level_type_id
+        end
+      end
+      
       protected
       
       # add default privacy_level if it doesn't already exist.

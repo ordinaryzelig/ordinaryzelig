@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   has_many :considering_friends, :through => :considering_friendships, :order => "lower(last_name)"
   has_many :blogs do
     def readable_by(user)
-      Blog.with_scopes(scopes[:privacy][user], {:conditions => {:id => map(&:id)}}) { Blog.find :all }
+      with_scopes(scopes[:privacy][user]) { find :all }
     end
   end
   has_many :movie_ratings, :include => :movie
@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password
   attr_accessor :unhashed_password
   
-  scope_out :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']]
+  has_finder :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']]
   
   def self.new_registrant(attributes, confirmation_password)
     user = new attributes
@@ -151,16 +151,21 @@ class User < ActiveRecord::Base
     user_activity.previous_login_at if user_activity
   end
   
+  # this user can read if:
+  # is owner.
+  # is admin.
+  # entity doesn't have privacy.
+  # entity's privacy level is public.
+  # entity's privacy level is friends and this is a friend of owner.
+  # otherwise, cannot.
   def can_read?(obj)
-    return true if self == obj.recency_user_obj || self.is_admin?
-    entity = obj.class.is_polymorphic? ? obj.entity : obj
-    if obj.class.has_privacy?
-      model_class = (obj.is_a?(Comment) ? obj.entity : obj).class
-      entity_privacy_level = model_class.with_scopes(obj.class.scopes[:privacy][self]) { model_class.find :first }
-      !entity_privacy_level.nil?
-    else
-      true
-    end
+    return true if self.is_admin?
+    return true if self == obj.recency_user_obj
+    entity = obj.is_a?(Comment) ? obj.entity : obj
+    return true unless entity.class.has_privacy?
+    return true if entity.anybody_can_read?
+    return true if entity.friends_can_read? && obj.recency_user_obj.considers_friend?(self)
+    return false
   end
   
   def recents
@@ -206,7 +211,7 @@ class User < ActiveRecord::Base
   end
   
   def self.search(search_text)
-    find_non_admin(:all,
+    non_admin.find(:all,
                    :conditions => ["lower(display_name) like :search_text or " <<
                                    "lower(first_name) like :search_text or " <<
                                    "lower(last_name) like :search_text",

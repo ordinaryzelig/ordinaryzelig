@@ -76,3 +76,5 @@ ENV['FIXTURES'] = ['users',
                    'recent_entity_types'].join(',')
 
 ENV['TZ'] = 'UTC'
+
+require 'has_finder'

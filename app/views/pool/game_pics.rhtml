@@ -5,7 +5,7 @@
   <tr class=gamePicsHeader>
     <th>player</th>
     <th>pic (pt. worth)</th>
-    <% Round.find_non_play_in(:all).each do |round| -%>
+    <% Round.non_play_in.find(:all).each do |round| -%>
       <%= content_tag :th, round.name %>
     <% end -%>
   </tr>

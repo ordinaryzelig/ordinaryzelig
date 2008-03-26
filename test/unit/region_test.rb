@@ -19,7 +19,7 @@ class RegionTest < Test::Unit::TestCase
   end
   
   def test_games_in_first_round
-    region = Region.find_non_final_4(:first)
+    region = Region.non_final_4.find(:first)
     games = region.games.in_first_round
     assert_equal 8, games.size
   end

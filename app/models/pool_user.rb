@@ -1,9 +1,8 @@
 class PoolUser < ActiveRecord::Base
   
   belongs_to :season
-  belongs_to :user, :extend => User::AssociationMethods
+  belongs_to :user
   has_many :pics do
-    include Pic::AssociationMethods
     def for_game(game)
       detect { |pic| game.id == pic.game_id }
     end
@@ -28,7 +27,7 @@ class PoolUser < ActiveRecord::Base
   
   attr_reader :points
   
-  scope_out :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']], :include => :user
+  has_finder :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']], :include => :user
   
   # return PoolUser object of master user for given season.
   def self.master(season)
@@ -59,7 +58,7 @@ class PoolUser < ActiveRecord::Base
   end
   
   def bracket_complete?
-    !self.pics.empty? && self.pics.find_incomplete(:all).empty?
+    !self.pics.empty? && self.pics.incomplete(:all).empty?
   end
   
   def pics_left(games_undecided = nil)

@@ -1,7 +1,6 @@
 class Season < ActiveRecord::Base
   
   has_many :regions, :order => "order_num" do
-    include Region::AssociationMethods
     def final_4
       (self - non_final_4).first
     end
@@ -19,10 +18,9 @@ class Season < ActiveRecord::Base
     end
   end
   has_many :pool_users do
-    include PoolUser::AssociationMethods
     def by_rank(master_pics, scoring_system = ScoringSystems.default)
       return @pool_users_with_ranks if @pool_users_with_ranks
-      pool_users = find_non_admin :all, :include => [{:pics => [:bid, {:game => :round}]}, :user]
+      pool_users = non_admin.find :all, :include => [{:pics => [:bid, {:game => :round}]}, :user]
       pool_users.each { |pool_user| pool_user.calculate_points(master_pics, scoring_system) }
       pool_users.sort! &PoolUser.standings_sort_proc
       ties = 0

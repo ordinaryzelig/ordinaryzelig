@@ -110,3 +110,5 @@ rescue_friendly
 	read up on controller rescue methods. (rescue_in_public, rescue_from, ...)
 
 season.pool_users.ranks can use inject?
+
+in places like message_board or blog list, expand each one and it's comments. put a '+' or down arrow.

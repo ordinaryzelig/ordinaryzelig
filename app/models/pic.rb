@@ -1,15 +1,10 @@
-=begin
-for typical PoolUsers, this is their prediction.
-for master PoolUsers, this is what really happened.
-=end
-
 class Pic < ActiveRecord::Base
   
   belongs_to :game
   belongs_to :bid
   belongs_to :pool_user
   
-  scope_out :incomplete, :conditions => 'bid_id is null'
+  has_finder :incomplete, :conditions => 'bid_id is null'
   
   def point_worth(scoring_system = ScoringSystems.default)
     scoring_system.point_worth(self)

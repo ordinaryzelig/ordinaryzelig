@@ -5,7 +5,7 @@ class PrivacyLevel < ActiveRecord::Base
   
   is_polymorphic :skip_validations => true
   PrivacyLevelType::TYPES.each do |type, id|
-    scope_out "readable_by_#{type}".to_sym, :conditions => {:privacy_level_type_id => id}
+    has_finder "readable_by_#{type}".to_sym, :conditions => {:privacy_level_type_id => id}
   end
   
   def to_s

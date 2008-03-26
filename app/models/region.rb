@@ -9,7 +9,7 @@ class Region < ActiveRecord::Base
   
   validates_presence_of :name, :if => proc { |region| !region.new_record? }
   
-  scope_out :non_final_4, :conditions => 'order_num != 1'
+  has_finder :non_final_4, :conditions => 'order_num != 1'
   
   def championship_game(game = self.season.root_game)
     return game if id == game.region_id

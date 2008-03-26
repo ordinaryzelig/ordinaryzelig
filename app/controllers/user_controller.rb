@@ -8,7 +8,7 @@ class UserController < ApplicationController
   end
   
   def profile
-    @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
+    @user = User.non_admin.find :first, :conditions => {:id => params[:id]}
     unless @user
       render_layout_only 'user not found'
       return
@@ -18,7 +18,7 @@ class UserController < ApplicationController
   end
   
   def edit_profile
-    @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
+    @user = User.non_admin.find :first, :conditions => {:id => params[:id]}
     unless @user && is_self_or_logged_in_as_admin?(@user)
       flash[:failure] = "user #{params[:id]} not found."
       redirect_to_last_marked_page_or_default
@@ -54,7 +54,7 @@ class UserController < ApplicationController
   end
   
   def friends
-    @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
+    @user = User.non_admin.find :first, :conditions => {:id => params[:id]}
     unless @user
       render_layout_only 'user not found'
       return
@@ -83,7 +83,7 @@ class UserController < ApplicationController
   
   def remove_friend
     if request.xhr?
-      if User.find_non_admin :first, :conditions => {:id => params[:id]}
+      if User.non_admin.find :first, :conditions => {:id => params[:id]}
         friendship = Friendship.find_by_user_id_and_friend_id(logged_in_user.id, params[:id])
         friendship.destroy if friendship
         render(:partial => "add_remove_friend", :locals => {:friend => friendship.friend})
@@ -103,7 +103,7 @@ class UserController < ApplicationController
   
   def generate_secret_id
     if request.post?
-      @user = User.find_non_admin :first, :conditions => {:id => params[:id]}
+      @user = User.non_admin.find :first, :conditions => {:id => params[:id]}
       @user.generate_secret_id
       flash[:success] = "your rss url has been changed. please update your bookmarks." and redirect_to :back if @user.save
     end

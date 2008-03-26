@@ -26,7 +26,7 @@ class Test::Unit::TestCase
 
   # Add more helper methods to be used by all tests here...
   
-  fixtures :users, :user_activities
+  fixtures :users, :user_activities, :friendships
   
   # set session[:user_id] and session[:last_authenticated_action_at]
   def login(user_fixture)
@@ -76,11 +76,28 @@ class Test::Unit::TestCase
   def self.test_privacy_level
     define_method 'test_privacy_level' do
       obj = test_new_with_default_attributes
+      # friend can read?
       friend = obj.user.friends.first
-      non_friend = User.find(:first, :conditions => ['id not in (?)', obj.user.friends])
-      assert friend && non_friend
+      assert_not_nil friend
       assert friend.can_read?(obj)
+      # non-friend can read?
+      non_friend = User.find(:first, :conditions => ['id not in (?)', obj.user.friends])
+      assert_not_nil non_friend
+      assert_not obj.user.considers_friend?(non_friend)
       assert_not non_friend.can_read?(obj)
+      # private object.
+      obj.set_privacy_level! 1
+      assert_not friend.can_read?(obj)
+      assert_not non_friend.can_read?(obj)
+    end
+  end
+  
+  def self.test_set_privacy_level!
+    define_method 'test_set_privacy_level!' do
+      obj = test_new_with_default_attributes
+      assert_equal 2, obj.privacy_level.privacy_level_type_id
+      obj.set_privacy_level! PrivacyLevelType::TYPES[:nobody]
+      assert_equal obj.reload.privacy_level.privacy_level_type_id, 1
     end
   end
   

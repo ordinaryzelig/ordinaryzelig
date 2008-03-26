@@ -9,7 +9,9 @@ class CommentTest < Test::Unit::TestCase
             :entity_id => 1},
            [:comment, :entity_type, :entity_id])
   test_mark_as_read
-  test_recency
+  # test_set_privacy_level!
+  # test_privacy_level
+  # test_recency
   test_summaries :what => proc { |obj| obj.comment[0..50] },
                  :title => proc { |obj| "#{obj.entity.class}: #{obj.entity.summarize_title}" },
                  :url => proc { |obj| obj.entity.summarize_url },
