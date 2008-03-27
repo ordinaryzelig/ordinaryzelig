@@ -28,11 +28,7 @@ class User < ActiveRecord::Base
   end
   has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :considering_friends, :through => :considering_friendships, :order => "lower(last_name)"
-  has_many :blogs do
-    def readable_by(user)
-      with_scopes(scopes[:privacy][user]) { find :all }
-    end
-  end
+  has_many :blogs
   has_many :movie_ratings, :include => :movie
   has_many :read_items do
     def entities
@@ -163,8 +159,8 @@ class User < ActiveRecord::Base
     return true if self == obj.recency_user_obj
     entity = obj.is_a?(Comment) ? obj.entity : obj
     return true unless entity.class.has_privacy?
-    return true if entity.anybody_can_read?
-    return true if entity.friends_can_read? && obj.recency_user_obj.considers_friend?(self)
+    return true if entity.is_readable_by_anybody?
+    return true if entity.is_readable_by_friends? && obj.user.considers_friend?(self)
     return false
   end
   
@@ -172,7 +168,7 @@ class User < ActiveRecord::Base
     return @recents if @recents
     if previous_login_at
       @recents = RecentEntityType.find(:all).map(&:entity_type).map do |entity_type|
-        entity_type.entity_class.recents(self)
+        entity_type.entity_class.recents_to(self)
       end.flatten.sort { |a, b| b.recency_time_obj(self) <=> a.recency_time_obj(self) }
       @recents
     else
@@ -220,7 +216,7 @@ class User < ActiveRecord::Base
   end
   
   def set_previous_login_at!(time)
-    activity = user_activity
+    activity = user_activity || build_user_activity
     activity.previous_login_at = time
     activity.save!
     time

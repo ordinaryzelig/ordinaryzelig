@@ -15,10 +15,16 @@ module OrdinaryZelig
         after_save :save_privacy_level
         validates_associated :privacy_level
         attr_accessible :privacy_level_attributes
+        # finder for public entities or entities readable by friends and user is friend of owner.
+        has_finder :readable_by, proc { |user| {:conditions => ['privacy_level_type_id = 3 or ' <<
+                                                                '(privacy_level_type_id = 2 and ' <<
+                                                                ' friend_id in (?))',
+                                                                user.id],
+                                                :include => [{:user => :friendships}, :privacy_level]} }
       end
       
       def has_privacy?
-        @has_privacy ||= false
+        !!@has_privacy
       end
       
     end
@@ -27,9 +33,11 @@ module OrdinaryZelig
       
       def set_privacy_level!(privacy_level_type_id)
         self.privacy_level.privacy_level_type_id = privacy_level_type_id
-        self.privacy_level.save
+        self.privacy_level.save!
       end
       
+      # if privacy_level doesn't exist, bulid one.
+      # else replace existing attributes.
       def privacy_level_attributes=(attributes)
         if attributes[:id].blank?
           build_privacy_level(attributes)
@@ -40,7 +48,7 @@ module OrdinaryZelig
       
       # define anybody_can_read? for each privacy level type.
       PrivacyLevelType::TYPES.each do |type, type_id|
-        define_method "#{type}_can_read?" do
+        define_method "is_readable_by_#{type}?" do
           type_id == privacy_level.privacy_level_type_id
         end
       end
@@ -51,11 +59,65 @@ module OrdinaryZelig
       # save it.
       def save_privacy_level
         self.privacy_level_attributes = {:privacy_level_type_id => 2} unless self.privacy_level
-        self.privacy_level.save
+        self.privacy_level.save!
       end
       
     end
     
+  end
+  
+end
+
+class Test::Unit::TestCase
+  
+  def self.privacy_test_suite
+    test_privacy_level
+    test_privacy_creation
+    test_set_privacy_level!
+  end
+  
+  # test each privacy_level and whether user can_read?.
+  def self.test_privacy_level
+    define_method 'test_privacy_level' do
+      obj = test_new_with_default_attributes
+      assert_equal 2, obj.privacy_level.privacy_level_type_id
+      # friend can read?
+      friend = obj.user.friends.first
+      assert_not_nil friend
+      assert friend.can_read?(obj)
+      # non-friend can read?
+      non_friend = User.find(:first, :conditions => ['id not in (?)', obj.user.friends])
+      assert_not_nil non_friend
+      assert_not obj.user.considers_friend?(non_friend)
+      assert_not non_friend.can_read?(obj)
+      # private object.
+      obj.set_privacy_level! 1
+      assert_equal 1, obj.privacy_level.privacy_level_type_id
+      assert_not friend.can_read?(obj)
+      assert_not non_friend.can_read?(obj)
+      # public.
+      obj.set_privacy_level! 3
+      assert_equal 3, obj.privacy_level.privacy_level_type_id
+      assert non_friend.can_read?(obj)
+    end
+  end
+  
+  # make sure privacy_level gets created.
+  def self.test_privacy_creation
+    define_method 'test_privacy_creation' do
+      obj = test_new_with_default_attributes
+      assert_not_nil obj.privacy_level
+    end
+  end
+  
+  # test ability to set privacy_level easily.
+  def self.test_set_privacy_level!
+    define_method 'test_set_privacy_level!' do
+      obj = test_new_with_default_attributes
+      assert_equal 2, obj.privacy_level.privacy_level_type_id
+      obj.set_privacy_level! PrivacyLevelType::TYPES[:nobody]
+      assert_equal obj.reload.privacy_level.privacy_level_type_id, 1
+    end
   end
   
 end

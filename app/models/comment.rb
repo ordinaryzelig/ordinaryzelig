@@ -30,9 +30,9 @@ class Comment < ActiveRecord::Base
     @entity ||= comment_group.entity
   end
   
-  def self.recents(user, *more_scopes)
+  def self.recents_to(user)
     all_scopes = [scopes[:friends][user], scopes[:since_previous_login][user]]
-    recents = find_all_unread_by_user user, *(all_scopes + more_scopes)
+    recents = find_all_unread_by_user user, *all_scopes
     entities = recents.map(&:entity).uniq
     entities = entities.select { |e| user.can_read? e }
     recents.select { |r| entities.include? r.entity }

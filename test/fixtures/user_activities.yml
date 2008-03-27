@@ -3,3 +3,8 @@ ten_cent_login:
   user_id: 2
   last_login_at: <%= 1.week.ago %>
   previous_login_at: <%= 1.day.ago %>
+
+Surly_Stuka_login:
+  user_id: 3
+  last_login_at: <%= 1.week.ago %>
+  previous_login_at: <%= 1.day.ago %>

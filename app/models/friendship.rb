@@ -12,7 +12,7 @@ class Friendship < ActiveRecord::Base
   
   can_be_marked_as_read
   has_recency
-  SCOPES[:considering_friends] = proc { |user| {:conditions => ["#{table_name}.friend_id = ?", user.id]} }
+  # SCOPES[:considering_friends] = proc { |user| {:conditions => ["#{table_name}.friend_id = ?", user.id]} }
   can_be_summarized_by :title => proc { "#{user.first_last_display} added you as a friend." },
                        :url => proc { {:controller => "user", :action => "profile", :id => user.id} },
                        :who => nil,
@@ -21,10 +21,9 @@ class Friendship < ActiveRecord::Base
                        :link => proc { {:controller => 'user', :action => 'profile', :id => user.id} }
   is_entity_type
   
-  def self.recents(user, *more_scopes)
+  def self.recents_to(user)
     all_scopes = [scopes[:considering_friends][user],
-                  scopes[:since_previous_login][user]] +
-                  more_scopes
+                  scopes[:since_previous_login][user]]
     find_all_unread_by_user user, *all_scopes
   end
   

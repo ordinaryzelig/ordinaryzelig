@@ -72,23 +72,17 @@ class UserController < ApplicationController
   end
   
   def add_friend
-    if request.xhr?
-      friendship = Friendship.new
-      friendship.user = logged_in_user
-      friendship.friend_id = params[:id].to_s
-      friendship.save!
-      render(:partial => "add_remove_friend", :locals => {:friend => friendship.friend})
-    end
+    return unless request.xhr?
+    friend = User.find(params[:id])
+    logged_in_user.friends << friend
+    render(:partial => "add_remove_friend", :locals => {:friend => friend})
   end
   
   def remove_friend
-    if request.xhr?
-      if User.non_admin.find :first, :conditions => {:id => params[:id]}
-        friendship = Friendship.find_by_user_id_and_friend_id(logged_in_user.id, params[:id])
-        friendship.destroy if friendship
-        render(:partial => "add_remove_friend", :locals => {:friend => friendship.friend})
-      end
-    end
+    return unless request.xhr?
+    friend = User.find(params[:id])
+    logged_in_user.friends.delete friend
+    render(:partial => "add_remove_friend", :locals => {:friend => friend})
   end
   
   def search

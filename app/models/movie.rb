@@ -44,7 +44,7 @@ class Movie < ActiveRecord::Base
   end
   
   def recent_ratings(user)
-    ratings.select { |rating| rating.is_recent?(user) }
+    ratings.select { |rating| rating.is_recent_to?(user) }
   end
   
   def existing_rating(user_id, rating_type_id)

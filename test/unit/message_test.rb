@@ -9,7 +9,7 @@ class MessageTest < Test::Unit::TestCase
             :user_id => 32},
            [:subject, :body])
   test_mark_as_read
-  test_recency
+  # recency_test_suite
   test_summaries :what => proc { |obj| obj.body[0..100] },
                  :title => proc { |obj| obj.subject },
                  :url => proc { |obj| {:controller => 'message_board', :action => 'show', :id => obj.id} },

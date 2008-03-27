@@ -22,22 +22,21 @@ module OrdinaryZelig
         include OrdinaryZelig::HasRecency::InstanceMethods
         @has_recency = true
         
-        scopes[:friends] = proc { |user| {:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)],
-                                          :include => {:user => :friendships}} }
-        scopes[:since_previous_login] = proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at]} }
-        scopes[:order_by_created_at] = {:order => "#{table_name}.created_at desc"}
-        
+        has_finder :by_friends, proc { |user| {:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)],
+                                               :include => {:user => :friendships}} }
+        has_finder :since_previous_login, proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at],
+                                                         :order => "#{table_name}.created_at desc" } }
         # default method for finding methods.
         # can overwrite.
-        def self.recents(user, *more_scopes)
-          all_scopes = [scopes[:friends][user], scopes[:since_previous_login][user]]
-          all_scopes << scopes[:privacy][user] if has_privacy?
-          recents = find_all_unread_by_user user, *(all_scopes + more_scopes)
+        def self.recents_to(user)
+          recents = by_friends(user).since_previous_login(user)
+          recents = recents.readable_by(user) if has_privacy?
+          recents
         end
       end
       
       def has_recency?
-        @has_recency || false
+        !!@has_recency
       end
       
       private
@@ -58,12 +57,81 @@ module OrdinaryZelig
     
     module InstanceMethods
       
-      def is_recent?(user)
-        user && user != recency_user_obj && user.recents.include?(self)
+      # false if user is nil.
+      # false if user is owner.
+      # false unless user.can_read?
+      # true if object was made since user's last_login_at
+      def is_recent_to?(user)
+        return false unless user
+        return false if user == recency_user_obj
+        return false if self.class.has_privacy? && !user.can_read?(self)
+        return user.last_login_at <= self.recency_time_obj
       end
       
     end
     
+  end
+  
+end
+
+class Test::Unit::TestCase
+  
+  def self.recency_test_suite
+    test_is_recent_to?
+  end
+  
+  def self.test_is_recent_to?
+    define_method 'test_is_recent_to?' do
+      obj = test_new_with_default_attributes
+      # no user.
+      assert_not obj.is_recent_to?(nil)
+      # owner.
+      set_user_previous_login_at_before obj.user, obj
+      assert_not obj.is_recent_to?(obj.user)
+      if obj.class.has_privacy?
+        privacy_levels_recency_test obj
+      else
+        user = obj.user.friends.first
+        set_user_previous_login_at_before user, obj
+        assert obj.is_recent_to?(user)
+      end
+    end
+  end
+  
+  def privacy_levels_recency_test(obj)
+    user = obj.user.friends.first
+    set_user_previous_login_at_before user, obj
+    
+    # not friends, so shouldn't be recent.
+    obj.user.friends.delete user
+    assert_not obj.user.friends.include?(user)
+    obj.set_privacy_level! 2
+    assert_equal obj.privacy_level.privacy_level_type_id, 2
+    assert_not obj.is_recent_to?(user)
+    
+    # public, should be recent.
+    obj.set_privacy_level! 3
+    assert_equal obj.privacy_level.privacy_level_type_id, 3
+    assert obj.is_recent_to?(user)
+    
+    # user only, should not be recent.
+    obj.set_privacy_level! 1
+    assert_equal obj.privacy_level.privacy_level_type_id, 1
+    assert_not obj.is_recent_to?(user)
+    
+    # make friends, should be recent.
+    obj.user.friends << user
+    obj.set_privacy_level! 2
+    assert_equal obj.privacy_level.privacy_level_type_id, 2
+    assert obj.is_recent_to?(user)
+    
+    # recents.
+    assert obj.class.recents_to(user).include?(obj)
+  end
+  
+  def set_user_previous_login_at_before(user, obj)
+    user.set_previous_login_at! obj.created_at - 1.minute
+    assert user.previous_login_at < obj.created_at
   end
   
 end

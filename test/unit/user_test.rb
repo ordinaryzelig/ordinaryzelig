@@ -37,7 +37,7 @@ class UserTest < Test::Unit::TestCase
   end
   
   # def test_recents_at_least_gets_called_without_exceptions(user = nil)
-  #   assert (user || users(:ten_cent)).recents
+  #   assert (user || users(:ten_cent)).recents_to
   # end
   
   def test_generate_secret_id
@@ -116,7 +116,7 @@ class UserTest < Test::Unit::TestCase
     assert user.user_activity
   end
   
-  # def test_recency_with_no_friends
+  # def recency_test_suite_with_no_friends
   #   user = old_user
   #   test_recents_at_least_gets_called_without_exceptions
   # end
@@ -130,6 +130,29 @@ class UserTest < Test::Unit::TestCase
   
   def test_non_admin
     assert_equal User.find(:all).size, User.non_admin.size + 2
+  end
+  
+  def test_can_read?
+    blog = Blog.find :first
+    # admin.
+    admin = users :admin
+    assert admin.can_read?(blog)
+    # user is owner.
+    assert blog.user.can_read?(blog)
+    # by friend and has privacy_level of friend.
+    blog.set_privacy_level! 2
+    assert_equal 2, blog.privacy_level.privacy_level_type_id
+    assert blog.user.friends.first.can_read?(blog)
+    # by friend but is private.
+    blog.set_privacy_level! 1
+    assert_equal 1, blog.privacy_level.privacy_level_type_id
+    assert_not blog.user.friends.first.can_read?(blog)
+    # non friend, non admin, but public.
+    blog.set_privacy_level! 3
+    assert_equal 3, blog.privacy_level.privacy_level_type_id
+    user = User.non_admin.find(:first, :conditions => ['id not in (?)', blog.user.friends.map(&:id)])
+    assert_not user.is_friend_of?(blog.user)
+    assert user.can_read?(blog)
   end
   
   # ==========================

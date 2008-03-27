@@ -4,3 +4,6 @@ mark as read
    spinner
 movie/ratings/:id not working. and it's ugly.
 add time to notifier.exception
+
+user.befriend(friend)
+  test user_controller.add/remove_friend.

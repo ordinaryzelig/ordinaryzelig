@@ -13,7 +13,7 @@ class MovieRatingTest < Test::Unit::TestCase
            [:rating, :summary, :explanation])
   test_created_at
   test_mark_as_read
-  test_recency
+  recency_test_suite
   test_summaries :what => proc { |obj| (obj.summary || obj.explanation)[0..obj.summarize_max] },
                  :who => proc { |obj| obj.user },
                  :when => proc { |obj| obj.created_at },
