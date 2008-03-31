@@ -73,3 +73,7 @@ tie breaker goes to higher num pics.
 team page
   who has this team and how far?
   not much different than game_pics, but show progression of team instead of game
+
+standings
+  points back
+  graph?

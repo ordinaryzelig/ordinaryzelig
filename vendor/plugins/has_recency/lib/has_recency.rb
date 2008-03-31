@@ -9,6 +9,7 @@ module OrdinaryZelig
     module ClassMethods
       
       def has_recency(object_declarations = {})
+        
         object_types = [:user_obj, :user_obj_name, :time_obj, :time_obj_name]
         defaults = {:user_obj => :user,
                     :user_obj_name => "#{object_declarations[:user_obj] || :user}_id",
@@ -22,17 +23,21 @@ module OrdinaryZelig
         include OrdinaryZelig::HasRecency::InstanceMethods
         @has_recency = true
         
-        has_finder :by_friends, proc { |user| {:conditions => ["#{table_name}.#{recency_user_obj_name} in (?)", user.friends.map(&:id)],
-                                               :include => {:user => :friendships}} }
+        has_finder :by_friends_of, proc { |user| {:conditions => {:user_id => user.friends.map(&:id)}} }
+        has_finder :by_mutual_friends_of, proc { |user| {:conditions => {:user_id => user.mutual_friends.map(&:id)}} }
+        has_finder :by_considering_friends_of, proc { |user| {:conditions => {:user_id => user.considering_friends.map(&:id)}} }
         has_finder :since_previous_login, proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at],
                                                          :order => "#{table_name}.created_at desc" } }
         # default method for finding methods.
-        # can overwrite.
         def self.recents_to(user)
-          recents = by_friends(user).since_previous_login(user)
-          recents = recents.readable_by(user) if has_privacy?
+          recents = by_friends_of(user).since_previous_login(user)
+          if has_privacy?
+            recents = recents.readable_by_anybody
+            recents += by_mutual_friends_of(user).readable_by_friends.since_previous_login(user)
+          end
           recents
         end
+        
       end
       
       def has_recency?
@@ -78,6 +83,10 @@ class Test::Unit::TestCase
   
   def self.recency_test_suite
     test_is_recent_to?
+    test_has_finder_by_friends_of
+    test_has_finder_by_mutual_friends_of
+    test_has_finder_since_previous_login
+    test_recents_to
   end
   
   def self.test_is_recent_to?
@@ -96,6 +105,56 @@ class Test::Unit::TestCase
         assert obj.is_recent_to?(user)
       end
     end
+  end
+  
+  def self.test_has_finder_by_friends_of
+    define_method 'test_has_finder_by_friends_of' do
+      user = users :ten_cent
+      objs = model_class.by_friends_of(user)
+      assert objs.size > 0, "no #{model_class} found by friends of"
+      objs.each do |obj|
+        assert obj.user.is_friend_of?(user)
+      end
+    end
+  end
+  
+  def self.test_has_finder_by_mutual_friends_of
+    define_method 'test_has_finder_by_mutual_friends_of' do
+      user = users :ten_cent
+      objs = model_class.by_mutual_friends_of(user)
+      assert objs.size > 0, "no #{model_class} found by mutual friend"
+      objs.each do |obj|
+        assert obj.user.is_mutual_friends_with?(user)
+      end
+    end
+  end
+  
+  def self.test_has_finder_since_previous_login
+    define_method 'test_has_finder_since_previous_login' do
+      user = users :ten_cent
+      objs = model_class.since_previous_login(user)
+      assert objs.size > 0, "no #{model_class} found since previous login"
+      objs.each do |obj|
+        assert obj.created_at >= user.previous_login_at
+      end
+    end
+  end
+  
+  def self.test_recents_to
+    define_method 'test_recents_to' do
+      user = users :ten_cent
+      objs = model_class.recents_to user
+      assert objs.size > 0, "no #{model_class} recents found"
+      objs.each { |obj| assert user.can_read?(obj) }
+    end
+  end
+  
+  # ===========================================
+  # helpers.
+  
+  def set_user_previous_login_at_before(user, obj)
+    user.set_previous_login_at! obj.created_at - 1.minute
+    assert user.previous_login_at < obj.created_at
   end
   
   def privacy_levels_recency_test(obj)
@@ -127,11 +186,6 @@ class Test::Unit::TestCase
     
     # recents.
     assert obj.class.recents_to(user).include?(obj)
-  end
-  
-  def set_user_previous_login_at_before(user, obj)
-    user.set_previous_login_at! obj.created_at - 1.minute
-    assert user.previous_login_at < obj.created_at
   end
   
 end

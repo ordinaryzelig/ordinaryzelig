@@ -155,6 +155,32 @@ class UserTest < Test::Unit::TestCase
     assert user.can_read?(blog)
   end
   
+  # tests many stages of friendship.
+  def test_friends
+    ten_cent = users :ten_cent
+    new_guy = test_new_with_default_attributes
+    ten_cent.friends << new_guy
+    # is new_guy a friend?
+    assert ten_cent.considers_friend?(new_guy)
+    # make sure it's not mutual yet.
+    assert_not new_guy.considers_friend?(ten_cent)
+    assert_not ten_cent.is_friend_of?(new_guy)
+    assert new_guy.is_friend_of?(ten_cent)
+    # make it mutual.
+    new_guy.friends << ten_cent
+    assert new_guy.is_mutual_friends_with?(ten_cent)
+    assert ten_cent.is_mutual_friends_with?(new_guy)
+    assert new_guy.mutual_friends.include?(ten_cent)
+    assert ten_cent.mutual_friends.include?(new_guy)
+  end
+  
+  def test_mutual_friends
+    user = users(:ten_cent)
+    user.mutual_friends.each do |friend|
+      assert user.is_mutual_friends_with?(friend)
+    end
+  end
+  
   # ==========================
   # helper methods.
   

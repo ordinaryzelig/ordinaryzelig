@@ -15,12 +15,9 @@ module OrdinaryZelig
         after_save :save_privacy_level
         validates_associated :privacy_level
         attr_accessible :privacy_level_attributes
-        # finder for public entities or entities readable by friends and user is friend of owner.
-        has_finder :readable_by, proc { |user| {:conditions => ['privacy_level_type_id = 3 or ' <<
-                                                                '(privacy_level_type_id = 2 and ' <<
-                                                                ' friend_id in (?))',
-                                                                user.id],
-                                                :include => [{:user => :friendships}, :privacy_level]} }
+        PrivacyLevelType::TYPES.each do |type, type_id|
+          has_finder "readable_by_#{type}".to_sym, :conditions => ['privacy_level_type_id = ?', type_id], :include => :privacy_level
+        end
       end
       
       def has_privacy?
@@ -74,6 +71,7 @@ class Test::Unit::TestCase
     test_privacy_level
     test_privacy_creation
     test_set_privacy_level!
+    test_readable_by
   end
   
   # test each privacy_level and whether user can_read?.
@@ -99,6 +97,14 @@ class Test::Unit::TestCase
       obj.set_privacy_level! 3
       assert_equal 3, obj.privacy_level.privacy_level_type_id
       assert non_friend.can_read?(obj)
+    end
+  end
+  
+  def self.test_readable_by
+    define_method 'test_readable_by' do
+      Blog.readable_by_nobody.each { |blog| assert_equal 1, blog.privacy_level.to_i }
+      Blog.readable_by_friends.each { |blog| assert_equal 2, blog.privacy_level.to_i }
+      Blog.readable_by_anybody.each { |blog| assert_equal 3, blog.privacy_level.to_i }
     end
   end
   

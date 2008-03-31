@@ -1,1 +1,20 @@
---- 
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.now %>
+
+by_ten_cent:
+  movie_id: 10
+  movie_rating_type_id: 1
+  rating: 2
+  summary: she's so hot
+  explanation: just look at her.
+  user_id: 2
+  <<: *DEFAULTS
+
+by_Surly_Stuka:
+  movie_id: 10
+  movie_rating_type_id: 1
+  rating: 1
+  summary: no she's not
+  explanation: i don't see it
+  user_id: 3
+  <<: *DEFAULTS

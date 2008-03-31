@@ -13,9 +13,16 @@ private:
   user_id: 2
   created_at: <%= Time.now %>
 
-friends_only:
+friends:
   id: 3
   title: my boss sucks
   body: i'm quitting tomorrow
   user_id: 2
+  created_at: <%= Time.now %>
+
+by_Surly_Stuka:
+  id: 4
+  title: my boss sucks
+  body: i'm quitting tomorrow
+  user_id: 3
   created_at: <%= Time.now %>

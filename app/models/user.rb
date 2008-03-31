@@ -18,14 +18,7 @@ class User < ActiveRecord::Base
   end
   has_one :user_activity
   has_many :friendships, :foreign_key => "user_id"
-  has_many :friends, :through => :friendships, :order => "lower(last_name)" do
-    def blogs_readable_by(user)
-      Blog.with_scopes(Blog.scopes[:friends][user], Blog.scopes[:privacy][user], Blog.scopes[:order_by_created_at]) { Blog.find :all }
-    end
-    def mutual_friends_of(user)
-      self.select { |friend| friend.considers_friend?(user) }
-    end
-  end
+  has_many :friends, :through => :friendships, :order => "lower(last_name)"
   has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :considering_friends, :through => :considering_friendships, :order => "lower(last_name)"
   has_many :blogs
@@ -123,8 +116,14 @@ class User < ActiveRecord::Base
   end
   
   # both self and user consider each other friends.
-  def is_mutual_friend?(user)
+  def is_mutual_friends_with?(user)
     considers_friend?(user) && is_friend_of?(user)
+  end
+  
+  def mutual_friends
+    self.class.find :all,
+                    :conditions => ["#{self.class.table_name}.id in (?) and friend_id = ?", friends.map(&:id), id],
+                    :include => :friendships
   end
   
   def first_last
@@ -148,11 +147,11 @@ class User < ActiveRecord::Base
   end
   
   # this user can read if:
-  # is owner.
-  # is admin.
-  # entity doesn't have privacy.
-  # entity's privacy level is public.
-  # entity's privacy level is friends and this is a friend of owner.
+  #   is owner.
+  #   is admin.
+  #   entity doesn't have privacy.
+  #   entity's privacy level is public.
+  #   entity's privacy level is friends and this is a friend of owner.
   # otherwise, cannot.
   def can_read?(obj)
     return true if self.is_admin?

@@ -1,1 +1,9 @@
---- 
+by_ten_cent:
+  entity_type: Blog
+  entity: by_ten_cent
+  root_comment: by_ten_cent
+
+by_Surly_Stuka:
+  entity_type: Blog
+  entity: by_Surly_Stuka
+  root_comment: by_Surly_Stuka

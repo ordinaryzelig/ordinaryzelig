@@ -16,13 +16,12 @@ module OrdinaryZelig
       def can_be_summarized_by(options)
         DEFAULTS.each { |key, value| define_method "summarize_#{key}", CanBeSummarizedBy.proc_for_option(key, value) }
         options.each { |key, value| define_method "summarize_#{key}", CanBeSummarizedBy.proc_for_option(key, value) }
+        include ActionView::Helpers::SanitizeHelper
       end
       
     end
     
     private
-    
-    include ActionView::Helpers::TextHelper
     
     def self.proc_for_option(key, value)
       raise "unrecognized key '#{key}'" unless KEYS.include?(key)

@@ -7,7 +7,7 @@
   <table id="ratingsTable" style="margin-left: auto; margin-right: auto;">
     <% # headers. -%>
     <tr>
-      <td style="font-size: 75%; border: none; background: beige;"></td>
+      <td style="font-size: 75%; border: none; background: beige;">click to filter</td>
       <th><%= link_to_if(logged_in_user, "everyone", :filter_type => params[:filter_type]) %></th>
       <% if logged_in_user -%>
         <th><%= link_to("friends", :filter_who => "friends", :filter_type => params[:filter_type]) %></th>

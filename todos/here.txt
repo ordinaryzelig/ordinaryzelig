@@ -1,4 +1,3 @@
 refactor privacy
-  HERE: testing privacy has_finder :readable_by
-  separate privacy and recency
-  use more scope_outs if possible
+  comments.recents_to
+  readable?

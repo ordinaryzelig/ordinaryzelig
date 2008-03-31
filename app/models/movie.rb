@@ -4,6 +4,7 @@ class Movie < ActiveRecord::Base
   validates_presence_of :title
   validates_uniqueness_of :title
   
+  include ActionView::Helpers::TextHelper
   what_proc = proc do
     ratings_strs = []
     rating_types_uniq.each do |rating_type|
