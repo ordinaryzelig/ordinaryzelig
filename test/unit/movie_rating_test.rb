@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class MovieRatingTest < Test::Unit::TestCase
   
-  fixtures :movie_ratings, :movies, :movie_rating_types, :movie_rating_options
+  movie_fixtures
   
   defaults({:movie_id => 1,
             :movie_rating_type_id => 1,

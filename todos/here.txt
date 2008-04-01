@@ -1,3 +1,4 @@
 refactor privacy
   comments.recents_to
+    comment_group.find_entities_readable_by needs more fixtures.
   readable?

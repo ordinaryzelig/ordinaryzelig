@@ -104,4 +104,8 @@ class Test::Unit::TestCase
      :accounts].each { |fixture| fixtures fixture }
   end
   
+  def self.movie_fixtures
+    fixtures :movie_ratings, :movies, :movie_rating_types, :movie_rating_options
+  end
+  
 end
