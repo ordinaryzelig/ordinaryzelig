@@ -26,10 +26,10 @@ module LGS
     module ClassMethods
       
       # define a model's defaults for easy creation.
-      def defaults(accessible = [], &attributes_block)
-        # in a test, you can call defaults to get the default attributes.
+      def defaults(attributes = {}, accessible = [])
+        atts = attributes.dup  # in a test, you can call defaults to get the default attributes.
         define_method 'defaults' do
-          @atts ||= yield self
+          atts
         end
         # builds a new object for this model with the default attributes.
         # will also test that the non-accessible attributes cannot be mass assigned.

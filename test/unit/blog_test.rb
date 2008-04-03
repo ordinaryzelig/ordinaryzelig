@@ -9,11 +9,10 @@ class BlogTest < Test::Unit::TestCase
     
   end
   
-  defaults([:title, :body]) do |test|
-    {:title => 'i killed heath ledger',
-     :body => 'just watched brokeback mountain and dark knight looks badass.',
-     :user_id => test.users(:ten_cent).id}
-  end
+  defaults({:title => 'i killed heath ledger',
+            :body => 'just watched brokeback mountain and dark knight looks badass.',
+            :user_id => Fixtures.identify(:ten_cent)},
+            [:title, :body])
   test_created_at
   test_mark_as_read
   privacy_test_suite
