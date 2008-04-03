@@ -5,10 +5,15 @@ class BlogTest < Test::Unit::TestCase
   fixtures :blogs
   fixtures :friendships, :privacy_levels
   
-  defaults({:title => 'i killed heath ledger',
-            :body => 'just watched brokeback mountain and dark knight looks badass.',
-            :user_id => 2},
-           [:title, :body])
+  def setup
+    
+  end
+  
+  defaults([:title, :body]) do |test|
+    {:title => 'i killed heath ledger',
+     :body => 'just watched brokeback mountain and dark knight looks badass.',
+     :user_id => test.users(:ten_cent).id}
+  end
   test_created_at
   test_mark_as_read
   privacy_test_suite

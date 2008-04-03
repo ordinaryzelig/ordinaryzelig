@@ -1,9 +1,16 @@
-by_ten_cent:
-  entity_type: Blog
-  entity: by_ten_cent
+--- 
+by_ten_cent_for_public_blog:
+  entity: public (Blog)
   root_comment: by_ten_cent
 
-by_Surly_Stuka:
-  entity_type: Blog
-  entity: by_Surly_Stuka
+by_Surly_Stuka_for_public_blog:
+  entity: public (Blog)
   root_comment: by_Surly_Stuka
+
+by_Surly_Stuka_for_friends_blog:
+  entity: friends (Blog)
+  root_comment: another_by_Surly_Stuka
+
+by_ten_cent_for_by_ten_cent_movie_rating:
+  entity: by_ten_cent (MovieRating)
+  root_comment: sucky_movie

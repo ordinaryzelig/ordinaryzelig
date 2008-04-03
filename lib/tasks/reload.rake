@@ -1,13 +1,7 @@
 namespace :db do
   
-  desc 'migrate to 0, migrate to current'
-  task :reset => :environment do
-    sh 'rake db:migrate VERSION=0'
-    sh 'rake db:migrate'
-  end
-  
-  desc 'db:reload and db:fixtures:load'
-  task :reload => [:reset] do
+  desc 'db:drop, db:create, db:migrate, db:fixtures:load'
+  task :reload => [:environment, :drop, :create, :migrate] do
     sh 'rake db:fixtures:load'
   end
   

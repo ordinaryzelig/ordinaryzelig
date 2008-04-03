@@ -1,14 +1,15 @@
-DEFAULTS: &DEFAULTS
-  created_at: <%= Time.now %>
-
 by_ten_cent:
-  user_id: 2
+  user: ten_cent
   comment: this is my comment.
-  parent_id: 
-  <<: *DEFAULTS
 
 by_Surly_Stuka:
-  user_id: 3
+  user: Surly_Stuka
   comment: his comment.
-  parent_id: 
-  <<: *DEFAULTS
+
+another_by_Surly_Stuka:
+  user: Surly_Stuka
+  comment: more of his comment.
+
+sucky_movie:
+  user: Surly_Stuka
+  comment: i hate all movies.

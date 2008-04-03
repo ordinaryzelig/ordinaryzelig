@@ -1,20 +1,16 @@
 --- 
 public: 
-  entity_type: Blog
-  entity_id: 1
+  entity: public (Blog)
   privacy_level_type_id: 3
 
 private: 
-  entity_type: Blog
-  entity_id: 2
+  entity: private (Blog)
   privacy_level_type_id: 1
 
 friends: 
-  entity_type: Blog
-  entity_id: 3
+  entity: friends (Blog)
   privacy_level_type_id: 2
 
 by_Surly_Stuka: 
-  entity_type: Blog
-  entity_id: 4
+  entity: by_Surly_Stuka (Blog)
   privacy_level_type_id: 2

@@ -33,9 +33,7 @@ class Comment < ActiveRecord::Base
   def self.recents_to(user)
     recents = by_friends_of(user).since_previous_login(user)
     # recents = find_all_unread_by_user user, *all_scopes
-    entities = recents.map(&:entity).uniq
-    entities = entities.select { |e| user.can_read? e }
-    recents.select { |r| entities.include? r.entity }
+    entities = CommentGroup.find_entities_readable_by(user, recents.map { |comment| comment.comment_group.id })
   end
   
   private

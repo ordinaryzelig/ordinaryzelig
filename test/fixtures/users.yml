@@ -2,7 +2,7 @@
 OSUchigga: 
   secret_id: 39_ccd6bcf5f584bcd293d2782739ca682a48be44bd
   is_admin: "0"
-  id: "39"
+  # id: "39"
   display_name: OSUchigga
   first_name: Eric
   is_authorized: "1"
@@ -12,7 +12,7 @@ OSUchigga:
 admin: 
   secret_id: 29_6b632b021f0e62a758ea7d079fde9a792c357631
   is_admin: "1"
-  id: "29"
+  # id: "29"
   display_name: admin
   first_name: admin
   is_authorized: "1"
@@ -22,7 +22,7 @@ admin:
 master_bracket: 
   secret_id: 1_e3bd89387e0f57b4ee430c7268a4fe81695a6ce7
   is_admin: "0"
-  id: "1"
+  # id: "1"
   display_name: master bracket
   first_name: master
   is_authorized: "1"
@@ -32,7 +32,7 @@ master_bracket:
 David: 
   secret_id: 40_89f5df37188f851b6a9a9191ef486ac0d02671ec
   is_admin: "0"
-  id: "40"
+  # id: "40"
   display_name: David
   first_name: David
   is_authorized: "1"
@@ -42,7 +42,7 @@ David:
 tan: 
   secret_id: 26_59b4215ac2635b03855fe0cd08d2074a9b386b98
   is_admin: "0"
-  id: "26"
+  # id: "26"
   display_name: tan
   first_name: tan
   is_authorized: "0"
@@ -52,7 +52,7 @@ tan:
 lina: 
   secret_id: 20_c1c4465b8485931a9711f31e064c93f58be12697
   is_admin: "0"
-  id: "20"
+  # id: "20"
   display_name: lina
   first_name: lina
   is_authorized: "0"
@@ -62,7 +62,7 @@ lina:
 JoJoMe: 
   secret_id: 5_6779c9555b37725111b12ed6260efb1601e27989
   is_admin: "0"
-  id: "5"
+  # id: "5"
   display_name: JoJoMe
   first_name: John
   is_authorized: "1"
@@ -72,7 +72,7 @@ JoJoMe:
 B_Pham: 
   secret_id: 34_488bbc71c12a491c79c1b7f3846c745360f5e333
   is_admin: "0"
-  id: "34"
+  # id: "34"
   display_name: B_Pham
   first_name: Nguyen
   is_authorized: "1"
@@ -82,7 +82,7 @@ B_Pham:
 adam: 
   secret_id: 30_30809cb97c2a3a76dbc660cdfc6881f1dfae8706
   is_admin: "0"
-  id: "30"
+  # id: "30"
   display_name: adam
   first_name: adam
   is_authorized: "0"
@@ -92,7 +92,7 @@ adam:
 sharon: 
   secret_id: 24_b122fa7c9724e6559903642098363aa66142be5b
   is_admin: "0"
-  id: "24"
+  # id: "24"
   display_name: sharon
   first_name: sharon
   is_authorized: "0"
@@ -102,7 +102,7 @@ sharon:
 Surly_Stuka: 
   secret_id: 3_b1621b23273b20d3c7764d855866dc0c8710e104
   is_admin: "0"
-  id: "3"
+  # id: "3"
   display_name: Surly Stuka
   first_name: Stuart
   is_authorized: "1"
@@ -112,7 +112,7 @@ Surly_Stuka:
 carol: 
   secret_id: 38_cf64d6f009305a8afa1863460efc911f8f41f5b0
   is_admin: "0"
-  id: "38"
+  # id: "38"
   display_name: carol
   first_name: carol
   is_authorized: "1"
@@ -122,7 +122,7 @@ carol:
 THE_MOTHER: 
   secret_id: 28_6a2dc3b05f0ea536588e1e60803e1e9366e791f7
   is_admin: "0"
-  id: "28"
+  # id: "28"
   display_name: THE MOTHER
   first_name: vivian
   is_authorized: "1"
@@ -132,7 +132,7 @@ THE_MOTHER:
 mike: 
   secret_id: 32_7973b9633e8469d0c950d8832d4474138b7d76e0
   is_admin: "0"
-  id: "32"
+  # id: "32"
   display_name: mike
   first_name: mike
   is_authorized: "1"
@@ -142,7 +142,7 @@ mike:
 melissa: 
   secret_id: 22_e1104fbd5dfc7d4d138b12f486137533fb5dbfc6
   is_admin: "0"
-  id: "22"
+  # id: "22"
   display_name: melissa
   first_name: melissa
   is_authorized: "0"
@@ -152,7 +152,7 @@ melissa:
 daniel: 
   secret_id: 11_c311ffa843a07cd9ac6ea8f67756b7e4396a0cdd
   is_admin: "0"
-  id: "11"
+  # id: "11"
   display_name: daniel
   first_name: daniel
   is_authorized: "0"
@@ -162,7 +162,7 @@ daniel:
 gail: 
   secret_id: 15_3078b53dd6e53026f82653ae7c5bab24c2cf07b1
   is_admin: "0"
-  id: "15"
+  # id: "15"
   display_name: gail
   first_name: gail
   is_authorized: "0"
@@ -172,7 +172,7 @@ gail:
 ten_cent: 
   secret_id: 2_29220e0c1c60e53b3987c681c290e791dea69b52
   is_admin: "0"
-  id: "2"
+  # id: "2"
   display_name: ten cent
   first_name: jared
   is_authorized: "1"
@@ -182,7 +182,7 @@ ten_cent:
 caroline: 
   secret_id: 10_b7292e64b03457497f733a7e28692db183d97030
   is_admin: "0"
-  id: "10"
+  # id: "10"
   display_name: caroline
   first_name: caroline
   is_authorized: "1"
@@ -192,7 +192,7 @@ caroline:
 allison: 
   secret_id: 36_ca66eab13aa2a2c61007610b12b28f5507501636
   is_admin: "0"
-  id: "36"
+  # id: "36"
   display_name: allison
   first_name: allison
   is_authorized: "1"
@@ -202,7 +202,7 @@ allison:
 Kristin_A: 
   secret_id: 35_efd5f4e124004597525409bc534be0d4ca04297a
   is_admin: "0"
-  id: "35"
+  # id: "35"
   display_name: Kristin A
   first_name: Kristin
   is_authorized: "1"
@@ -212,7 +212,7 @@ Kristin_A:
 trevor: 
   secret_id: 27_82ea6fc979079b42fb8a7ac9ff25617b412cf180
   is_admin: "0"
-  id: "27"
+  # id: "27"
   display_name: trevor
   first_name: trevor
   is_authorized: "0"
@@ -222,7 +222,7 @@ trevor:
 boo: 
   secret_id: 14_24d94d81183f435f0d0bb2f72f9547178c8bc917
   is_admin: "0"
-  id: "14"
+  # id: "14"
   display_name: boo
   first_name: donna
   is_authorized: "1"
@@ -232,7 +232,7 @@ boo:
 kendrick: 
   secret_id: 17_247b49ec68b08425d148520e9bce621bc8daaca4
   is_admin: "0"
-  id: "17"
+  # id: "17"
   display_name: kendrick
   first_name: kendrick
   is_authorized: "1"
@@ -242,7 +242,7 @@ kendrick:
 allaire: 
   secret_id: 7_8d97bd4368cafce65f3de03f664c146701235291
   is_admin: "0"
-  id: "7"
+  # id: "7"
   display_name: allaire
   first_name: allaire
   is_authorized: "1"
@@ -252,7 +252,7 @@ allaire:
 Felice: 
   secret_id: 4_b344e343b7490bc8514faa77a1d19d8b7c5ef898
   is_admin: "0"
-  id: "4"
+  # id: "4"
   display_name: Felice
   first_name: Felice
   is_authorized: "1"
@@ -262,7 +262,7 @@ Felice:
 diana: 
   secret_id: 13_9dbdb137bf8f38f997e30c772238cdc341224216
   is_admin: "0"
-  id: "13"
+  # id: "13"
   display_name: diana
   first_name: diana
   is_authorized: "0"
@@ -272,7 +272,7 @@ diana:
 brandon: 
   secret_id: 9_4e72f699015f6a6db1b5d4b64e9bc5be84afe171
   is_admin: "0"
-  id: "9"
+  # id: "9"
   display_name: brandon
   first_name: brandon
   is_authorized: "0"
@@ -282,7 +282,7 @@ brandon:
 jonnybosu: 
   secret_id: 6_e0a243193a2210c7fd2c4485c29d033c34c690d7
   is_admin: "0"
-  id: "6"
+  # id: "6"
   display_name: jonnybosu
   first_name: Jonathan
   is_authorized: "1"
@@ -292,7 +292,7 @@ jonnybosu:
 jean: 
   secret_id: 16_3483480a725533836ed4813042885ac978998c27
   is_admin: "0"
-  id: "16"
+  # id: "16"
   display_name: jean
   first_name: jean
   is_authorized: "0"
@@ -302,7 +302,7 @@ jean:
 arlena: 
   secret_id: 8_4af9108b4cc918af8b5d183bbdc5bbeb66614dd0
   is_admin: "0"
-  id: "8"
+  # id: "8"
   display_name: arlena
   first_name: arlena
   is_authorized: "1"
@@ -312,7 +312,7 @@ arlena:
 lil_finch: 
   secret_id: 37_5419112d9f36d7954b6a989657d21aa367b77b7c
   is_admin: "0"
-  id: "37"
+  # id: "37"
   display_name: lil finch
   first_name: Adair
   is_authorized: "1"
@@ -322,7 +322,7 @@ lil_finch:
 matt: 
   secret_id: 21_02bbaffc2a92d41e7bfee5b1fbdaac7445bb4af2
   is_admin: "0"
-  id: "21"
+  # id: "21"
   display_name: matt
   first_name: matt
   is_authorized: "0"
@@ -332,7 +332,7 @@ matt:
 cw: 
   secret_id: 33_9ad75a3737609b5f29b6072075e2c10576bbad87
   is_admin: "0"
-  id: "33"
+  # id: "33"
   display_name: cw
   first_name: Charlie
   is_authorized: "1"
@@ -342,7 +342,7 @@ cw:
 cecelia: 
   secret_id: 31_7f3feb011ad6d3ccc1f6aa8c1a903656e5ffdc2a
   is_admin: "0"
-  id: "31"
+  # id: "31"
   display_name: the prophet
   first_name: cecelia
   is_authorized: "0"
@@ -352,7 +352,7 @@ cecelia:
 kyle: 
   secret_id: 19_8b8c7c0c81e4a3c1ff17efc1e30342db837606a4
   is_admin: "0"
-  id: "19"
+  # id: "19"
   display_name: kyle
   first_name: kyle
   is_authorized: "1"
@@ -362,7 +362,7 @@ kyle:
 Stephanie: 
   secret_id: 25_d624c72e4be43020450a9d6220a25534be3d4491
   is_admin: "0"
-  id: "25"
+  # id: "25"
   display_name: Stephanie
   first_name: stephanie
   is_authorized: "1"

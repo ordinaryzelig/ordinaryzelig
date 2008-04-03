@@ -1,10 +1,7 @@
---- 
 ten_cent_Surly_Stuka:
-  id: 1
-  user_id: 2
-  friend_id: 3
+  user: ten_cent
+  friend: Surly_Stuka
 
 Surly_Stuka_ten_cent:
-  id: 2
-  user_id: 3
-  friend_id: 2
+  user: Surly_Stuka
+  friend: ten_cent

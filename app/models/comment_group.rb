@@ -5,21 +5,20 @@ class CommentGroup < ActiveRecord::Base
   
   is_polymorphic
   
+  # since this is a polymorphic model,
+  # have to do some manual work before querying the database.
+  # for however many uniq polymorphic models there are, that's how many queries we run.
+  # return an array of all the results.
   def self.find_entities_readable_by(user, *args)
-    find(*args).inject({}) do |hash, comment_group|
-      hash[comment_group.entity_type] ||= []
-      hash[comment_group.entity_type] << comment_group.entity_id
-      hash[comment_group.entity_type].uniq!
-      hash
-    end.inject([]) do |entities, entity_hash|
-      entity_class = entity_hash[0].constantize
-      ids = entity_hash[1]
-      by_friends = entity_class.by_friends_of user
+    args = :all if args.empty?
+    find(*args).group_by(&:entity_type).inject([]) do |entities, entity_type_and_comment_groups|
+      entity_class = entity_type_and_comment_groups.first.constantize
+      ids = entity_type_and_comment_groups.last.map(&:entity_id)
       if entity_class.has_privacy?
-        entities += by_friends.readable_by_anybody.find(:all, :conditions => {:id => ids})
+        entities += entity_class.readable_by_anybody.find(:all, :conditions => {:id => ids})
         entities += entity_class.by_mutual_friends_of(user).readable_by_friends.find(:all, :conditions => {:id => ids})
       else
-        entities += by_friends
+        entities += entity_class.find(ids)
       end
       entities
     end

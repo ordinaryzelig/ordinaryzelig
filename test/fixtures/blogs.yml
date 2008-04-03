@@ -1,28 +1,20 @@
 --- 
 public:
-  id: 1
   title: i killed heath ledger
   body: just watched brokeback mountain and dark knight looks badass.
-  user_id: 2
-  created_at: <%= Time.now %>
+  user: ten_cent
 
 private:
-  id: 2
   title: i'm in a glass case of emotion
   body: ahhhhhhhhh.  no wait, let me say something.  ahhhhhhhhh.
-  user_id: 2
-  created_at: <%= Time.now %>
+  user: ten_cent
 
 friends:
-  id: 3
   title: my boss sucks
   body: i'm quitting tomorrow
-  user_id: 2
-  created_at: <%= Time.now %>
+  user: ten_cent
 
 by_Surly_Stuka:
-  id: 4
-  title: my boss sucks
-  body: i'm quitting tomorrow
-  user_id: 3
-  created_at: <%= Time.now %>
+  title: yeah
+  body: me too
+  user: Surly_Stuka
