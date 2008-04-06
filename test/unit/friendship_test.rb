@@ -4,8 +4,8 @@ class FriendshipTest < Test::Unit::TestCase
   
   fixtures :friendships
   
-  defaults({:user_id => 4,
-            :friend_id => 2},
+  defaults({:user_id => Fixtures.identify(:Felice),
+            :friend_id => Fixtures.identify(:ten_cent)},
            [:user_id, :friend_id])
   test_created_at
   test_mark_as_read

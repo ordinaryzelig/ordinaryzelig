@@ -9,7 +9,7 @@ class MovieRatingTest < Test::Unit::TestCase
             :rating => 3,
             :summary => 'not bad, not at all bad',
             :explanation => 'it was aight. i mean, she has a neat voice but she has a wierd look',
-            :user_id => 2},
+            :user_id => Fixtures.identify(:ten_cent)},
            [:rating, :summary, :explanation])
   test_created_at
   test_mark_as_read

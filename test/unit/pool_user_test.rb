@@ -5,12 +5,11 @@ class PoolUserTest < Test::Unit::TestCase
   march_madness_fixtures
   
   defaults({:season_id => 1,
-            :user_id => 3,
+            :user_id => Fixtures.identify(:Surly_Stuka),
             :bracket_num => 1})
   
   def test_master
-    master_pool_user = PoolUser.find(:first, :conditions => 'season_id = 1 and user_id = 1')
-    assert_equal PoolUser.master(Season.find(1)), master_pool_user
+    assert_equal 'master bracket', PoolUser.master(Season.find(1)).user.display_name
   end
   
   def test_points

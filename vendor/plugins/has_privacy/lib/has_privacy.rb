@@ -69,9 +69,9 @@ class Test::Unit::TestCase
   
   def self.privacy_test_suite
     test_privacy_level
+    test_readable_by
     test_privacy_creation
     test_set_privacy_level!
-    test_readable_by
   end
   
   # test each privacy_level and whether user can_read?.

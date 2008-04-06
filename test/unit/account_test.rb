@@ -4,7 +4,7 @@ class AccountTest < Test::Unit::TestCase
   
   march_madness_fixtures
   
-  defaults({:user_id => 3,
+  defaults({:user_id => Fixtures.identify(:cecelia),
             :season_id => 3})
   
   def test_user_and_season
@@ -19,9 +19,12 @@ class AccountTest < Test::Unit::TestCase
   end
   
   def test_pay
-    pay :ten_cent_2007, 10
+    pay :ten_cent_2005, 10
     pay :ten_cent_2006, 20
   end
+  
+  # =====================================================
+  # helpers.
   
   def pay(user_account_fixture, amount_paid_expected)
     account = accounts user_account_fixture

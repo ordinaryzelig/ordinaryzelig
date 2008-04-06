@@ -6,10 +6,10 @@ class MessageTest < Test::Unit::TestCase
   
   defaults({:body => "georgetown is going to win!  unc just doesn't have it this year.  florida hasn't been tested enough.  greg oden is injured.",
             :subject => 'g-town',
-            :user_id => 32},
+            :user_id => Fixtures.identify(:ten_cent)},
            [:subject, :body])
   test_mark_as_read
-  # recency_test_suite
+  recency_test_suite
   test_summaries :what => proc { |obj| obj.body[0..100] },
                  :title => proc { |obj| obj.subject },
                  :url => proc { |obj| {:controller => 'message_board', :action => 'show', :id => obj.id} },

@@ -14,6 +14,8 @@ class AdminControllerTest < Test::Unit::TestCase
   
   march_madness_fixtures
   
+  # params[:tournament_starts_at] won't work in this post.
+  # implement tournament_starts_at_str.
   # def test_create_new_season
   #   login(:admin)
   #   now = Time.now
@@ -24,8 +26,15 @@ class AdminControllerTest < Test::Unit::TestCase
   # end
   
   def test_enter_pool
-    post :enter_pool, {:season_id => 3, :user_id => 2}
-    assert_not_nil PoolUser.find_by_user_id_and_season_id(2, 3)
+    login :admin
+    season_id = 3
+    user = User.create!({:first_name => 'john',
+                         :last_name => 'doe',
+                         :display_name => 'doej',
+                         :email => 'doej@asdf.fds',
+                         :unhashed_password => 'asdf'})
+    post :enter_pool, {:season_id => 3, :id => user.id}
+    assert_not_nil PoolUser.find_by_user_id_and_season_id(user.id, season_id)
   end
   
   def test_pay

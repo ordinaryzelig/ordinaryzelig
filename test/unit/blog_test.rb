@@ -5,10 +5,6 @@ class BlogTest < Test::Unit::TestCase
   fixtures :blogs
   fixtures :friendships, :privacy_levels
   
-  def setup
-    
-  end
-  
   defaults({:title => 'i killed heath ledger',
             :body => 'just watched brokeback mountain and dark knight looks badass.',
             :user_id => Fixtures.identify(:ten_cent)},

@@ -29,15 +29,6 @@ class SeasonTest < Test::Unit::TestCase
     assert has_x_descendants(season.regions.first.championship_game, 5)
   end
   
-  # recursively check to see if there are the expected number of descendants for passed game.
-  def has_x_descendants(game, descendants_left)
-    if 0 == descendants_left
-      game.children.empty?
-    else
-      has_x_descendants(game.children.first, descendants_left - 1) && has_x_descendants(game.children.last, descendants_left - 1)
-    end
-  end
-  
   def test_games_undecided
     season = Season.find(:first)
     assert season.games.undecided.empty?
@@ -93,6 +84,23 @@ class SeasonTest < Test::Unit::TestCase
     season.pool_users.by_rank(master.pics).each { |pool_user, rank| assert_equal 1, rank }
   end
   
+  def test_regions_final_4
+    season = Season.find(:first)
+    assert_nil season.regions.final_4.championship_game.parent
+  end
+  
+  # =================================================
+  # helpers.
+  
+  # recursively check to see if there are the expected number of descendants for passed game.
+  def has_x_descendants(game, descendants_left)
+    if 0 == descendants_left
+      game.children.empty?
+    else
+      has_x_descendants(game.children.first, descendants_left - 1) && has_x_descendants(game.children.last, descendants_left - 1)
+    end
+  end
+  
   def compare_ranks(pool_users_with_ranks, season)
     assert pool_users_with_ranks.size > 0
     assert_equal pool_users_with_ranks.size, season.pool_users.size - 1
@@ -103,11 +111,6 @@ class SeasonTest < Test::Unit::TestCase
       end
       @previous_points, @previous_rank = pool_user.points, rank
     end
-  end
-  
-  def test_regions_final_4
-    season = Season.find(:first)
-    assert_nil season.regions.final_4.championship_game.parent
   end
   
 end

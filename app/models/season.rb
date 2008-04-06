@@ -52,7 +52,7 @@ class Season < ActiveRecord::Base
     season.regions.first.update_attribute 'name', 'final four'
     
     # add master pool user.
-    pool_user = PoolUser.create!(:user_id => User.master, :season_id => season.id)
+    pool_user = PoolUser.create!(:user_id => User.master.id, :season_id => season.id)
     
     # create bracket of games.
     Game.new_season(season)

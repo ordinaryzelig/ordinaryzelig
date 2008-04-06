@@ -77,11 +77,11 @@ class User < ActiveRecord::Base
   end
   
   def self.master
-    find master_id
+    @master ||= find_by_display_name 'master bracket'
   end
   
   def self.master_id
-    1
+    master.id
   end
   
   def is_admin?

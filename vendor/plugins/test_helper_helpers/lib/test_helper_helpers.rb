@@ -80,7 +80,8 @@ module Test::Unit::Assertions
       assert_block(full_message) { obj.save! }
     end
   rescue Exception => ex
-    flunk "save! failed: #{ex.message}"
+    # flunk "save! failed: #{ex.message}"
+    raise ex
   end
   
   def assert_response_true_success

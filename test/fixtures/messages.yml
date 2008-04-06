@@ -1,1 +1,20 @@
 --- 
+one:
+  subject: one
+  body: uno
+  user: ten_cent
+
+two:
+  subject: two
+  body: dos
+  user: ten_cent
+
+three:
+  subject: three
+  body: tres
+  user: ten_cent
+
+by_Surly_Stuka:
+  subject: me better
+  body: than you
+  user: Surly_Stuka

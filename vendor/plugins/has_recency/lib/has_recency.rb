@@ -101,6 +101,7 @@ class Test::Unit::TestCase
         privacy_levels_recency_test obj
       else
         user = obj.user.friends.first
+        assert_not_nil user, "#{obj.user.display_name} has no friends"
         set_user_previous_login_at_before user, obj
         assert obj.is_recent_to?(user)
       end
