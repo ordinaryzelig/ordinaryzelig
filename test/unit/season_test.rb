@@ -53,9 +53,7 @@ class SeasonTest < Test::Unit::TestCase
   
   def test_pool_users_by_rank
     season = seasons :_2007
-    master = season.pool_users.master
-    assert_equal 63, master.pics.size
-    compare_ranks season.pool_users.by_rank(master.pics), season
+    compare_ranks season.pool_users.by_rank, season
   end
   
   def test_pool_user_master

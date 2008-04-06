@@ -10,8 +10,8 @@
     <% end -%>
   </tr>
   <%= render(:partial => "pool_user_game_pic", :locals => {:pool_user => @master_pool_user, :master_pool_user => @master_pool_user, :game => @game}) %>
-  <% @pool_users.each do |pu| -%>
-      <%= render(:partial => "pool_user_game_pic", :locals => {:pool_user => pu, :master_pool_user => @master_pool_user, :game => @game}) %>
+  <% @pool_users_with_rank.each do |pool_user, rank| -%>
+      <%= render(:partial => "pool_user_game_pic", :locals => {:pool_user => pool_user, :master_pool_user => @master_pool_user, :game => @game}) %>
   <% end -%>
 </table>
 

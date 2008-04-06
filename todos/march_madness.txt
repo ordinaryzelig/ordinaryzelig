@@ -77,3 +77,9 @@ team page
 standings
   points back
   graph?
+
+game_pics can show rank and points back.
+
+game_pics shade master bracket.
+
+pvp doesn't work.

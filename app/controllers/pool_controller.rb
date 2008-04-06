@@ -62,8 +62,9 @@ class PoolController < ApplicationController
         get_scoring_system_from_params
         master_pool_user = @season.pool_users.master.reload(:include => [{:pics => [:bid, {:game => :round}]}, :user])
         master_pool_user.calculate_points(master_pool_user.pics, @scoring_system)
-        @pool_users_with_rank = [[master_pool_user, nil]] + @season.pool_users.by_rank(master_pool_user.pics, @scoring_system)
-        @show_pvp_selectors = @season.tournament_has_started? && !master_pool_user.bracket_complete?
+        @pool_users_with_rank = [[master_pool_user, nil]] + @season.pool_users.by_rank(@scoring_system)
+        # @show_pvp_selectors = @season.tournament_has_started? && !master_pool_user.bracket_complete?
+        @show_pvp_selectors = false
       end
     else
       redirect_to :action => "standings", :season_id => params[:season_id], :scoring_system_id => params[:scoring_system_id]
@@ -74,13 +75,8 @@ class PoolController < ApplicationController
     rescue_friendly do
       @game = Game.find_by_id params[:id], :include => [:region, {:pics => [{:pool_user => [:pics, :user]}, {:bid => :team}]}]
       raise FriendlyError.new("you cannot see other players' pics before the tournament.") unless @game.season.tournament_has_started?
-      @pool_users = PoolUser.find :all,
-                                  :conditions => ["#{PoolUser.table_name}.season_id = ?",
-                                                  *[@game.season_id]],
-                                  :include => [{:pics => [{:bid => :team}, :game]}, :user],
-                                  :order => :display_name
-      @master_pool_user = @pool_users.detect { |pu| pu.user_id == User.master_id }
-      @pool_users.delete @master_pool_user
+      @pool_users_with_rank = @game.season.pool_users.by_rank
+      @master_pool_user = @game.season.pool_users.master
     end
   end
   

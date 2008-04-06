@@ -18,10 +18,11 @@ class Season < ActiveRecord::Base
     end
   end
   has_many :pool_users do
-    def by_rank(master_pics, scoring_system = ScoringSystems.default)
+    # return array of [pool_user, rank] in order by rank.
+    def by_rank(scoring_system = ScoringSystems.default)
       return @pool_users_with_ranks if @pool_users_with_ranks
       pool_users = non_admin.find :all, :include => [{:pics => [:bid, {:game => :round}]}, :user]
-      pool_users.each { |pool_user| pool_user.calculate_points(master_pics, scoring_system) }
+      pool_users.each { |pool_user| pool_user.calculate_points(master.pics, scoring_system) }
       pool_users.sort! &PoolUser.standings_sort_proc
       ties = 0
       previous_points = nil
