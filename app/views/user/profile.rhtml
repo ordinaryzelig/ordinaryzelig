@@ -49,7 +49,7 @@
     <div style="margin-top: 3mm;">
       <%= link_to("friends' blogs", :controller => "blog", :action => "friends_blogs") %>
       <div style="padding-left: 10mm;">
-        <%= render :partial => 'blog_list', :locals => {:blogs => @user.friends.blogs_readable_by(@user)[0..4]} %>
+        <%= render :partial => 'blog_list', :locals => {:blogs => Blog.by_friends_of(@user).readable_by_friends(@user)[0..4]} %>
       </div>
     </div>
   <% end -%>

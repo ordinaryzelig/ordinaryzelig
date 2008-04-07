@@ -30,12 +30,16 @@ module OrdinaryZelig
                                                          :order => "#{table_name}.created_at desc" } }
         # default method for finding methods.
         def self.recents_to(user)
-          recents = by_friends_of(user).since_previous_login(user)
+          readable_by(user).since_previous_login(user)
+        end
+        
+        def self.readable_by(user)
+          readable = by_friends_of(user)
           if has_privacy?
-            recents = recents.readable_by_anybody
-            recents += by_mutual_friends_of(user).readable_by_friends.since_previous_login(user)
+            readable = readable.readable_by_anybody
+            readable += by_mutual_friends_of(user).readable_by_friends.since_previous_login(user)
           end
-          recents
+          readable
         end
         
       end
