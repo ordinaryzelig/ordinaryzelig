@@ -54,10 +54,9 @@ class BlogController < ApplicationController
   
   preview_action_for
   
-  def friends_blogs
-    @blogs = logged_in_user.friends.blogs_readable_by(logged_in_user)
+  def by_friends
+    @blogs = Blog.readable_by logged_in_user
     @page_title = "friends' blogs"
-    render(:layout => false) if request.xhr?
   end
   
 end
