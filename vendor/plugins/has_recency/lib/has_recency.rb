@@ -28,16 +28,16 @@ module OrdinaryZelig
         has_finder :by_considering_friends_of, proc { |user| {:conditions => {:user_id => user.considering_friends.map(&:id)}} }
         has_finder :since_previous_login, proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at],
                                                          :order => "#{table_name}.created_at desc" } }
-        # default method for finding methods.
+        # default method for finding recents.
         def self.recents_to(user)
-          readable_by(user).since_previous_login(user)
+          since_previous_login(user).find readable_by(user)
         end
         
         def self.readable_by(user)
           readable = by_friends_of(user)
           if has_privacy?
             readable = readable.readable_by_anybody
-            readable += by_mutual_friends_of(user).readable_by_friends.since_previous_login(user)
+            readable += by_mutual_friends_of(user).readable_by_friends
           end
           readable
         end
@@ -91,6 +91,7 @@ class Test::Unit::TestCase
     test_has_finder_by_mutual_friends_of
     test_has_finder_since_previous_login
     test_recents_to
+    test_readable_by
   end
   
   def self.test_is_recent_to?
@@ -99,14 +100,16 @@ class Test::Unit::TestCase
       # no user.
       assert_not obj.is_recent_to?(nil)
       # owner.
-      set_user_previous_login_at_before obj.user, obj
       assert_not obj.is_recent_to?(obj.user)
+      
+      set_user_previous_login_at_before obj.user, obj
+      
+      # friends and privacy.
       if obj.class.has_privacy?
         privacy_levels_recency_test obj
       else
-        user = obj.user.friends.first
-        assert_not_nil user, "#{obj.user.display_name} has no friends"
-        set_user_previous_login_at_before user, obj
+        user = obj.user.mutual_friends.first
+        assert_not_nil user, "#{obj.user.display_name} has no mutual friends"
         assert obj.is_recent_to?(user)
       end
     end
@@ -154,6 +157,17 @@ class Test::Unit::TestCase
     end
   end
   
+  def self.test_readable_by
+    define_method 'test_readable_by' do
+      user = users :Surly_Stuka
+      readable = model_class.readable_by(user)
+      assert readable.size > 0
+      readable.each do |r|
+        assert user.can_read?(r)
+      end
+    end
+  end
+  
   # ===========================================
   # helpers.
   
@@ -163,7 +177,7 @@ class Test::Unit::TestCase
   end
   
   def privacy_levels_recency_test(obj)
-    user = obj.user.friends.first
+    user = obj.user.mutual_friends.first
     set_user_previous_login_at_before user, obj
     
     # not friends, so shouldn't be recent.
@@ -189,7 +203,7 @@ class Test::Unit::TestCase
     assert_equal obj.privacy_level.privacy_level_type_id, 2
     assert obj.is_recent_to?(user)
     
-    # recents.
+    # recents_to.
     assert obj.class.recents_to(user).include?(obj)
   end
   

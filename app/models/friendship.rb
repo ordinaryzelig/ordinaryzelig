@@ -21,7 +21,7 @@ class Friendship < ActiveRecord::Base
   is_entity_type
   
   def self.recents_to(user)
-    recents = by_considering_friends_of(user).since_previous_login(user)
+    by_considering_friends_of(user).since_previous_login(user)
   end
   
 end

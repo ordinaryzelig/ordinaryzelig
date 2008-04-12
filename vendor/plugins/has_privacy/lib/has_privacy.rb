@@ -69,7 +69,7 @@ class Test::Unit::TestCase
   
   def self.privacy_test_suite
     test_privacy_level
-    test_readable_by
+    test_has_finder_readable_by
     test_privacy_creation
     test_set_privacy_level!
   end
@@ -100,7 +100,7 @@ class Test::Unit::TestCase
     end
   end
   
-  def self.test_readable_by
+  def self.test_has_finder_readable_by
     define_method 'test_readable_by' do
       Blog.readable_by_nobody.each { |blog| assert_equal 1, blog.privacy_level.to_i }
       Blog.readable_by_friends.each { |blog| assert_equal 2, blog.privacy_level.to_i }
