@@ -1,1 +1,7 @@
 --- 
+<% ['Blog', 'Comment', 'Friendship', 'Message', 'MovieRating'].each do |entity| %>
+read_<%= entity.downcase.underscore %>:
+  entity: read_by_ten_cent (<%= entity %>)
+  user: ten_cent
+  read_at: <%= Time.now %>
+<% end %>

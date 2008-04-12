@@ -13,3 +13,8 @@ another_by_Surly_Stuka:
 sucky_movie:
   user: Surly_Stuka
   comment: i hate all movies.
+
+read_by_ten_cent:
+  user: Surly_Stuka
+  comment: been there done that.
+  parent_id: <%= Fixtures.identify(:sucky_movie) %>

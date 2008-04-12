@@ -9,3 +9,7 @@ Surly_Stuka_ten_cent:
 ten_cent_Felice:
   user: ten_cent
   friend: Felice
+
+read_by_ten_cent:
+  user: mike
+  friend: ten_cent

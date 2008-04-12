@@ -54,17 +54,6 @@ class Test::Unit::TestCase
     end
   end
   
-  def self.test_mark_as_read
-    fixtures :users
-    define_method 'test_mark_as_read' do
-      b = test_new_with_default_attributes
-      user = users(:Surly_Stuka)
-      assert model_class.find_all_read_by_user(user).empty?
-      b.mark_as_read user
-      assert_not model_class.find_all_read_by_user(user).empty?
-    end
-  end
-  
   def self.test_summaries(summaries)
     define_method 'test_summaries' do
       obj = test_new_with_default_attributes

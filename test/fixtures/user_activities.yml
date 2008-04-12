@@ -8,3 +8,8 @@ Surly_Stuka_login:
   user: Surly_Stuka
   last_login_at: <%= 1.week.ago %>
   previous_login_at: <%= 1.day.ago %>
+
+Felice_login:
+  user: Felice
+  last_login_at: <%= 1.week.ago %>
+  previous_login_at: <%= 1.day.ago %>

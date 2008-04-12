@@ -8,7 +8,7 @@ class MessageTest < Test::Unit::TestCase
             :subject => 'g-town',
             :user_id => Fixtures.identify(:ten_cent)},
            [:subject, :body])
-  test_mark_as_read
+  can_be_marked_as_read_test_suite
   recency_test_suite
   test_summaries :what => proc { |obj| obj.body[0..100] },
                  :title => proc { |obj| obj.subject },

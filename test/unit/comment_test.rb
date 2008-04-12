@@ -8,7 +8,7 @@ class CommentTest < Test::Unit::TestCase
             :entity_type => 'Blog',
             :entity_id => Fixtures.identify(:public)},
            [:comment, :entity_type, :entity_id])
-  test_mark_as_read
+  can_be_marked_as_read_test_suite
   recency_test_suite
   test_summaries :what => proc { |obj| obj.comment[0..50] },
                  :title => proc { |obj| "#{obj.entity.class}: #{obj.entity.summarize_title}" },

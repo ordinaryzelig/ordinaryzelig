@@ -30,7 +30,7 @@ module OrdinaryZelig
                                                          :order => "#{table_name}.created_at desc" } }
         # default method for finding recents.
         def self.recents_to(user)
-          since_previous_login(user).find :all, :conditions => {:id => readable_by(user)}
+          since_previous_login(user).find :all, :conditions => {:id => readable_by(user).map(&:id)}
         end
         
         def self.readable_by(user)
@@ -175,7 +175,7 @@ class Test::Unit::TestCase
   # helpers.
   
   def set_user_previous_login_at_before(user, obj)
-    user.set_previous_login_at! obj.created_at - 1.minute
+    user.previous_login_at = obj.created_at - 1.minute
     assert user.previous_login_at < obj.created_at
   end
   

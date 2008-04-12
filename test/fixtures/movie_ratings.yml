@@ -13,3 +13,11 @@ by_Surly_Stuka:
   summary: no she's not
   explanation: i don't see it
   user: Surly_Stuka
+
+read_by_ten_cent:
+  movie_id: 10
+  movie_rating_type_id: 2
+  rating: 1
+  summary: hated it.
+  explanation: i don't have to justify my reason
+  user: Surly_Stuka

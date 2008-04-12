@@ -73,7 +73,10 @@ ENV['FIXTURES'] = ['users',
                    'movie_rating_types',
                    'movie_rating_options',
                    'movie_ratings',
-                   'recent_entity_types'].join(',')
+                   'recent_entity_types',
+                   'privacy_level_types',
+                   'privacy_levels',
+                   'read_items'].join(',')
 
 ENV['TZ'] = 'UTC'
 

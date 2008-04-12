@@ -8,7 +8,7 @@ class FriendshipTest < Test::Unit::TestCase
             :friend_id => Fixtures.identify(:ten_cent)},
            [:user_id, :friend_id])
   test_created_at
-  test_mark_as_read
+  can_be_marked_as_read_test_suite
   recency_test_suite
   test_summaries :title => proc { |obj| "#{obj.user.first_last_display} added you as a friend." },
                  :when => proc { |obj| obj.created_at },

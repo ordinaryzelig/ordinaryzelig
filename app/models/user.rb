@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
     end
   end
   has_one :user_activity
+  delegate :previous_login_at, :previous_login_at=, :last_login_at, :to => :user_activity
   has_many :friendships, :foreign_key => "user_id"
   has_many :friends, :through => :friendships, :order => "lower(last_name)"
   has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
@@ -137,15 +138,7 @@ class User < ActiveRecord::Base
   def first_last_display
     "#{first_name} #{last_name} (#{display_name})"
   end
-  
-  def last_login_at
-    user_activity.last_login_at if user_activity
-  end
-  
-  def previous_login_at
-    user_activity.previous_login_at if user_activity
-  end
-  
+    
   # this user can read if:
   #   is owner.
   #   is admin.
@@ -209,13 +202,6 @@ class User < ActiveRecord::Base
                                    "lower(last_name) like :search_text",
                                    {:search_text => "%#{search_text.downcase}%"}],
                    :order => "last_name, first_name, display_name")
-  end
-  
-  def set_previous_login_at!(time)
-    activity = user_activity || build_user_activity
-    activity.previous_login_at = time
-    activity.save!
-    time
   end
   
   private

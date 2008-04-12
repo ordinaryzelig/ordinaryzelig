@@ -1,2 +1,2 @@
-refactor privacy
-  comments.recents_to returns entities. should return comments whose entities are readable.
+refactor recents
+  filter read items.
