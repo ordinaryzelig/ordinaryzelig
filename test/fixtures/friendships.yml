@@ -5,3 +5,7 @@ ten_cent_Surly_Stuka:
 Surly_Stuka_ten_cent:
   user: Surly_Stuka
   friend: ten_cent
+
+ten_cent_Felice:
+  user: ten_cent
+  friend: Felice

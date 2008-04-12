@@ -108,8 +108,8 @@ class Test::Unit::TestCase
       if obj.class.has_privacy?
         privacy_levels_recency_test obj
       else
-        user = obj.user.mutual_friends.first
-        assert_not_nil user, "#{obj.user.display_name} has no mutual friends"
+        user = obj.user.considering_friends.first
+        assert_not_nil user, "#{obj.user.display_name} has no considering friends"
         assert obj.is_recent_to?(user)
       end
     end
@@ -177,7 +177,7 @@ class Test::Unit::TestCase
   end
   
   def privacy_levels_recency_test(obj)
-    user = obj.user.mutual_friends.first
+    user = obj.user.considering_friends.first
     set_user_previous_login_at_before user, obj
     
     # not friends, so shouldn't be recent.
