@@ -5,12 +5,12 @@ class CommentGroupTest < Test::Unit::TestCase
   fixtures :blogs, :comment_groups, :messages, :privacy_levels
   movie_fixtures
   
-  def test_find_entities_readable_by
+  def test_find_by_entities_readable_by
     user = users :ten_cent
-    entities = CommentGroup.find_entities_readable_by(user)
-    assert entities.size > 0, 'no entities found.'
-    entities.each do |entity|
-      assert user.can_read?(entity)
+    comment_groups = CommentGroup.find_by_entities_readable_by(user)
+    assert comment_groups.size > 0, 'no comment_groups found.'
+    comment_groups.each do |cg|
+      assert user.can_read?(cg.entity)
     end
   end
   

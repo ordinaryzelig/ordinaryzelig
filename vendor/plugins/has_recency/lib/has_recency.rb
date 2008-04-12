@@ -153,7 +153,10 @@ class Test::Unit::TestCase
       user = users :ten_cent
       objs = model_class.recents_to user
       assert objs.size > 0, "no #{model_class} recents found"
-      objs.each { |obj| assert user.can_read?(obj) }
+      objs.each do |obj|
+        assert user.can_read?(obj)
+        assert user != obj.user, 'user is also owner.'
+      end
     end
   end
   

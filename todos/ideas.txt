@@ -114,3 +114,6 @@ season.pool_users.ranks can use inject?
 in places like message_board or blog list, expand each one and it's comments. put a '+' or down arrow.
 
 for comments: http://wiki.rubyonrails.com/rails/pages/BetterNestedSet
+
+comments:
+  change to polymorphic?  can be nested through polymorphism.
