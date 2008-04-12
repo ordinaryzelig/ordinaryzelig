@@ -36,9 +36,9 @@ class UserTest < Test::Unit::TestCase
     assert_not u.is_admin?
   end
   
-  # def test_recents_at_least_gets_called_without_exceptions(user = nil)
-  #   assert (user || users(:ten_cent)).recents_to
-  # end
+  def test_recents_at_least_gets_called_without_exceptions(user = nil)
+    assert (user || users(:ten_cent)).recents
+  end
   
   def test_generate_secret_id
     u = users(:ten_cent)
@@ -92,34 +92,16 @@ class UserTest < Test::Unit::TestCase
     u.generate_secret_id
     assert_not_equal old_secret_id, u.secret_id
   end
-  
-  # def test_friends_blogs
-  #   user = test_new_with_default_attributes
-  #   blogs = user.friends.blogs_readable_by(user)
-  #   blogs.each do |b|
-  #     assert user.considers_friend?(b.user)
-  #     assert user.can_read?(b)
-  #   end
-  # end
-  
-  # def test_blogs_readable_by
-  #   user = users(:ten_cent)
-  #   friend = user.friends.first
-  #   assert_not_nil friend
-  #   blogs_readable_by_friend = user.blogs.select { |b| friend.can_read?(b) }
-  #   assert_equal blogs_readable_by_friend.size, user.blogs.readable_by(friend).size
-  # end
-  
+    
   def test_login_without_user_activity
     user = old_user
     user.log_login
     assert user.user_activity
   end
   
-  # def recency_test_suite_with_no_friends
-  #   user = old_user
-  #   test_recents_at_least_gets_called_without_exceptions
-  # end
+  def recency_test_suite_with_no_friends
+    test_recents_at_least_gets_called_without_exceptions old_user
+  end
   
   def test_set_password!
     user = users :ten_cent

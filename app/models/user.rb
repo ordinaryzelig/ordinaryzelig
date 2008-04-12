@@ -165,14 +165,11 @@ class User < ActiveRecord::Base
   
   def recents
     return @recents if @recents
-    if previous_login_at
-      @recents = RecentEntityType.find(:all).map(&:entity_type).map do |entity_type|
-        entity_type.entity_class.recents_to(self)
-      end.flatten.sort { |a, b| b.recency_time_obj(self) <=> a.recency_time_obj(self) }
-      @recents
-    else
-      @recents = []
-    end
+    return @recents = [] unless previous_login_at
+    @recents = RecentEntityType.find(:all).map(&:entity_type).map do |entity_type|
+      entity_type.entity_class.recents_to(self)
+    end.flatten.sort { |a, b| b.recency_time_obj(self) <=> a.recency_time_obj(self) }
+    @recents
   end
   
   def movies_with_ratings
