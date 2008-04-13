@@ -1,2 +1,2 @@
 refactor recents
-  filter read items.
+  how to display?

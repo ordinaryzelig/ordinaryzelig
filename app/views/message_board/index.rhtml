@@ -1,4 +1,4 @@
-<% content_for "#{@messages.first.class.to_s}_pagination" do -%>
+<% #content_for "#{@messages.first.class.to_s}_pagination" do -%>
   
   <div style="margin-bottom: 5mm;"><%= link_to("new", :action => "new") %></div>
   
@@ -6,6 +6,8 @@
     <%= render(:partial => "shared/summary", :locals => {:entity => message, :show_who => true}) %>
   <% end -%>
   
-<% end -%>
+<% #end -%>
 
-<%= render(:partial => "shared/pagination", :locals => {:entities => @messages, :pages => @messages_pages}) %>
+<% #render(:partial => "shared/pagination", :locals => {:entities => @messages, :pages => @messages_pages}) %>
+
+<%= will_paginate @messages %>

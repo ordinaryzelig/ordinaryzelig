@@ -81,3 +81,4 @@ ENV['FIXTURES'] = ['users',
 ENV['TZ'] = 'UTC'
 
 require 'has_finder'
+require 'will_paginate'

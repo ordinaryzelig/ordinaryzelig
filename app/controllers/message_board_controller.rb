@@ -5,7 +5,7 @@ class MessageBoardController < ApplicationController
   ADMIN_ACTIONS = ["edit"]
   
   def index
-    @messages_pages, @messages = paginate(:messages, :order => "created_at desc")
+    @messages = Message.paginate(:page => params[:page] || 1, :order => "created_at desc", :per_page => 10)
     title "message board"
     render(:layout => false) if request.xhr?
   end
