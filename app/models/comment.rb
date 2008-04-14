@@ -31,9 +31,9 @@ class Comment < ActiveRecord::Base
   end
   
   def self.recents_to(user)
-    recents = by_friends_of(user).since_previous_login(user)
-    entities = CommentGroup.find_by_entities_readable_by(user, recents.map { |comment| comment.comment_group.id })
-    recents.select { |r| r.comment_group }
+    recents = by_friends_of(user).since_previous_login(user) - read_by(user)
+    readable_comment_groups = CommentGroup.find_by_entities_readable_by(user, recents.map { |comment| comment.comment_group.id })
+    recents.select { |r| readable_comment_groups.include?(r.comment_group) }
   end
   
   private

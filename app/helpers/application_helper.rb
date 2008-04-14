@@ -117,7 +117,7 @@ module ApplicationHelper
   end
   
   def mark_as_read_link(entity, hide_entity = false)
-    link = link_to_remote('mark as read', {:url => {:action => 'mark_entity_as_read',
+    link = link_to_remote('mark as read', {:url => {:action => 'mark_entity_as_read_by',
                                                     :entity_type => entity.class,
                                                     :id => entity.id,
                                                     :hide_entity => hide_entity || nil}})

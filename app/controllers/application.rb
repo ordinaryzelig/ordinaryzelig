@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
                 :read_entities,
                 :page_title
   
-  def mark_entity_as_read
+  def mark_entity_as_read_by
     if request.xhr?
       @entity = Object.const_get(params[:entity_type]).find_by_id(params[:id])
-      @entity.mark_as_read(logged_in_user)
+      @entity.mark_as_read_by(logged_in_user)
       render :update do |page|
         if params[:hide_entity]
           page[@entity.div_id].visual_effect(:switch_off)

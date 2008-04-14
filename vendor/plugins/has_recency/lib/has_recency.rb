@@ -23,14 +23,14 @@ module OrdinaryZelig
         include OrdinaryZelig::HasRecency::InstanceMethods
         @has_recency = true
         
-        has_finder :by_friends_of, proc { |user| {:conditions => {:user_id => user.friends.map(&:id)}} }
-        has_finder :by_mutual_friends_of, proc { |user| {:conditions => {:user_id => user.mutual_friends.map(&:id)}} }
-        has_finder :by_considering_friends_of, proc { |user| {:conditions => {:user_id => user.considering_friends.map(&:id)}} }
+        has_finder :by_friends_of, proc { |user| {:conditions => {:user_id => user.friends.map(&:id)}, :order => 'created_at desc'} }
+        has_finder :by_mutual_friends_of, proc { |user| {:conditions => {:user_id => user.mutual_friends.map(&:id)}, :order => 'created_at desc'} }
+        has_finder :by_considering_friends_of, proc { |user| {:conditions => {:user_id => user.considering_friends.map(&:id)}, :order => 'created_at desc'} }
         has_finder :since_previous_login, proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at],
                                                          :order => "#{table_name}.created_at desc" } }
         # default method for finding recents.
         def self.recents_to(user)
-          since_previous_login(user).find :all, :conditions => {:id => readable_by(user).map(&:id)}
+          since_previous_login(user).find(:all, :conditions => {:id => readable_by(user).map(&:id)}) - read_by(user)
         end
         
         def self.readable_by(user)
@@ -74,6 +74,7 @@ module OrdinaryZelig
         return false unless user
         return false if user == recency_user_obj
         return false if self.class.has_privacy? && !user.can_read?(self)
+        return false if read_items.by(user)
         return user.last_login_at <= self.recency_time_obj
       end
       
@@ -97,21 +98,22 @@ class Test::Unit::TestCase
   def self.test_is_recent_to?
     define_method 'test_is_recent_to?' do
       obj = test_new_with_default_attributes
-      # no user.
-      assert_not obj.is_recent_to?(nil)
-      # owner.
-      assert_not obj.is_recent_to?(obj.user)
-      
-      set_user_previous_login_at_before obj.user, obj
       
       # friends and privacy.
       if obj.class.has_privacy?
         privacy_levels_recency_test obj
-      else
-        user = obj.user.considering_friends.first
-        assert_not_nil user, "#{obj.user.display_name} has no considering friends"
-        assert obj.is_recent_to?(user)
       end
+      user = obj.user.considering_friends.first
+      assert_not_nil user, "#{obj.user.display_name} has no considering friends"
+      assert obj.is_recent_to?(user)
+      
+      # no user.
+      assert_not obj.is_recent_to?(nil)
+      # owner.
+      assert_not obj.is_recent_to?(obj.user)
+      # read.
+      obj.mark_as_read_by user
+      assert_not obj.is_recent_to?(user)
     end
   end
   
@@ -155,8 +157,11 @@ class Test::Unit::TestCase
       assert objs.size > 0, "no #{model_class} recents found"
       objs.each do |obj|
         assert user.can_read?(obj)
-        assert user != obj.user, 'user is also owner.'
+        assert obj.is_recent_to?(user)
       end
+      read = objs.first
+      read.mark_as_read_by user
+      assert_not read.is_recent_to?(user)
     end
   end
   
