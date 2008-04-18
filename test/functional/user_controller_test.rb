@@ -12,7 +12,7 @@ class UserControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
   
-  def test_registration
+  def test_register
     display_name = 'john doe'
     assert_nil User.find_by_display_name(display_name)
     post :register, {:user => {:email => 'asdf@asdf.asdf',
@@ -22,6 +22,17 @@ class UserControllerTest < Test::Unit::TestCase
                                :password => 'asdf',
                                :password => 'asdf'}}
     assert_not_nil User.find_by_display_name(display_name)
+  end
+  
+  def test_profile
+    user = login :ten_cent
+    get :profile, :id => user.to_param
+    assert_equal user.id, assigns('user').id
+    recents = assigns('recents')
+    assert recents.size > 0
+    recents.each do |r|
+      assert r.is_recent_to?(user)
+    end
   end
   
 end

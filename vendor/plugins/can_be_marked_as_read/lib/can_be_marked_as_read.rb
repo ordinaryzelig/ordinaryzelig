@@ -11,7 +11,7 @@ module OrdinaryZelig
       def can_be_marked_as_read(options = {})
         has_many :read_items, :as => :entity do
           def by(user)
-            find :first, :conditions => {:user_id => user.id}
+            find :all, :conditions => {:user_id => user.id}
           end
         end
         @can_be_marked_as_read = true
@@ -64,7 +64,12 @@ module OrdinaryZelig
         define_method 'test_read_items_by' do
           obj = send model_class.to_s.tableize, :read_by_ten_cent
           user = users(:ten_cent)
-          assert_equal user.id, obj.read_items.by(user).user_id
+          read_items = obj.read_items.by(user)
+          assert read_items.size > 0
+          read_items.each do |item|
+            assert_equal ReadItem, item.class
+            assert_equal user.id, item.user_id
+          end
         end
       end
       

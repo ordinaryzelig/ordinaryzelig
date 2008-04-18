@@ -28,6 +28,11 @@ module OrdinaryZelig
           validates_presence_of :entity_type
           validates_presence_of :entity_id
         end
+        # return array of entity_type and entity_id.
+        # this is useful for pulling data without hitting server.
+        define_method 'entity_type_id_pair' do
+          [entity_type, entity_id]
+        end
       end
       
       def is_polymorphic?

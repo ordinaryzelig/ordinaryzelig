@@ -70,12 +70,12 @@ module OrdinaryZelig
       # false if user is owner.
       # false unless user.can_read?
       # true if object was made since user's last_login_at
-      def is_recent_to?(user)
-        return false unless user
-        return false if user == recency_user_obj
-        return false if self.class.has_privacy? && !user.can_read?(self)
-        return false if read_items.by(user)
-        return user.last_login_at <= self.recency_time_obj
+      def is_recent_to?(usr)
+        return false unless usr
+        return false if usr == recency_user_obj
+        return false if self.class.has_privacy? && !usr.can_read?(self)
+        return false if read_items.by(usr).map(&:entity_type_id_pair).include?([self.class.to_s, self.id])
+        return usr.previous_login_at <= self.recency_time_obj
       end
       
     end
@@ -161,7 +161,7 @@ class Test::Unit::TestCase
       end
       read = objs.first
       read.mark_as_read_by user
-      assert_not read.is_recent_to?(user)
+      assert_not model_class.recents_to(user).include?(read)
     end
   end
   

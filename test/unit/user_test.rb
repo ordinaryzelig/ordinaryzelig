@@ -36,8 +36,11 @@ class UserTest < Test::Unit::TestCase
     assert_not u.is_admin?
   end
   
-  def test_recents_at_least_gets_called_without_exceptions(user = nil)
-    assert (user || users(:ten_cent)).recents
+  def test_recents(usr = nil)
+    user = usr || users(:ten_cent)
+    recents = user.recents
+    assert recents.size > 0
+    recents.each { |r| assert r.is_recent_to?(user) }
   end
   
   def test_generate_secret_id
@@ -100,7 +103,7 @@ class UserTest < Test::Unit::TestCase
   end
   
   def recency_test_suite_with_no_friends
-    test_recents_at_least_gets_called_without_exceptions old_user
+    test_recents old_user
   end
   
   def test_set_password!

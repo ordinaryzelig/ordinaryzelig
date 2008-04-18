@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
     end
   end
   has_one :user_activity
-  delegate :previous_login_at, :previous_login_at=, :last_login_at, :to => :user_activity
+  delegate :previous_login_at, :last_login_at, :to => :user_activity
   has_many :friendships, :foreign_key => "user_id"
   has_many :friends, :through => :friendships, :order => "lower(last_name)"
   has_many :considering_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
@@ -158,11 +158,11 @@ class User < ActiveRecord::Base
   
   def recents
     return @recents if @recents
-    return @recents = [] unless previous_login_at
     @recents = RecentEntityType.find(:all).map(&:entity_type).map do |entity_type|
       entity_type.entity_class.recents_to(self)
-    end.flatten.sort { |a, b| b.recency_time_obj(self) <=> a.recency_time_obj(self) }
-    @recents
+      # recs = entity_type.entity_class.recents_to(self)
+      # recs.each { |r| raise unless r.is_recent_to?(self) }
+    end.flatten
   end
   
   def movies_with_ratings
@@ -202,6 +202,10 @@ class User < ActiveRecord::Base
                                    "lower(last_name) like :search_text",
                                    {:search_text => "%#{search_text.downcase}%"}],
                    :order => "last_name, first_name, display_name")
+  end
+  
+  def previous_login_at=(time)
+    user_activity.update_attribute :previous_login_at, time
   end
   
   private

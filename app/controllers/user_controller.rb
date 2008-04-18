@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   
-  before_filter :require_authentication, :except => [:register, :test]
+  before_filter :require_authentication, :except => [:register]
   skip_after_filter :mark_requested_page, :only => [:register]
   
   def index
@@ -13,7 +13,7 @@ class UserController < ApplicationController
       render_layout_only 'user not found'
       return
     end
-    title  "profile - #{@user.display_name}"
+    title "profile - #{@user.display_name}"
     @recents = @user.recents if is_self_or_logged_in_as_admin?(@user)
   end
   

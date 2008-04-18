@@ -9,4 +9,8 @@ class ReadItemTest < Test::Unit::TestCase
     assert read_item.entity.read_by?(read_item.user)
   end
   
+  def test_entity_type_id_pair
+    assert_equal ['Blog', Fixtures.identify(:read_by_ten_cent)], read_items(:read_blog).entity_type_id_pair
+  end
+  
 end

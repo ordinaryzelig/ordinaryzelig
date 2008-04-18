@@ -112,7 +112,7 @@ module ApplicationHelper
   end
   
   def recent_background_color(object, default_color = "lightgray")
-    color = (logged_in_user && object.class.has_recency? && object.is_recent_to?(logged_in_user)) ? "lightgreen" : default_color
+    color = object.is_recent_to?(logged_in_user) ? "lightgreen" : default_color
     "background-color: #{color};" if color
   end
   
