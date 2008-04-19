@@ -79,6 +79,7 @@ ENV['FIXTURES'] = ['users',
                    'read_items'].join(',')
 
 ENV['TZ'] = 'UTC'
+ENV['GEM_PATH'] ||= '/users/home/ordinaryzelig/rubygems:/usr/local/lib/ruby/gems/1.8'
 
 require 'has_finder'
 require 'will_paginate'
