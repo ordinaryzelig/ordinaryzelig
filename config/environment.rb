@@ -79,7 +79,11 @@ ENV['FIXTURES'] = ['users',
                    'read_items'].join(',')
 
 ENV['TZ'] = 'UTC'
-ENV['GEM_PATH'] ||= '/users/home/ordinaryzelig/rubygems:/usr/local/lib/ruby/gems/1.8'
+ENV['GEM_PATH'] = '/users/home/ordinaryzelig/rubygems:/usr/local/lib/ruby/gems/1.8' if 'production' == ENV['RAILS_ENV']
+require 'rubygems'
+system 'gem env'
 
+gem 'has_finder'
+gem 'will_paginate'
 require 'has_finder'
 require 'will_paginate'
