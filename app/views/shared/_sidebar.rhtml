@@ -42,7 +42,7 @@
   <hr>
   
   <%= link_to_unless('pool' == controller.controller_name, "march madness", :controller => "pool") %>
-  <% if 'pool' == controller.controller_name -%>
+  <% if ['pool', 'message_board'].include? controller.controller_name -%>
     <%= link_to("standings", :controller => "pool", :action => "standings") %><br/>
     <% if logged_in_user -%>
       <%= link_to_my_bracket %><br/>

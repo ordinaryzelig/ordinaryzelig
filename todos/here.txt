@@ -1,4 +1,1 @@
-refactor recents
-  profile listing recents, but they're not recent.
-  check obj.is_recent_to?
-  how to display?
+how to display recents?

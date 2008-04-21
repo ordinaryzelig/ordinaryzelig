@@ -117,3 +117,7 @@ for comments: http://wiki.rubyonrails.com/rails/pages/BetterNestedSet
 
 comments:
   change to polymorphic?  can be nested through polymorphism.
+
+delegate privacy_level
+
+add time to notifier.exception

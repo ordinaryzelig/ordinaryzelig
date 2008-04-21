@@ -112,11 +112,12 @@ module ApplicationHelper
   end
   
   def recent_background_color(object, default_color = "lightgray")
+    return unless object.class.has_recency?
     color = object.is_recent_to?(logged_in_user) ? "lightgreen" : default_color
     "background-color: #{color};" if color
   end
   
-  def mark_as_read_link(entity, hide_entity = false)
+  def link_to_mark_as_read(entity, hide_entity = false)
     link = link_to_remote('mark as read', {:url => {:action => 'mark_entity_as_read_by',
                                                     :entity_type => entity.class,
                                                     :id => entity.id,
@@ -125,7 +126,7 @@ module ApplicationHelper
   end
   
   def mark_as_read_div(entity, hide_entity = false)
-    content_tag :div, mark_as_read_link(entity, hide_entity), :style => 'float: right;'
+    content_tag :div, link_to_mark_as_read(entity, hide_entity), :style => 'float: right;'
   end
   
   def simp_san(text)
