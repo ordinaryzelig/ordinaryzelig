@@ -77,7 +77,7 @@ module TwoSidedMigration
       end
     rescue => ex
       STDERR.puts ["error on TSM #{@successful_tsms.size}",
-                   "rolling back."].join("\n")
+            "rolling back."].join("\n")
       @successful_tsms.reverse.each { |tsm| tsm.send opposite(direction) }
       raise ex
     end
@@ -156,8 +156,12 @@ module TwoSidedMigration
       add_index *compact_args(table_name, column_name, options.dup)
     end
     def remove
-      opts = {}
-      options[:name].nil? ? opts[:column] = column_name : opts = {:name => options[:name]}
+      if options[:name]
+        opts = {:name => options[:name].dup}
+      else
+        opts = options.dup
+        opts[:column] = column_name
+      end
       remove_index table_name, opts
     end
   end

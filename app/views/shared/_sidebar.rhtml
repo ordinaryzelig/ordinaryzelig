@@ -1,6 +1,6 @@
 <div id="sidebar" style="float: left; background: lightgray; width: 35mm; padding: 3mm; font-size: 80%;">
   
-  <% if logged_in_user -%>
+  <% if logged_in_user && 'login' != controller.controller_name -%>
     
     <% # logged in. -%>
     

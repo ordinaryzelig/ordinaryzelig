@@ -1,15 +1,15 @@
 ten_cent_Surly_Stuka:
-  user: ten_cent
-  friend: Surly_Stuka
+  user_id: <%= Fixtures.identify(:ten_cent) %>
+  friend_id: <%= Fixtures.identify(:Surly_Stuka) %>
 
-Surly_Stuka_ten_cent:
-  user: Surly_Stuka
-  friend: ten_cent
+<%= Fixtures.identify(:Surly_Stuka) %>_ten_cent:
+  user_id: <%= Fixtures.identify(:Surly_Stuka) %>
+  friend_id: <%= Fixtures.identify(:ten_cent) %>
 
 ten_cent_Felice:
-  user: ten_cent
-  friend: Felice
+  user_id: <%= Fixtures.identify(:ten_cent) %>
+  friend_id: <%= Fixtures.identify(:Felice) %>
 
 read_by_ten_cent:
-  user: mike
-  friend: ten_cent
+  user_id: <%= Fixtures.identify(:mike) %>
+  friend_id: <%= Fixtures.identify(:ten_cent) %>

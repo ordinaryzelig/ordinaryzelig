@@ -2,10 +2,11 @@ module LGS
   
   module MigrationHelpers
     
-    # this really shouldn't be SchemaStatements.
-    # it should be mysql and postgres adapters.
-    # drop_fkey is the only thing that needs a workaround, but this, technically is not proper.
     module ActiveRecord::ConnectionAdapters::SchemaStatements
+      
+      def doesnt_support_fkeys
+        "sqlite" == ActiveRecord::Base.connection.adapter_name.downcase()
+      end
       
       def fkey_name(table, column)
         "#{table}_#{column}_fkey"
@@ -14,7 +15,7 @@ module LGS
       
       # add a foreign key constraint.
       # if only table_name and column_name are passed, it will assume rails conventions.
-      # i.e. fkey(:blogs, :user_id) will create a foreign key in the blogs table 
+      # i.e. add_fkey(:blogs, :user_id) will create a foreign key in the blogs table 
       # for the user_id column referencing the id column in the users table.
       # the constraint will be named table_name_column_name_fkey.
       # options:
@@ -22,6 +23,7 @@ module LGS
       #   :reference_column - defaults to id.
       #   :name - user-specified name for fkey.
       def add_fkey(table_name, column_name, options = {})
+        return if doesnt_support_fkeys
         options[:name] ||= fkey_name table_name, column_name
         options[:reference_table] ||= Inflector.pluralize(column_name.to_s.gsub /_id$/, '')
         options[:reference_column] ||= 'id'
@@ -29,19 +31,22 @@ module LGS
       end
       
       # drops the foreign key constraint
-      # based on the naming convention mentioned in fkey() unless name given in options.
+      # based on the naming convention mentioned in add_fkey unless name given in options.
       def drop_fkey(table_name, options = {})
-        name = options[:name] || fkey_name(table_name, options[:column])
+        return if doesnt_support_fkeys
+        opts = options.dup
+        opts[:name] ||= fkey_name(table_name, opts[:column])
         # check adapter in use.
-        drop_what = case ActiveRecord::Base.connection.adapter_name.downcase
+        adapter_name = ActiveRecord::Base.connection.adapter_name.downcase
+        drop_what = case adapter_name
         when 'mysql'
           'foreign key'
         when 'postgresql'
           'constraint'
         else
-          raise 'drop_fkey only works for mysql and postgres right now.'
+          raise "drop_fkey only works for mysql and postgres right now.  you're using #{adapter_name}."
         end
-        execute "alter table #{table_name} drop #{drop_what} #{name}"
+        execute "alter table #{table_name} drop #{drop_what} #{opts[:name]}"
       end
       
       # create a view called table_name based on "select * from source_db_name".

@@ -29,7 +29,7 @@ class UserControllerTest < Test::Unit::TestCase
     get :profile, :id => user.to_param
     assert_equal user.id, assigns('user').id
     recents = assigns('recents')
-    assert recents.size > 0
+    assert recents.size > 0, 'no recents found.'
     recents.each do |r|
       assert r.is_recent_to?(user)
     end

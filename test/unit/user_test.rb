@@ -40,7 +40,7 @@ class UserTest < Test::Unit::TestCase
     user = usr || users(:ten_cent)
     recents = user.recents
     assert recents.size > 0
-    recents.each { |r| assert r.is_recent_to?(user) }
+    recents.each { |r| assert r.is_recent_to?(user), r.inspect }
   end
   
   def test_generate_secret_id
@@ -163,6 +163,16 @@ class UserTest < Test::Unit::TestCase
     user = users(:ten_cent)
     user.mutual_friends.each do |friend|
       assert user.is_mutual_friends_with?(friend)
+    end
+  end
+  
+  def test_recents_sorted
+    recents = users(:ten_cent).recents
+    # puts recents.map { |r| r.recency_time_obj }
+    recents.each_with_index do |rec, i|
+      prev_recent = i > 0 ? recents[i-1] : nil
+      next unless prev_recent
+      assert prev_recent.recency_time_obj >= rec.recency_time_obj, "#{prev_recent.recency_time_obj.class} >= #{rec.recency_time_obj.class}"
     end
   end
   

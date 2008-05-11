@@ -2,24 +2,24 @@
 one:
   subject: one
   body: uno
-  user: ten_cent
+  user_id: <%= Fixtures.identify(:ten_cent) %>
 
 two:
   subject: two
   body: dos
-  user: ten_cent
+  user_id: <%= Fixtures.identify(:ten_cent) %>
 
 three:
   subject: three
   body: tres
-  user: ten_cent
+  user_id: <%= Fixtures.identify(:ten_cent) %>
 
 by_Surly_Stuka:
   subject: me better
   body: than you
-  user: Surly_Stuka
+  user_id: <%= Fixtures.identify(:Surly_Stuka) %>
 
 read_by_ten_cent:
   subject: lower seeds?
   body: what if i pick all lower seeds?
-  user: Surly_Stuka
+  user_id: <%= Fixtures.identify(:Surly_Stuka) %>

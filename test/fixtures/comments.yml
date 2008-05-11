@@ -1,20 +1,20 @@
 by_ten_cent:
-  user: ten_cent
+  user_id: <%= Fixtures.identify(:ten_cent) %>
   comment: this is my comment.
 
 by_Surly_Stuka:
-  user: Surly_Stuka
+  user_id: <%= Fixtures.identify(:Surly_Stuka) %>
   comment: his comment.
 
 another_by_Surly_Stuka:
-  user: Surly_Stuka
+  user_id: <%= Fixtures.identify(:Surly_Stuka) %>
   comment: more of his comment.
 
 sucky_movie:
-  user: Surly_Stuka
+  user_id: <%= Fixtures.identify(:Surly_Stuka) %>
   comment: i hate all movies.
 
 read_by_ten_cent:
-  user: Surly_Stuka
+  user_id: <%= Fixtures.identify(:Surly_Stuka) %>
   comment: been there done that.
   parent_id: <%= Fixtures.identify(:sucky_movie) %>

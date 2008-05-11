@@ -42,6 +42,12 @@ module OrdinaryZelig
           readable
         end
         
+        include Comparable
+        
+        define_method '<=>' do |obj|
+          obj.recency_time_obj <=> recency_time_obj
+        end
+        
       end
       
       def has_recency?
@@ -120,7 +126,8 @@ class Test::Unit::TestCase
   def self.test_has_finder_by_friends_of
     define_method 'test_has_finder_by_friends_of' do
       user = users :ten_cent
-      objs = model_class.by_friends_of(user)
+      model_class = self.class.model_class
+      objs = self.class.model_class.by_friends_of(user)
       assert objs.size > 0, "no #{model_class} found by friends of"
       objs.each do |obj|
         assert obj.user.is_friend_of?(user)
@@ -131,7 +138,8 @@ class Test::Unit::TestCase
   def self.test_has_finder_by_mutual_friends_of
     define_method 'test_has_finder_by_mutual_friends_of' do
       user = users :ten_cent
-      objs = model_class.by_mutual_friends_of(user)
+      model_class = self.class.model_class
+      objs = self.class.model_class.by_mutual_friends_of(user)
       assert objs.size > 0, "no #{model_class} found by mutual friend"
       objs.each do |obj|
         assert obj.user.is_mutual_friends_with?(user)
@@ -142,7 +150,8 @@ class Test::Unit::TestCase
   def self.test_has_finder_since_previous_login
     define_method 'test_has_finder_since_previous_login' do
       user = users :ten_cent
-      objs = model_class.since_previous_login(user)
+      model_class = self.class.model_class
+      objs = self.class.model_class.since_previous_login(user)
       assert objs.size > 0, "no #{model_class} found since previous login"
       objs.each do |obj|
         assert obj.created_at >= user.previous_login_at
@@ -153,6 +162,7 @@ class Test::Unit::TestCase
   def self.test_recents_to
     define_method 'test_recents_to' do
       user = users :ten_cent
+      model_class = self.class.model_class
       objs = model_class.recents_to user
       assert objs.size > 0, "no #{model_class} recents found"
       objs.each do |obj|
@@ -168,7 +178,7 @@ class Test::Unit::TestCase
   def self.test_readable_by
     define_method 'test_readable_by' do
       user = users :Surly_Stuka
-      readable = model_class.readable_by(user)
+      readable = self.class.model_class.readable_by(user)
       assert readable.size > 0
       readable.each do |r|
         assert user.can_read?(r)

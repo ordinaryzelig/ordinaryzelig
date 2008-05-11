@@ -54,7 +54,7 @@ module OrdinaryZelig
       def test_has_finder_read_by
         define_method 'test_has_finder_read_by' do
           user = users :ten_cent
-          read = model_class.read_by user
+          read = self.class.model_class.read_by user
           assert read.size > 0
           read.each { |r| assert r.read_by?(user) }
         end
@@ -62,7 +62,7 @@ module OrdinaryZelig
       
       def test_read_items_by
         define_method 'test_read_items_by' do
-          obj = send model_class.to_s.tableize, :read_by_ten_cent
+          obj = send self.class.model_class.to_s.tableize, :read_by_ten_cent
           user = users(:ten_cent)
           read_items = obj.read_items.by(user)
           assert read_items.size > 0

@@ -2,24 +2,24 @@
 public:
   title: i killed heath ledger
   body: just watched brokeback mountain and dark knight looks badass.
-  user: ten_cent
+  user_id: <%= Fixtures.identify(:ten_cent) %>
 
 private:
   title: i'm in a glass case of emotion
   body: ahhhhhhhhh.  no wait, let me say something.  ahhhhhhhhh.
-  user: ten_cent
+  user_id: <%= Fixtures.identify(:ten_cent) %>
 
 friends:
   title: my boss sucks
   body: i'm quitting tomorrow
-  user: ten_cent
+  user_id: <%= Fixtures.identify(:ten_cent) %>
 
 by_Surly_Stuka:
   title: yeah
   body: me too
-  user: Surly_Stuka
+  user_id: <%= Fixtures.identify(:Surly_Stuka) %>
 
 read_by_ten_cent:
   title: old news
   body: everybody knows that.
-  user: Surly_Stuka
+  user_id: <%= Fixtures.identify(:Surly_Stuka) %>

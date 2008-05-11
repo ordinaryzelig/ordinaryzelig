@@ -160,9 +160,7 @@ class User < ActiveRecord::Base
     return @recents if @recents
     @recents = RecentEntityType.find(:all).map(&:entity_type).map do |entity_type|
       entity_type.entity_class.recents_to(self)
-      # recs = entity_type.entity_class.recents_to(self)
-      # recs.each { |r| raise unless r.is_recent_to?(self) }
-    end.flatten
+    end.flatten.sort
   end
   
   def movies_with_ratings
