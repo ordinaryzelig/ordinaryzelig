@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password
   attr_accessor :unhashed_password
   
-  has_finder :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']]
+  named_scope :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']]
   
   def self.new_registrant(attributes, confirmation_password)
     user = new attributes
@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   
   def User::container(season_id = nil)
     if season_id
-      users = User.find(:all, :conditions => ["season_id = ?", season_id], :include => :pool_users, :order => "lower(display_name)")
+      users = User.find(:all, :conditions => ["#{PoolUser.table_name}.season_id = ?", season_id], :include => :pool_users, :order => "lower(display_name)")
     else
       users = User.find(:all, :order => default_order_by_string)
     end
@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
   
   def mutual_friends
     self.class.find :all,
-                    :conditions => ["#{self.class.table_name}.id in (?) and friend_id = ?", friends.map(&:id), id],
+                    :conditions => ["#{self.class.table_name}.id in (?) and #{Friendship.table_name}.friend_id = ?", friends.map(&:id), id],
                     :include => :friendships
   end
   
@@ -148,11 +148,19 @@ class User < ActiveRecord::Base
   # otherwise, cannot.
   def can_read?(obj)
     return true if self.is_admin?
-    return true if self == obj.recency_user_obj
+    return true if self == obj.user
     entity = obj.is_a?(Comment) ? obj.entity : obj
     return true unless entity.class.has_privacy?
     return true if entity.is_readable_by_anybody?
     return true if entity.is_readable_by_friends? && obj.user.considers_friend?(self)
+    
+    # reason ||= 'not admin' unless self.is_admin?
+    # reason ||= 'owner' unless self == obj.user
+    # entity = obj.is_a?(Comment) ? obj.entity : obj
+    # reason ||= 'no privacy' unless entity.class.has_privacy?
+    # reason ||= 'not readable by anybody' unless entity.is_readable_by_anybody?
+    # reason ||= 'not readable by friends' if entity.is_readable_by_friends? && obj.user.considers_friend?(self)
+    # raise reason if reason
     return false
   end
   

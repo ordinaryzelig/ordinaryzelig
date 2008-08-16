@@ -30,16 +30,11 @@ class InitialMigrationDump < ActiveRecord::Migration
   end
   UserActivities = Group.new CreateUserActivities,
                              AddFKey.new(:user_activities, :user_id)
-  CreateSeasons = CreateTable.new :seasons do |t|
-    t.column :tournament_year,      :integer
+  Seasons = CreateTable.new :seasons do |t|
     t.column :tournament_starts_at, :datetime
-    t.column :is_current,           :integer
     t.column :max_num_brackets,     :integer,  :default => 1
     t.column :buy_in,               :integer
   end
-  Seasons = Group.new CreateSeasons,
-                      AddIndex.new(:seasons, :is_current, :name => "seasons_is_current_key", :unique => true),
-                      AddIndex.new(:seasons, :tournament_year, :name => "seasons_tournament_year_key", :unique => true)
   
   CreateRegions = CreateTable.new "regions" do |t|
     t.column :name,      :string,  :limit => 30

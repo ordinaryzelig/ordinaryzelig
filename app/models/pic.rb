@@ -4,7 +4,7 @@ class Pic < ActiveRecord::Base
   belongs_to :bid
   belongs_to :pool_user
   
-  has_finder :incomplete, :conditions => 'bid_id is null'
+  named_scope :incomplete, :conditions => 'bid_id is null'
   
   def point_worth(scoring_system = ScoringSystems.default)
     scoring_system.point_worth(self)
@@ -13,7 +13,7 @@ class Pic < ActiveRecord::Base
   # return the furthest round that this team goes.
   def furthest_round_won_number
     Pic.calculate(:max, "number",
-                  :conditions => ["season_id = ? and " <<
+                  :conditions => ["#{Game.table_name}.season_id = ? and " <<
                                   "bid_id = ? and " <<
                                   "pool_user_id = ?",
                                   game.season_id, bid_id, pool_user_id],

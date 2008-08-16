@@ -16,7 +16,7 @@ module OrdinaryZelig
         validates_associated :privacy_level
         attr_accessible :privacy_level_attributes
         PrivacyLevelType::TYPES.each do |type, type_id|
-          has_finder "readable_by_#{type}".to_sym, :conditions => ['privacy_level_type_id = ?', type_id], :include => :privacy_level
+          named_scope "readable_by_#{type}".to_sym, :conditions => ["#{PrivacyLevel.table_name}.privacy_level_type_id = ?", type_id], :include => :privacy_level
         end
       end
       
@@ -69,7 +69,7 @@ class Test::Unit::TestCase
   
   def self.privacy_test_suite
     test_privacy_level
-    test_has_finder_readable_by
+    test_named_scope_readable_by
     test_privacy_creation
     test_set_privacy_level!
   end
@@ -100,7 +100,7 @@ class Test::Unit::TestCase
     end
   end
   
-  def self.test_has_finder_readable_by
+  def self.test_named_scope_readable_by
     define_method 'test_readable_by' do
       Blog.readable_by_nobody.each { |blog| assert_equal 1, blog.privacy_level.to_i }
       Blog.readable_by_friends.each { |blog| assert_equal 2, blog.privacy_level.to_i }

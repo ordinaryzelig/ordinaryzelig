@@ -1,4 +1,8 @@
-# desc "Explaining what the task does"
-# task :migration_helpers do
-#   # Task goes here
-# end
+namespace :db do
+  
+  desc 'db:reload and db:fixtures:load'
+  task :reload => [:environment, :drop, :create, :migrate] do
+    sh 'rake db:fixtures:load'
+  end
+  
+end

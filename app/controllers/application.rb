@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   
   after_filter :mark_requested_page
   
-  SESSION_HOURS = 30
-  PAGE_DOES_NOT_EXIST = "the page you requested does not exist."
+  SESSION_HOURS = 30 unless defined? SESSION_HOURS
+  PAGE_DOES_NOT_EXIST = "the page you requested does not exist." unless defined? PAGE_DOES_NOT_EXIST
   
   helper_method :logged_in_user,
                 :latest_season,

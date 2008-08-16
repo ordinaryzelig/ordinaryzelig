@@ -156,12 +156,8 @@ module TwoSidedMigration
       add_index *compact_args(table_name, column_name, options.dup)
     end
     def remove
-      if options[:name]
-        opts = {:name => options[:name].dup}
-      else
-        opts = options.dup
-        opts[:column] = column_name
-      end
+      opts = options.dup
+      opts[:column] = column_name unless opts[:name]
       remove_index table_name, opts
     end
   end
@@ -193,10 +189,13 @@ module TwoSidedMigration
     end
   end
   
+  # create/drop table.
+  # if table definition block is not given, the definition will be a dummy one with a dummy field.
   class Table < Base
     attr_reader :table_name, :options, :definition
     def initialize(table_name, options = {}, &definition)
       @table_name, @options, @definition = table_name, options, definition
+      @definition ||= proc { |t| t.column :dummy_field, :integer }
     end
     protected
     def create

@@ -23,14 +23,14 @@ module OrdinaryZelig
         include OrdinaryZelig::HasRecency::InstanceMethods
         @has_recency = true
         
-        has_finder :by_friends_of, proc { |user| {:conditions => {:user_id => user.friends.map(&:id)}, :order => 'created_at desc'} }
-        has_finder :by_mutual_friends_of, proc { |user| {:conditions => {:user_id => user.mutual_friends.map(&:id)}, :order => 'created_at desc'} }
-        has_finder :by_considering_friends_of, proc { |user| {:conditions => {:user_id => user.considering_friends.map(&:id)}, :order => 'created_at desc'} }
-        has_finder :since_previous_login, proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} > ?", user.previous_login_at],
-                                                         :order => "#{table_name}.created_at desc" } }
+        named_scope :by_friends_of, proc { |user| {:conditions => {recency_user_obj_name => user.friends.map(&:id)}, :order => "#{recency_time_obj_name} desc"} }
+        named_scope :by_mutual_friends_of, proc { |user| {:conditions => {recency_user_obj_name => user.mutual_friends.map(&:id)}, :order => "#{recency_time_obj_name} desc"} }
+        named_scope :by_considering_friends_of, proc { |user| {:conditions => {recency_user_obj_name => user.considering_friends.map(&:id)}, :order => "#{recency_time_obj_name} desc"} }
+        named_scope :since_previous_login, proc { |user| {:conditions => ["#{table_name}.#{recency_time_obj_name} >= ?", user.previous_login_at],
+                                                         :order => "#{table_name}.#{recency_time_obj_name} desc" } }
         # default method for finding recents.
         def self.recents_to(user)
-          since_previous_login(user).find(:all, :conditions => {:id => readable_by(user).map(&:id)}) - read_by(user)
+          since_previous_login(user).find(:all, :conditions => {:id => (readable_by(user) - read_by(user)).map(&:id)})
         end
         
         def self.readable_by(user)
@@ -77,11 +77,16 @@ module OrdinaryZelig
       # false unless user.can_read?
       # true if object was made since user's last_login_at
       def is_recent_to?(usr)
+        # raise 'no user' unless usr
+        # raise 'owner' if usr == recency_user_obj
+        # raise "cannot read: #{usr.inspect}\n#{inspect}" if self.class.has_privacy? && !usr.can_read?(self)
+        # raise 'already read' if read_items.by(usr).map(&:entity_type_id_pair).include?([self.class.to_s, self.id])
+        # raise "#{usr.previous_login_at} #{self.recency_time_obj}"  unless usr.previous_login_at <= self.recency_time_obj
         return false unless usr
         return false if usr == recency_user_obj
         return false if self.class.has_privacy? && !usr.can_read?(self)
         return false if read_items.by(usr).map(&:entity_type_id_pair).include?([self.class.to_s, self.id])
-        return usr.previous_login_at <= self.recency_time_obj
+        usr.previous_login_at <= self.recency_time_obj
       end
       
     end
@@ -94,9 +99,9 @@ class Test::Unit::TestCase
   
   def self.recency_test_suite
     test_is_recent_to?
-    test_has_finder_by_friends_of
-    test_has_finder_by_mutual_friends_of
-    test_has_finder_since_previous_login
+    test_named_scope_by_friends_of
+    test_named_scope_by_mutual_friends_of
+    test_named_scope_since_previous_login
     test_recents_to
     test_readable_by
   end
@@ -123,8 +128,8 @@ class Test::Unit::TestCase
     end
   end
   
-  def self.test_has_finder_by_friends_of
-    define_method 'test_has_finder_by_friends_of' do
+  def self.test_named_scope_by_friends_of
+    define_method 'test_named_scope_by_friends_of' do
       user = users :ten_cent
       model_class = self.class.model_class
       objs = self.class.model_class.by_friends_of(user)
@@ -135,8 +140,8 @@ class Test::Unit::TestCase
     end
   end
   
-  def self.test_has_finder_by_mutual_friends_of
-    define_method 'test_has_finder_by_mutual_friends_of' do
+  def self.test_named_scope_by_mutual_friends_of
+    define_method 'test_named_scope_by_mutual_friends_of' do
       user = users :ten_cent
       model_class = self.class.model_class
       objs = self.class.model_class.by_mutual_friends_of(user)
@@ -147,8 +152,8 @@ class Test::Unit::TestCase
     end
   end
   
-  def self.test_has_finder_since_previous_login
-    define_method 'test_has_finder_since_previous_login' do
+  def self.test_named_scope_since_previous_login
+    define_method 'test_named_scope_since_previous_login' do
       user = users :ten_cent
       model_class = self.class.model_class
       objs = self.class.model_class.since_previous_login(user)
@@ -171,6 +176,7 @@ class Test::Unit::TestCase
       end
       read = objs.first
       read.mark_as_read_by user
+      assert read.read_by?(user)
       assert_not model_class.recents_to(user).include?(read)
     end
   end
@@ -222,7 +228,7 @@ class Test::Unit::TestCase
     assert obj.is_recent_to?(user)
     
     # recents_to.
-    assert obj.class.recents_to(user).include?(obj)
+    assert obj.class.recents_to(user).map(&:id).include?(obj.id)
   end
   
 end

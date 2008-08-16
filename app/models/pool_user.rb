@@ -27,7 +27,7 @@ class PoolUser < ActiveRecord::Base
   
   attr_reader :points
   
-  has_finder :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']], :include => :user
+  named_scope :non_admin, :conditions => ["#{User.table_name}.display_name not in (?)", ['master bracket', 'admin']], :include => :user
   
   # return PoolUser object of master user for given season.
   def self.master(season)

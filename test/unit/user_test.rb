@@ -168,7 +168,6 @@ class UserTest < Test::Unit::TestCase
   
   def test_recents_sorted
     recents = users(:ten_cent).recents
-    # puts recents.map { |r| r.recency_time_obj }
     recents.each_with_index do |rec, i|
       prev_recent = i > 0 ? recents[i-1] : nil
       next unless prev_recent

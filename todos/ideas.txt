@@ -121,3 +121,8 @@ comments:
 delegate privacy_level
 
 add time to notifier.exception
+
+movie rating recipes
+  guilty pleasure: overall <= 2 && rewatchability >= 4
+
+rss will mark comments as read for their entity that has already read.

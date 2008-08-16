@@ -8,7 +8,7 @@ class Season < ActiveRecord::Base
   has_many :games, :order => "#{Game.table_name}.id" do
     def undecided
       find(:all,
-           :conditions => ["pool_user_id = ? and " <<
+           :conditions => ["#{Pic.table_name}.pool_user_id = ? and " <<
                            "#{Bid.table_name}.id is null",
                            PoolUser.master(first.season)],
            :include => {:pics => [:pool_user, :bid]})

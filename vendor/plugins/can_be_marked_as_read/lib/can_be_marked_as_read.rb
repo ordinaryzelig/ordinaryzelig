@@ -15,9 +15,9 @@ module OrdinaryZelig
           end
         end
         @can_be_marked_as_read = true
-        has_finder :read_by, proc { |user| {:conditions => ["#{ReadItem.table_name}.user_id = ? and " <<
-                                                            "#{ReadItem.table_name}.entity_type = ?",
-                                                            user.id, self.to_s],
+        named_scope :read_by, proc { |user| {:conditions => ["#{ReadItem.table_name}.user_id = ? and " <<
+                                                             "#{ReadItem.table_name}.entity_type = ?",
+                                                             user.id, self.to_s],
                                             :include => :read_items} }
         define_method 'mark_as_read_by' do |user|
           ReadItem.create!(:user_id => user.id, :entity_type => self.class.to_s, :entity_id => id, :read_at => Time.now)
@@ -38,7 +38,7 @@ module OrdinaryZelig
       def can_be_marked_as_read_test_suite
         fixtures :read_items
         test_mark_as_read_by
-        test_has_finder_read_by
+        test_named_scope_read_by
         test_read_items_by
       end
       
@@ -51,8 +51,8 @@ module OrdinaryZelig
         end
       end
       
-      def test_has_finder_read_by
-        define_method 'test_has_finder_read_by' do
+      def test_named_scope_read_by
+        define_method 'test_named_scope_read_by' do
           user = users :ten_cent
           read = self.class.model_class.read_by user
           assert read.size > 0

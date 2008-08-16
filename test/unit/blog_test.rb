@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class BlogTest < Test::Unit::TestCase
+class BlogTest < ActiveSupport::TestCase
   
   fixtures :blogs
   fixtures :friendships, :privacy_levels

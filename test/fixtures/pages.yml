@@ -39,3 +39,11 @@ directions_to_townhouse:
     there is a stop light at highland park dr.  featherstone will be on the left.</p>
   path: directions_to_townhouse
   created_at: 2007-11-15 18:31:40.835003
+
+you_tube:
+  updated_at: 2007-11-19 14:17:39.665984
+  title: you tube
+  id: "3"
+  source: <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/R68n9ClRhic&hl=en&fs=1"></param><param name="allowFullScreen" value="true"></param><embed src="http://www.youtube.com/v/R68n9ClRhic&hl=en&fs=1" type="application/x-shockwave-flash" allowfullscreen="true" width="425" height="344"></embed></object>
+  path: you_tube
+  created_at: 2007-11-12 03:00:56.16048

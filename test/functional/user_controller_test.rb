@@ -6,6 +6,8 @@ class UserController; def rescue_action(e) raise e end; end
 
 class UserControllerTest < Test::Unit::TestCase
   
+  all_fixtures
+  
   def setup
     @controller = UserController.new
     @request    = ActionController::TestRequest.new

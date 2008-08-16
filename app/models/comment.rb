@@ -3,6 +3,8 @@ class Comment < ActiveRecord::Base
   acts_as_tree :order => "created_at"
   
   belongs_to :user
+  has_one :comment_group, :foreign_key => "root_comment_id"
+  
   validates_presence_of :comment, :user_id
   validate_on_create :validate_entity_or_parent
   after_create :create_comment_group
