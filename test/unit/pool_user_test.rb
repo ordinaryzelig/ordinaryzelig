@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PoolUserTest < Test::Unit::TestCase
+class PoolUserTest < ActiveSupport::TestCase
   
   march_madness_fixtures
   

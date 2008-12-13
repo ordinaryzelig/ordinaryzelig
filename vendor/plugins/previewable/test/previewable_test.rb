@@ -1,6 +1,6 @@
 require 'test/unit'
 
-class PreviewableTest < Test::Unit::TestCase
+class PreviewableTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   def test_this_plugin
     flunk

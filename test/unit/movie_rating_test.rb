@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class MovieRatingTest < Test::Unit::TestCase
+class MovieRatingTest < ActiveSupport::TestCase
   
   movie_fixtures
   

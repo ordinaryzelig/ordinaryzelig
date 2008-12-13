@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PrivacyLevelTest < Test::Unit::TestCase
+class PrivacyLevelTest < ActiveSupport::TestCase
   
   fixtures :privacy_levels, :privacy_level_types, :blogs
   

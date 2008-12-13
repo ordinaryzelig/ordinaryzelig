@@ -4,7 +4,7 @@ require 'pool_controller'
 # Re-raise errors caught by the controller.
 class PoolController; def rescue_action(e) raise e end; end
 
-class PoolControllerTest < Test::Unit::TestCase
+class PoolControllerTest < ActionController::TestCase
   
   def setup
     @controller = PoolController.new

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class EntityTypeTest < Test::Unit::TestCase
+class EntityTypeTest < ActiveSupport::TestCase
   fixtures :entity_types
 
   # Replace this with your real tests.

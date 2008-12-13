@@ -4,7 +4,7 @@ require 'movie_controller'
 # Re-raise errors caught by the controller.
 class MovieController; def rescue_action(e) raise e end; end
 
-class MovieControllerTest < Test::Unit::TestCase
+class MovieControllerTest < ActionController::TestCase
   def setup
     @controller = MovieController.new
     @request    = ActionController::TestRequest.new

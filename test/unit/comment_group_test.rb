@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class CommentGroupTest < Test::Unit::TestCase
+class CommentGroupTest < ActiveSupport::TestCase
   
   fixtures :blogs, :comment_groups, :messages, :privacy_levels
   movie_fixtures

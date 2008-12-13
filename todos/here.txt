@@ -1,1 +1,1 @@
-how to display recents?
+tests don't work.  defaults on test_helper_helpers line 50.  try it with hms.  that line might not be called.

@@ -4,7 +4,7 @@ require 'rss_controller'
 # Re-raise errors caught by the controller.
 class RssController; def rescue_action(e) raise e end; end
 
-class RssControllerTest < Test::Unit::TestCase
+class RssControllerTest < ActionController::TestCase
   def setup
     @controller = RssController.new
     @request    = ActionController::TestRequest.new

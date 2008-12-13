@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class MovieRatingOptionTest < Test::Unit::TestCase
+class MovieRatingOptionTest < ActiveSupport::TestCase
   fixtures :movie_rating_options
 
   # Replace this with your real tests.

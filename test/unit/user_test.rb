@@ -1,15 +1,15 @@
 require File.dirname(__FILE__) + '/../test_helper'
 require "digest/sha1"
 
-class UserTest < Test::Unit::TestCase
+class UserTest < ActiveSupport::TestCase
   
   fixtures :friendships, :blogs, :privacy_levels
   
   defaults({:first_name => 'john',
-           :last_name => 'doe',
-           :display_name => 'doej',
-           :email => 'doej@asdf.fds',
-           :unhashed_password => 'asdf'},
+            :last_name => 'doe',
+            :display_name => 'doej',
+            :email => 'doej@asdf.fds',
+            :unhashed_password => 'asdf'},
            [:first_name, :last_name, :display_name, :email, :unhashed_password])
   
   def test_user_activity

@@ -4,7 +4,7 @@ require 'catch_all_controller'
 # Re-raise errors caught by the controller.
 class CatchAllController; def rescue_action(e) raise e end; end
 
-class CatchAllControllerTest < Test::Unit::TestCase
+class CatchAllControllerTest < ActionController::TestCase
   def setup
     @controller = CatchAllController.new
     @request    = ActionController::TestRequest.new

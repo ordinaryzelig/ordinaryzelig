@@ -126,3 +126,10 @@ movie rating recipes
   guilty pleasure: overall <= 2 && rewatchability >= 4
 
 rss will mark comments as read for their entity that has already read.
+
+binary movie ratings:
+  like binary search, but for rating movies.
+  is it better than this movie?  this movie?  this movie?
+
+movie themes:
+  for star wars fans, their quotability ratings would be 1) may the force be with you 5) there's too many of them.

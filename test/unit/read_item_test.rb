@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ReadItemTest < Test::Unit::TestCase
+class ReadItemTest < ActiveSupport::TestCase
   
   fixtures :read_items
   

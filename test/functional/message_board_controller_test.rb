@@ -4,7 +4,7 @@ require 'message_board_controller'
 # Re-raise errors caught by the controller.
 class MessageBoardController; def rescue_action(e) raise e end; end
 
-class MessageBoardControllerTest < Test::Unit::TestCase
+class MessageBoardControllerTest < ActionController::TestCase
   def setup
     @controller = MessageBoardController.new
     @request    = ActionController::TestRequest.new

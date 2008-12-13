@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TeamTest < Test::Unit::TestCase
+class TeamTest < ActiveSupport::TestCase
   
   march_madness_fixtures
   
