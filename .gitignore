@@ -1,0 +1,8 @@
+config/database.yml
+.sql*
+tmp
+vendor/plugins
+vendor/rails
+vendor/gems
+.DS_Store
+db/schema.rb
