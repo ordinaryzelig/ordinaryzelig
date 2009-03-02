@@ -3,6 +3,7 @@ namespace 'plugins' do
   PLUGINS = 
   {
     'acts_as_list' => 'git://github.com/rails/acts_as_list.git',
+    'acts_as_tree' => 'git://github.com/rails/acts_as_tree.git',
     'can_be_marked_as_read' => '/Users/ningj/git/can_be_marked_as_read',
     'can_be_summarized' => '/Users/ningj/git/can_be_summarized',
     'can_be_syndicated_by' => '/Users/ningj/git/can_be_syndicated_by',
@@ -14,7 +15,6 @@ namespace 'plugins' do
     'polymorphic_entity' => '/Users/ningj/git/polymorphic_entity',
     'previewable' => '/Users/ningj/git/previewable',
     'test_helper_helpers' => '/Users/ningj/git/test_helper_helpers',
-    'website' => '/Users/ningj/git/website',
     'with_scopes' => '/Users/ningj/git/with_scopes',
   }
   

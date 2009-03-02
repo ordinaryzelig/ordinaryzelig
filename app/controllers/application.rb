@@ -19,12 +19,12 @@ class ApplicationController < ActionController::Base
       @entity.mark_as_read_by(logged_in_user)
       render :update do |page|
         if params[:hide_entity]
-          page[@entity.div_id].visual_effect(:switch_off)
+          page[dom_id(@entity)].visual_effect(:switch_off)
           page.replace_html :recentItemsCount, pluralize(logged_in_user.recents.size, 'recent item')
         else
           # change color.
           page["entity_header_#{@entity.id}"].bgColor = 'lightgray'
-          page.replace_html "markAsReadLink_#{@entity.div_id}", '<i>read</i>'
+          page.replace_html "#{dom_id(@entity, 'markAsReadLink')}", '<i>read</i>'
         end
       end
     end
@@ -175,7 +175,7 @@ class ApplicationController < ActionController::Base
   
   def self.preview_action_for(table_name = controller_name, options = {})
     options[:use_simp_san] = true if options[:use_simp_san].nil?
-    singular = Inflector.singularize(table_name.to_s)
+    singular = ActiveSupport::Inflector.singularize(table_name.to_s)
     model_class = Object.const_get singular.classify
     define_method :preview do
       render(:partial => "shared/preview", :locals => {:entity => model_class.new(params[singular.downcase]), :use_simp_san => options[:use_simp_san]}) if request.xhr?

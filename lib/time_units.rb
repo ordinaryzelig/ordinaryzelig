@@ -66,7 +66,7 @@ module UnitOfTime
     end
     
     def pretty
-      str = pluralize(to_i, Inflector.demodulize(self.class.to_s.downcase))
+      str = pluralize(to_i, ActiveSupport::Inflector.demodulize(self.class.to_s.downcase))
     end
     
     # Day.new(8).practical => in 1 week and 1 day.

@@ -2,7 +2,7 @@
 <% show_name ||= false -%>
 <% show_type ||= false -%>
 
-<div class=listing id="<%= entity.div_id %>">
+<% div_for entity, :class => 'listing' do %>
   
   <%= content_tag(:div, entity.class.to_s, :class => "listingSection", :style => "background: lightblue; font-size: 10pt;") if show_type %>
   
@@ -40,4 +40,4 @@
                   :class => "listingSection",
                   :style => "background: white;" if entity.respond_to?(:summarize_what) && entity.summarize_what %>
   
-</div>
+<% end -%>

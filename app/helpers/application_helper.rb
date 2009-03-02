@@ -122,7 +122,7 @@ module ApplicationHelper
                                                     :entity_type => entity.class,
                                                     :id => entity.id,
                                                     :hide_entity => hide_entity || nil}})
-    content_tag :span, link, :style => 'font-size: 75%;', :id => "markAsReadLink_#{entity.div_id}"
+    content_tag :span, link, :style => 'font-size: 75%;', :id => "#{dom_id(entity, 'markAsReadLink')}"
   end
   
   def mark_as_read_div(entity, hide_entity = false)

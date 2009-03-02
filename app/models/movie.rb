@@ -25,7 +25,7 @@ class Movie < ActiveRecord::Base
   end
   
   def self.by_latest_ratings
-    movies = find(:all, :include => :ratings, :order => "created_at desc").reject { |movie| movie.ratings.empty? }
+    movies = find(:all, :include => :ratings, :order => "#{MovieRating.table_name}.created_at desc").reject { |movie| movie.ratings.empty? }
   end
   
   # returns rating and number of ratings it was based on.

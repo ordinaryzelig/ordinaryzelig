@@ -6,3 +6,4 @@ vendor/rails
 vendor/gems
 .DS_Store
 db/schema.rb
+log
