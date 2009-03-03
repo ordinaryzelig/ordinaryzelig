@@ -103,6 +103,9 @@ class Test::Unit::TestCase
   
   DEFAULT_ATTRIBUTES = {'account' => {:user_id => Fixtures.identify(:cecelia),
                                       :season_id => 3},
+                        'bid' => {:team_id => 1,
+                                  :seed => 1,
+                                  :first_game_id => 1},
                         'blog' => {:title => 'i killed heath ledger',
                                    :body => 'just watched brokeback mountain and dark knight looks badass.',
                                    :user_id => Fixtures.identify(:ten_cent)},

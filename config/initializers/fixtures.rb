@@ -1,11 +1,12 @@
-user_fixtures =
-[
+FIXTURES = {}
+
+FIXTURES[:user] = [
   'users',
   'friendships',
   'user_activities'
 ]
-march_madness_fixtures =
-[
+
+FIXTURES[:march_madness] = [
   'seasons',
   'regions',
   'rounds',
@@ -16,26 +17,24 @@ march_madness_fixtures =
   'pics',
   'accounts'
 ]
-other_fixtures =
-[
+
+FIXTURES[:movie] = [
+  'movies',
+  'movie_rating_types',
+  'movie_rating_options',
+  'movie_ratings',
+]
+
+FIXTURES[:other_fixtures] = [
   'messages',
   'blogs',
   'entity_types',
   'comments',
   'comment_groups',
-  'movies',
-  'movie_rating_types',
-  'movie_rating_options',
-  'movie_ratings',
   'recent_entity_types',
   'privacy_level_types',
   'privacy_levels',
   'read_items'
 ]
-fixtures =
-[
-  user_fixtures,
-  march_madness_fixtures,
-  other_fixtures
-]
-ENV['FIXTURES'] = fixtures.join(',')
+
+ENV['FIXTURES'] = [:user, :march_madness, :movie, :other].map { |group| FIXTURES[group] }.flatten.join(',')
