@@ -6,4 +6,8 @@ class ReadItem < ActiveRecord::Base
   
   is_polymorphic
   
+  def entity_type_id_pair
+    [entity_type, entity_id]
+  end
+  
 end
