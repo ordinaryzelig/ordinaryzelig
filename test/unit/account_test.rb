@@ -4,13 +4,12 @@ class AccountTest < ActiveSupport::TestCase
   
   march_madness_fixtures
   
-  defaults({:user_id => Fixtures.identify(:cecelia),
-            :season_id => 3})
+  defaults
   
   def test_user_and_season
     account = test_new_with_default_attributes
-    assert_equal User.find(defaults[:user_id]).id, account.user.id
-    assert_equal Season.find(defaults[:season_id]).id, account.season.id
+    assert_equal User.find(account[:user_id]).id, account.user.id
+    assert_equal Season.find(account[:season_id]).id, account.season.id
   end
   
   def test_user_accounts_for_season

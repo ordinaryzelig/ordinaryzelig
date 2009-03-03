@@ -101,9 +101,12 @@ class Test::Unit::TestCase
   # ======================================================
   # factories.
   
-  DEFAULT_ATTRIBUTES = {'blog' => {:title => 'i killed heath ledger',
+  DEFAULT_ATTRIBUTES = {'account' => {:user_id => Fixtures.identify(:cecelia),
+                                      :season_id => 3},
+                        'blog' => {:title => 'i killed heath ledger',
                                    :body => 'just watched brokeback mountain and dark knight looks badass.',
                                    :user_id => Fixtures.identify(:ten_cent)},
+                        
   } unless defined? DEFAULT_ATTRIBUTES
   
 end
