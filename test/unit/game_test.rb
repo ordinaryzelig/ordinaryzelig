@@ -2,12 +2,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class GameTest < ActiveSupport::TestCase
   
-  march_madness_fixtures
+  fixtures FIXTURES[:user]
+  fixtures FIXTURES[:march_madness]
   
-  defaults({:season_id => 1,
-            :parent_id => nil,
-            :round_id => 1,
-            :region_id => 1})
+  defaults
   
   def test_master_pic
     game = Game.find :first
@@ -51,7 +49,7 @@ class GameTest < ActiveSupport::TestCase
     bid = pic.bid
     # erase bid for pic.
     pic.bid_id = nil
-    assert_save! pic
+    assert_save pic
     assert_not pool_user.bracket_complete?
     # declare winner for championship_game for master pool_user.
     game.declare_winner(bid, pool_user)

@@ -94,6 +94,10 @@ class Test::Unit::TestCase
                                       :entity_id => Fixtures.identify(:public)},
                         'friendship' => {:user_id => Fixtures.identify(:Felice),
                                          :friend_id => Fixtures.identify(:ten_cent)},
+                        'game' => {:season_id => 1,
+                                   :parent_id => nil,
+                                   :round_id => 1,
+                                   :region_id => 1},
                         
   } unless defined? DEFAULT_ATTRIBUTES
   
