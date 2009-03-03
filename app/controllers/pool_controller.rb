@@ -22,29 +22,33 @@ class PoolController < ApplicationController
   
   def make_pic
     if request.post?
-      bid = Bid.find(params[:bid_id])
-      game = Game.find(params[:game_id])
-      pool_user = PoolUser.find(params[:pool_user_id], :include => :pics)
-      raise "#{logged_in_user.first_last} trying to edit #{pool_user.user.first_last} pics" unless pool_user.is_editable_by?(logged_in_user)
-      is_first_round_bid = params[:is_first_round_bid]
-      bracket_is_complete_before_pic = pool_user.bracket_complete?
+      @bid = Bid.find(params[:bid_id])
+      @game = Game.find(params[:game_id])
+      @pool_user = PoolUser.find(params[:pool_user_id], :include => :pics)
+      raise "#{logged_in_user.first_last} trying to edit #{@pool_user.user.first_last} pics" unless @pool_user.is_editable_by?(logged_in_user)
+      @is_first_round_bid = params[:is_first_round_bid]
+      bracket_is_complete_before_pic = @pool_user.bracket_complete?
       
       # winner.
-      if is_first_round_bid
-        other_affected_pics = game.declare_winner(bid, pool_user)
-        pic = pool_user.pics.for_game game
+      if @is_first_round_bid
+        @other_affected_pics = @game.declare_winner(@bid, @pool_user)
+        @pic = @pool_user.pics.for_game @game
       else
-        other_affected_pics = game.parent.declare_winner(bid, pool_user)
-        pic = pool_user.pics.for_game(game.parent)
+        @other_affected_pics = @game.parent.declare_winner(@bid, @pool_user)
+        @pic = @pool_user.pics.for_game(@game.parent)
       end
       
       # have to load pool_user again to update the pics.
-      pool_user.reload(:include => :pics)
+      @pool_user.reload(:include => :pics)
       
       # need to update bracket completion?
-      bracket_is_complete_after_pic = pool_user.bracket_complete?
+      bracket_is_complete_after_pic = @pool_user.bracket_complete?
       update_bracket_completion_to = bracket_is_complete_after_pic if bracket_is_complete_after_pic != bracket_is_complete_before_pic
-      redirect_to :action => 'bracket', :season_id => game.season_id, :id => pool_user.user_id, :region_order => (game.parent ? game.parent.region.order_num : game.region.order_num), :bracket_num => pool_user.bracket_num
+      
+      respond_to do |format|
+        format.html { redirect_to :action => 'bracket', :season_id => @game.season_id, :id => @pool_user.user_id, :region_order => (@game.parent ? @game.parent.region.order_num : @game.region.order_num), :bracket_num => @pool_user.bracket_num }
+        format.js
+      end
     end
   end
   

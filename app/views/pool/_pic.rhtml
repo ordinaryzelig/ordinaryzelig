@@ -1,8 +1,10 @@
-<%= render(:partial => "bid", :locals => {:bid => pic.bid,
-                                          :game => pic.game,
-                                          :pool_user => pool_user,
-                                          :pic => pic,
-                                          :still_alive => pic.still_alive?}) %>
+<% content_tag :div, :class => 'bid' do -%>
+  <%= render(:partial => "bid", :locals => {:bid => pic.bid,
+                                            :game => pic.game,
+                                            :pool_user => pool_user,
+                                            :pic => pic}) %>
+<% end -%>
+
 <% # real results. -%>
 <% if pic.bid && pic.master_pic.bid -%>
   <div class=picResult<%= pic.is_correct? %>><%= pic.is_correct? ? "#{pic.point_worth} pts" : pic.master_pic.bid.team.name -%></div>
@@ -11,22 +13,4 @@
 <% # show all pics link. -%>
 <% if pic.game.season.tournament_has_started? -%>
   <div class=gamePicsLink><%= link_to("show all pics", :action => "game_pics", :id => pic.game.id) %></div>
-<% end -%>
-
-<% # other affectect pics. -%>
-<% other_affected_pics ||= nil -%>
-<% if other_affected_pics %>
-  <script>
-  <% other_affected_pics.each do |pic| -%>
-    destroy_pic('pic_<%= pic.id %>');
-  <% end -%>
-  </script>
-<% end -%>
-
-<% # bracket completion. -%>
-<% update_bracket_completion_to = nil if update_bracket_completion_to.nil? -%>
-<% if update_bracket_completion_to %>
-  <script>
-    <%= remote_function(:update => "bracketComplete", :url => {:action => "bracket_completion", :is_complete => update_bracket_completion_to}, :loading => "new Effect.Shrink('bracketComplete')") %>
-  </script>
 <% end -%>

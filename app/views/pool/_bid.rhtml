@@ -1,26 +1,20 @@
-<div class=bid>
-  <% if bid -%>
-    <% is_first_round_bid ||= nil -%>
-    <% still_alive = nil if still_alive.nil? %>
-    <% content = bid.team ? "#{bid.seed} <span class=team#{still_alive}>#{bid.team.name}</span>" : "&nbsp;" -%>
-    <% if is_first_round_bid -%>
-      <% id_to_update = "pic_#{pool_user.pics.for_game(game).id}" -%>
-    <% else -%>
-      <% id_to_update = "pic_#{pool_user.pics.for_game(game.parent).id}" if game.parent -%>
-    <% end -%>
-    
-    <% if pool_user.is_editable_by?(logged_in_user) && game.parent && pic -%>
-      <%= link_to(content, {:action => "make_pic",
-                           :bid_id => bid.id,
-                           :game_id => game.id,
-                           :pool_user_id => pool_user.id,
-                           :is_first_round_bid => is_first_round_bid},
-                  :method => :post) %>
-      <%= spinner("spinner_#{pic.id}") %>
-    <% else -%>
-      <%= content %>
-    <% end -%>
+<% if bid -%>
+  <% is_first_round_bid ||= nil -%>
+  <% content = bid.team ? "#{bid.seed} <span class=team#{pic.still_alive?}>#{bid.team.name}</span>" : "&nbsp;" -%>
+  
+  <% if pool_user.is_editable_by?(logged_in_user) && game.parent && pic -%>
+    <%= link_to_remote(content,
+                       :url => {:controller => 'pool',
+                                :action => "make_pic",
+                                :bid_id => bid.id,
+                                :game_id => game.id,
+                                :pool_user_id => pool_user.id,
+                                :is_first_round_bid => is_first_round_bid},
+                       :before => "$('#{bid_spinner(bid, game, is_first_round_bid)}').show();") %>
+    <%= spinner bid_spinner(bid, game, is_first_round_bid) %>
   <% else -%>
-    &nbsp;
+    <%= content %>
   <% end -%>
-</div>
+<% else -%>
+  &nbsp;
+<% end -%>

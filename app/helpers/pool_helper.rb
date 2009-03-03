@@ -88,4 +88,8 @@ module PoolHelper
     end
   end
   
+  def bid_spinner(bid, game, is_first_round_bid)
+    dom_id bid, (is_first_round_bid ? '' : dom_id(game)) + 'spinner'
+  end
+  
 end
