@@ -9,13 +9,11 @@ page[dom_id(@pic)].down('.bid').replace_html :partial => 'bid', :locals => {:bid
   page[dom_id(pic)].down('.bid').replace_html '&nbsp'
 end
 
-# # bracket completion.
-# update_bracket_completion_to = nil if update_bracket_completion_to.nil?
-# if update_bracket_completion_to
-#   <script>
-#     remote_function(:update => "bracketComplete", :url => {:action => "bracket_completion", :is_complete => update_bracket_completion_to}, :loading => "new Effect.Shrink('bracketComplete')")
-#   </script>
-# end
+# bracket completion.
+unless @update_bracket_completion_to.nil?
+  page[:bracketCompletion].visual_effect :pulsate
+  page[:bracketCompletion].replace_html bracket_completion_span(@update_bracket_completion_to)
+end
 
 # replace spinner on game's pic with winning bid.
 page[bid_spinner_dom_id(@bid, @game, @is_first_round_bid)].hide

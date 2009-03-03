@@ -54,11 +54,9 @@
 <% end -%>
 
 <% # bracket completion. -%>
-<div class=bracketComplete>
-  <div id="bracketComplete">
-    <%= render(:partial => "bracket_completion", :locals => {:is_complete => @pool_user.bracket_complete?}) %>
-  </div>
-</div>
+<% content_tag :div, :id => 'bracketCompletion', :style => "color: #{@pool_user.bracket_complete? ? 'green' : 'red'}" do -%>
+  <%= bracket_completion_span @pool_user.bracket_complete? %>
+<% end -%>
 
 <% # region bracket. -%>
 <div class=regionBracket id="regionBracket">

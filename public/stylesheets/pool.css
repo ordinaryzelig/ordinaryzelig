@@ -1,14 +1,7 @@
-.bracketComplete{
+#bracketCompletion{
     text-align: center;
+    height: 2em;
     margin-bottom: 5mm;
-}
-
-.bracketComplete0{
-    color: red;
-}
-
-.bracketComplete1{
-    color: green;
 }
 
 .regionBracket{

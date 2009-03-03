@@ -92,4 +92,9 @@ module PoolHelper
     dom_id bid, (is_first_round_bid ? '' : dom_id(game)) + 'spinner'
   end
   
+  def bracket_completion_span(complete)
+    content = complete ? 'bracket complete' : 'bracket incomplete'
+    content_tag :span, content, :style => "color: #{complete ? 'green' : 'red'}"
+  end
+  
 end
