@@ -92,6 +92,8 @@ class Test::Unit::TestCase
                                       :user_id => Fixtures.identify(:ten_cent),
                                       :entity_type => 'Blog',
                                       :entity_id => Fixtures.identify(:public)},
+                        'friendship' => {:user_id => Fixtures.identify(:Felice),
+                                         :friend_id => Fixtures.identify(:ten_cent)},
                         
   } unless defined? DEFAULT_ATTRIBUTES
   

@@ -2,11 +2,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class FriendshipTest < ActiveSupport::TestCase
   
-  fixtures :friendships
+  fixtures FIXTURES[:user]
   
-  defaults({:user_id => Fixtures.identify(:Felice),
-            :friend_id => Fixtures.identify(:ten_cent)},
-           [:user_id, :friend_id])
+  defaults [:user_id, :friend_id]
+  
   test_created_at
   can_be_marked_as_read_test_suite
   recency_test_suite
