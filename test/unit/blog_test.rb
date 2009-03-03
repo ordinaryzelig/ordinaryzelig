@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BlogTest < ActiveSupport::TestCase
   
+  fixtures FIXTURES[:user]
   fixtures :blogs
   fixtures :friendships, :privacy_levels
   

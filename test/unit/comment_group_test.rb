@@ -2,8 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class CommentGroupTest < ActiveSupport::TestCase
   
+  fixtures FIXTURES[:user]
   fixtures :blogs, :comment_groups, :messages, :privacy_levels
-  movie_fixtures
+  fixtures FIXTURES[:movie]
   
   def test_find_by_entities_readable_by
     user = users :ten_cent

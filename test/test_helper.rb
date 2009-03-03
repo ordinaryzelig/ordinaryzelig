@@ -17,17 +17,13 @@ class Test::Unit::TestCase
   # don't care one way or the other, switching from MyISAM to InnoDB tables
   # is recommended.
   self.use_transactional_fixtures = true
-
+  
   # Instantiated fixtures are slow, but give you @david where otherwise you
   # would need people(:david).  If you don't want to migrate your existing
   # test cases which use the @david style and don't mind the speed hit (each
   # instantiated fixtures translates to a database query per test method),
   # then set this back to true.
   self.use_instantiated_fixtures  = false
-
-  # Add more helper methods to be used by all tests here...
-  
-  fixtures :users, :user_activities, :friendships
   
   # set session[:user_id] and session[:last_authenticated_action_at]
   def login(user_fixture)
@@ -81,23 +77,6 @@ class Test::Unit::TestCase
     end
   end
   
-  def self.march_madness_fixtures
-    [:seasons,
-     :regions,
-     :rounds,
-     :games,
-     :users,
-     :pool_users,
-     :teams,
-     :bids,
-     :pics,
-     :accounts].each { |fixture| fixtures fixture }
-  end
-  
-  def self.movie_fixtures
-    fixtures :movie_ratings, :movies, :movie_rating_types, :movie_rating_options
-  end
-  
   # ======================================================
   # factories.
   
@@ -109,6 +88,10 @@ class Test::Unit::TestCase
                         'blog' => {:title => 'i killed heath ledger',
                                    :body => 'just watched brokeback mountain and dark knight looks badass.',
                                    :user_id => Fixtures.identify(:ten_cent)},
+                        'comment' => {:comment => "Hey don't underestimate the power of hugs. I can't count how many times I've given someone a hug and it's turned into dirty, wet and sticky sex. All the time in fact. You think it's innocent but oh no! When you wrap you're arms around someone in friendship it's just like wrapping a bow around Satan's little present of sin. That's why I support banning the hug and integrating oral sex as the new hey how are ya. It's reverse psychology dude, the kids will rebel and presto a new Victorian era. Thank you very much.",
+                                      :user_id => Fixtures.identify(:ten_cent),
+                                      :entity_type => 'Blog',
+                                      :entity_id => Fixtures.identify(:public)},
                         
   } unless defined? DEFAULT_ATTRIBUTES
   
