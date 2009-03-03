@@ -12,7 +12,7 @@ class AdminControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
   end
   
-  march_madness_fixtures
+  fixtures FIXTURES[:march_madness]
   
   # params[:tournament_starts_at] won't work in this post.
   # implement tournament_starts_at_str.

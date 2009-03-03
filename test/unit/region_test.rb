@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class RegionTest < ActiveSupport::TestCase
   
-  march_madness_fixtures
+  fixtures FIXTURES[:march_madness]
   
   def test_championship_game
     Region.find(:all).each do |region|

@@ -2,11 +2,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PoolUserTest < ActiveSupport::TestCase
   
-  march_madness_fixtures
+  fixtures FIXTURES[:user]
+  fixtures FIXTURES[:march_madness]
   
-  defaults({:season_id => 1,
-            :user_id => Fixtures.identify(:Surly_Stuka),
-            :bracket_num => 1})
+  defaults
   
   def test_master
     assert_equal 'master bracket', PoolUser.master(Season.find(1)).user.display_name

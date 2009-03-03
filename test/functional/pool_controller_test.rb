@@ -12,7 +12,7 @@ class PoolControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
   end
   
-  march_madness_fixtures
+  fixtures FIXTURES[:march_madness]
   
   def test_bracket
     user = users :ten_cent

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SeasonTest < ActiveSupport::TestCase
   
-  march_madness_fixtures
+  fixtures FIXTURES[:march_madness]
   
   defaults({:tournament_starts_at => 1.year.from_now,
             :buy_in => 10,

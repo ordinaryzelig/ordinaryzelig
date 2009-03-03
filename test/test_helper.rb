@@ -107,6 +107,9 @@ class Test::Unit::TestCase
                                            :summary => 'not bad, not at all bad',
                                            :explanation => 'it was aight. i mean, she has a neat voice but she has a wierd look',
                                            :user_id => Fixtures.identify(:ten_cent)},
+                        'pool_user' => {:season_id => 1,
+                                        :user_id => Fixtures.identify(:Surly_Stuka),
+                                        :bracket_num => 1},
                         
                         
   } unless defined? DEFAULT_ATTRIBUTES
