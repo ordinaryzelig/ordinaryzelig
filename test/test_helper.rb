@@ -98,4 +98,12 @@ class Test::Unit::TestCase
     fixtures :movie_ratings, :movies, :movie_rating_types, :movie_rating_options
   end
   
+  # ======================================================
+  # factories.
+  
+  DEFAULT_ATTRIBUTES = {'blog' => {:title => 'i killed heath ledger',
+                                   :body => 'just watched brokeback mountain and dark knight looks badass.',
+                                   :user_id => Fixtures.identify(:ten_cent)},
+  } unless defined? DEFAULT_ATTRIBUTES
+  
 end

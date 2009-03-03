@@ -5,10 +5,7 @@ class BlogTest < ActiveSupport::TestCase
   fixtures :blogs
   fixtures :friendships, :privacy_levels
   
-  defaults({:title => 'i killed heath ledger',
-            :body => 'just watched brokeback mountain and dark knight looks badass.',
-            :user_id => Fixtures.identify(:ten_cent)},
-            [:title, :body])
+  defaults [:title, :body]
   test_created_at
   can_be_marked_as_read_test_suite
   privacy_test_suite
