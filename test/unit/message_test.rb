@@ -2,12 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class MessageTest < ActiveSupport::TestCase
   
+  fixtures FIXTURES[:user]
   fixtures :messages
   
-  defaults({:body => "georgetown is going to win!  unc just doesn't have it this year.  florida hasn't been tested enough.  greg oden is injured.",
-            :subject => 'g-town',
-            :user_id => Fixtures.identify(:ten_cent)},
-           [:subject, :body])
+  defaults [:subject, :body]
+  
   can_be_marked_as_read_test_suite
   recency_test_suite
   test_summaries :what => proc { |obj| obj.body[0..100] },

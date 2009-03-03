@@ -98,6 +98,9 @@ class Test::Unit::TestCase
                                    :parent_id => nil,
                                    :round_id => 1,
                                    :region_id => 1},
+                        'message' => {:body => "georgetown is going to win!  unc just doesn't have it this year.  florida hasn't been tested enough.  greg oden is injured.",
+                                      :subject => 'g-town',
+                                      :user_id => Fixtures.identify(:ten_cent)},
                         
   } unless defined? DEFAULT_ATTRIBUTES
   
