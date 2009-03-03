@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PicTest < ActiveSupport::TestCase
   
-  march_madness_fixtures
+  fixtures FIXTURES[:march_madness]
   
   def test_point_worth
     pic = pics(:cece_george_mason_elite_8)
