@@ -2,15 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class MovieRatingTest < ActiveSupport::TestCase
   
-  movie_fixtures
+  fixtures FIXTURES[:user]
+  fixtures FIXTURES[:movie]
   
-  defaults({:movie_id => 1,
-            :movie_rating_type_id => 1,
-            :rating => 3,
-            :summary => 'not bad, not at all bad',
-            :explanation => 'it was aight. i mean, she has a neat voice but she has a wierd look',
-            :user_id => Fixtures.identify(:ten_cent)},
-           [:rating, :summary, :explanation])
+  defaults [:rating, :summary, :explanation]
+  
   test_created_at
   can_be_marked_as_read_test_suite
   recency_test_suite

@@ -101,6 +101,13 @@ class Test::Unit::TestCase
                         'message' => {:body => "georgetown is going to win!  unc just doesn't have it this year.  florida hasn't been tested enough.  greg oden is injured.",
                                       :subject => 'g-town',
                                       :user_id => Fixtures.identify(:ten_cent)},
+                        'movie_rating' => {:movie_id => 1,
+                                           :movie_rating_type_id => 1,
+                                           :rating => 3,
+                                           :summary => 'not bad, not at all bad',
+                                           :explanation => 'it was aight. i mean, she has a neat voice but she has a wierd look',
+                                           :user_id => Fixtures.identify(:ten_cent)},
+                        
                         
   } unless defined? DEFAULT_ATTRIBUTES
   
