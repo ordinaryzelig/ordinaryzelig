@@ -1,22 +1,14 @@
-# replace spinner on game's pic with winning bid.
-page[bid_spinner(@bid, @game, @is_first_round_bid)].hide
-
 # update winner.
 page[dom_id(@pic)].down('.bid').replace_html :partial => 'bid', :locals => {:bid => @bid,
                                                                             :game => @is_first_round_bid ? @game : @game.parent,
                                                                             :pool_user => @pool_user,
                                                                             :pic => @pic}
 
-# # other affectect pics.
-# @other_affected_pics ||= nil
-# if @other_affected_pics
-#   <script>
-#   @other_affected_pics.each do |pic|
-#     destroy_pic('pic_pic.id');
-#   end
-#   </script>
-# end
-# 
+# other affectect pics.
+@other_affected_pics.each do |pic|
+  page[dom_id(pic)].down('.bid').replace_html '&nbsp'
+end
+
 # # bracket completion.
 # update_bracket_completion_to = nil if update_bracket_completion_to.nil?
 # if update_bracket_completion_to
@@ -24,3 +16,6 @@ page[dom_id(@pic)].down('.bid').replace_html :partial => 'bid', :locals => {:bid
 #     remote_function(:update => "bracketComplete", :url => {:action => "bracket_completion", :is_complete => update_bracket_completion_to}, :loading => "new Effect.Shrink('bracketComplete')")
 #   </script>
 # end
+
+# replace spinner on game's pic with winning bid.
+page[bid_spinner_dom_id(@bid, @game, @is_first_round_bid)].hide

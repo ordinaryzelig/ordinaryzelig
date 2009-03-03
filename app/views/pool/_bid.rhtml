@@ -10,8 +10,8 @@
                                 :game_id => game.id,
                                 :pool_user_id => pool_user.id,
                                 :is_first_round_bid => is_first_round_bid},
-                       :before => "$('#{bid_spinner(bid, game, is_first_round_bid)}').show();") %>
-    <%= spinner bid_spinner(bid, game, is_first_round_bid) %>
+                       :before => "$('#{bid_spinner_dom_id(bid, game, is_first_round_bid)}').show();") %>
+    <%= spinner bid_spinner_dom_id(bid, game, is_first_round_bid) %>
   <% else -%>
     <%= content %>
   <% end -%>
