@@ -54,7 +54,10 @@ namespace 'plugins' do
   desc 'check the svn status of each plugin.'
   task :status do
     each_plugin do |plugin, path|
-      sh "git st #{plugin}"
+      Dir.chdir(plugin) do
+        puts plugin
+        sh "git status"
+      end
     end
   end
   
