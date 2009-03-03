@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class TeamTest < ActiveSupport::TestCase
   
-  fixtures FIXTURES[:march_madness]
+  fixtures :teams
   
   def test_truth
     assert true
