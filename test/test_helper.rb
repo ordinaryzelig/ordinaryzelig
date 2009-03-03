@@ -113,7 +113,11 @@ class Test::Unit::TestCase
                         'season' => {:tournament_starts_at => 1.year.from_now,
                                      :buy_in => 10,
                                      :max_num_brackets => 1},
-                        
+                        'user' => {:first_name => 'john',
+                                   :last_name => 'doe',
+                                   :display_name => 'doej',
+                                   :email => 'doej@asdf.fds',
+                                   :unhashed_password => 'asdf'}
                         
   } unless defined? DEFAULT_ATTRIBUTES
   

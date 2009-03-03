@@ -3,14 +3,10 @@ require "digest/sha1"
 
 class UserTest < ActiveSupport::TestCase
   
+  fixtures FIXTURES[:user]
   fixtures :friendships, :blogs, :privacy_levels
   
-  defaults({:first_name => 'john',
-            :last_name => 'doe',
-            :display_name => 'doej',
-            :email => 'doej@asdf.fds',
-            :unhashed_password => 'asdf'},
-           [:first_name, :last_name, :display_name, :email, :unhashed_password])
+  defaults [:first_name, :last_name, :display_name, :email, :unhashed_password]
   
   def test_user_activity
     assert_not test_new_with_default_attributes.user_activity.new_record?
@@ -25,11 +21,11 @@ class UserTest < ActiveSupport::TestCase
   end
   
   def test_bad_password_authentication
-    assert_nil authenticate(defaults[:email], 'fdsa')
+    assert_nil authenticate(default_attributes[:email], 'fdsa')
   end
   
   def test_no_admin
-    att = defaults.dup
+    att = default_attributes
     att[:is_admin] = 1
     u = User.new(att)
     u.save
@@ -59,17 +55,17 @@ class UserTest < ActiveSupport::TestCase
     # smooth.
     new_password = 'qwer'
     u = test_new_with_default_attributes
-    assert change_password(u, defaults[:unhashed_password], new_password, new_password)
+    assert change_password(u, default_attributes[:unhashed_password], new_password, new_password)
     # bad password
     assert_not change_password(u,'1234', new_password, new_password)
     # no old password
     assert_not change_password(u,'', new_password, new_password)
     # no new password
-    assert_not change_password(u,defaults[:unhashed_password], '', new_password)
+    assert_not change_password(u,default_attributes[:unhashed_password], '', new_password)
     # no confirmation password
-    assert_not change_password(u,defaults[:unhashed_password], new_password, '')
+    assert_not change_password(u,default_attributes[:unhashed_password], new_password, '')
     # no matching passwords
-    assert_not change_password(u,defaults[:unhashed_password], new_password, '1234')
+    assert_not change_password(u,default_attributes[:unhashed_password], new_password, '1234')
   end
   
   def test_search
