@@ -1,31 +1,22 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
-class NotifierTest < ActiveSupport::TestCase
-  FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
-  CHARSET = "utf-8"
-
-  include ActionMailer::Quoting
-
-  def setup
-    ActionMailer::Base.delivery_method = :test
-    ActionMailer::Base.perform_deliveries = true
-    ActionMailer::Base.deliveries = []
-
-    @expected = TMail::Mail.new
-    @expected.set_content_type "text", "plain", { "charset" => CHARSET }
-    @expected.mime_version = '1.0'
+class NotifierTest < ActionMailer::TestCase
+  
+  fixtures FIXTURES[:user]
+  
+  def test_deliver_exception
+    user = users(:ten_cent)
+    request = StubbedRequest.new('/admin/restricted_action', 'post')
+    ex = Exception.new
+    ex.set_backtrace %w[1 2 3 4]
+    assert Notifier.deliver_exception(ex, user, request)
   end
   
-  def test_truth
-    assert true
+end
+
+class StubbedRequest
+  attr_accessor :request_uri, :method
+  def initialize(request_uri, method)
+    @request_uri, @method = request_uri, method
   end
-
-  private
-    def read_fixture(action)
-      IO.readlines("#{FIXTURES_PATH}/notifier/#{action}")
-    end
-
-    def encode(subject)
-      quoted_printable(subject, CHARSET)
-    end
 end
