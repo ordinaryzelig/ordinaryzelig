@@ -4,9 +4,7 @@ class SeasonTest < ActiveSupport::TestCase
   
   fixtures FIXTURES[:march_madness]
   
-  defaults({:tournament_starts_at => 1.year.from_now,
-            :buy_in => 10,
-            :max_num_brackets => 1})
+  defaults
   
   def test_bracket_size
     assert_equal test_new_with_default_attributes.games.size, 63

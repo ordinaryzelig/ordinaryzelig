@@ -110,6 +110,9 @@ class Test::Unit::TestCase
                         'pool_user' => {:season_id => 1,
                                         :user_id => Fixtures.identify(:Surly_Stuka),
                                         :bracket_num => 1},
+                        'season' => {:tournament_starts_at => 1.year.from_now,
+                                     :buy_in => 10,
+                                     :max_num_brackets => 1},
                         
                         
   } unless defined? DEFAULT_ATTRIBUTES
