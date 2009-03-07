@@ -1,1 +1,3 @@
-tests don't work.  defaults on test_helper_helpers line 50.  try it with hms.  that line might not be called.
+comments test_recents_to doesn't work.  after being marked as read, it still shows up as recent.
+
+IE doesn't render shit.  including and esp. the bracket table.
