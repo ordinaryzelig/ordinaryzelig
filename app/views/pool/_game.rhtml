@@ -23,10 +23,10 @@ render children games and then the pic.
       <% game.first_round_bids.each do |bid| -%>
         <div class="firstRoundBid" id="bid_<%= bid.id %>">
           <%= content_tag :div, render(:partial => "bid", :locals => {:bid => bid,
-                                                    :game => game,
-                                                    :is_first_round_bid => true,
-                                                    :pic => pic,
-                                                    :pool_user => pool_user}), :class => 'bid' %>
+                                                                      :game => game,
+                                                                      :is_first_round_bid => true,
+                                                                      :pic => pic,
+                                                                      :pool_user => pool_user}), :class => 'bid' %>
         </div>
       <% end -%>
     <% end %>

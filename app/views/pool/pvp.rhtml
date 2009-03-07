@@ -20,7 +20,7 @@
 <dl>
   <dt><strong>unique pics left</strong> (points calculated using <%= @scoring_system %> scoring system)</dt>
   <% unique_pics.each do |pic| -%>
-    <dd><%= pic.bid.team.name %> (<%= pic.game.round.name %>) = <%= pic.point_worth(@scoring_system) %> pts</dd>
+    <dd><%= h(pic.bid.team.name) %> (<%= pic.game.round.name %>) = <%= pic.point_worth(@scoring_system) %> pts</dd>
   <% end -%>
 </dl>
 <dl>

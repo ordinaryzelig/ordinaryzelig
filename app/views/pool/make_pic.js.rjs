@@ -11,8 +11,8 @@ end
 
 # bracket completion.
 unless @update_bracket_completion_to.nil?
-  page[:bracketCompletion].visual_effect :pulsate
   page[:bracketCompletion].replace_html bracket_completion_span(@update_bracket_completion_to)
+  page[:bracketCompletion].visual_effect :pulsate
 end
 
 # replace spinner on game's pic with winning bid.

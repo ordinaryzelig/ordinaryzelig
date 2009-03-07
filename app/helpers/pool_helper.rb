@@ -60,7 +60,7 @@ module PoolHelper
   def bid_cells(bid, seed_on_left_or_right)
     options = {:align => seed_on_left_or_right, :style => "border-bottom: 1px solid black; padding-#{seed_on_left_or_right}: 2mm;"}
     seed = content_tag :td, "(#{bid.seed})", options
-    team = content_tag :td, bid.team.name, options
+    team = content_tag :td, h(bid.team.name), options
     cells = [seed, team]
     cells.reverse! if 'right' == seed_on_left_or_right
     cells

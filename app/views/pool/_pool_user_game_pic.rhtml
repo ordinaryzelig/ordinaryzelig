@@ -4,7 +4,7 @@
   <% still_alive = pic.still_alive? %>
   <td class="gamePicCorrect<%= boolean_to_i(pic.is_correct?) %>">
     <% if pic.bid -%>
-      <span class="gamePicStillAlive<%= still_alive %>"><%= pic.bid.team.name %> (<%= pic.point_worth %>)</span>
+      <span class="gamePicStillAlive<%= still_alive %>"><%= h(pic.bid.team.name) %> (<%= pic.point_worth %>)</span>
     <% end -%>
   </td>
   <% 1.upto(6) do |i| -%>

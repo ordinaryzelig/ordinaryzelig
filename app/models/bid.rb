@@ -17,7 +17,7 @@ class Bid < ActiveRecord::Base
   end
   
   def to_s
-    "#{seed} #{self.team.name}"
+    "#{seed} #{h(self.team.name)}"
   end
   
 end
