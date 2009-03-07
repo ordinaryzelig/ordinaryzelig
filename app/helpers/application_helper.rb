@@ -33,7 +33,7 @@ module ApplicationHelper
   def error_messages(model_obj)
     if !model_obj.errors.empty?
       div_id = "error_messages_#{model_obj.__id__}"
-      rhtml_str = "<div class=errorMessages id=\"#{div_id}\">#{model_obj.errors.full_messages.join("<br/>")}</div>"
+      rhtml_str = "<div class=\"errorMessages\" id=\"#{div_id}\">#{model_obj.errors.full_messages.join("<br/>")}</div>"
       rhtml_str
     end
   end

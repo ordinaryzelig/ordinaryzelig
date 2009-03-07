@@ -2,7 +2,7 @@
 <% if @page -%>
   <%= @page.source %>
   <div style="margin-top: 5mm; color: gray;">
-    <hr>
+    <hr />
     <div style="text-align: center;">  <%= @page.created_at.strftime("%Y-%m-%d") %><br/>
       <% if @page.updated_at -%>
         (updated: <%= clickable_time(@page.updated_at) %>)

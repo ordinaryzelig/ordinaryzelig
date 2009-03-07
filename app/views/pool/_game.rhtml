@@ -7,7 +7,7 @@ render children games and then the pic.
 <% pic = pool_user.pics.for_game game -%>
 
 <% div_for game do -%>
-  <div class=children>
+  <div class="children">
     
     <% # recurse and render children. -%>
     <% game.children.each do |child| %>
@@ -21,7 +21,7 @@ render children games and then the pic.
     <% # if no children, show first round bids. %>
     <% if game.children.empty? -%>
       <% game.first_round_bids.each do |bid| -%>
-        <div class=firstRoundBid id="bid_<%= bid.id %>">
+        <div class="firstRoundBid" id="bid_<%= bid.id %>">
           <%= content_tag :div, render(:partial => "bid", :locals => {:bid => bid,
                                                     :game => game,
                                                     :is_first_round_bid => true,

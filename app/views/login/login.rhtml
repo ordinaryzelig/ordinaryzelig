@@ -1,6 +1,6 @@
 <% hide_banner -%>
 
-<div class=errorMessages id="errorMessages" style="display: none;">
+<div class="errorMessages" id="errorMessages" style="display: none;">
   <% @user.errors.full_messages.each do |error_message| -%>
     <%= error_message %><br/>
   <% end -%>

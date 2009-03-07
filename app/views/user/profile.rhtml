@@ -26,7 +26,7 @@
 <% # recents. -%>
 
 <% if is_self?(@user) -%>
-  <div class=profileSection>
+  <div class="profileSection">
     <div id="recentItemsCount"><%= pluralize(@recents.size, "recent item") %></div>
     <% @recents.each do |obj| -%>
       <%= render(:partial => "shared/summary", :locals => {:entity => obj, :show_who => true, :show_name => true, :show_type => true}) %>
@@ -37,7 +37,7 @@
 <% # ============================================================= %>
 <% # blog. -%>
 
-<div class=profileSection>
+<div class="profileSection">
   <div>
     <%= link_to("blog", :controller => "blog", :action => "list", :id => @user.id) %>
     <div style="padding-left: 10mm;">
@@ -59,7 +59,7 @@
 <% # movie ratings. -%>
 
 <% unless @user.movie_ratings.empty? -%>
-  <div class=profileSection>
+  <div class="profileSection">
     <%= link_to("movie ratings", :controller => "movie", :action => "ratings", :id => @user.id) %>
     <div style="margin-left: 10mm;">
       <%= render :partial => 'shared/movie_ratings_list', :locals => {:movies => @user.movies_with_ratings[0..4], :user => @user} %>
@@ -70,7 +70,7 @@
 <% # ============================================================= %>
 <% # friends. -%>
 
-<div class=profileSection>
+<div class="profileSection">
   <% # friends. -%>
   <% if @user.considers_friend?(logged_in_user) || is_self_or_logged_in_as_admin?(@user) -%>
     <%= link_to("friends: #{@user.friends.size}", :action => "friends", :id => @user.id) %><br/>

@@ -6,13 +6,13 @@
     
     <%= h(logged_in_user.display_name) %><br/>
     <%= link_to("logout", :controller => "login", :action => "logout") %>
-    <hr>
+    <hr />
     
     <%= link_to_profile(logged_in_user, "your profile") %><br/>
     <%= link_to("blog", :controller => "blog", :action => "list", :id => logged_in_user.id) %><br/>
     <%= link_to("friends", :controller => "user", :action => "friends", :id => logged_in_user.id) %><br/>
     <%= link_to("people search", :controller => "user", :action => "search") %>
-    <hr>
+    <hr />
     
     <% if logged_in_user.is_admin? -%>
       admin<br/>
@@ -23,14 +23,14 @@
       <%= link_to("bid select", :controller => "admin", :action => "select_team_bids") %><br/>
       <%= link_to("master bracket", :controller => "pool", :action => 'bracket', :id => User.master_id, :season_id => latest_season.id) %><br/>
       <%= link_to('pages', :controller => 'admin', :action => 'pages') %>
-      <hr>
+      <hr />
     <% end -%>
     
   <% else -%>
     
     <% # not logged in. -%>
     <%= link_to("login", :controller => "login") %>
-    <hr>
+    <hr />
     
   <% end -%>
   
@@ -39,7 +39,7 @@
     <%= link_to("ratings", :controller => "movie", :action => "ratings") %><br/>
     <%= link_to("search", :controller => "movie", :action => "search") %><br/>
   <% end -%>
-  <hr>
+  <hr />
   
   <%= link_to_unless('pool' == controller.controller_name, "march madness", :controller => "pool") %>
   <% if ['pool', 'message_board'].include? controller.controller_name -%>
@@ -51,13 +51,13 @@
     <%= link_to("message board", :controller => "message_board") %><br/>
     <%= link_to 'blank bracket', 'http://www.sportsline.com/collegebasketball/mayhem/brackets/printable_men' %>
   <% end -%>
-  <hr>
+  <hr />
   
   <% # ==================================== -%>
   <% # help. %>
   
   <%= mail_to("help@ordinaryzelig.org", "email for help", :encode => "javascript", :subject => "[write a help topic]") %>
-  <hr>
+  <hr />
   
   <span style="font-size: 75%;"><%= render :partial => 'shared/best_viewed_with' %></span>
   

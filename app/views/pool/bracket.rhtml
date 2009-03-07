@@ -9,30 +9,29 @@
   <% form_tag :bracket_num => @bracket_num do -%>
     <table class="seasonSelect" style="background: none; <%= css_centered %>">
       <tr>
-        <th>season</td>
+        <td>season</td>
         <td><%= season_select_tag @season.id %></td>
       </tr>
       <tr>
-        <th>user</td>
+        <td>user</td>
         <td><%= select :user, :id, User::container(@season.id) %></td>
       </tr>
       <tr>
-        <th>region</td>
+        <td>region</td>
         <td><%= select_tag :region_order, options_for_select(Region::container(@season.id), @region_order) %></td>
       </tr>
       <tr>
-        <th></td>
+        <td></td>
         <td><%= submit_tag "go", :name => "go" %></td>
       </tr>
     </table>
-    <%= hidden_field_tag :season_id, @season.id %>
   <% end -%>
   <%= link_to 'printable', :action => 'printable_bracket', :id => @user.id, :season_id => @season.id %>
 </div>
 
 <% # multiple brackets. -%>
 <% if @season.max_num_brackets > 1 && 1 < @pool_users.size -%>
-  <span class=bracketNums>brackets:
+  <span class="bracketNums">brackets:
   <% @pool_users.each do |pu| -%>
     <% if pu.bracket_num != @bracket_num -%>
       <%= link_to_bracket("#{pu.bracket_num}", pu, {:region_order => @region_order, :bracket_num => pu.bracket_num}) %>
@@ -59,7 +58,7 @@
 <% end -%>
 
 <% # region bracket. -%>
-<div class=regionBracket id="regionBracket">
+<div class="regionBracket" id="regionBracket">
   <%= region_bracket_partial(@region, @pool_user) %>
 </div>
 

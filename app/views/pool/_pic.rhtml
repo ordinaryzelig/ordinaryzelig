@@ -7,10 +7,10 @@
 
 <% # real results. -%>
 <% if pic.bid && pic.master_pic.bid -%>
-  <div class=picResult<%= pic.is_correct? %>><%= pic.is_correct? ? "#{pic.point_worth} pts" : pic.master_pic.bid.team.name -%></div>
+  <div class="picResult<%= pic.is_correct? %>"><%= pic.is_correct? ? "#{pic.point_worth} pts" : pic.master_pic.bid.team.name -%></div>
 <% end -%>
 
 <% # show all pics link. -%>
 <% if pic.game.season.tournament_has_started? -%>
-  <div class=gamePicsLink><%= link_to("show all pics", :action => "game_pics", :id => pic.game.id) %></div>
+  <div class="gamePicsLink"><%= link_to("show all pics", :action => "game_pics", :id => pic.game.id) %></div>
 <% end -%>

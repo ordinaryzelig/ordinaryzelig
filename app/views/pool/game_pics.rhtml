@@ -1,8 +1,8 @@
 <table style="margin-left: auto; margin-right: auto;" border=1>
-  <tr class=gamePicsHeader>
+  <tr class="gamePicsHeader">
     <th colspan=9><%= @game.region.name %> <%= @game.round.name %></th>
   </tr>
-  <tr class=gamePicsHeader>
+  <tr class="gamePicsHeader">
     <th>player</th>
     <th>pic (pt. worth)</th>
     <% Round.non_play_in.find(:all).each do |round| -%>
@@ -21,11 +21,11 @@
     <td>picked to win this round</td>
   </tr>
   <tr>
-    <td><div class=legendCorrectPic>&nbsp;</div></td>
+    <td><div class="legendCorrectPic">&nbsp;</div></td>
     <td>correct pic</td>
   </tr>
   <tr>
-    <td><div class=legendIncorrectPic style="margin: 2mm;">&nbsp;</div></td>
+    <td><div class="legendIncorrectPic" style="margin: 2mm;">&nbsp;</div></td>
     <td>incorrect/dead pic</td>
   </tr>
 </table>

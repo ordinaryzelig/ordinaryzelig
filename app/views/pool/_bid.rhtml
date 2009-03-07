@@ -1,6 +1,6 @@
 <% if bid -%>
   <% is_first_round_bid ||= nil -%>
-  <% content = bid.team ? "#{bid.seed} <span class=team#{pic.still_alive?}>#{bid.team.name}</span>" : "&nbsp;" -%>
+  <% content = bid.team ? "#{bid.seed} <span class=\"team#{pic.still_alive?}\">#{bid.team.name}</span>" : "&nbsp;" -%>
   
   <% if pool_user.is_editable_by?(logged_in_user) && game.parent && pic -%>
     <%= link_to_remote(content,

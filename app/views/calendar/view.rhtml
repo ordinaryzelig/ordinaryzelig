@@ -1,7 +1,7 @@
 <% @events.each do |event| -%>
-  <div class=event style="margin-bottom: 10mm;">
-    <div class=eventName style="font-weight: bold;"><%= h(event.name) %></div>
-    <div class=eventDescription><%= h(event.description) %></div>
-    <div class=eventStartsAt><%= h(default_time_format(event.starts_at)) %> (<%= time_til(event.starts_at)%>)</div>
+  <div class="event" style="margin-bottom: 10mm;">
+    <div class="eventName" style="font-weight: bold;"><%= h(event.name) %></div>
+    <div class="eventDescription"><%= h(event.description) %></div>
+    <div class="eventStartsAt"><%= h(default_time_format(event.starts_at)) %> (<%= time_til(event.starts_at)%>)</div>
   </div>
 <% end -%>

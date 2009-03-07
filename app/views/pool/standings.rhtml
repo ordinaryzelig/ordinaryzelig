@@ -20,7 +20,7 @@
 <% form_tag :action => 'pvp' do -%>
   <table border=1 style="<%= css_centered %>">
     
-    <tr class=standingHeader>
+    <tr class="standingHeader">
       <th>rank</th>
       <th>player</th>
       <th>points</th>
@@ -29,7 +29,7 @@
     </tr>
     
     <% @pool_users_with_rank.each do |pool_user, rank| %>
-      <tr class=standing<%= if logged_in_user && logged_in_user.id == pool_user.user_id then 'Self' elsif pool_user.is_master? then 'Master' else nil end %> align=center>
+      <tr class="standing<%= if logged_in_user && logged_in_user.id == pool_user.user_id then 'Self' elsif pool_user.is_master? then 'Master' else nil end %>" align=center>
         <% @reached_logged_in_user_yet ||= logged_in_user && logged_in_user.id == pool_user.user_id -%>
         <%= content_tag :td, rank %>
         <% link_str = "#{pool_user.user.display_name}" -%>
