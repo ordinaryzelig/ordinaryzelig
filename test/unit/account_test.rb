@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AccountTest < ActiveSupport::TestCase
   
-  fixtures :seasons, :users, :accounts
+  fixtures :seasons, :users, :accounts, :pool_users
   
   defaults
   
