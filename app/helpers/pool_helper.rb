@@ -35,7 +35,7 @@ module PoolHelper
   
   # render recursive partial for a game.
   def printable_game_partial(game, left_or_right, ancestors_to_include = 0)
-    render :partial => 'printable_game', 
+    render :partial => 'printable_game',
            :locals => {:game => game,
                        :left_or_right => left_or_right,
                        :ancestors_to_include => ancestors_to_include}
