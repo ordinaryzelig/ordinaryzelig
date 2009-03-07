@@ -48,7 +48,6 @@ module PoolHelper
   end
   
   # a table that contains each bid as a row.
-  # depending
   def bids_table(bids, left_or_right)
     cells_for_bids = bids.map { |bid| bid_cells(bid, left_or_right) }
     rows = cells_for_bids.map { |bid_cells| content_tag :tr, bid_cells }

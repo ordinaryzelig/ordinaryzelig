@@ -4,6 +4,12 @@
   
   <head>
     <title>ordinaryzelig.org - printable bracket - <%= @pool_user.user.display_name %> (<%= @season.year %>)</title>
+    <style type="text/css" media="all">
+      .regionName{
+        font-size: 125%;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <% # page. -%>
@@ -13,7 +19,8 @@
       <%= content_tag :div, "ordinary zelig<br/>march madness<br/>#{@season.year}", :style => 'font-size: 125%; font-weight: bold;' %>
       
       <% # final 4. -%>
-      <div style="margin-top: 5mm;">
+      <div style="position: relative; top: 16cm;">
+        <%= content_tag :span, 'final 4', :class => 'regionName' %>
         <% final_4_region = @season.regions.final_4 -%>
         <table id="final4Region" style="<%= css_centered %> table-layout: fixed; border-collapse: collapse;" width="400">
           <tr>
@@ -34,7 +41,7 @@
             <% regions.each do |region| -%>
               <% content_tag :tr do -%>
                 <% content_tag :td do %>
-                  <%= content_tag :div, region.to_s, :style => "font-size: 125%; text-align: #{left_or_right}; font-weight: bold;" %>
+                  <%= content_tag :div, region.to_s, :class => 'regionName', :style => "text-align: #{left_or_right};" %>
                   <%= content_tag(:table,
                                   printable_game_partial(region.championship_game, left_or_right),
                                   :style => "border-collapse: collapse; width: 100%; table-layout: fixed; width: 12cm;",
