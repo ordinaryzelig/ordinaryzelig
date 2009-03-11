@@ -1,17 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'pool_controller'
-
-# Re-raise errors caught by the controller.
-class PoolController; def rescue_action(e) raise e end; end
 
 class PoolControllerTest < ActionController::TestCase
   
-  def setup
-    @controller = PoolController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-  end
-  
+  fixtures FIXTURES[:user]
   fixtures FIXTURES[:march_madness]
   
   def test_bracket
@@ -20,7 +11,8 @@ class PoolControllerTest < ActionController::TestCase
     [nil, {:region_order => 1}].inject({:id => user.id, :season_id => season.id}) do |parameters, param|
       parameters.update param if param
       get :bracket, parameters.dup
-      assert_response_true_success
+      assert_response :success
+      assert_no_flash_error
       parameters
     end
   end
@@ -33,15 +25,10 @@ class PoolControllerTest < ActionController::TestCase
   def test_standings
     [nil, Season.find(:all)].each do |season|
       get :standings, {:season_id => season}
-      assert_response_true_success
+      assert_response :success
+      assert_no_flash_error
     end
   end
-  
-  # def test_season_not_found
-  #   ['sdf', Season.calculate(:max, :id) + 1].each do |param|
-  #     assert_raise(FriendlyError, "season: #{param} did not raise FriendlyError.") { get(:standings, {:season_id => param}) }
-  #   end
-  # end
   
   def test_game_pics
     get :game_pics, {:id => games(:george_mason_first_game).id}
@@ -50,7 +37,8 @@ class PoolControllerTest < ActionController::TestCase
   def test_pvp
     pool_user = users(:ten_cent).pool_users.first
     post :pvp, {:pool_user_id => pool_user.id, :other_pool_user_ids => pool_user.season.pool_users.non_admin}
-    assert_response_true_success
+    assert_response :success
+    assert_no_flash_error
   end
   
   def test_printable_bracket
@@ -85,40 +73,44 @@ class PoolControllerTest < ActionController::TestCase
   def assert_get_bracket(user_id, season_id, success_expected)
     begin
       get :bracket, {:id => user_id, :season_id => season_id}
-      success_expected ? assert_response_true_success : flunk
+      if success_expected
+        assert_response :success
+        assert_no_flash_error
+      else
+        flunk
+      end
     rescue FriendlyError => fe
       assert fe.msg =~ /brackets are private until the tournament starts/
     end
   end
   
-  # def test_making_pics_allowed_by_user
-  #   user_fixture = :ten_cent
-  #   user = users user_fixture
-  #   season = seasons(:_2007)
-  #   pool_user = user.pool_users.for_season(season).first
-  #   assert_equal user.id, pool_user.user_id
-  #   game = season.regions.final_4.championship_game
-  #   pic = pool_user.pics.for_game(game)
-  #   bid = pic.bid
-  #   # time to make pics has passed.
-  #   assert season.tournament_has_started?
-  #   [[nil, false],
-  #    [user_fixture, false],
-  #    [:cecelia, false],
-  #    [:admin, true]].each { |fixture, allowed| assert_can_make_pics? pool_user, bid, game, fixture, allowed }
-  #   season.update_attribute(:tournament_starts_at, 1.day.from_now)
-  #   assert_not season.tournament_has_started?
-  #   [[nil, false],
-  #    [user_fixture, true],
-  #    [:cecelia, false],
-  #    [:admin, true]].each { |fixture, allowed| assert_can_make_pics? pool_user, bid, game, fixture, allowed }
-  # end
+  def test_making_pics_allowed_by_user
+    user_fixture = :ten_cent
+    user = users user_fixture
+    season = seasons(:_2007)
+    pool_user = user.pool_users.for_season(season).first
+    assert_equal user.id, pool_user.user_id
+    game = season.regions.final_4.championship_game
+    pic = pool_user.pics.for_game(game)
+    bid = pic.bid
+    # time to make pics has passed.
+    assert season.tournament_has_started?
+    [[nil, false],
+     [user_fixture, false],
+     [:cecelia, false],
+     [:admin, true]].each { |fixture, allowed| assert_can_make_pics? pool_user, bid, game, fixture, allowed }
+    season.update_attribute(:tournament_starts_at, 1.day.from_now)
+    assert_not season.tournament_has_started?
+    [[nil, false],
+     [user_fixture, true],
+     [:cecelia, false],
+     [:admin, true]].each { |fixture, allowed| assert_can_make_pics? pool_user, bid, game, fixture, allowed }
+  end
   
   def assert_can_make_pics?(pool_user, bid, game, user_fixture, allowed)
     user = login(user_fixture) if user_fixture
     logged_in = !user.nil?
     begin
-      puts [pool_user.id, game.id, bid.id].join(":")
       post :make_pic, {:pool_user_id => pool_user.id, :game_id => game.id, :bid_id => bid.id}
       assert_redirected_to :action => 'bracket', :season_id => game.season_id, :id => pool_user.user_id, :region_order => (game.parent ? game.parent.region.order_num : game.region.order_num), :bracket_num => pool_user.bracket_num
     rescue Exception => e

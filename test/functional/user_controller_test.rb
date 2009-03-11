@@ -1,12 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'user_controller'
-
-# Re-raise errors caught by the controller.
-class UserController; def rescue_action(e) raise e end; end
 
 class UserControllerTest < ActionController::TestCase
   
-  all_fixtures
+  fixtures :all
   
   def setup
     @controller = UserController.new

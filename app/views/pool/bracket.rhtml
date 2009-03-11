@@ -46,7 +46,7 @@
 <% if is_latest_season?(@season) && !@season.tournament_has_started? && is_self_or_logged_in_as_admin?(@pool_user.user) -%>
   <div style="margin-bottom: 5mm; text-align: center;">
     your pics will be saved as soon as they appear.<br/>
-    <% close_time = TimeZone["Central Time (US & Canada)"].utc_to_local(@season.tournament_starts_at) -%>
+    <% close_time = ActiveSupport::TimeZone["Central Time (US & Canada)"].utc_to_local(@season.tournament_starts_at) -%>
     brackets will close <%= close_time.strftime("%A %B %d, %I:%M %p central") %> (<%= time_til @season.tournament_starts_at %>) .<br/>
     <span style="font-size: 120%; color: red; font-weight: bold;">do not use internet explorer</span>.  <%= render :partial => 'shared/best_viewed_with' %>
   </div>
