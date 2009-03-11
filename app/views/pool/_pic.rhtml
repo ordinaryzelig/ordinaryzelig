@@ -1,16 +1,16 @@
 <% content_tag :div, :class => 'bid' do -%>
-  <%= render(:partial => "bid", :locals => {:bid => pic.bid,
-                                            :game => pic.game,
+  <%= render(:partial => "bid", :locals => {:bid => bid,
+                                            :game => game,
                                             :pool_user => pool_user,
                                             :pic => pic}) %>
 <% end -%>
 
 <% # real results. -%>
-<% if pic.bid && pic.master_pic.bid -%>
+<% if bid && pic.master_pic.bid -%>
   <div class="picResult<%= pic.is_correct? %>"><%= pic.is_correct? ? "#{pic.point_worth} pts" : h(pic.master_pic.bid.team.name) -%></div>
 <% end -%>
 
 <% # show all pics link. -%>
-<% if pic.game.season.tournament_has_started? -%>
-  <div class="gamePicsLink"><%= link_to("show all pics", :action => "game_pics", :id => pic.game.id) %></div>
+<% if game.season.tournament_has_started? -%>
+  <div class="gamePicsLink"><%= link_to("show all pics", :action => "game_pics", :id => game.id) %></div>
 <% end -%>

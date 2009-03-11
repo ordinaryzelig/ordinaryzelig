@@ -1,6 +1,6 @@
 # update winner.
 page[dom_id(@pic)].down('.bid').replace_html :partial => 'bid', :locals => {:bid => @bid,
-                                                                            :game => @is_first_round_bid ? @game : @game.parent,
+                                                                            :game => @game.parent,
                                                                             :pool_user => @pool_user,
                                                                             :pic => @pic}
 
@@ -15,5 +15,5 @@ unless @update_bracket_completion_to.nil?
   page[:bracketCompletion].visual_effect :pulsate
 end
 
-# replace spinner on game's pic with winning bid.
-page[bid_spinner_dom_id(@bid, @game, @is_first_round_bid)].hide
+# hide spinner.
+page[bid_spinner_dom_id(@bid, @game)].hide

@@ -9,19 +9,12 @@
 }
 
 .regionName{
-    font-size: 125%;
+    font-size: 150%;
     font-weight: bold;
 }
 
 .game{
     display: table;
-}
-
-.pic, .firstRoundBid{
-    width: 45mm;
-    padding: 2mm;
-    padding-top: 4mm;
-    padding-bottom: 4mm;
 }
 
 .pic{

@@ -2,7 +2,7 @@ module PoolHelper
   
   # put this here for ajax if needed.
   def region_bracket_partial(region, pool_user)
-    render(:partial => "region_bracket", :locals => {:region => region, :pool_user => pool_user})
+    render(:partial => "region_bracket", :locals => {:region => region, :pool_user => pool_user, :left_or_right => 'left'})
   end
   
   # return a html class for this pic for given_round_number.
@@ -49,25 +49,29 @@ module PoolHelper
   
   # a table that contains each bid as a row.
   def bids_table(bids, left_or_right)
-    cells_for_bids = bids.map { |bid| bid_cells(bid, left_or_right) }
+    cells_for_bids = bids.size > 1 ? [yield(bids.shift, 'top'), yield(bids.shift, 'bottom')] : [yield(bids.shift)]
     rows = cells_for_bids.map { |bid_cells| content_tag :tr, bid_cells }
-    content_tag(:table, rows, :style => "white-space: nowrap; font-size: 10pt; border-collapse: collapse;")
+    content_tag(:table, rows, :style => "white-space: nowrap; border-collapse: collapse;")
   end
   
   # seed and a team each wrapped in a <td> tag.
   # put seed on left_or_right side.
   def bid_cells(bid, seed_on_left_or_right)
     options = {:align => seed_on_left_or_right, :style => "border-bottom: 1px solid black; padding-#{seed_on_left_or_right}: 2mm;"}
-    seed = content_tag :td, "(#{bid.seed})", options
-    team = content_tag :td, h(bid.team.name), options
+    seed = content_tag :td, (bid ? "(#{bid.seed})" : '&nbsp'), options
+    team = content_tag :td, (bid ? h(bid.team.name) : '&nbsp'), options
     cells = [seed, team]
     cells.reverse! if 'right' == seed_on_left_or_right
     cells
   end
   
   def game_participants_and_pic(game, pool_user, left_or_right)
-    participating_bids_content = bids_table game.participating_bids(pool_user), left_or_right
-    pic_content = bids_table [pool_user.pics.for_game(game).bid], left_or_right
+    participating_bids_content = bids_table game.participating_bids(pool_user), left_or_right do |bid, top_or_bottom|
+      bid_cells(bid, left_or_right)
+    end
+    pic_content = bids_table [pool_user.pics.for_game(game).bid], left_or_right do |bid|
+      bid_cells(bid, left_or_right)
+    end
     cells_content = [participating_bids_content, pic_content]
     cells_content.reverse! if 'right' == left_or_right
     cells_content.map { |content| content_tag(:td, content_tag(:div, content, :style => "float: #{left_or_right};")) }
@@ -87,13 +91,30 @@ module PoolHelper
     end
   end
   
-  def bid_spinner_dom_id(bid, game, is_first_round_bid)
-    dom_id bid, (is_first_round_bid ? '' : dom_id(game)) + 'spinner'
+  def bid_spinner_dom_id(bid, game)
+    dom_id bid, (game.children.empty? ? '' : dom_id(game)) + '_spinner'
   end
   
   def bracket_completion_span(complete)
     content = complete ? 'bracket complete' : 'bracket incomplete'
     content_tag :span, content, :style => "color: #{complete ? 'green' : 'red'}"
+  end
+  
+  # render pic partial, or just bid partial if this is first round game.
+  # all wrapped in table cell.
+  def bid_for_game(bid, game, pool_user, top_or_bottom)
+    pic = pool_user.pics.for_game(game.children.empty? ? game : game.send(top_or_bottom))
+    content = if game.children.empty?
+      partial = render(:partial => "bid", :locals => {:bid => bid,
+                                                      :game => game,
+                                                      :pool_user => pool_user,
+                                                      :pic => pic})
+      content_tag :div, partial, :class => 'firstRoundBid bid', :id => dom_id(bid)
+    else
+      content = render :partial => "pic", :locals => {:pic => pic, :game => game, :pool_user => pool_user, :bid => bid}
+      content_tag :div, content, :id => dom_id(pic), :class => 'pic'
+    end
+    content_tag :td, content
   end
   
 end

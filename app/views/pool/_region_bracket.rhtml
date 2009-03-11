@@ -1,9 +1,11 @@
-<% rounds_left = 4 -%>
-<% rounds_left = 2 if 1 == region.order_num -%>
-<div class="regionName"><%= region.name %></div>
-<div class="regionBracket">
-  <%= render(:partial => "game", :locals => {:game => region.championship_game,
-                                             :rounds_left => rounds_left,
-                                             :pool_user => pool_user,
-                                             :pool_user => pool_user}) %>
-</div>
+<% content_tag :table do -%>
+  <% content_tag :tr do -%>
+    <% content_tag :td do %>
+      <%= content_tag :div, region.to_s, :class => 'regionName', :style => "text-align: #{left_or_right};" %>
+      <%= content_tag(:table,
+                      printable_game_partial(region.championship_game, left_or_right),
+                      :cellpadding => 15,
+                      :border => 0) %>
+    <% end -%>
+  <% end -%>
+<% end -%>

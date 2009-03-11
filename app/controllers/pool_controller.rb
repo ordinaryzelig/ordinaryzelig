@@ -26,17 +26,11 @@ class PoolController < ApplicationController
       @game = Game.find(params[:game_id])
       @pool_user = PoolUser.find(params[:pool_user_id], :include => :pics)
       raise "#{logged_in_user.first_last} trying to edit #{@pool_user.user.first_last} pics" unless @pool_user.is_editable_by?(logged_in_user)
-      @is_first_round_bid = params[:is_first_round_bid]
       bracket_is_complete_before_pic = @pool_user.bracket_complete?
       
       # winner.
-      if @is_first_round_bid
-        @other_affected_pics = @game.declare_winner(@bid, @pool_user)
-        @pic = @pool_user.pics.for_game @game
-      else
-        @other_affected_pics = @game.parent.declare_winner(@bid, @pool_user)
-        @pic = @pool_user.pics.for_game(@game.parent)
-      end
+      @other_affected_pics = @game.declare_winner(@bid, @pool_user)
+      @pic = @pool_user.pics.for_game @game
       
       # have to load pool_user again to update the pics.
       @pool_user.reload(:include => :pics)
@@ -94,8 +88,8 @@ class PoolController < ApplicationController
   end
   
   def printable_bracket
-    # render_layout_only 'under construction'
     get_bracket_info
+    @printable = true
     render :layout => false, :footnotes => false
   end
   

@@ -43,6 +43,7 @@ class Game < ActiveRecord::Base
   # find and save the pic.
   # return other pics that are affected.
   def declare_winner(bid, pool_user)
+    raise 'illegal pic' unless participating_bids(pool_user).include?(bid)
     pic = pool_user.pics.for_game self
     old_bid_id = pic.bid_id
     pic.bid_id = bid.id

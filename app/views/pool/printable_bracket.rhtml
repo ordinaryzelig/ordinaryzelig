@@ -13,19 +13,20 @@
   </head>
   <body>
     <% # page. -%>
-    <div style="width: 11in; height: 8.5in; text-align: center;">
+    <div style="width: 11in; height: 8.5in; text-align: center; font-size: 10pt;">
       
       <% # header. -%>
       <%= content_tag :div, "ordinary zelig<br/>march madness<br/>#{@season.year}", :style => 'font-size: 125%; font-weight: bold;' %>
       
       <% # final 4. -%>
-      <div style="position: relative; top: 16cm;">
+      <div style="position: relative; top: 15.5cm;">
         <%= content_tag :span, 'final 4', :class => 'regionName' %>
         <% final_4_region = @season.regions.final_4 -%>
         <table id="final4Region" style="<%= css_centered %> table-layout: fixed; border-collapse: collapse;" width="400">
           <tr>
             <%= game_participants_and_pic final_4_region.championship_game.top, @pool_user, 'left' %>
-            <%= content_tag :td, h(@pool_user.pics.for_game(final_4_region.championship_game).bid.team.name), :id => 'championshipGame', :align => 'center', :style => 'font-size: 125%;' %>
+            <% championship_bid = @pool_user.pics.for_game(final_4_region.championship_game).bid -%>
+            <%= content_tag :td, (championship_bid ? h(championship_bid.team.name) : '&nbsp'), :id => 'championshipGame', :align => 'center', :style => 'font-size: 125%;' %>
             <%= game_participants_and_pic final_4_region.championship_game.bottom, @pool_user, 'right' %>
           </tr>
         </table>
