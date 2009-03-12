@@ -61,10 +61,3 @@
 <div class="regionBracket" id="regionBracket">
   <%= region_bracket_partial(@region, @pool_user) %>
 </div>
-
-<% content_for("scripts") do -%>
-  function destroy_pic(pic_div_id)
-  {
-    new Effect.Shrink(pic_div_id);
-  }
-<% end -%>

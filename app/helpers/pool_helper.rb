@@ -108,7 +108,8 @@ module PoolHelper
       partial = render(:partial => "bid", :locals => {:bid => bid,
                                                       :game => game,
                                                       :pool_user => pool_user,
-                                                      :pic => pic})
+                                                      :pic => pic,
+                                                      :no_link => false})
       content_tag :div, partial, :class => 'firstRoundBid bid', :id => dom_id(bid)
     else
       pic_div(pic, game, pool_user, bid)
