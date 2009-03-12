@@ -1,3 +1,5 @@
+<% no_link = no_link.nil? ? false : no_link -%>
+
 <% if bid -%>
   <% content = bid.team ? "#{bid.seed} <span class=\"team#{pic.still_alive?}\">#{h(bid.team.name)}</span>" : "&nbsp;" -%>
   
