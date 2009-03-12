@@ -17,7 +17,7 @@
         <% if g == @championship_game -%>
           <% game_td g, left_or_right do -%>
             <% pic = @pool_user.pics.for_game(g) -%>
-            <%= pic_div(pic, g, @pool_user, pic.bid) %>
+            <%= pic_div(pic, g, @pool_user, pic.bid, true) %>
           <% end -%>
         <% end -%>
       <% end -%>

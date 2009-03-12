@@ -1,14 +1,12 @@
-<% no_link = @championship_game.nil? || game == @championship_game && pic == @pool_user.pics.for_game(game) -%>
-
 <% if bid -%>
   <% content = bid.team ? "#{bid.seed} <span class=\"team#{pic.still_alive?}\">#{h(bid.team.name)}</span>" : "&nbsp;" -%>
   
-  <% if pool_user.is_editable_by?(logged_in_user) && !no_link -%>
+  <% if pool_user.is_editable_by?(logged_in_user) && game && !no_link -%>
     <%= link_to_remote(content,
                        :url => {:controller => 'pool',
                                 :action => "make_pic",
                                 :bid_id => bid.id,
-                                :game_id => game.id,
+                                :game_id => game,
                                 :pool_user_id => pool_user.id},
                        :before => "$('#{bid_spinner_dom_id(bid, game)}').show();") %>
     <%= spinner bid_spinner_dom_id(bid, game) %>

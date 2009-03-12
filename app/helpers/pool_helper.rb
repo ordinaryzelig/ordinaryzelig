@@ -116,8 +116,8 @@ module PoolHelper
     content_tag :td, content
   end
   
-  def pic_div(pic, game, pool_user, bid)
-    content = render :partial => "pic", :locals => {:pic => pic, :game => game, :pool_user => pool_user, :bid => bid}
+  def pic_div(pic, game, pool_user, bid, no_link = false)
+    content = render :partial => "pic", :locals => {:pic => pic, :game => game, :pool_user => pool_user, :bid => bid, :no_link => no_link}
     content_tag :div, content, :id => dom_id(pic), :class => 'pic'
   end
   
