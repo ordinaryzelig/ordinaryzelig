@@ -15,6 +15,7 @@ class PoolController < ApplicationController
         @region = Region.find(:first, :conditions => ["#{Region.table_name}.season_id = ? AND order_num = ?", *[@season.id, @region_order]])
         raise unless @region
       end
+      @championship_game = @region.championship_game
     else
       redirect_to(:action => 'bracket', :season_id => params[:season_id], :id => params[:user][:id], :region_order => params[:region_order], :bracket_num => params[:bracket_num])
     end

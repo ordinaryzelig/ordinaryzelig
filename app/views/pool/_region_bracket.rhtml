@@ -2,10 +2,16 @@
   <% content_tag :tr do -%>
     <% content_tag :td do %>
       <%= content_tag :div, region.to_s, :class => 'regionName', :style => "text-align: #{left_or_right};" %>
-      <%= content_tag(:table,
-                      printable_game_partial(region.championship_game, left_or_right),
-                      :cellpadding => 15,
-                      :border => 0) %>
+      <% content_tag :table, :cellpadding => 15, :border => 0 do -%>
+        <!-- recursive bracket. -->
+        <%= printable_game_partial region.championship_game, left_or_right %>
+        <!-- region champion. -->
+        <% content_tag :tr do -%>
+          <% content_tag :td do -%>
+            <% pic = @pool_user.pics.for_game(region.championship_game) -%>
+          <% end -%>
+        <% end -%>
+      <% end -%>
     <% end -%>
   <% end -%>
 <% end -%>

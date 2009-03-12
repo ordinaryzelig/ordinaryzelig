@@ -13,6 +13,13 @@
             end
           end %>
         <% end -%>
+        <!-- championship game pic. -->
+        <% if g == @championship_game -%>
+          <% game_td g, left_or_right do -%>
+            <% pic = @pool_user.pics.for_game(g) -%>
+            <%= pic_div(pic, g, @pool_user, pic.bid) %>
+          <% end -%>
+        <% end -%>
       <% end -%>
     <% else -%>
       <% game_td game, left_or_right do -%>
