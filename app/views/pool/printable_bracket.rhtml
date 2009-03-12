@@ -16,7 +16,11 @@
     <div style="width: 11in; height: 8.5in; text-align: center; font-size: 10pt;">
       
       <% # header. -%>
-      <%= content_tag :div, "ordinary zelig<br/>march madness<br/>#{@season.year}", :style => 'font-size: 125%; font-weight: bold;' %>
+      <% content_tag :div, :style => 'font-size: 150%; font-weight: bold' do -%>
+        ordinary zelig<br/>
+        march madness <%= @season.year %><br/><br/>
+        <%= @pool_user.user.display_name %><br/>
+      <% end -%>
       
       <% # final 4. -%>
       <div style="position: relative; top: 15.5cm;">
@@ -43,10 +47,14 @@
               <% content_tag :tr do -%>
                 <% content_tag :td do %>
                   <%= content_tag :div, region.to_s, :class => 'regionName', :style => "text-align: #{left_or_right};" %>
-                  <%= content_tag(:table,
-                                  printable_game_partial(region.championship_game, left_or_right),
-                                  :style => "border-collapse: collapse; width: 100%; table-layout: fixed; width: 12cm;",
-                                  :cellpadding => 15) %>
+                  <% if @printable -%>
+                    <%= content_tag(:table,
+                                    printable_game_partial(region.championship_game, left_or_right),
+                                    :style => "border-collapse: collapse; width: 100%; table-layout: fixed; width: 12cm;",
+                                    :cellpadding => 15) %>
+                  <% else -%>
+                    <%=  %>
+                  <% end -%>
                 <% end -%>
               <% end -%>
             <% end # row. -%>
