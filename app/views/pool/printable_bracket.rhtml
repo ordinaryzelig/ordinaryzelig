@@ -47,14 +47,10 @@
               <% content_tag :tr do -%>
                 <% content_tag :td do %>
                   <%= content_tag :div, region.to_s, :class => 'regionName', :style => "text-align: #{left_or_right};" %>
-                  <% if @printable -%>
                     <%= content_tag(:table,
-                                    printable_game_partial(region.championship_game, left_or_right),
+                                    game_partial(region.championship_game, left_or_right),
                                     :style => "border-collapse: collapse; width: 100%; table-layout: fixed; width: 12cm;",
                                     :cellpadding => 15) %>
-                  <% else -%>
-                    <%=  %>
-                  <% end -%>
                 <% end -%>
               <% end -%>
             <% end # row. -%>

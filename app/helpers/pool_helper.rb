@@ -1,10 +1,5 @@
 module PoolHelper
   
-  # put this here for ajax if needed.
-  def region_bracket_partial(region, pool_user)
-    render(:partial => "region_bracket", :locals => {:region => region, :pool_user => pool_user, :left_or_right => 'left'})
-  end
-  
   # return a html class for this pic for given_round_number.
   def class_for_game_pic(given_round, given_pic, master_pics, pool_user)
     html = "gamePicInRound"
@@ -34,8 +29,8 @@ module PoolHelper
   end
   
   # render recursive partial for a game.
-  def printable_game_partial(game, left_or_right, ancestors_to_include = 0)
-    render :partial => 'printable_game',
+  def game_partial(game, left_or_right, ancestors_to_include = 0)
+    render :partial => 'game',
            :locals => {:game => game,
                        :left_or_right => left_or_right,
                        :ancestors_to_include => ancestors_to_include}
