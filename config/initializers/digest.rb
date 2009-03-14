@@ -1,9 +1,9 @@
 require "digest/sha1"
 
-module Digest
+class String
   
-  def hash(str)
-    Digest::SHA1.hexdigest(str)
+  def digest
+    Digest::SHA1.hexdigest self
   end
   
 end
