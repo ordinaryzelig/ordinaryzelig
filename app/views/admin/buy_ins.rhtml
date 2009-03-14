@@ -8,7 +8,7 @@
 <% total_num_brackets = 0 -%>
 <% total_unpaid = 0 -%>
 <% content_tag :table, :border => 1, :id => 'buy_ins' do -%>
-  <%= content_tag :tr, content_tag(:th, @season.year) %>
+  <%= content_tag :tr, content_tag(:th, @season.year, :colspan => 4) %>
   <% content_tag :tr do -%>
     <%= content_tag :th, 'user' %>
     <%= content_tag :th, 'brackets' %>
