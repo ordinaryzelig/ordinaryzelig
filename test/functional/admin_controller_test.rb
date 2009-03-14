@@ -24,7 +24,7 @@ class AdminControllerTest < ActionController::TestCase
                          :display_name => 'doej',
                          :email => 'doej@asdf.fds',
                          :unhashed_password => 'asdf'})
-    post :enter_pool, {:season_id => 3, :id => user.id}
+    post :enter_pool, {:season_id => Fixtures.identify(:_2007), :id => user.id}
     assert_not_nil PoolUser.find_by_user_id_and_season_id(user.id, season_id)
   end
   

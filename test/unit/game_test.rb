@@ -111,4 +111,6 @@ class GameTest < ActiveSupport::TestCase
     end
   end
   
+  test_fixture_associations :season
+  
 end

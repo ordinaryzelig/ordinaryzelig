@@ -1,76 +1,76 @@
 --- 
 regions_013: 
   name: final four (atlanta)
-  season_id: "3"
+  season: _2007
   id: "11"
   order_num: "1"
 regions_002: 
   name: east (east rutherford)
-  season_id: "3"
+  season: _2007
   id: "13"
   order_num: "4"
 regions_014: 
   name: final four
-  season_id: "1"
+  season: _2005
   id: "1"
   order_num: "1"
 regions_003: 
   name: albuquerque
-  season_id: "1"
+  season: _2005
   id: "3"
   order_num: "3"
 regions_015: 
   name: midwest (st. louis)
-  season_id: "3"
+  season: _2007
   id: "12"
   order_num: "2"
 regions_004: 
   name: south (san antonio)
-  season_id: "3"
+  season: _2007
   id: "14"
   order_num: "5"
 regions_005: 
   name: syracuse
-  season_id: "1"
+  season: _2005
   id: "4"
   order_num: "4"
 regions_006: 
   name: west (san jose)
-  season_id: "3"
+  season: _2007
   id: "15"
   order_num: "3"
 regions_007: 
   name: austin
-  season_id: "1"
+  season: _2005
   id: "5"
   order_num: "5"
 regions_008: 
   name: final four
-  season_id: "2"
+  season: _2006
   id: "6"
   order_num: "1"
 regions_009: 
   name: atlanta
-  season_id: "2"
+  season: _2006
   id: "7"
   order_num: "2"
 regions_010: 
   name: oakland
-  season_id: "2"
+  season: _2006
   id: "8"
   order_num: "3"
 regions_011: 
   name: washington, d.c.
-  season_id: "2"
+  season: _2006
   id: "9"
   order_num: "4"
 regions_012: 
   name: minneapolis
-  season_id: "2"
+  season: _2006
   id: "10"
   order_num: "5"
 regions_001: 
   name: chicago
-  season_id: "1"
+  season: _2005
   id: "2"
   order_num: "2"

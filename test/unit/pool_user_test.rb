@@ -8,7 +8,7 @@ class PoolUserTest < ActiveSupport::TestCase
   defaults
   
   def test_master
-    assert_equal 'master bracket', PoolUser.master(Season.find(1)).user.display_name
+    assert_equal 'master bracket', PoolUser.master(seasons(:_2005)).user.display_name
   end
   
   def test_points
@@ -46,6 +46,7 @@ class PoolUserTest < ActiveSupport::TestCase
     bid_id = master_pic.bid_id
     master_pic.bid_id = nil
     assert_save master_pic
+    assert_nil master_pic.bid_id
     assert_not master_pool_user.bracket_complete?
     assert_equal 1, pool_user.pics_left.size
   end
@@ -101,13 +102,13 @@ class PoolUserTest < ActiveSupport::TestCase
     # season has already started by now.
     assert_pool_user_editable_by? pool_user, nil, false
     assert_pool_user_editable_by? pool_user, :ten_cent, false
-    assert_pool_user_editable_by? pool_user, :cecelia, false
+    assert_pool_user_editable_by? pool_user, :the_prophet, false
     assert_pool_user_editable_by? pool_user, :admin, true
     # now try when tournament has started.
     pool_user.season.update_attribute(:tournament_starts_at, 1.day.from_now)
     assert_not pool_user.season.tournament_has_started?
     assert_pool_user_editable_by? pool_user, :ten_cent, false
-    assert_pool_user_editable_by? pool_user, :cecelia, true
+    assert_pool_user_editable_by? pool_user, :the_prophet, true
     assert_pool_user_editable_by? pool_user, :admin, true
   end
   
@@ -116,5 +117,7 @@ class PoolUserTest < ActiveSupport::TestCase
     result = pool_user.is_editable_by? user
     expected_to_be_editale ? assert(result) : assert_not(result)
   end
+  
+  test_fixture_associations :season
   
 end

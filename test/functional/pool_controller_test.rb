@@ -97,13 +97,13 @@ class PoolControllerTest < ActionController::TestCase
     assert season.tournament_has_started?
     [[nil, false],
      [user_fixture, false],
-     [:cecelia, false],
+     [:the_prophet, false],
      [:admin, true]].each { |fixture, allowed| assert_can_make_pics? pool_user, bid, game, fixture, allowed }
     season.update_attribute(:tournament_starts_at, 1.day.from_now)
     assert_not season.tournament_has_started?
     [[nil, false],
      [user_fixture, true],
-     [:cecelia, false],
+     [:the_prophet, false],
      [:admin, true]].each { |fixture, allowed| assert_can_make_pics? pool_user, bid, game, fixture, allowed }
   end
   

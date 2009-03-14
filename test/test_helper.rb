@@ -80,8 +80,8 @@ class Test::Unit::TestCase
   # ======================================================
   # factories.
   
-  DEFAULT_ATTRIBUTES = {'account' => {:user_id => Fixtures.identify(:cecelia),
-                                      :season_id => 3},
+  DEFAULT_ATTRIBUTES = {'account' => {:user_id => Fixtures.identify(:the_prophet),
+                                      :season_id => Fixtures.identify(:_2007)},
                         'bid' => {:team_id => 1,
                                   :seed => 1,
                                   :first_game_id => 1},
@@ -94,7 +94,7 @@ class Test::Unit::TestCase
                                       :entity_id => Fixtures.identify(:public)},
                         'friendship' => {:user_id => Fixtures.identify(:Felice),
                                          :friend_id => Fixtures.identify(:ten_cent)},
-                        'game' => {:season_id => 1,
+                        'game' => {:season_id => Fixtures.identify(:_2005),
                                    :parent_id => nil,
                                    :round_id => 1,
                                    :region_id => 1},
@@ -107,7 +107,7 @@ class Test::Unit::TestCase
                                            :summary => 'not bad, not at all bad',
                                            :explanation => 'it was aight. i mean, she has a neat voice but she has a wierd look',
                                            :user_id => Fixtures.identify(:ten_cent)},
-                        'pool_user' => {:season_id => 1,
+                        'pool_user' => {:season_id => Fixtures.identify(:_2005),
                                         :user_id => Fixtures.identify(:Surly_Stuka),
                                         :bracket_num => 1},
                         'season' => {:tournament_starts_at => 1.year.from_now,

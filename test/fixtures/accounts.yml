@@ -1,12 +1,232 @@
+matt_2005: 
+  season: _2005
+  user: matt
+  amount_paid: 10
+allaire_2005: 
+  season: _2005
+  user: allaire
+  amount_paid: 10
+arlena_2005: 
+  season: _2005
+  user: arlena
+  amount_paid: 10
+jean_2005: 
+  season: _2005
+  user: jean
+  amount_paid: 10
+THE_MOTHER_2005: 
+  season: _2005
+  user: THE_MOTHER
+  amount_paid: 10
+Stephanie_2005: 
+  season: _2005
+  user: Stephanie
+  amount_paid: 10
+daniel_2005: 
+  season: _2005
+  user: daniel
+  amount_paid: 10
+sharon_2005: 
+  season: _2005
+  user: sharon
+  amount_paid: 10
+master_bracket_2005: 
+  season: _2005
+  user: master_bracket
+  amount_paid: 10
+gail_2005: 
+  season: _2005
+  user: gail
+  amount_paid: 10
+David_2005: 
+  season: _2005
+  user: David
+  amount_paid: 10
+melissa_2005: 
+  season: _2005
+  user: melissa
+  amount_paid: 10
+caroline_2005: 
+  season: _2005
+  user: caroline
+  amount_paid: 10
+trevor_2005: 
+  season: _2005
+  user: trevor
+  amount_paid: 10
+kendrick_2005: 
+  season: _2005
+  user: kendrick
+  amount_paid: 10
+Kristin_A_2005: 
+  season: _2005
+  user: Kristin_A
+  amount_paid: 10
+B_Pham_2005: 
+  season: _2005
+  user: B_Pham
+  amount_paid: 10
+kyle_2005: 
+  season: _2005
+  user: kyle
+  amount_paid: 10
+lina_2005: 
+  season: _2005
+  user: lina
+  amount_paid: 10
 ten_cent_2005: 
-  season_id: "1"
-  amount_paid: "0"
-  user_id: <%= Fixtures.identify(:ten_cent) %>
+  season: _2005
+  user: ten_cent
+  amount_paid: 10
+boo_2005: 
+  season: _2005
+  user: boo
+  amount_paid: 10
+diana_2005: 
+  season: _2005
+  user: diana
+  amount_paid: 10
+brandon_2005: 
+  season: _2005
+  user: brandon
+  amount_paid: 10
+tan_2005: 
+  season: _2005
+  user: tan
+  amount_paid: 10
+allaire_2006: 
+  season: _2006
+  user: allaire
+  amount_paid: 10
+mike_2006: 
+  season: _2006
+  user: mike
+  amount_paid: 10
+THE_MOTHER_2006: 
+  season: _2006
+  user: THE_MOTHER
+  amount_paid: 20
+Stephanie_2006: 
+  season: _2006
+  user: Stephanie
+  amount_paid: 20
+the_prophet_2006: 
+  season: _2006
+  user: the_prophet
+  amount_paid: 10
+master_bracket_2006: 
+  season: _2006
+  user: master_bracket
+  amount_paid: 10
+melissa_2006: 
+  season: _2006
+  user: melissa
+  amount_paid: 20
+kendrick_2006: 
+  season: _2006
+  user: kendrick
+  amount_paid: 10
+B_Pham_2006: 
+  season: _2006
+  user: B_Pham
+  amount_paid: 10
+kyle_2006: 
+  season: _2006
+  user: kyle
+  amount_paid: 20
 ten_cent_2006: 
-  season_id: "2"
-  amount_paid: "0"
-  user_id: <%= Fixtures.identify(:ten_cent) %>
+  season: _2006
+  user: ten_cent
+  amount_paid: 20
+adam_2006: 
+  season: _2006
+  user: adam
+  amount_paid: 10
+diana_2006: 
+  season: _2006
+  user: diana
+  amount_paid: 10
+brandon_2006: 
+  season: _2006
+  user: brandon
+  amount_paid: 20
+cw_2007: 
+  season: _2007
+  user: cw
+  amount_paid: 10
+allaire_2007: 
+  season: _2007
+  user: allaire
+  amount_paid: 10
+JoJoMe_2007: 
+  season: _2007
+  user: JoJoMe
+  amount_paid: 10
+arlena_2007: 
+  season: _2007
+  user: arlena
+  amount_paid: 10
+mike_2007: 
+  season: _2007
+  user: mike
+  amount_paid: 10
+allison_2007: 
+  season: _2007
+  user: allison
+  amount_paid: 10
+THE_MOTHER_2007: 
+  season: _2007
+  user: THE_MOTHER
+  amount_paid: 10
+Stephanie_2007: 
+  season: _2007
+  user: Stephanie
+  amount_paid: 10
+OSUchigga_2007: 
+  season: _2007
+  user: OSUchigga
+  amount_paid: 10
+the_prophet_2007: 
+  season: _2007
+  user: the_prophet
+  amount_paid: 10
+master_bracket_2007: 
+  season: _2007
+  user: master_bracket
+  amount_paid: 10
+caroline_2007: 
+  season: _2007
+  user: caroline
+  amount_paid: 10
+carol_2007: 
+  season: _2007
+  user: carol
+  amount_paid: 10
+kendrick_2007: 
+  season: _2007
+  user: kendrick
+  amount_paid: 10
+Kristin_A_2007: 
+  season: _2007
+  user: Kristin_A
+  amount_paid: 10
+B_Pham_2007: 
+  season: _2007
+  user: B_Pham
+  amount_paid: 10
+kyle_2007: 
+  season: _2007
+  user: kyle
+  amount_paid: 10
 ten_cent_2007: 
-  season_id: "3"
-  amount_paid: "0"
-  user_id: <%= Fixtures.identify(:ten_cent) %>
+  season: _2007
+  user: ten_cent
+  amount_paid: 10
+Felice_2007: 
+  season: _2007
+  user: Felice
+  amount_paid: 10
+jonnybosu_2007: 
+  season: _2007
+  user: jonnybosu
+  amount_paid: 10
