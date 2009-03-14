@@ -58,16 +58,17 @@
 <% end -%>
 
 <% if @region.is_final_4? -%>
-  <%= content_tag :span, 'final 4', :class => 'regionName' %>
-  <% final_4_region = @season.regions.final_4 -%>
-  <table id="final4Region" style="<%= css_centered %> table-layout: fixed; border-collapse: collapse;" width="400">
-    <tr>
-      <%= game_participants_and_pic final_4_region.championship_game.top, @pool_user, 'left' %>
-      <% championship_bid = @pool_user.pics.for_game(final_4_region.championship_game).bid -%>
-      <%= content_tag :td, (championship_bid ? h(championship_bid.team.name) : '&nbsp'), :id => 'championshipGame', :align => 'center', :style => 'font-size: 150%; font-weight: bold;' %>
-      <%= game_participants_and_pic final_4_region.championship_game.bottom, @pool_user, 'right' %>
-    </tr>
-  </table>
+  <%= content_tag :span, @region.to_s, :class => 'regionName' %>
+  <% content_tag :table do -%>
+    <% content_tag :tr do -%>
+      <%= game_participants_and_pic @region.championship_game.top, @pool_user, 'left' %>
+      <% game_td @region.championship_game, nil do -%>
+        <% pic = @pool_user.pics.for_game(@region.championship_game) -%>
+        <%= pic_div(pic, @region.championship_game, @pool_user, pic.bid, true) %>
+      <% end -%>
+      <%= game_participants_and_pic @region.championship_game.bottom, @pool_user, 'right' %>
+    <% end -%>
+  <% end -%>
 <% else -%>
   <% # region bracket. -%>
   <div class="regionBracket" id="regionBracket">

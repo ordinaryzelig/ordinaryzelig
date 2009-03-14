@@ -67,6 +67,7 @@ module PoolHelper
     cells
   end
   
+  # td tag with 2 bids and the game's pic.
   def game_participants_and_pic(game, pool_user, left_or_right)
     participating_bids_content = bids_table game.participating_bids(pool_user), game, pool_user, left_or_right
     pic_content = bids_table [pool_user.pics.for_game(game).bid], game, pool_user, left_or_right
