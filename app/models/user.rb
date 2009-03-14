@@ -30,6 +30,9 @@ class User < ActiveRecord::Base
     end
   end
   
+  named_scope :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']]
+  named_scope :participating_in_season, proc { |season| {:conditions => ["#{PoolUser.table_name}.season_id = ?", season.id], :include => :pool_users} }
+  
   before_validation_on_create :generate_secret_id
   before_validation_on_create { |user| user.set_password user.unhashed_password}
   
@@ -45,8 +48,6 @@ class User < ActiveRecord::Base
   
   attr_accessible :email, :first_name, :last_name, :display_name, :unhashed_password
   attr_accessor :unhashed_password
-  
-  named_scope :non_admin, :conditions => ['display_name not in (?)', ['master bracket', 'admin']]
   
   def self.new_registrant(attributes, confirmation_password)
     user = new attributes

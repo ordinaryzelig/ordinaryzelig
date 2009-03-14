@@ -3,41 +3,39 @@
     <%= season_select_tag(@season.id) %> <%= submit_tag("go") %>
   </div>
 <% end -%>
-<% if @season -%>
-  <% pot = 0 -%>
-  <% total_num_brackets = 0 -%>
-  <% total_unpaid = 0 -%>
-  <table border=1 id="buy_ins">
-    <tr>
-      <th colspan=4><%= @season.year %> season</th>
-    </tr>
-    <tr>
-      <th>user</th>
-      <th>brackets</th>
-      <th>amount paid</td>
-      <th></th>    
+
+<% pot = 0 -%>
+<% total_num_brackets = 0 -%>
+<% total_unpaid = 0 -%>
+<% content_tag :table, :border => 1, :id => 'buy_ins' do -%>
+  <%= content_tag :tr, content_tag(:th, @season.year) %>
+  <% content_tag :tr do -%>
+    <%= content_tag :th, 'user' %>
+    <%= content_tag :th, 'brackets' %>
+    <%= content_tag :th, 'amount paid' %>
+    <%= content_tag :th %>
+  <% end -%>
   <% @users.each do |user| -%>
     <% amount_paid = user.accounts.for_season(@season).amount_paid -%>
     <% pot += amount_paid -%>
     <% brackets = user.pool_users.for_season(@season).size -%>
     <% total_num_brackets += brackets -%>
-    <tr>
-      <td style="text-align: left;"><%= link_to_profile(user, "#{user.last_first_display} (#{user.id})") %></td>
-      <td><%= user.pool_users.for_season(@season).size %></td>
-      <td><%= amount_paid %></td>
+    <% content_tag :tr do -%>
+      <%= content_tag :td, link_to_profile(user, "#{user.last_first_display} (#{user.id})") %>
+      <%= content_tag :td, user.pool_users.for_season(@season).size %>
+      <%= content_tag :td, amount_paid %>
       <% if @season.buy_in * brackets == amount_paid -%>
-        <td>paid</td>
+        <%= content_tag :td, 'paid' %>
       <% else -%>
         <% total_unpaid += 1 %>
-        <td><%= link_to("pay", {:action => "pay", :id => user.id, :season_id => @season.id}, :method => :post) %></td>
+        <%= content_tag :td, link_to("pay", {:action => "pay", :id => user.id, :season_id => @season.id}, :method => :post) %>
       <% end -%>
-    </tr>
+    <% end -%>
   <% end -%>
-    <tr>
-      <th>total</th>
-      <th><%= total_num_brackets %></th>
-      <th><%= pot %></th>
-      <th><%= total_unpaid %> unpaid</th>
-    </tr>
-  </table>
+  <% content_tag :tr do -%>
+    <%= content_tag :th, 'total' %>
+    <%= content_tag :th, total_num_brackets %>
+    <%= content_tag :th, pot %>
+    <%= content_tag :th, "#{total_unpaid} unpaid" %>
+  <% end -%>
 <% end -%>

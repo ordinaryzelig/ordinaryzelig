@@ -65,10 +65,8 @@ class AdminController < ApplicationController
   def buy_ins
     if request.get?
       @season = Season.find_by_id(params[:season_id]) || latest_season
-      @users = User.find(:all, :conditions => ["#{PoolUser.table_name}.season_id = ?", @season.id], :include => :pool_users, :order => User.default_order_by_string)
-      @users.delete_if{|user| User.master == user }
+      @users = User.non_admin.participating_in_season(@season).all(:order => User.default_order_by_string)
     else
-    # post.
       redirect_to(:action => "buy_ins", :season_id => params[:season_id])
     end
   end

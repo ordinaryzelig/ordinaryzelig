@@ -176,6 +176,11 @@ class UserTest < ActiveSupport::TestCase
     assert_equal accounts(:ten_cent_2007), user.accounts.for_season(Season.find_by_year(2007))
   end
   
+  def test_named_scope_participating_in_season
+    season = seasons :_2007
+    assert User.participating_in_season(season).all? { |user| user.pool_users.for_season(season).all? { |pool_user| pool_user.season_id == season.id} }
+  end
+  
   # ==========================
   # helper methods.
   
