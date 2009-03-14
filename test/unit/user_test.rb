@@ -4,7 +4,7 @@ require "digest/sha1"
 class UserTest < ActiveSupport::TestCase
   
   fixtures FIXTURES[:user]
-  fixtures :friendships, :blogs, :privacy_levels, :movie_ratings
+  fixtures :friendships, :blogs, :privacy_levels, :movie_ratings, :accounts, :seasons
   
   defaults [:first_name, :last_name, :display_name, :email, :unhashed_password]
   
@@ -169,6 +169,11 @@ class UserTest < ActiveSupport::TestCase
       next unless prev_recent
       assert prev_recent.recency_time_obj >= rec.recency_time_obj, "#{prev_recent.recency_time_obj.class} >= #{rec.recency_time_obj.class}"
     end
+  end
+  
+  def test_accounts_for_season
+    user = users :ten_cent
+    assert_equal accounts(:ten_cent_2007), user.accounts.for_season(Season.find_by_year(2007))
   end
   
   # ==========================

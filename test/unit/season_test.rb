@@ -85,6 +85,11 @@ class SeasonTest < ActiveSupport::TestCase
     assert_nil season.regions.final_4.championship_game.parent
   end
   
+  def test_find_by_year
+    year = 2007
+    assert_equal year, Season.find_by_year(year).year
+  end
+  
   # =================================================
   # helpers.
   

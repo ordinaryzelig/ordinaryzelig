@@ -108,7 +108,7 @@ class Season < ActiveRecord::Base
   end
   
   def self.find_by_year(year)
-    
+    all.detect { |season| year == season.year }
   end
   
 end
