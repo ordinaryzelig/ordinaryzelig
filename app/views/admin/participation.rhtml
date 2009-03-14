@@ -24,7 +24,7 @@
           <%= "*" if !pool_user.bracket_complete? %>
         <% end -%>
       </td>
-      <td><%= link_to("enter pool", {:action => "enter_pool", :season_id => @season.id, :id => user.id}, :post => true) if user.pool_users.for_season(@season).size < @season.max_num_brackets %></td>
+      <td><%= link_to("enter pool", {:action => "enter_pool", :season_id => @season.id, :id => user.id}, :method => :post) if user.pool_users.for_season(@season).size < @season.max_num_brackets %></td>
     </tr>
   <% end -%>
 </table>

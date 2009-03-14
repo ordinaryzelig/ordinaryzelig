@@ -45,7 +45,7 @@ class AdminController < ApplicationController
   def participation
     @season = Season.find_by_id(params[:season_id]) || Season.latest
     if request.get?
-      @users = User.non_admin.find(:all, :include => {:pool_users => :pics}, :order => User.default_order_by_string)
+      @users = User.non_admin.all :include => {:pool_users => :pics}, :order => User.default_order_by_string
     else
       redirect_to(:action => "participation", :season_id => params[:season_id])
     end

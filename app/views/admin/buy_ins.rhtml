@@ -29,7 +29,7 @@
         <td>paid</td>
       <% else -%>
         <% total_unpaid += 1 %>
-        <td><%= link_to("pay", {:action => "pay", :id => user.id, :season_id => @season.id}, :post => true) %></td>
+        <td><%= link_to("pay", {:action => "pay", :id => user.id, :season_id => @season.id}, :method => :post) %></td>
       <% end -%>
     </tr>
   <% end -%>
