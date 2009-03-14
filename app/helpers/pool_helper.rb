@@ -43,8 +43,15 @@ module PoolHelper
   end
   
   # a table that contains each bid as a row.
-  def bids_table(bids, left_or_right)
-    cells_for_bids = bids.size > 1 ? [yield(bids.shift, 'top'), yield(bids.shift, 'bottom')] : [yield(bids.shift)]
+  def bids_table(bids, game, pool_user, left_or_right)
+    cells_for_bids = bids.map do |bid|
+      if @printable
+        bid_cells(bid, left_or_right)
+      else
+        bid_for_game bid, game, pool_user, cycle('top', 'bottom', :name => 'top_or_bottom')
+      end
+    end
+    reset_cycle('top_or_bottom') unless @printable
     rows = cells_for_bids.map { |bid_cells| content_tag :tr, bid_cells }
     content_tag(:table, rows, :style => "white-space: nowrap; border-collapse: collapse;")
   end
@@ -61,12 +68,8 @@ module PoolHelper
   end
   
   def game_participants_and_pic(game, pool_user, left_or_right)
-    participating_bids_content = bids_table game.participating_bids(pool_user), left_or_right do |bid, top_or_bottom|
-      bid_cells(bid, left_or_right)
-    end
-    pic_content = bids_table [pool_user.pics.for_game(game).bid], left_or_right do |bid|
-      bid_cells(bid, left_or_right)
-    end
+    participating_bids_content = bids_table game.participating_bids(pool_user), game, pool_user, left_or_right
+    pic_content = bids_table [pool_user.pics.for_game(game).bid], game, pool_user, left_or_right
     cells_content = [participating_bids_content, pic_content]
     cells_content.reverse! if 'right' == left_or_right
     cells_content.map { |content| content_tag(:td, content_tag(:div, content, :style => "float: #{left_or_right};")) }

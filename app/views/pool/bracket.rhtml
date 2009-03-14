@@ -57,7 +57,20 @@
   <%= bracket_completion_span @pool_user.bracket_complete? %>
 <% end -%>
 
-<% # region bracket. -%>
-<div class="regionBracket" id="regionBracket">
-  <%= render(:partial => "region", :locals => {:region => @region, :left_or_right => 'left'}) %>
-</div>
+<% if @region.is_final_4? -%>
+  <%= content_tag :span, 'final 4', :class => 'regionName' %>
+  <% final_4_region = @season.regions.final_4 -%>
+  <table id="final4Region" style="<%= css_centered %> table-layout: fixed; border-collapse: collapse;" width="400">
+    <tr>
+      <%= game_participants_and_pic final_4_region.championship_game.top, @pool_user, 'left' %>
+      <% championship_bid = @pool_user.pics.for_game(final_4_region.championship_game).bid -%>
+      <%= content_tag :td, (championship_bid ? h(championship_bid.team.name) : '&nbsp'), :id => 'championshipGame', :align => 'center', :style => 'font-size: 150%; font-weight: bold;' %>
+      <%= game_participants_and_pic final_4_region.championship_game.bottom, @pool_user, 'right' %>
+    </tr>
+  </table>
+<% else -%>
+  <% # region bracket. -%>
+  <div class="regionBracket" id="regionBracket">
+    <%= render(:partial => "region", :locals => {:region => @region, :left_or_right => 'left'}) %>
+  </div>
+<% end -%>

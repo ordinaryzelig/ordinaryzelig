@@ -1,17 +1,11 @@
-<% if game.children.empty? || @region.is_final_4? -%>
+<% if game.children.empty? -%>
   <% content_tag :tr do -%>
     <% if game.top? -%>
       <% games = ([game] + game.ancestors[0..ancestors_to_include-1]) -%>
       <% games.reverse! if 'right' == left_or_right -%>
       <% games.each do |g| -%>
         <% game_td g, left_or_right do -%>
-          <%= bids_table g.participating_bids(@pool_user), left_or_right do |bid, top_or_bottom|
-            if @printable
-              bid_cells(bid, left_or_right)
-            else
-              bid_for_game bid, g, @pool_user, top_or_bottom
-            end
-          end %>
+          <%= bids_table g.participating_bids(@pool_user), g, @pool_user, left_or_right %>
         <% end -%>
         <!-- championship game pic. -->
         <% if g == @championship_game -%>
@@ -23,13 +17,7 @@
       <% end -%>
     <% else -%>
       <% game_td game, left_or_right do -%>
-        <%= bids_table game.participating_bids(@pool_user), left_or_right do |bid, top_or_bottom|
-          if @printable
-            bid_cells(bid, left_or_right)
-          else
-            bid_for_game bid, game, @pool_user, top_or_bottom
-          end
-        end %>
+        <%= bids_table game.participating_bids(@pool_user), game, @pool_user, left_or_right %>
       <% end -%>
     <% end -%>
   <% end -%>
