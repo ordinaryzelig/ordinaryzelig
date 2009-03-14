@@ -4,7 +4,7 @@ require "digest/sha1"
 class UserTest < ActiveSupport::TestCase
   
   fixtures FIXTURES[:user]
-  fixtures :friendships, :blogs, :privacy_levels
+  fixtures :friendships, :blogs, :privacy_levels, :movie_ratings
   
   defaults [:first_name, :last_name, :display_name, :email, :unhashed_password]
   

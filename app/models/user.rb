@@ -1,6 +1,6 @@
-require "digest/sha1"
-
 class User < ActiveRecord::Base
+  
+  extend Digest
   
   has_many :pool_users, :order => "season_id, bracket_num" do
     def for_season(season)
@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
     errors.add(nil, "password can't be blank.") if @unhashed_password.blank?
     errors.add_on_blank(:email) if @email.nil? || @email.empty?
     if errors.empty?
-      authenticated_user = User.find(:first, :conditions => ["lower(email) = ? AND password = ?", *[self.email.downcase, hash(@unhashed_password)]])
+      authenticated_user = User.find(:first, :conditions => ["lower(email) = ? AND password = ?", *[self.email.downcase, self.class.hash(@unhashed_password)]])
       if authenticated_user
         authenticated_user.log_login
       else
@@ -176,11 +176,11 @@ class User < ActiveRecord::Base
   end
   
   def generate_secret_id
-    self.secret_id = "#{id}_" << hash("#{id}#{rand}")
+    self.secret_id = "#{id}_" << self.class.hash("#{id}#{rand}")
   end
   
   def set_password(pword)
-    pword.blank? ? errors.add(nil, "password can't be blank") : self.password = hash(pword)
+    pword.blank? ? errors.add(nil, "password can't be blank") : self.password = self.class.hash(pword)
   end
   
   def set_password!(pword)
@@ -193,7 +193,7 @@ class User < ActiveRecord::Base
     errors.add(nil, "new password can't be blank") if new_pword.blank?
     errors.add(nil, "confirmation password can't be blank") if confirmation_pword.blank?
     errors.add(nil, "new passwords don't match") unless new_pword == confirmation_pword
-    if hash(old_pword) == password && errors.empty?
+    if self.class.hash(old_pword) == password && errors.empty?
       set_password!(new_pword)
     else
       errors.add(nil, 'old password incorrect')
@@ -215,9 +215,5 @@ class User < ActiveRecord::Base
   end
   
   private
-  
-  def hash(str)
-    Digest::SHA1.hexdigest(str)
-  end
   
 end
