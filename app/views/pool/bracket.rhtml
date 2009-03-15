@@ -17,10 +17,6 @@
         <td><%= select :user, :id, User::container(@season.id) %></td>
       </tr>
       <tr>
-        <td>region</td>
-        <td><%= select_tag :region_order, options_for_select(Region::container(@season.id), @region_order) %></td>
-      </tr>
-      <tr>
         <td></td>
         <td><%= submit_tag "go", :name => "go" %></td>
       </tr>
@@ -52,12 +48,27 @@
   </div>
 <% end -%>
 
+<!-- region select. -->
+<% content_tag :p, :style => 'text-align: center;' do -%>
+  regions<br/>
+  <% @season.regions.each do |region| -%>
+    <%= link_to_function region.name, :id => dom_id(region, 'link') do |page|
+      # hide other regions.
+      page.select('.region').each { |ele|   ele.hide }
+      # appear selected region.
+      page[dom_id(region)].show
+    end %><br/>
+  <% end -%>
+<% end -%>
+
 <% # bracket completion. -%>
-<% content_tag :div, :id => 'bracketCompletion', :style => "color: #{@pool_user.bracket_complete? ? 'green' : 'red'}" do -%>
+<% content_tag :p, :id => 'bracketCompletion', :style => "color: #{@pool_user.bracket_complete? ? 'green' : 'red'}" do -%>
   <%= bracket_completion_span @pool_user.bracket_complete? %>
 <% end -%>
 
-<% # region bracket. -%>
-<div class="regionBracket" id="regionBracket">
-  <%= render(:partial => "region", :locals => {:region => @region, :left_or_right => 'left'}) %>
-</div>
+<% # region brackets. -%>
+<% @season.regions.each do |region| -%>
+  <% div_for region, region.is_final_4? ? {} : {:style => 'display: none;'} do -%>
+    <%= render(:partial => "region", :locals => {:region => region, :left_or_right => 'left'}) %>
+  <% end -%>
+<% end -%>

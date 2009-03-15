@@ -16,12 +16,6 @@ class Region < ActiveRecord::Base
     game.children.map { |g| championship_game g }.compact.first
   end
   
-  def self.container(season_id)
-    find(:all,
-         :conditions => {:season_id => season_id},
-         :order => :order_num).map { |region| [region.name, region.order_num] }
-  end
-  
   def to_s
     name
   end

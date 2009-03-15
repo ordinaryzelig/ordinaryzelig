@@ -10,14 +10,8 @@ class PoolController < ApplicationController
   def bracket
     if request.get?
       get_bracket_info
-      @region_order = params[:region_order] ? params[:region_order].to_i : 1
-      rescue_friendly 'could not find bracket' do
-        @region = Region.find(:first, :conditions => ["#{Region.table_name}.season_id = ? AND order_num = ?", *[@season.id, @region_order]])
-        raise unless @region
-      end
-      @championship_game = @region.championship_game
     else
-      redirect_to(:action => 'bracket', :season_id => params[:season_id], :id => params[:user][:id], :region_order => params[:region_order], :bracket_num => params[:bracket_num])
+      redirect_to(:action => 'bracket', :season_id => params[:season_id], :id => params[:user][:id], :bracket_num => params[:bracket_num])
     end
   end
   
