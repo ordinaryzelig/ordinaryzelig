@@ -986,3 +986,7 @@ nicholls_state:
 oregon_state: 
   name: oregon state
   id: "362"
+play_in: 
+  name: play-in
+cal_state_northridge: 
+  name: cal state northridge
