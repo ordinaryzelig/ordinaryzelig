@@ -22,4 +22,6 @@ class MessageTest < ActiveSupport::TestCase
                     :guid => proc { |obj| "Message_#{obj.id}" },
                     :author => proc { |obj| obj.user }
   
+  test_fixture_associations :user, &:subject
+  
 end

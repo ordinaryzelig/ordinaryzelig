@@ -15,7 +15,8 @@ FIXTURES[:march_madness] = [
   'pool_users',
   'bids',
   'pics',
-  'accounts'
+  'accounts',
+  'messages'
 ]
 
 FIXTURES[:movie] = [
