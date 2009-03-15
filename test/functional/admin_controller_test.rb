@@ -18,14 +18,14 @@ class AdminControllerTest < ActionController::TestCase
   
   def test_enter_pool
     login :admin
-    season_id = 3
+    season = seasons :_2007
     user = User.create!({:first_name => 'john',
                          :last_name => 'doe',
                          :display_name => 'doej',
                          :email => 'doej@asdf.fds',
                          :unhashed_password => 'asdf'})
-    post :enter_pool, {:season_id => Fixtures.identify(:_2007), :id => user.id}
-    assert_not_nil PoolUser.find_by_user_id_and_season_id(user.id, season_id)
+    post :enter_pool, {:season_id => season.id, :id => user.id}
+    assert_not_nil PoolUser.find_by_user_id_and_season_id(user.id, season.id)
   end
   
   def test_pay
