@@ -4,7 +4,7 @@
       <%= content_tag :div, region.to_s, :class => 'regionName', :style => "text-align: #{left_or_right};" %>
       <% content_tag :table, :cellpadding => 15, :border => 0 do -%>
         <!-- recursive bracket. -->
-        <%= game_partial region.championship_game, left_or_right %>
+        <%= game_partial region.championship_game, left_or_right, 0, region.is_final_4? ? 1 : nil %>
       <% end -%>
     <% end -%>
   <% end -%>

@@ -29,17 +29,19 @@ module PoolHelper
   end
   
   # render recursive partial for a game.
-  def game_partial(game, left_or_right, ancestors_to_include = 0)
+  def game_partial(game, left_or_right, ancestors_to_include = 0, rounds_left = nil)
     render :partial => 'game',
            :locals => {:game => game,
                        :left_or_right => left_or_right,
-                       :ancestors_to_include => ancestors_to_include}
+                       :ancestors_to_include => ancestors_to_include,
+                       :rounds_left => rounds_left}
   end
   
   # td cell that spans rows according to game.
   # it's also aligned according to left_or_right
-  def game_td(game, left_or_right, &block)
-    concat content_tag(:td, capture(&block), :rowspan => (2 ** (game.round.number - 1)), :align => left_or_right), block.binding
+  def game_td(game, left_or_right, row_span, &block)
+    rowspan = 2 ** (row_span || (game.round.number - 1))
+    concat content_tag(:td, capture(&block), :rowspan => rowspan, :align => left_or_right), block.binding
   end
   
   # a table that contains each bid as a row.

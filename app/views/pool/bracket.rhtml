@@ -43,7 +43,7 @@
 <% end -%>
 
 <% # editable message. -%>
-<% if is_latest_season?(@season) && !@season.tournament_has_started? && is_self_or_logged_in_as_admin?(@pool_user.user) -%>
+<% if is_latest_season?(@season) && !@season.tournament_has_started? -%>
   <div style="margin-bottom: 5mm; text-align: center;">
     your pics will be saved as soon as they appear.<br/>
     <% close_time = ActiveSupport::TimeZone["Central Time (US & Canada)"].utc_to_local(@season.tournament_starts_at) -%>
@@ -57,21 +57,7 @@
   <%= bracket_completion_span @pool_user.bracket_complete? %>
 <% end -%>
 
-<% if @region.is_final_4? -%>
-  <%= content_tag :span, @region.to_s, :class => 'regionName' %>
-  <% content_tag :table do -%>
-    <% content_tag :tr do -%>
-      <%= game_participants_and_pic @region.championship_game.top, @pool_user, 'left' %>
-      <% game_td @region.championship_game, nil do -%>
-        <% pic = @pool_user.pics.for_game(@region.championship_game) -%>
-        <%= pic_div(pic, @region.championship_game, @pool_user, pic.bid, true) %>
-      <% end -%>
-      <%= game_participants_and_pic @region.championship_game.bottom, @pool_user, 'right' %>
-    <% end -%>
-  <% end -%>
-<% else -%>
-  <% # region bracket. -%>
-  <div class="regionBracket" id="regionBracket">
-    <%= render(:partial => "region", :locals => {:region => @region, :left_or_right => 'left'}) %>
-  </div>
-<% end -%>
+<% # region bracket. -%>
+<div class="regionBracket" id="regionBracket">
+  <%= render(:partial => "region", :locals => {:region => @region, :left_or_right => 'left'}) %>
+</div>
