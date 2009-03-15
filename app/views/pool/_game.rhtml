@@ -4,12 +4,12 @@
       <% games = ([game] + game.ancestors[0..ancestors_to_include-1]) -%>
       <% games.reverse! if 'right' == left_or_right -%>
       <% games.each_with_index do |g, i| -%>
-        <% game_td g, left_or_right, i + rounds_left do -%>
+        <% game_td g, left_or_right, rounds_left ? i + rounds_left : nil do -%>
           <%= bids_table g.participating_bids(@pool_user), g, @pool_user, left_or_right %>
         <% end -%>
         <!-- championship game pic. -->
         <% if g == @championship_game -%>
-          <% game_td g, left_or_right, i + rounds_left do -%>
+          <% game_td g, left_or_right, rounds_left ? i + rounds_left : nil do -%>
             <% pic = @pool_user.pics.for_game(g) -%>
             <%= pic_div(pic, g, @pool_user, pic.bid, true) %>
           <% end -%>
