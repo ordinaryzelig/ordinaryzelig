@@ -10,7 +10,8 @@ namespace 'plugins' do
     'has-nested-comments' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/has-nested-comments.git',
     'has-privacy' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/has-privacy.git',
     'has-recency' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/has-recency.git',
-    'migration-helpers' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/migration-helpers.git',
+    # for some reason, rails doesn't like migration_helpers with a dash instead of underscore.
+    'migration_helpers' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/migration-helpers.git',
     'model_class' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/model_class.git',
     'nil-if-blank' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/nil-if-blank.git',
     'polymorphic-entity' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/polymorphic-entity.git',
