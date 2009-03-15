@@ -8,7 +8,7 @@
           <%= bids_table g.participating_bids(@pool_user), g, @pool_user, left_or_right %>
         <% end -%>
         <!-- championship game pic. -->
-        <% if g.is_championship_game? -%>
+        <% if g.is_championship_game? && !@printable -%>
           <% game_td g, left_or_right, rounds_left ? i + rounds_left : nil do -%>
             <% pic = @pool_user.pics.for_game(g) -%>
             <%= pic_div(pic, g, @pool_user, pic.bid, true) %>
