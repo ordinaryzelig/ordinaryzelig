@@ -7,14 +7,14 @@ class AdminControllerTest < ActionController::TestCase
   
   # params[:tournament_starts_at] won't work in this post.
   # implement tournament_starts_at_str.
-  # def test_create_new_season
-  #   login(:admin)
-  #   now = Time.now
-  #   post :edit_season, :params => {:tournament_starts_at => now, :buy_in => 10, :max_num_brackets => 1}
-  #   season = Season.find_by_tournament_starts_at(now)
-  #   assert_not_nil season
-  #   assert_redirected_to :action => :select_team_bids, :id => season.id
-  # end
+  def test_create_new_season
+    login(:admin)
+    now = Time.now
+    post :edit_season, :season => {:tournament_starts_at => now, :buy_in => 10, :max_num_brackets => 1}
+    season = Season.find_by_year(now.year)
+    assert_not_nil season
+    assert_redirected_to :action => :select_team_bids, :id => season.id
+  end
   
   def test_enter_pool
     login :admin
