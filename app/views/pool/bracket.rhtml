@@ -10,11 +10,21 @@
     <table class="seasonSelect" style="background: none; <%= css_centered %>">
       <tr>
         <td>season</td>
-        <td><%= season_select_tag @season.id %></td>
+        <td><%= season_select_tag @season.id, :onchange => "$$('.user_select').each(function(value, index) { value.hide();}); $('select_for_season_' + this.options[this.selectedIndex].value).show();" %></td>
       </tr>
       <tr>
         <td>user</td>
-        <td><%= select :user, :id, User::container(@season.id) %></td>
+        <% content_tag :td do -%>
+          <% Season.all.each do |season| -%>
+            <%= select :user,
+                       :id,
+                       User.container(season.id),
+                       {},
+                       :id => dom_id(season, 'select_for'),
+                       :class => 'user_select',
+                       :style => season == @season ? '' : 'display: none;' %>
+          <% end -%>
+        <% end -%>
       </tr>
       <tr>
         <td></td>
