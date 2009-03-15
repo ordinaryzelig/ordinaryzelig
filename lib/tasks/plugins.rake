@@ -7,6 +7,7 @@ namespace 'plugins' do
     'can-be-marked-as-read' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/can-be-marked-as-read.git',
     'can-be-summarized' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/can-be-summarized.git',
     'can-be-syndicated-by' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/can-be-syndicated-by.git',
+    'console_script_runner' => 'git://github.com/ordinaryzelig/console-script-runner.git',
     'has-nested-comments' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/has-nested-comments.git',
     'has-privacy' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/has-privacy.git',
     'has-recency' => 'git@ordinaryzelig.unfuddle.com:ordinaryzelig/has-recency.git',
