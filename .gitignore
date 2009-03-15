@@ -1,9 +1,7 @@
 config/database.yml
-*.sqlite3*
+*.sqlite3
 tmp/**/*
 vendor/plugins/*
-vendor/rails
-vendor/gems
 .DS_Store
 db/schema.rb
 log/*.log
