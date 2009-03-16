@@ -44,6 +44,7 @@
 
 .bid{
     border-bottom: .5mm solid gray;
+    width: 4cm;
 }
 
 .alive_false, .gamePicStillAlivefalse{
