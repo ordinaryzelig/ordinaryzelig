@@ -46,12 +46,8 @@
     border-bottom: .5mm solid gray;
 }
 
-.teamfalse, .gamePicStillAlivefalse{
+.alive_false, .gamePicStillAlivefalse{
     text-decoration: line-through;
-}
-
-.gamePic, .gamePicStillAlivefalse{
-    font-size: 75%;
 }
 
 .standingHeader, .standingMaster, .gamePicsHeader, .gamePicMaster th{
