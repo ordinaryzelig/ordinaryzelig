@@ -59,7 +59,7 @@
 
 <!-- region select. -->
 <% content_tag :p, :style => 'text-align: center;' do -%>
-  regions<br/>
+  <span style="font-size: 150%">regions</span><br/>
   <% @season.regions.each do |region| -%>
     <%= link_to_function region.name, :id => dom_id(region, 'link') do |page|
       # hide other regions.
