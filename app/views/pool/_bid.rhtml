@@ -1,8 +1,8 @@
 <% no_link = no_link.nil? ? false : no_link -%>
 
 <% if bid -%>
-  <% content = content_tag :span, h(bid.team ? "#{bid.seed} #{bid.team.name}" : '&nbsp' * 8), :class => 'team' + (game.children.empty? ? '' : " alive_#{pic.still_alive?}") -%>
-  <% content = "g#{game.id}/p#{pic ? pic.id : ''} " + content if @debug -%>
+  <% content = content_tag :span, h(bid.team ? "#{bid.seed} #{bid.team.name}" : '&nbsp' * 8), :class => 'team' + ((game && game.children.empty?) ? '' : " alive_#{pic.still_alive?}") -%>
+  <% content = "g#{game.id}/p#{pic ? pic.id : ''} " + content if @debug && game -%>
   <% if pool_user.is_editable_by?(logged_in_user) && game && !no_link -%>
     <%= link_to_remote(content,
                        :url => {:controller => 'pool',

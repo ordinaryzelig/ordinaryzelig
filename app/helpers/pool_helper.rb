@@ -119,7 +119,9 @@ module PoolHelper
   
   def pic_div(pic, game, pool_user, bid, no_link = false)
     content = render :partial => "pic", :locals => {:pic => pic, :game => game, :pool_user => pool_user, :bid => bid, :no_link => no_link}
-    content_tag :div, content, :id => dom_id(pic), :class => 'pic'
+    # add prefix if this is a region's championship game.
+    prefix = (game.is_championship_game? && !game.region.is_final_4? && no_link) ? "#{game.region}_champion" : nil
+    content_tag :div, content, :id => dom_id(pic, prefix), :class => 'pic'
   end
   
 end

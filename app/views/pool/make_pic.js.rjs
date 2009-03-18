@@ -1,8 +1,18 @@
+# build bid partial.
+bid_partial = {:partial => 'bid', :locals => {:bid => @bid,
+                                              :game => @game.parent,
+                                              :pool_user => @pool_user,
+                                              :pic => @pic}}
+
 # update winner.
-page[dom_id(@pic)].down('.bid').replace_html :partial => 'bid', :locals => {:bid => @bid,
-                                                                            :game => @game.parent,
-                                                                            :pool_user => @pool_user,
-                                                                            :pic => @pic}
+page[dom_id(@pic)].down('.bid').replace_html bid_partial
+
+# if this is a regional champion (non final 4), need to update 2 pics.
+# 1 for final 4 region and 1 for it's region.
+if @game.is_championship_game? && !@game.region.is_final_4?
+  bid_partial[:locals].merge!({:no_link => true})
+  page[dom_id(@pic, "#{@game.region}_champion")].down('.bid').replace_html bid_partial
+end
 
 # other affectect pics.
 @other_affected_pics.each do |pic|
