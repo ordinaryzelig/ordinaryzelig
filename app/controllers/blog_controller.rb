@@ -3,7 +3,7 @@ class BlogController < ApplicationController
   before_filter :require_authentication, :except => [:show]
   
   def list
-    @user = User.find_by_id(params[:id], :include => {:blogs => :user}, :order => "created_at desc")
+    @user = User.find_by_id(params[:id], :include => {:blogs => :user}, :order => "#{Blog.table_name}.created_at desc")
     unless @user
       render_layout_only 'user not found'
       return 
