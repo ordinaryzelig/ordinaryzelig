@@ -11,7 +11,7 @@ page[dom_id(@pic)].down('.bid').replace_html bid_partial
 # 1 for final 4 region and 1 for it's region.
 if @game.is_championship_game? && !@game.region.is_final_4?
   bid_partial[:locals].merge!({:no_link => true})
-  page[dom_id(@pic, "#{@game.region}_champion")].down('.bid').replace_html bid_partial
+  page[dom_id(@pic, dom_id(@game.region, 'champion'))].down('.bid').replace_html bid_partial
 end
 
 # other affectect pics.
