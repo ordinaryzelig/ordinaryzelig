@@ -1,3 +1,2 @@
-comments test_recents_to doesn't work.  after being marked as read, it still shows up as recent.
-
-region should render pic at end.
+show all pics shows later game.
+bracket select doesn't work.

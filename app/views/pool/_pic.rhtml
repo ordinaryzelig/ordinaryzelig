@@ -13,5 +13,5 @@
 
 <% # show all pics link. -%>
 <% if game.season.tournament_has_started? -%>
-  <div class="gamePicsLink"><%= link_to("show all pics", :action => "game_pics", :id => game.id) %></div>
+  <div class="gamePicsLink" %>"><%= link_to("show all pics", :action => "game_pics", :id => pic.game.id) %></div>
 <% end -%>
