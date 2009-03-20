@@ -127,3 +127,11 @@
 #legend td{
     padding: 0;
 }
+
+#scoringSystemsInfo table{
+    background: white;
+}
+
+#scoringSystemsInfo th{
+    background: lightgray;
+}
