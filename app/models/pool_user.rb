@@ -13,6 +13,7 @@ class PoolUser < ActiveRecord::Base
       end
     end
   end
+  delegate :display_name, :to => :user
   
   before_validation { |pool_user| pool_user.bracket_num ||= 1 }
   validates_presence_of :bracket_num

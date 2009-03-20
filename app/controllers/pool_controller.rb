@@ -8,11 +8,7 @@ class PoolController < ApplicationController
   end
   
   def bracket
-    if request.get?
-      get_bracket_info
-    else
-      redirect_to(:action => 'bracket', :season_id => params[:season_id], :id => params[:user][:id], :bracket_num => params[:bracket_num])
-    end
+    get_bracket_info
   end
   
   def make_pic
@@ -86,6 +82,11 @@ class PoolController < ApplicationController
     get_bracket_info
     @printable = true
     render :layout => false, :footnotes => false
+  end
+  
+  def select_bracket
+    @pool_user = PoolUser.find params[:id]
+    redirect_to :action => 'bracket', :season_id => @pool_user.season_id, :id => @pool_user.user_id
   end
   
   protected

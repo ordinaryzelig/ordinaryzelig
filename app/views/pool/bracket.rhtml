@@ -6,33 +6,18 @@
 <% end -%>
 
 <div style="margin-bottom: 5mm; text-align: center;">
-  <% form_tag :bracket_num => @bracket_num do -%>
-    <table class="seasonSelect" style="background: none; <%= css_centered %>">
-      <tr>
-        <td>season</td>
-        <td><%= season_select_tag @season.id, :onchange => "$$('.user_select').each(function(value, index) { value.hide();}); $('select_for_season_' + this.options[this.selectedIndex].value).show();" %></td>
-      </tr>
-      <tr>
-        <td>user</td>
-        <% content_tag :td do -%>
-          <% Season.all.each do |season| -%>
-            <%= select :user,
-                       :id,
-                       User.container(season.id),
-                       {},
-                       :id => dom_id(season, 'select_for'),
-                       :class => 'user_select',
-                       :style => season == @season ? '' : 'display: none;' %>
-          <% end -%>
-        <% end -%>
-      </tr>
-      <tr>
-        <td></td>
-        <td><%= submit_tag "go", :name => "go" %></td>
-      </tr>
-    </table>
-  <% end -%>
+  
+  <p>
+    <!-- pool user select. -->
+    <% form_tag :action => 'select_bracket' do -%>
+      <%= label_tag :pool_user, 'brackets' %>
+      <%= select_tag 'pool_user', option_groups_from_collection_for_select(Season.all, :pool_users, :year, :id, :display_name, @pool_user.id), :onchange => 'this.form.submit();', :name => 'id' %>
+    <% end -%>
+  </p>
+  
+  <!-- link to printable. -->
   <%= link_to 'printable', :action => 'printable_bracket', :id => @user.id, :season_id => @season.id %>
+  
 </div>
 
 <% # multiple brackets. -%>
