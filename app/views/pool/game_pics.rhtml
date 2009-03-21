@@ -1,6 +1,12 @@
 <table style="background: white; margin-left: auto; margin-right: auto;" border=1>
   <tr class="gamePicsHeader">
-    <th colspan=9><%= @game.region.name %> <%= @game.round.name %></th>
+    <% content_tag :th, :colspan => 9 do -%>
+      <%= @game.region.name %> <%= @game.round.name %><br/>
+      <% if @game.parent -%>
+        next game:
+        <%= link_to @game.parent.round.name, :id => @game.parent %>
+      <% end -%>
+    <% end -%>
   </tr>
   <tr class="gamePicsHeader">
     <th>player</th>
