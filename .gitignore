@@ -5,3 +5,4 @@ vendor/plugins/*
 .DS_Store
 db/schema.rb
 log/*.log
+here.txt

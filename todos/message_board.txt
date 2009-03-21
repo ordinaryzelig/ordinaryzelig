@@ -1,4 +1,0 @@
-search
-   highlight search text.
-
-polls
