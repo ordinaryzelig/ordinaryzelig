@@ -17,7 +17,7 @@ class Season < ActiveRecord::Base
       Bid.find :all, :conditions => ['first_game_id in (?)', map(&:id)]
     end
   end
-  has_many :pool_users do
+  has_many :pool_users, :include => :user, :order => "lower(#{User.table_name}.display_name)" do
     # return array of [pool_user, rank] in order by rank.
     def by_rank(scoring_system = ScoringSystems.default)
       return @pool_users_with_ranks if @pool_users_with_ranks
