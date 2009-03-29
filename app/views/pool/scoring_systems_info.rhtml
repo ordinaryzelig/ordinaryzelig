@@ -29,7 +29,7 @@
     <% 1.upto(6) do |i| -%>
       <tr>
         <td><%= i %></td>
-        <td><%= 2 ** i %></td>
+        <td><%= 2 ** (i - 1) %></td>
       </tr>
     <% end -%>
   </table>
@@ -59,11 +59,11 @@
     </tr>
     <tr>
       <td>5</td>
-      <td>120</td>
+      <td>160</td>
     </tr>
     <tr>
       <td>6</td>
-      <td>160</td>
+      <td>320</td>
     </tr>
   </table>
   

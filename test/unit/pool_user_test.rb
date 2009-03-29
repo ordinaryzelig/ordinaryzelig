@@ -15,10 +15,10 @@ class PoolUserTest < ActiveSupport::TestCase
     pool_user = pool_users(:cece_winner)
     master_pics = pool_user.class.master(pool_user.season).pics
     {ScoringSystems::Jared => 235,
-     ScoringSystems::Cbs => 126,
+     ScoringSystems::Cbs => 63,
      ScoringSystems::Espn => 630,
      ScoringSystems::SportsIllustrated => 70}.each do |system, points|
-       assert_equal pool_user.calculate_points(master_pics, system), points
+      assert_equal points, pool_user.calculate_points(master_pics, system)
     end
   end
   
